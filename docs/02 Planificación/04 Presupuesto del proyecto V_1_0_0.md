@@ -1,20 +1,19 @@
 [← Volver al README Principal](../../README.md)
 
-# 04 Presupuesto del proyecto V_1_0_0
+# 04 Presupuesto del proyecto 
 
-## 1. Metadatos
+---
+
+## 1. Información del documento
 
 | Campo | Detalle |
-|---|---|
-| Proyecto | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
-| Código | PFA-ECOLIMA-2026 |
-| Artefacto | Presupuesto del proyecto |
-| Responsable sugerido | Zayuri Cerron Medina — Project Manager |
-| Horizonte | 16 semanas |
-| Equipo | 5 integrantes |
-| Versión | 1.0.0 |
-| Estado | Propuesto para revisión y aprobación |
-| Ruta | `docs/02 Planificación/04 Presupuesto del proyecto V_1_0_0.md` |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales  |
+| **Responsable del Documento**| Jheferson Martinez Valerio |
+| **Fecha de Elaboración** | 4 de septiembre de 2026 |
+| **Versión** | 1.0.0 |
 
 ---
 
@@ -141,11 +140,5 @@ Cada uso debe registrar el riesgo/incidencia, monto, responsable que autoriza y 
 7. Mantener el presupuesto final bajo el tope aprobado.
 
 ---
-
-# 11. Historial de Control de Cambios
-
-| Versión | Descripción |
-|---|---|
-| 1.0.0 | Presupuesto inicial con RR.HH., licencias, OPEX y reserva de contingencia del 10%. |
 
 [← Volver al README Principal](../../README.md)

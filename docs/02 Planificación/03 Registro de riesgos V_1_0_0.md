@@ -1,20 +1,20 @@
 [← Volver al README Principal](../../README.md)
 
-# 03 Registro de riesgos V_1_0_0
+# 03 Registro de riesgos 
 
-## 1. Metadatos
+---
+
+## 1. Información del documento
 
 | Campo | Detalle |
-|---|---|
-| Proyecto | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
-| Código | PFA-ECOLIMA-2026 |
-| Artefacto | Registro de riesgos |
-| Responsable sugerido | Maylit Mendoza Alarcon — Analista de Riesgos / QA |
-| Equipo | 5 integrantes |
-| Versión | 1.0.0 |
-| Estado | Propuesto para revisión y aprobación |
-| Ruta | `docs/02 Planificación/03 Registro de riesgos V_1_0_0.md` |
-
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales  |
+| **Responsable del Documento**| Angela Rojas Quispe |
+| **Fecha de Elaboración** | 4 de septiembre de 2026 |
+| **Versión** | 1.0.0 |
+ 
 ---
 
 ## 2. Objetivo
@@ -77,10 +77,5 @@ RSK-02 → Sprint / Roadmap
 
 ---
 
-## 7. Historial de Control de Cambios
-
-| Versión | Descripción |
-|---|---|
-| 1.0.0 | Creación inicial de la matriz cuantitativa de riesgos. |
 
 [← Volver al README Principal](../../README.md)

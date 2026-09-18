@@ -1,1120 +1,1108 @@
 [← Volver al README Principal](../../README.md)
 
-# 01 Transformando a ágil V_1_0_0
-
-## 1. Metodología de Transformación
-
-### 1.1 Objetivo
-
-La transformación ágil del proyecto **EcoLogistica-Lima** tiene como objetivo convertir los Requerimientos Funcionales (RF) y Requerimientos No Funcionales (RNF) definidos en la línea base del proyecto en elementos de trabajo ágiles que puedan ser gestionados mediante Épicas, Historias de Usuario (US), Historias Técnicas (Enablers), tareas y subtareas.
-
-La transformación mantiene la trazabilidad entre los requisitos originales y los elementos del backlog, evitando modificar el alcance funcional definido previamente.
-
-### 1.2 Transformación de Requerimientos Funcionales
-
-Los **Requerimientos Funcionales (RF)** se mapean jerárquicamente hacia las **Épicas** del proyecto y posteriormente se descomponen en **Historias de Usuario (US)**.
-
-La descomposición se realiza considerando que una Historia de Usuario debe representar una funcionalidad que entregue valor al usuario o al negocio.
-
-Las actividades como:
-
-* Registrar.
-* Editar.
-* Actualizar.
-* Consultar.
-* Validar.
-* Configurar.
-* Implementar.
-* Probar.
-* Documentar.
-
-se consideran **tareas o subtareas** cuando forman parte de una misma funcionalidad y no representan por sí solas un valor de negocio independiente.
-
-Por ejemplo, dentro de la historia **US-001 Gestionar vehículos de la flota**, registrar, editar, consultar y validar los vehículos pueden gestionarse como tareas y subtareas necesarias para completar la historia.
-
-De esta manera, se evita crear Historias de Usuario excesivamente pequeñas y se mantiene un backlog más organizado.
-
-### 1.3 Transformación de Requerimientos No Funcionales
-
-Los **Requerimientos No Funcionales (RNF)** se transforman principalmente en **Historias Técnicas o Enablers**, debido a que representan condiciones de calidad necesarias para el funcionamiento del sistema.
-
-Los Enablers se orientan principalmente a:
-
-* Rendimiento.
-* Seguridad.
-* Accesibilidad.
-* Escalabilidad.
-* Usabilidad.
-* Disponibilidad.
-* Documentación técnica.
-
-Estos requisitos también pueden integrarse transversalmente como criterios de aceptación de las Historias de Usuario y como parte de la **Definition of Done (DoD)** global.
-
-### 1.4 Criterio utilizado para la descomposición
-
-La transformación sigue la siguiente estructura:
-
-```text
-Requerimiento Funcional (RF)
-            │
-            ▼
-         Épica
-            │
-            ▼
-   Historia de Usuario
-            │
-            ├── Tarea
-            ├── Tarea
-            ├── Subtarea
-            ├── Subtarea
-            └── Pruebas
-```
-
-Para los requisitos no funcionales:
-
-```text
-Requerimiento No Funcional (RNF)
-              │
-              ▼
-      Historia Técnica
-         (Enabler)
-              │
-              ├── Implementación
-              ├── Configuración
-              ├── Validación
-              └── Pruebas
-```
+# 01. Transformando a ágil 
 
 ---
 
-## 2. Épicas del Proyecto
+## 1. Información del documento
 
-| ID    | Épica                                  | Propósito                                                                                                 | Requisitos relacionados |
-| ----- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------ |
-| EP-01 | Gestión de Flota y Conductores         | Administrar vehículos y conductores necesarios para las operaciones de reparto.                           | RF-001, RF-008           |
-| EP-02 | Gestión de Pedidos y Clientes          | Gestionar pedidos, información logística, clientes y preferencias de entrega.                             | RF-002, RF-009           |
-| EP-03 | Optimización y Reoptimización de Rutas | Generar, visualizar y recalcular rutas considerando las condiciones operativas.                           | RF-003, RF-004, RF-007   |
-| EP-04 | Sostenibilidad, Analítica y Reportes   | Consultar indicadores, generar reportes y gestionar información relacionada con sostenibilidad y carbono. | RF-005, RF-006, RF-010   |
-| EP-05 | Calidad, Seguridad e Infraestructura   | Garantizar las condiciones técnicas de calidad, seguridad, rendimiento, disponibilidad y documentación.   | RNF-001 a RNF-007        |
-
----
-
-## 3. Mapa de Transformación RF → Épica → Historia de Usuario
-
-| RF     | Épica | Historia de Usuario                                   | Prioridad |
-| ------ | ----- | ------------------------------------------------------ | --------- |
-| RF-001 | EP-01 | US-001 Gestionar vehículos de la flota                | High      |
-| RF-008 | EP-01 | US-002 Gestionar conductores y jornada                | High      |
-| RF-002 | EP-02 | US-003 Gestionar pedidos y geolocalización            | High       |
-| RF-009 | EP-02 | US-004 Gestionar preferencias del cliente             | Should    |
-| RF-003 | EP-03 | US-005 Generar rutas optimizadas                      | Must      |
-| RF-004 | EP-03 | US-006 Visualizar rutas en mapa                       | Must      |
-| RF-007 | EP-03 | US-007 Reoptimizar rutas activas                      | Must      |
-| RF-005 | EP-04 | US-008 Consultar indicadores operativos y ambientales | Should    |
-| RF-006 | EP-04 | US-009 Generar reportes de sostenibilidad y costos    | Should    |
-| RF-010 | EP-04 | US-010 Gestionar propuesta de compensación de carbono | Could     |
-
-> **Nota:** Los identificadores RF-001 a RF-010 corresponden directamente a los requisitos funcionales definidos en la línea base del proyecto. En versiones anteriores del documento ágil se utilizó la forma abreviada RF-01 a RF-10; para esta versión se estandariza la nomenclatura a RF-001 a RF-010.
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales  |
+| **Responsable del Documento**| Angela Rojas Quispe |
+| **Fecha de Elaboración** | 4 de septiembre de 2026 |
+| **Versión** | 1.0.0 |
 
 ---
 
-## 4. Historias de Usuario
+# A. Metodología de Transformación
 
-### EP-01 Gestión de Flota y Conductores
+La transformación de los requerimientos del proyecto ****EcoLogística Lima**** se realiza siguiendo una estructura ágil, donde los requerimientos funcionales se organizan en épicas y posteriormente se descomponen en historias de usuario. Por otro lado, los requerimientos no funcionales se convierten principalmente en historias técnicas o ****Enablers****, debido a que representan condiciones relacionadas con rendimiento, seguridad, accesibilidad, disponibilidad, escalabilidad y documentación.
+
+## 1\. Requerimientos Funcionales (RF) → Épicas → Historias de Usuario (US)
+
+Los requerimientos funcionales se agrupan según la funcionalidad principal que representan dentro del sistema. De esta manera, se evita crear una épica por cada requisito cuando varios de ellos pertenecen a un mismo módulo o proceso.
+
+### Mapeo de Requerimientos Funcionales
+
+| RF     | Requerimiento Funcional                            | Épica                                      | Historia de Usuario |
+| ------ | -------------------------------------------------- | ------------------------------------------ | ------------------- |
+| RF-001 | Gestión de Flota y Emisiones                       | EP-01 Gestión de Vehículos                 | US-001              |
+| RF-008 | Gestión de Conductores y Control de Jornada        | EP-02 Gestión de Conductores               | US-002              |
+| RF-002 | Gestión y Geolocalización de Pedidos               | EP-03 Gestión de Pedidos y Geolocalización | US-003              |
+| RF-009 | Módulo de Preferencias y Restricciones del Cliente | EP-04 Gestión de Clientes y Preferencias   | US-004              |
+| RF-003 | Motor de Optimización de Rutas                     | EP-05 Optimización de Rutas                | US-005              |
+| RF-004 | Visualización Geoespacial e Interactiva de Rutas   | EP-06 Monitoreo y Reoptimización de Rutas  | US-006              |
+| RF-007 | Re-optimización Dinámica en Tiempo Real            | EP-06 Monitoreo y Reoptimización de Rutas  | US-007              |
+| RF-005 | Dashboard Operativo y de Sostenibilidad            | EP-07 Analítica, Reportes y Sostenibilidad | US-008              |
+| RF-006 | Generación de Reportes de Sostenibilidad y Costos  | EP-07 Analítica, Reportes y Sostenibilidad | US-009              |
+| RF-010 | Plan y Propuesta de Compensación de Carbono        | EP-07 Analítica, Reportes y Sostenibilidad | US-010              |
+
+### EP-01: Gestión de Vehículos
+
+Esta épica agrupa las funcionalidades relacionadas con el registro, actualización, consulta y control de los vehículos de la flota, incluyendo sus características técnicas y restricciones de circulación.
+
+****RF relacionado:**** RF-001  
+****Historia:**** US-001
+
+### EP-02: Gestión de Conductores
+
+Esta épica comprende el registro y control de la información de los conductores, así como la validación de sus condiciones para la asignación de turnos y rutas.
+
+****RF relacionado:**** RF-008  
+****Historia:**** US-002
+
+### EP-03: Gestión de Pedidos y Geolocalización
+
+Esta épica reúne las funciones necesarias para registrar los pedidos, sus características de carga, ventanas de atención y ubicación geográfica.
+
+****RF relacionado:**** RF-002  
+****Historia:**** US-003
+
+### EP-04: Gestión de Clientes y Preferencias
+
+Esta épica comprende la configuración de horarios de atención, restricciones vehiculares y referencias necesarias para realizar correctamente las entregas.
+
+****RF relacionado:**** RF-009  
+****Historia:**** US-004
+
+### EP-05: Optimización de Rutas
+
+Esta épica agrupa las funciones relacionadas con la generación automática de rutas, asignación de pedidos a vehículos y organización de las paradas.
+
+****RF relacionado:**** RF-003  
+****Historia:**** US-005
+
+### EP-06: Monitoreo y Reoptimización de Rutas
+
+Esta épica reúne la visualización de las rutas y la capacidad del sistema para actualizar los recorridos cuando se presentan eventos que afectan la operación.
+
+****RF relacionados:**** RF-004 y RF-007  
+****Historias:**** US-006 y US-007
+
+### EP-07: Analítica, Reportes y Sostenibilidad
+
+Esta épica agrupa las funcionalidades relacionadas con indicadores operativos, sostenibilidad, generación de reportes y propuestas de compensación de carbono.
+
+****RF relacionados:**** RF-005, RF-006 y RF-010  
+****Historias:**** US-008, US-009 y US-010
+
+## 2\. Requerimientos No Funcionales (RNF) → Enablers
+
+Los requerimientos no funcionales se transforman en ****Enablers****, debido a que representan trabajos técnicos necesarios para garantizar que las funcionalidades del sistema puedan operar correctamente.
+
+A diferencia de los RF, los RNF no representan directamente una funcionalidad que el usuario solicite, sino condiciones que debe cumplir la solución, como rendimiento, seguridad, accesibilidad, escalabilidad, disponibilidad y documentación.
+
+### Mapeo de Requerimientos No Funcionales
+
+| RNF     | Requerimiento No Funcional                       | Tipo de Enabler                  | Enabler |
+| ------- | ------------------------------------------------ | -------------------------------- | ------- |
+| RNF-001 | Rendimiento del algoritmo de optimización        | Rendimiento                      | EN-001  |
+| RNF-002 | Seguridad de la aplicación y protección de datos | Seguridad                        | EN-002  |
+| RNF-003 | Accesibilidad de la interfaz                     | Accesibilidad / Usabilidad       | EN-003  |
+| RNF-004 | Escalabilidad operativa                          | Infraestructura / Rendimiento    | EN-004  |
+| RNF-005 | Usabilidad para conductores                      | Usabilidad                       | EN-005  |
+| RNF-006 | Disponibilidad del sistema                       | Infraestructura / Disponibilidad | EN-006  |
+| RNF-007 | Documentación técnica y operativa                | Documentación / Mantenibilidad   | EN-007  |
+
+Los Enablers definidos son:
+
+-   ****EN-001:**** Validar el rendimiento del motor de optimización.
+-   ****EN-002:**** Implementar y validar los controles de seguridad y protección de datos.
+-   ****EN-003:**** Validar el cumplimiento de accesibilidad WCAG 2.1 nivel AA.
+-   ****EN-004:**** Validar la capacidad de escalabilidad operativa del sistema.
+-   ****EN-005:**** Validar la usabilidad de la vista destinada a los conductores.
+-   ****EN-006:**** Implementar el monitoreo de disponibilidad y mecanismos de continuidad.
+-   ****EN-007:**** Mantener actualizada la documentación técnica y operativa del proyecto.
+
+Los Enablers permiten que los RNF puedan ser planificados y verificados dentro del desarrollo ágil, sin mezclarlos directamente con las historias funcionales.
+
+  
+
+# B. Estructura Estándar de Historias de Usuario (US)
+
+Las historias de usuario se construyen a partir de los requerimientos funcionales definidos para la versión ****V\_1\_0\_0****. Cada historia mantiene la trazabilidad con su requerimiento funcional y épica correspondiente. Además, se incluyen los criterios de aceptación y las tareas o subtareas necesarias para implementar cada funcionalidad.
 
 #### US-001 – Gestionar vehículos de la flota
 
-**ID:** US-001
+****ID:**** US-001
 
-**Título:** Gestionar vehículos de la flota
+****Título:**** Gestionar vehículos de la flota
 
-**Épica Relacionada:** EP-01 Gestión de Flota y Conductores
+****Épica Relacionada:**** EP-01 Gestión de Vehículos
 
-**RF de origen:** RF-001 Gestión de Flota y Emisiones
+****RF de origen:**** RF-001 Gestión de Flota y Emisiones
 
-**Prioridad:** High 
+****Prioridad:**** Must
 
-**Story Points:** 5
+****Story Points:**** 5
 
-**Redacción:**
+****Redacción:****
 
-**Como** administrador de flota,
+****Como**** administrador de flota,
 
-**quiero** registrar, consultar y actualizar los vehículos de la flota con sus características técnicas y ambientales,
+****quiero**** registrar, consultar y actualizar los vehículos de la flota considerando sus características técnicas y ambientales,
 
-**para** mantener información válida para la planificación de las operaciones y aplicar las restricciones de circulación correspondientes.
+****para**** mantener información válida para la planificación de las operaciones y aplicar las restricciones de circulación correspondientes.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Registro de vehículo con información válida**
+****Escenario 1: Registro de vehículo con información válida****
 
-**Dado** que el administrador está autenticado y cuenta con permisos de gestión de flota,
+****Dado**** que el administrador está autenticado y cuenta con permisos de gestión de flota,
 
-**Cuando** registra un vehículo con placa, tipo, capacidad, consumo y factor de emisiones válidos,
+****Cuando**** registra un vehículo con placa, tipo, capacidad, consumo y factor de emisión válidos,
 
-**Entonces** el sistema debe guardar el vehículo con estado **Activo** y mostrar una confirmación de registro.
+****Entonces**** el sistema debe guardar el vehículo con estado ****Activo**** y confirmar el registro en menos de 1 segundo.
 
-**Escenario 2: Registro de placa duplicada**
+****Escenario 2: Registro de placa duplicada****
 
-**Dado** que ya existe un vehículo registrado con una determinada placa,
+****Dado**** que ya existe un vehículo registrado con una determinada placa,
 
-**Cuando** el administrador intenta registrar otro vehículo utilizando la misma placa,
+****Cuando**** el administrador intenta registrar otro vehículo utilizando la misma placa,
 
-**Entonces** el sistema debe rechazar la operación y mostrar un mensaje indicando que la placa ya se encuentra registrada.
+****Entonces**** el sistema debe rechazar la operación, mantener la información existente y mostrar el mensaje ****"La placa ingresada ya se encuentra registrada en el sistema."****
 
 ##### Tareas y subtareas
 
-* Diseñar formulario de gestión de vehículos.
-* Implementar registro de vehículos.
-* Implementar consulta de vehículos.
-* Implementar actualización de datos.
-* Validar placa duplicada.
-* Registrar características técnicas y ambientales.
-* Aplicar restricciones de circulación.
-* Implementar pruebas unitarias.
-* Documentar la funcionalidad.
-
----
+-   Diseñar el formulario de gestión de vehículos.
+-   -   Definir campos de placa, tipo, capacidad, consumo y factor de emisión.
+    -   Validar los campos obligatorios.
+-   Implementar el registro de vehículos.
+-   Implementar la consulta y actualización de vehículos.
+-   Validar placas duplicadas.
+-   Registrar características técnicas y ambientales.
+-   Implementar la asignación automática de restricciones de circulación.
+-   Realizar pruebas unitarias y de integración.
+-   Documentar la funcionalidad.
 
 #### US-002 – Gestionar conductores y jornada
 
-**ID:** US-002
+****ID:**** US-002
 
-**Título:** Gestionar conductores y jornada
+****Título:**** Gestionar conductores y jornada
 
-**Épica Relacionada:** EP-01 Gestión de Flota y Conductores
+****Épica Relacionada:**** EP-02 Gestión de Conductores
 
-**RF de origen:** RF-008 Gestión de Conductores y Control de Jornada
+****RF de origen:**** RF-008 Gestión de Conductores y Control de Jornada
 
-**Prioridad:** High 
+****Prioridad:**** Must
 
-**Story Points:** 5
+****Story Points:**** 3
 
-**Redacción:**
+****Redacción:****
 
-**Como** administrador de operaciones,
+****Como**** administrador o despachador,
 
-**quiero** registrar y actualizar la información de los conductores y validar su jornada antes de asignarles rutas,
+****quiero**** registrar conductores y validar sus condiciones de jornada antes de asignarles rutas,
 
-**para** asegurar que las asignaciones se realicen considerando su disponibilidad y los límites de jornada establecidos.
-
-##### Criterios de Aceptación
-
-**Escenario 1: Registro de conductor**
-
-**Dado** que el administrador cuenta con permisos para gestionar conductores,
-
-**Cuando** registra un conductor con DNI, licencia vigente y punto de inicio autorizado,
-
-**Entonces** el sistema debe crear el perfil del conductor y establecerlo como disponible para la programación.
-
-**Escenario 2: Exceso de jornada**
-
-**Dado** que un conductor ya tiene 7.5 horas de conducción registradas,
-
-**Cuando** el operador intenta asignarle una ruta de 1.5 horas,
-
-**Entonces** el sistema debe bloquear la asignación, excluir al conductor de la programación y mostrar el mensaje correspondiente sobre el límite de jornada.
-
-##### Tareas y subtareas
-
-* Crear formulario de conductores.
-* Registrar información del conductor.
-* Actualizar datos del conductor.
-* Consultar disponibilidad.
-* Validar licencia.
-* Registrar punto de inicio.
-* Validar horas de conducción.
-* Bloquear asignaciones que superen el límite.
-* Implementar pruebas.
-
----
-
-### EP-02 Gestión de Pedidos y Clientes
-
-#### US-003 – Gestionar pedidos y geolocalización
-
-**ID:** US-003
-
-**Título:** Gestionar pedidos y geolocalización
-
-**Épica Relacionada:** EP-02 Gestión de Pedidos y Clientes
-
-**RF de origen:** RF-002 Gestión y Geolocalización de Pedidos
-
-**Prioridad:** High 
-
-**Story Points:** 8
-
-**Redacción:**
-
-**Como** despachador,
-
-**quiero** registrar pedidos con sus datos logísticos y ubicación geográfica,
-
-**para** disponer de información válida que pueda utilizarse posteriormente en la planificación de rutas.
+****para**** evitar asignaciones que superen los límites establecidos para la operación.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Registro de pedido con ubicación válida**
+****Escenario 1: Registro de conductor****
 
-**Dado** que el despachador ingresa una dirección, peso, volumen y ventana horaria válidos,
+****Dado**** que el administrador está autenticado,
 
-**Cuando** registra el pedido,
+****Cuando**** registra un conductor con DNI, licencia vigente y punto de partida autorizado,
 
-**Entonces** el sistema debe obtener o registrar sus coordenadas geográficas y guardar el pedido con estado **Pendiente de Programación**.
+****Entonces**** el sistema debe guardar el perfil y establecer su estado como ****Disponible****.
 
-**Escenario 2: Pedido con carga no válida**
+****Escenario 2: Exceso de jornada****
 
-**Dado** que el pedido supera la capacidad permitida o presenta una ventana horaria inconsistente,
+****Dado**** que un conductor ha cumplido 7.5 horas de manejo durante su jornada,
 
-**Cuando** el usuario intenta registrarlo,
+****Cuando**** el despachador intenta asignarle una nueva ruta estimada en 1.5 horas,
 
-**Entonces** el sistema debe bloquear el registro y mostrar los errores correspondientes.
+****Entonces**** el sistema debe bloquear la asignación y mostrar el mensaje ****"Asignación rechazada: Supera el límite legal de 8 horas diarias (Ley N° 30224)."****
 
 ##### Tareas y subtareas
 
-* Diseñar formulario de pedidos.
-* Registrar datos logísticos.
-* Validar peso y volumen.
-* Validar ventana horaria.
-* Obtener coordenadas.
-* Permitir ubicación manual cuando corresponda.
-* Registrar referencia textual.
-* Actualizar información del pedido.
-* Implementar pruebas.
+-   Diseñar el formulario de registro de conductores.
+-   -   Definir datos personales y laborales.
+    -   Definir información de licencia.
+-   Implementar el registro y consulta de conductores.
+-   Validar los datos de licencia.
+-   Implementar el control de horas de conducción.
+-   Validar disponibilidad antes de asignar una ruta.
+-   Configurar el punto de origen del conductor.
+-   Implementar bloqueo de asignaciones que superen el límite establecido.
+-   Realizar pruebas funcionales y unitarias.
+-   Documentar la funcionalidad.
 
----
+#### US-003 – Registrar pedidos y geolocalización
 
-#### US-004 – Gestionar preferencias del cliente
+****ID:**** US-003
 
-**ID:** US-004
+****Título:**** Registrar pedidos y geolocalización
 
-**Título:** Gestionar preferencias del cliente
+****Épica Relacionada:**** EP-03 Gestión de Pedidos y Geolocalización
 
-**Épica Relacionada:** EP-02 Gestión de Pedidos y Clientes
+****RF de origen:**** RF-002 Gestión y Geolocalización de Pedidos
 
-**RF de origen:** RF-009 Módulo de Preferencias y Restricciones del Cliente
+****Prioridad:**** Must
 
-**Prioridad:** Should
+****Story Points:**** 5
 
-**Story Points:** 5
+****Redacción:****
 
-**Redacción:**
+****Como**** usuario del área de ventas,
 
-**Como** operador de clientes,
+****quiero**** registrar los pedidos con sus dimensiones, ventanas de tiempo y ubicación geográfica,
 
-**quiero** registrar y actualizar las preferencias y restricciones de entrega de cada cliente,
-
-**para** que estas condiciones sean consideradas durante la planificación de las rutas.
+****para**** disponer de información válida para la posterior planificación de las entregas.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Actualización de preferencias**
+****Escenario 1: Registro de pedido válido****
 
-**Dado** que existe un cliente registrado,
+****Dado**** que el usuario está autenticado y cuenta con los datos del cliente y su dirección,
 
-**Cuando** se modifican sus horarios de atención y restricciones de acceso vehicular,
+****Cuando**** registra un pedido con peso, volumen y ventana de tiempo válidos,
 
-**Entonces** el sistema debe guardar los cambios y asociarlos al perfil del cliente.
+****Entonces**** el sistema debe calcular las coordenadas GPS, guardar el pedido y asignarle el estado ****Pendiente de Programación****.
 
-**Escenario 2: Restricción de pedido activo**
+****Escenario 2: Ubicación manual****
 
-**Dado** que un pedido se encuentra activo y en tránsito,
+****Dado**** que el pedido corresponde a una zona sin nomenclatura urbana estándar,
 
-**Cuando** el cliente intenta modificar su ventana horaria,
+****Cuando**** el usuario selecciona manualmente el punto en el mapa y registra una referencia,
 
-**Entonces** el sistema debe rechazar la modificación e informar que no puede modificarse durante el tránsito.
+****Entonces**** el sistema debe almacenar las coordenadas seleccionadas junto con la referencia textual.
 
 ##### Tareas y subtareas
 
-* Registrar preferencias.
-* Consultar preferencias.
-* Actualizar horarios de atención.
-* Registrar restricciones vehiculares.
-* Registrar referencias de entrega.
-* Adjuntar referencias visuales o textuales.
-* Aplicar preferencias a la planificación.
-* Validar modificaciones de pedidos activos.
-* Implementar pruebas.
+-   Diseñar el formulario de registro de pedidos.
+-   -   Incorporar peso y volumen.
+    -   Incorporar ventana de tiempo.
+    -   Incorporar datos de ubicación.
+-   Implementar el registro y consulta de pedidos.
+-   Integrar el servicio de geolocalización.
+-   Implementar selección manual de coordenadas.
+-   Validar dimensiones de carga.
+-   Validar ventanas de tiempo.
+-   Asignar automáticamente el estado del pedido.
+-   Realizar pruebas funcionales y unitarias.
+-   Documentar la funcionalidad.
 
----
+#### US-004 – Gestionar preferencias y restricciones del cliente
 
-### EP-03 Optimización y Reoptimización de Rutas
+****ID:**** US-004
+
+****Título:**** Gestionar preferencias y restricciones del cliente
+
+****Épica Relacionada:**** EP-04 Gestión de Clientes y Preferencias
+
+****RF de origen:**** RF-009 Módulo de Preferencias y Restricciones del Cliente
+
+****Prioridad:**** Should
+
+****Story Points:**** 3
+
+****Redacción:****
+
+****Como**** cliente,
+
+****quiero**** configurar mis horarios de atención, restricciones de acceso y referencias de entrega,
+
+****para**** facilitar que las entregas se realicen de acuerdo con las condiciones de mi establecimiento.
+
+##### Criterios de Aceptación
+
+****Escenario 1: Actualización de preferencias****
+
+****Dado**** que el cliente está autenticado en la plataforma,
+
+****Cuando**** modifica sus horarios de atención y restricciones de acceso vehicular,
+
+****Entonces**** el sistema debe guardar los cambios y aplicarlos como restricciones en futuros cálculos de rutas.
+
+****Escenario 2: Pedido en tránsito****
+
+****Dado**** que un pedido tiene una ruta activa en proceso de entrega,
+
+****Cuando**** el cliente intenta modificar sus preferencias para dicho pedido,
+
+****Entonces**** el sistema debe rechazar la modificación y mostrar el mensaje ****"No se pueden alterar las preferencias de un pedido en tránsito."****
+
+##### Tareas y subtareas
+
+-   Diseñar la interfaz de preferencias del cliente.
+-   Implementar configuración de horarios de atención.
+-   Implementar restricciones de acceso vehicular.
+-   Implementar registro de referencias de entrega.
+-   Permitir adjuntar fotografías de referencia.
+-   Integrar las preferencias con el módulo de ruteo.
+-   Validar restricciones para pedidos en tránsito.
+-   Realizar pruebas funcionales.
+-   Documentar la funcionalidad.
 
 #### US-005 – Generar rutas optimizadas
 
-**ID:** US-005
+****ID:**** US-005
 
-**Título:** Generar rutas optimizadas
+****Título:**** Generar rutas optimizadas
 
-**Épica Relacionada:** EP-03 Optimización y Reoptimización de Rutas
+****Épica Relacionada:**** EP-05 Optimización de Rutas
 
-**RF de origen:** RF-003 Motor de Optimización de Rutas
+****RF de origen:**** RF-003 Motor de Optimización de Rutas
 
-**Prioridad:** Must
+****Prioridad:**** Must
 
-**Story Points:** 13
+****Story Points:**** 13
 
-**Redacción:**
+****Redacción:****
 
-**Como** despachador,
+****Como**** operador logístico,
 
-**quiero** generar rutas optimizadas asignando pedidos a vehículos disponibles,
+****quiero**** generar automáticamente rutas asignando pedidos a los vehículos disponibles y organizando la secuencia de paradas,
 
-**para** reducir distancia, tiempo, consumo y emisiones, respetando las capacidades y restricciones operativas.
-
-##### Criterios de Aceptación
-
-**Escenario 1: Generación de rutas**
-
-**Dado** que existen pedidos pendientes y vehículos disponibles con sus capacidades y restricciones registradas,
-
-**Cuando** el despachador solicita la programación,
-
-**Entonces** el sistema debe generar las rutas y secuencias de atención respetando las restricciones definidas.
-
-**Escenario 2: Capacidad insuficiente**
-
-**Dado** que la carga total de los pedidos supera la capacidad disponible de la flota,
-
-**Cuando** se ejecuta la programación,
-
-**Entonces** el sistema debe asignar la cantidad posible de pedidos y marcar los restantes como **No Asignados por Exceso de Capacidad**.
-
-##### Tareas y subtareas
-
-* Preparar pedidos pendientes.
-* Obtener vehículos disponibles.
-* Validar capacidades.
-* Validar restricciones.
-* Implementar proceso de optimización.
-* Generar secuencia de paradas.
-* Considerar distancia, tiempo y emisiones.
-* Identificar pedidos no asignados.
-* Registrar resultados de optimización.
-* Implementar pruebas de rendimiento.
-
----
-
-#### US-006 – Visualizar rutas en mapa
-
-**ID:** US-006
-
-**Título:** Visualizar rutas en mapa
-
-**Épica Relacionada:** EP-03 Optimización y Reoptimización de Rutas
-
-**RF de origen:** RF-004 Visualización Geoespacial e Interactiva de Rutas
-
-**Prioridad:** Must
-
-**Story Points:** 8
-
-**Redacción:**
-
-**Como** despachador,
-
-**quiero** visualizar las rutas, paradas, tráfico y zonas de riesgo en un mapa interactivo,
-
-**para** supervisar geográficamente las operaciones de reparto.
+****para**** realizar las entregas de manera eficiente considerando las restricciones operativas.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Visualización de ruta**
+****Escenario 1: Generación de rutas****
 
-**Dado** que existe una ruta activa,
+****Dado**** que existen pedidos pendientes y vehículos disponibles con sus capacidades y restricciones configuradas,
 
-**Cuando** el despachador selecciona la ruta,
+****Cuando**** el operador ejecuta la generación automática de rutas,
 
-**Entonces** el sistema debe mostrar su trazado, paradas y asignación correspondiente en el mapa.
+****Entonces**** el sistema debe generar una solución válida considerando distancia, tiempo y emisiones de CO2 sin incumplir las restricciones configuradas.
 
-**Escenario 2: Servicio de mapas no disponible**
+****Escenario 2: Exceso de capacidad****
 
-**Dado** que el proveedor del mapa no está disponible,
+****Dado**** que la demanda total de los pedidos supera la capacidad combinada de la flota disponible,
 
-**Cuando** el usuario intenta visualizar la ruta,
+****Cuando**** el operador solicita la optimización,
 
-**Entonces** el sistema debe mantener disponible la información operativa mediante una lista secuencial de paradas y mostrar el mensaje de indisponibilidad del servicio de mapas.
+****Entonces**** el sistema debe asignar la cantidad máxima posible, marcar los pedidos restantes como ****"No Asignados por Exceso de Capacidad"**** y notificar al operador.
 
 ##### Tareas y subtareas
 
-* Implementar vista de mapa.
-* Mostrar trazado de rutas.
-* Mostrar marcadores de paradas.
-* Mostrar estado del tráfico.
-* Mostrar zonas de riesgo.
-* Implementar consulta de detalle.
-* Implementar vista alternativa sin mapa.
-* Probar tiempos de carga.
-* Implementar pruebas.
+-   Diseñar la estructura del motor de optimización.
+-   -   Definir entradas del algoritmo.
+    -   Definir restricciones de vehículos.
+    -   Definir restricciones de pedidos.
+-   Implementar la asignación de pedidos a vehículos.
+-   Implementar la secuencia de paradas.
+-   Incorporar restricciones de capacidad.
+-   Incorporar ventanas de tiempo.
+-   Incorporar restricciones de circulación.
+-   Considerar distancia, tiempo y emisiones de CO2.
+-   Implementar control de exceso de capacidad.
+-   Implementar descansos técnicos dentro de la planificación.
+-   Integrar el motor con el módulo de pedidos.
+-   Realizar pruebas de optimización.
+-   Documentar la solución implementada.
 
----
+#### US-006 – Visualizar rutas en el mapa
 
-#### US-007 – Reoptimizar rutas activas
+****ID:**** US-006
 
-**ID:** US-007
+****Título:**** Visualizar rutas en el mapa
 
-**Título:** Reoptimizar rutas activas
+****Épica Relacionada:**** EP-06 Monitoreo y Reoptimización de Rutas
 
-**Épica Relacionada:** EP-03 Optimización y Reoptimización de Rutas
+****RF de origen:**** RF-004 Visualización Geoespacial e Interactiva de Rutas
 
-**RF de origen:** RF-007 Re-optimización Dinámica en Tiempo Real
+****Prioridad:**** Must
 
-**Prioridad:** Must
+****Story Points:**** 8
 
-**Story Points:** 8
+****Redacción:****
 
-**Redacción:**
+****Como**** despachador,
 
-**Como** operador de despacho,
+****quiero**** visualizar las rutas, paradas, condiciones de tráfico y zonas de riesgo en un mapa interactivo,
 
-**quiero** recalcular una ruta activa cuando ocurra una incidencia operativa,
-
-**para** continuar la distribución reduciendo los efectos de cierres de vías, accidentes o problemas de los vehículos.
+****para**** monitorear el desarrollo de las rutas y conocer posibles condiciones que afecten la operación.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Cierre de vía**
+****Escenario 1: Visualización de ruta activa****
 
-**Dado** que un vehículo se encuentra en tránsito y se confirma el cierre de una vía,
+****Dado**** que el despachador está autenticado y existe una ruta activa,
 
-**Cuando** el sistema ejecuta la reoptimización,
+****Cuando**** selecciona la ruta en el monitor,
 
-**Entonces** debe generar una nueva ruta evitando el segmento afectado y actualizar el itinerario correspondiente.
+****Entonces**** el sistema debe mostrar el trazado, las paradas y la información de tráfico en el mapa.
 
-**Escenario 2: Aplicación móvil sin conexión**
+****Escenario 2: Zona de riesgo****
 
-**Dado** que se genera una nueva ruta mientras la aplicación del conductor está desconectada,
+****Dado**** que una ruta atraviesa una zona catalogada como de alto riesgo,
 
-**Cuando** el sistema intenta enviar la actualización,
+****Cuando**** el sistema carga la información geográfica,
 
-**Entonces** debe mantener la última ruta conocida, almacenar la notificación pendiente y realizar nuevos intentos posteriormente.
+****Entonces**** debe mostrar el área de riesgo mediante un polígono y presentar un aviso preventivo.
 
 ##### Tareas y subtareas
 
-* Detectar incidencias.
-* Registrar cierre de vías.
-* Registrar averías.
-* Ejecutar reoptimización.
-* Mantener pedidos ya completados.
-* Redistribuir pedidos pendientes.
-* Actualizar itinerario.
-* Enviar nueva ruta al conductor.
-* Gestionar notificaciones pendientes.
-* Implementar pruebas.
+-   Diseñar la vista del monitor de rutas.
+-   Integrar el proveedor de mapas.
+-   Implementar visualización de rutas.
+-   Implementar marcadores de paradas.
+-   Implementar representación del estado del tráfico.
+-   Implementar polígonos de zonas de riesgo.
+-   Mostrar avisos preventivos.
+-   Implementar una vista alternativa cuando el servicio de mapas no esté disponible.
+-   Realizar pruebas de visualización.
+-   Documentar la funcionalidad.
 
----
+#### US-007 – Reoptimizar rutas ante eventos
 
-### EP-04 Sostenibilidad, Analítica y Reportes
+****ID:**** US-007
 
-#### US-008 – Consultar indicadores operativos y ambientales
+****Título:**** Reoptimizar rutas ante eventos
 
-**ID:** US-008
+****Épica Relacionada:**** EP-06 Monitoreo y Reoptimización de Rutas
 
-**Título:** Consultar indicadores operativos y ambientales
+****RF de origen:**** RF-007 Re-optimización Dinámica en Tiempo Real
 
-**Épica Relacionada:** EP-04 Sostenibilidad, Analítica y Reportes
+****Prioridad:**** Must
 
-**RF de origen:** RF-005 Dashboard Operativo y de Sostenibilidad
+****Story Points:**** 8
 
-**Prioridad:** Should
+****Redacción:****
 
-**Story Points:** 5
+****Como**** operador logístico,
 
-**Redacción:**
+****quiero**** recalcular una ruta activa cuando ocurra un evento que afecte el recorrido,
 
-**Como** supervisor de operaciones,
-
-**quiero** consultar indicadores operativos y ambientales de las rutas realizadas,
-
-**para** conocer el comportamiento de las operaciones y sus resultados de sostenibilidad.
+****para**** actualizar el itinerario y reducir el impacto de incidentes sobre las entregas programadas.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Consulta de indicadores**
+****Escenario 1: Cierre de vía****
 
-**Dado** que existen operaciones registradas para un periodo seleccionado,
+****Dado**** que un vehículo se encuentra realizando una ruta y existe una alerta confirmada de cierre de vía,
 
-**Cuando** el supervisor consulta el dashboard,
+****Cuando**** el sistema procesa el evento,
 
-**Entonces** el sistema debe mostrar indicadores de distancia, consumo, CO₂ y ahorro correspondientes al periodo.
+****Entonces**** debe recalcular la ruta evitando el tramo afectado y enviar el nuevo itinerario al dispositivo del conductor.
 
-**Escenario 2: Ausencia de información histórica**
+****Escenario 2: Aplicación del conductor sin conexión****
 
-**Dado** que no existe una línea base histórica para realizar una comparación,
+****Dado**** que la aplicación del conductor pierde la conexión a Internet durante una reoptimización,
 
-**Cuando** el supervisor consulta los indicadores,
+****Cuando**** el servidor genera la nueva ruta,
 
-**Entonces** el sistema debe mostrar los valores absolutos disponibles y representar el diferencial comparativo como **0%**, sin inventar información.
+****Entonces**** el sistema debe mantener la notificación en cola, reintentar el envío y conservar la última ruta conocida en el dispositivo.
 
 ##### Tareas y subtareas
 
-* Diseñar dashboard.
-* Calcular distancia recorrida.
-* Calcular consumo.
-* Calcular emisiones de CO₂.
-* Calcular ahorro.
-* Implementar filtros por periodo.
-* Mostrar indicadores ambientales.
-* Manejar ausencia de datos.
-* Implementar pruebas.
+-   Diseñar el mecanismo de detección de eventos.
+-   Implementar recepción de incidentes viales.
+-   Implementar reoptimización de rutas activas.
+-   Integrar el motor de optimización.
+-   Actualizar el itinerario del conductor.
+-   Implementar envío de notificaciones.
+-   Implementar cola y reintentos de notificaciones.
+-   Mantener la última ruta disponible en modo sin conexión.
+-   Implementar redistribución de pedidos ante averías.
+-   Realizar pruebas de reoptimización.
+-   Documentar la funcionalidad.
 
----
+#### US-008 – Consultar indicadores operativos y de sostenibilidad
+
+****ID:**** US-008
+
+****Título:**** Consultar indicadores operativos y de sostenibilidad
+
+****Épica Relacionada:**** EP-07 Analítica, Reportes y Sostenibilidad
+
+****RF de origen:**** RF-005 Dashboard Operativo y de Sostenibilidad
+
+****Prioridad:**** Should
+
+****Story Points:**** 5
+
+****Redacción:****
+
+****Como**** supervisor,
+
+****quiero**** consultar indicadores de distancia, consumo, emisiones de CO2, ahorro y equivalencias ambientales,
+
+****para**** conocer el comportamiento operativo y ambiental de las rutas realizadas.
+
+##### Criterios de Aceptación
+
+****Escenario 1: Visualización de indicadores****
+
+****Dado**** que el supervisor tiene permisos para consultar el dashboard,
+
+****Cuando**** se actualiza el avance o cierre de una ruta,
+
+****Entonces**** el sistema debe calcular y mostrar las métricas operativas y ambientales correspondientes.
+
+****Escenario 2: Sin información histórica****
+
+****Dado**** que no existen registros históricos para realizar una comparación,
+
+****Cuando**** el dashboard calcula los indicadores,
+
+****Entonces**** debe mostrar las métricas absolutas y establecer el diferencial comparativo en ****0%****.
+
+##### Tareas y subtareas
+
+-   Diseñar el dashboard operativo.
+-   Definir los indicadores de operación.
+-   Implementar cálculo de distancia y consumo.
+-   Implementar cálculo de emisiones de CO2.
+-   Implementar cálculo de ahorros monetarios.
+-   Implementar equivalencias ambientales.
+-   Implementar actualización de indicadores.
+-   Implementar manejo de ausencia de datos históricos.
+-   Implementar manejo de errores analíticos.
+-   Realizar pruebas funcionales.
+-   Documentar la funcionalidad.
 
 #### US-009 – Generar reportes de sostenibilidad y costos
 
-**ID:** US-009
+****ID:**** US-009
 
-**Título:** Generar reportes de sostenibilidad y costos
+****Título:**** Generar reportes de sostenibilidad y costos
 
-**Épica Relacionada:** EP-04 Sostenibilidad, Analítica y Reportes
+****Épica Relacionada:**** EP-07 Analítica, Reportes y Sostenibilidad
 
-**RF de origen:** RF-006 Generación de Reportes de Sostenibilidad y Costos
+****RF de origen:**** RF-006 Generación de Reportes de Sostenibilidad y Costos
 
-**Prioridad:** Should
+****Prioridad:**** Should
 
-**Story Points:** 5
+****Story Points:**** 3
 
-**Redacción:**
+****Redacción:****
 
-**Como** administrador,
+****Como**** administrador,
 
-**quiero** generar y descargar reportes de sostenibilidad y costos de un periodo seleccionado,
+****quiero**** generar reportes en formato PDF sobre las emisiones y costos de la flota para un periodo determinado,
 
-**para** disponer de información consolidada para el seguimiento de las operaciones.
-
-##### Criterios de Aceptación
-
-**Escenario 1: Generación de reporte**
-
-**Dado** que existen operaciones completadas dentro del periodo seleccionado,
-
-**Cuando** el administrador solicita el reporte,
-
-**Entonces** el sistema debe generar un archivo PDF con la información de sostenibilidad y costos.
-
-**Escenario 2: Ausencia de datos**
-
-**Dado** que no existen rutas u operaciones para el periodo seleccionado,
-
-**Cuando** el administrador solicita el reporte,
-
-**Entonces** el sistema debe cancelar la generación e informar que no existen datos disponibles para elaborar el reporte.
-
-##### Tareas y subtareas
-
-* Diseñar estructura del reporte.
-* Consultar información operativa.
-* Consultar información ambiental.
-* Calcular costos.
-* Generar documento PDF.
-* Implementar descarga.
-* Gestionar reportes de gran volumen.
-* Implementar notificación cuando corresponda.
-* Validar información del reporte.
-* Implementar pruebas.
-
----
-
-#### US-010 – Gestionar propuesta de compensación de carbono
-
-**ID:** US-010
-
-**Título:** Gestionar propuesta de compensación de carbono
-
-**Épica Relacionada:** EP-04 Sostenibilidad, Analítica y Reportes
-
-**RF de origen:** RF-010 Plan y Propuesta de Compensación de Carbono
-
-**Prioridad:** Could
-
-**Story Points:** 5
-
-**Redacción:**
-
-**Como** responsable de sostenibilidad,
-
-**quiero** calcular las emisiones acumuladas y generar una propuesta de compensación de carbono,
-
-**para** conocer una alternativa de neutralización ambiental basada en los resultados de las operaciones.
+****para**** disponer de información consolidada para el seguimiento de la operación.
 
 ##### Criterios de Aceptación
 
-**Escenario 1: Cálculo de compensación**
+****Escenario 1: Generación del reporte****
 
-**Dado** que existe información acumulada de emisiones de CO₂ y parámetros ambientales disponibles,
+****Dado**** que existen operaciones completadas dentro del periodo seleccionado,
 
-**Cuando** el responsable solicita la propuesta de compensación,
+****Cuando**** el administrador solicita la generación del reporte,
 
-**Entonces** el sistema debe calcular la equivalencia correspondiente en créditos de carbono o árboles.
+****Entonces**** el sistema debe generar el PDF con la información consolidada y permitir su descarga.
 
-**Escenario 2: Error en parámetros ambientales**
+****Escenario 2: Periodo sin información****
 
-**Dado** que existe un error en los factores de conversión o no está disponible la información de los proyectos ambientales,
+****Dado**** que no existen rutas ni datos registrados en el periodo seleccionado,
 
-**Cuando** se solicita el cálculo,
+****Cuando**** el administrador solicita el reporte,
 
-**Entonces** el sistema debe detener la operación e informar que no se puede realizar la conversión con los parámetros disponibles.
+****Entonces**** el sistema debe cancelar la generación y mostrar el mensaje ****"No se encontraron datos para generar el reporte en el periodo especificado."****
 
 ##### Tareas y subtareas
 
-* Obtener emisiones acumuladas.
-* Configurar factores de conversión.
-* Calcular créditos de carbono.
-* Calcular equivalencia en árboles.
-* Distribuir compensación entre proyectos.
-* Recalcular valores proporcionalmente.
-* Generar propuesta.
-* Exportar propuesta.
-* Validar parámetros.
-* Implementar pruebas.
+-   Diseñar la estructura del reporte.
+-   Implementar selección del periodo.
+-   Implementar consulta de información operativa.
+-   Implementar cálculo y desglose de emisiones.
+-   Implementar cálculo de costos.
+-   Implementar generación del archivo PDF.
+-   Implementar descarga del reporte.
+-   Implementar procesamiento en segundo plano para grandes volúmenes.
+-   Implementar notificación con enlace de descarga.
+-   Validar ausencia de información.
+-   Realizar pruebas de generación.
+-   Documentar la funcionalidad.
 
----
+#### US-010 – Generar propuesta de compensación de carbono
 
-## 5. Mapa de Transformación RNF → Enablers
+****ID:**** US-010
 
-| ID     | Enabler                                                 | RNF de origen | Tipo           | Épica |
-| ------ | -------------------------------------------------------- | ------------- | -------------- | ----- |
-| EN-001 | Validar rendimiento del motor de optimización           | RNF-001       | Rendimiento    | EP-05 |
-| EN-002 | Implementar y validar controles de seguridad            | RNF-002       | Seguridad      | EP-05 |
-| EN-003 | Validar accesibilidad WCAG 2.1 AA                       | RNF-003       | Accesibilidad  | EP-05 |
-| EN-004 | Validar escalabilidad operativa                         | RNF-004       | Escalabilidad  | EP-05 |
-| EN-005 | Implementar y validar usabilidad del modo conductor     | RNF-005       | Usabilidad     | EP-05 |
-| EN-006 | Implementar monitoreo y contingencia de disponibilidad  | RNF-006       | Disponibilidad | EP-05 |
-| EN-007 | Mantener documentación técnica y operativa              | RNF-007       | Documentación  | EP-05 |
+****Título:**** Generar propuesta de compensación de carbono
 
----
+****Épica Relacionada:**** EP-07 Analítica, Reportes y Sostenibilidad
 
-## 6. Historias Técnicas / Enablers
+****RF de origen:**** RF-010 Plan y Propuesta de Compensación de Carbono
 
-### EN-001 – Validar rendimiento del motor de optimización
+****Prioridad:**** Could
 
-**ID:** EN-001
+****Story Points:**** 5
 
-**Título:** Validar rendimiento del motor de optimización
+****Redacción:****
 
-**RNF de origen:** RNF-001
+****Como**** responsable de sostenibilidad,
 
-**Tipo:** Rendimiento
+****quiero**** calcular las emisiones acumuladas y generar una propuesta de compensación mediante créditos de carbono y árboles,
 
-**Redacción:**
+****para**** contar con una estimación de las acciones necesarias para compensar las emisiones generadas por la operación.
 
-**Como** equipo técnico,
+##### Criterios de Aceptación
 
-**quiero** validar el rendimiento del motor de optimización,
+****Escenario 1: Generación de propuesta****
 
-**para** garantizar que la generación y reoptimización de rutas cumplan los tiempos de respuesta establecidos.
+****Dado**** que existen emisiones de CO2 acumuladas durante un periodo,
 
-#### Criterios de Aceptación
+****Cuando**** el responsable ejecuta la generación del plan de compensación,
 
-**Escenario 1: Optimización de carga establecida**
+****Entonces**** el sistema debe calcular la equivalencia en créditos de carbono y árboles requeridos.
 
-**Dado** que existen hasta 150 pedidos y 15 vehículos disponibles,
+****Escenario 2: Distribución entre proyectos****
 
-**Cuando** se ejecuta el proceso de optimización,
+****Dado**** que existe un plan de compensación generado,
 
-**Entonces** la solución debe generarse en un tiempo no mayor a 45 segundos.
+****Cuando**** el usuario selecciona diferentes proyectos ambientales configurados,
 
-**Escenario 2: Reoptimización**
+****Entonces**** el sistema debe recalcular la distribución proporcional de árboles por proyecto y permitir exportar la propuesta.
 
-**Dado** que existe una ruta activa que requiere ser recalculada,
+##### Tareas y subtareas
 
-**Cuando** se ejecuta la reoptimización,
+-   Diseñar el módulo de compensación de carbono.
+-   Implementar consulta de emisiones acumuladas.
+-   Implementar factores de conversión ambiental.
+-   Calcular equivalencia en créditos de carbono.
+-   Calcular equivalencia en árboles.
+-   Implementar distribución entre proyectos ambientales.
+-   Implementar recálculo proporcional.
+-   Implementar exportación de la propuesta.
+-   Implementar manejo de errores de parámetros ambientales.
+-   Realizar pruebas funcionales.
+-   Documentar la funcionalidad.
 
-**Entonces** el nuevo resultado debe generarse en un tiempo no mayor a 30 segundos.
+## Resumen de Historias de Usuario
 
-#### Tareas
+| ID     | Épica                                      | RF de origen | Prioridad | Story Points |
+| ------ | ------------------------------------------ | ------------ | --------- | ------------ |
+| US-001 | EP-01 Gestión de Vehículos                 | RF-001       | Must      | 5            |
+| US-002 | EP-02 Gestión de Conductores               | RF-008       | Must      | 3            |
+| US-003 | EP-03 Gestión de Pedidos y Geolocalización | RF-002       | Must      | 5            |
+| US-004 | EP-04 Gestión de Clientes y Preferencias   | RF-009       | Should    | 3            |
+| US-005 | EP-05 Optimización de Rutas                | RF-003       | Must      | 13           |
+| US-006 | EP-06 Monitoreo y Reoptimización de Rutas  | RF-004       | Must      | 8            |
+| US-007 | EP-06 Monitoreo y Reoptimización de Rutas  | RF-007       | Must      | 8            |
+| US-008 | EP-07 Analítica, Reportes y Sostenibilidad | RF-005       | Should    | 5            |
+| US-009 | EP-07 Analítica, Reportes y Sostenibilidad | RF-006       | Should    | 3            |
+| US-010 | EP-07 Analítica, Reportes y Sostenibilidad | RF-010       | Could     | 5            |
 
-* Preparar pruebas de rendimiento.
-* Crear datos de prueba.
-* Ejecutar pruebas con 150 pedidos y 15 vehículos.
-* Medir tiempo de optimización.
-* Medir tiempo de reoptimización.
-* Registrar resultados.
-* Corregir problemas de rendimiento.
+****Total de Story Points: 58****
 
----
+### C. Criterios de Aceptación bajo Sintaxis BDD (Gherkin)
 
-### EN-002 – Implementar y validar controles de seguridad
+Toda Historia de Usuario y Enabler debe incluir al menos ****dos (2) Criterios de Aceptación****, estructurados formalmente mediante la sintaxis Gherkin (__Dado... Cuando... Entonces...__). Los criterios permiten verificar de manera objetiva el comportamiento esperado del sistema y el cumplimiento de los requisitos funcionales y no funcionales asociados.
 
-**ID:** EN-002
+La estructura utilizada para cada criterio es:
 
-**Título:** Implementar y validar controles de seguridad
+****Escenario:**** \[Título descriptivo del escenario de prueba\]
 
-**RNF de origen:** RNF-002
+****Dado:**** \[Contexto previo o precondición del sistema\]
 
-**Tipo:** Seguridad
+****Cuando:**** \[Acción o evento ejecutado por el usuario o sistema\]
 
-**Redacción:**
+****Entonces:**** \[Resultado esperado o estado final verificable\]
 
-**Como** equipo técnico,
+## C.1 Criterios de aceptación de las Historias de Usuario
 
-**quiero** implementar controles de autenticación, autorización y validación de entradas,
+### US-001 – Gestionar vehículos de la flota
 
-**para** proteger la información y evitar accesos o acciones no autorizadas.
+****Criterio de Aceptación 1****
 
-#### Criterios de Aceptación
+****Escenario:**** Registrar un vehículo con información válida
 
-**Escenario 1: Acceso no autorizado**
+****Dado**** que el administrador de flota se encuentra en el módulo de gestión de vehículos y dispone de los datos técnicos y ambientales del vehículo,
 
-**Dado** que un usuario no posee permisos para acceder a una funcionalidad,
+****Cuando**** registra un vehículo con una placa que no existe previamente en el sistema y completa todos los campos obligatorios,
 
-**Cuando** intenta acceder a ella,
+****Entonces**** el sistema debe registrar el vehículo correctamente, mostrar una confirmación de registro y dejarlo disponible para las operaciones de planificación.
 
-**Entonces** el sistema debe rechazar la operación y no permitir el acceso a la información protegida.
+****Criterio de Aceptación 2****
 
-**Escenario 2: Vulnerabilidades críticas**
+****Escenario:**** Rechazar el registro de una placa duplicada
 
-**Dado** que se ejecuta el análisis de seguridad de la versión evaluada,
+****Dado**** que existe un vehículo registrado con una determinada placa,
 
-**Cuando** finaliza el análisis,
+****Cuando**** el administrador intenta registrar otro vehículo utilizando la misma placa,
 
-**Entonces** no deben existir vulnerabilidades críticas explotables pendientes de corrección.
+****Entonces**** el sistema debe rechazar el registro y mostrar el mensaje: ****“La placa ingresada ya se encuentra registrada en el sistema.”****
 
-#### Tareas
+### US-002 – Gestionar conductores y jornada
 
-* Implementar autenticación.
-* Implementar autorización.
-* Validar permisos.
-* Validar entradas.
-* Ejecutar análisis de seguridad.
-* Corregir vulnerabilidades críticas.
-* Ejecutar pruebas de seguridad.
+****Criterio de Aceptación 1****
 
----
+****Escenario:**** Registrar un conductor disponible
 
-### EN-003 – Validar accesibilidad WCAG 2.1 AA
+****Dado**** que el administrador o despachador dispone de los datos personales, laborales, licencia de conducir y punto de origen del conductor,
 
-**ID:** EN-003
+****Cuando**** registra al conductor con información válida,
 
-**Título:** Validar accesibilidad WCAG 2.1 AA
+****Entonces**** el sistema debe crear el perfil del conductor y establecer su estado como ****“Disponible”****.
 
-**RNF de origen:** RNF-003
+****Criterio de Aceptación 2****
 
-**Tipo:** Accesibilidad
+****Escenario:**** Rechazar una asignación que exceda la jornada permitida
 
-**Redacción:**
+****Dado**** que un conductor ya acumula 7.5 horas de conducción y se intenta asignarle una ruta adicional de 1.5 horas,
 
-**Como** equipo técnico,
+****Cuando**** el despachador confirma la asignación de la ruta,
 
-**quiero** validar la accesibilidad de las principales interfaces del sistema,
+****Entonces**** el sistema debe rechazar la asignación e informar que se supera el límite de jornada establecido.
 
-**para** asegurar que cumplan los criterios aplicables de WCAG 2.1 nivel AA.
+### US-003 – Registrar pedidos y geolocalización
 
-#### Criterios de Aceptación
+****Criterio de Aceptación 1****
 
-**Escenario 1: Evaluación de interfaces**
+****Escenario:**** Registrar un pedido con información válida y geolocalización
 
-**Dado** que las pantallas principales del sistema se encuentran implementadas,
+****Dado**** que el usuario de ventas dispone de la información del pedido, incluyendo peso, volumen, ventana horaria y dirección de entrega,
 
-**Cuando** se realiza la evaluación de accesibilidad,
+****Cuando**** registra el pedido con información válida,
 
-**Entonces** se deben registrar los criterios WCAG 2.1 AA aplicables y sus resultados.
+****Entonces**** el sistema debe almacenar el pedido, determinar sus coordenadas geográficas y establecer su estado como ****“Pendiente de Programación”****.
 
-**Escenario 2: Corrección de incumplimientos**
+****Criterio de Aceptación 2****
 
-**Dado** que se detectan incumplimientos durante la evaluación,
+****Escenario:**** Seleccionar manualmente la ubicación de un pedido
 
-**Cuando** se aplican las correcciones,
+****Dado**** que la dirección ingresada no puede ser geolocalizada automáticamente de manera precisa,
 
-**Entonces** se debe realizar una nueva evaluación para verificar los resultados.
+****Cuando**** el usuario selecciona manualmente la ubicación correspondiente sobre el mapa,
 
-#### Tareas
+****Entonces**** el sistema debe guardar las coordenadas seleccionadas junto con la referencia textual de la ubicación del pedido.
 
-* Identificar criterios aplicables.
-* Evaluar interfaces.
-* Registrar incumplimientos.
-* Aplicar correcciones.
-* Revaluar interfaces.
-* Documentar resultados.
+### US-004 – Gestionar preferencias y restricciones del cliente
 
----
+****Criterio de Aceptación 1****
 
-### EN-004 – Validar escalabilidad operativa
+****Escenario:**** Actualizar preferencias de entrega de un cliente
 
-**ID:** EN-004
+****Dado**** que el cliente tiene configuradas sus preferencias de entrega,
 
-**Título:** Validar escalabilidad operativa
+****Cuando**** modifica su horario de atención, restricciones de acceso o referencias de entrega,
 
-**RNF de origen:** RNF-004
+****Entonces**** el sistema debe guardar la nueva configuración y considerarla en la planificación de futuras rutas.
 
-**Tipo:** Escalabilidad
+****Criterio de Aceptación 2****
 
-**Redacción:**
+****Escenario:**** Impedir modificaciones de preferencias de un pedido en tránsito
 
-**Como** equipo técnico,
+****Dado**** que un pedido se encuentra actualmente en tránsito,
 
-**quiero** validar el comportamiento del sistema ante un volumen elevado de operaciones,
+****Cuando**** el cliente intenta modificar las preferencias o restricciones asociadas al pedido,
 
-**para** comprobar que pueda procesar la carga operativa establecida.
+****Entonces**** el sistema debe rechazar la modificación y mostrar el mensaje: ****“No se pueden alterar las preferencias de un pedido en tránsito.”****
 
-#### Criterios de Aceptación
+### US-005 – Generar rutas optimizadas
 
-**Escenario 1: Carga operativa**
+****Criterio de Aceptación 1****
 
-**Dado** que el sistema recibe hasta 1,000 pedidos diarios y administra hasta 50 vehículos,
+****Escenario:**** Generar una solución de rutas respetando las restricciones operativas
 
-**Cuando** se ejecutan los flujos operativos principales,
+****Dado**** que existen pedidos pendientes de programación y vehículos disponibles,
 
-**Entonces** los procesos deben completarse sin errores atribuibles al volumen de información.
+****Cuando**** el operador ejecuta el proceso de optimización,
 
-**Escenario 2: Degradación**
+****Entonces**** el sistema debe generar una solución de rutas asignando los pedidos a los vehículos disponibles y respetando las restricciones de capacidad, ventanas horarias, circulación y demás condiciones operativas definidas.
 
-**Dado** que se ejecuta una prueba con la carga establecida,
+****Criterio de Aceptación 2****
 
-**Cuando** se detecta degradación del rendimiento,
+****Escenario:**** Gestionar pedidos cuando la demanda supera la capacidad disponible
 
-**Entonces** se debe registrar la evidencia y la métrica correspondiente.
+****Dado**** que la demanda total de los pedidos pendientes supera la capacidad disponible de la flota,
 
-#### Tareas
+****Cuando**** el operador ejecuta la optimización,
 
-* Preparar datos de carga.
-* Simular 1,000 pedidos.
-* Simular 50 vehículos.
-* Ejecutar pruebas de carga.
-* Medir comportamiento.
-* Registrar degradación.
-* Documentar resultados.
+****Entonces**** el sistema debe asignar los pedidos que puedan ser atendidos y marcar los restantes como ****“No Asignados por Exceso de Capacidad”****, informando esta situación al operador.
 
----
+### US-006 – Visualizar rutas en el mapa
 
-### EN-005 – Validar usabilidad del modo conductor
+****Criterio de Aceptación 1****
 
-**ID:** EN-005
+****Escenario:**** Visualizar una ruta activa
 
-**Título:** Validar usabilidad del modo conductor
+****Dado**** que existe una ruta activa asignada a un vehículo,
 
-**RNF de origen:** RNF-005
+****Cuando**** el despachador selecciona dicha ruta en el módulo de monitoreo,
 
-**Tipo:** Usabilidad
+****Entonces**** el sistema debe mostrar en el mapa el trazado de la ruta, sus puntos de parada y la información de tráfico disponible.
 
-**Redacción:**
+****Criterio de Aceptación 2****
 
-**Como** equipo técnico,
+****Escenario:**** Identificar una zona de riesgo en la ruta
 
-**quiero** implementar una interfaz simplificada para los conductores,
+****Dado**** que una ruta activa atraviesa una zona identificada como de alto riesgo,
 
-**para** permitir que consulten sus rutas y entregas sin acceder a funciones administrativas.
+****Cuando**** el sistema representa la ruta sobre el mapa,
 
-#### Criterios de Aceptación
+****Entonces**** debe visualizar la zona de riesgo y mostrar una advertencia preventiva al despachador.
 
-**Escenario 1: Vista del conductor**
+### US-007 – Reoptimizar rutas ante eventos
 
-**Dado** que un conductor inicia sesión en el sistema,
+****Criterio de Aceptación 1****
 
-**Cuando** accede a su vista operativa,
+****Escenario:**** Reoptimizar una ruta ante el cierre de una vía
 
-**Entonces** debe visualizar su ruta, entregas pendientes y alertas relevantes.
+****Dado**** que existe una ruta activa y se confirma el cierre de una vía incluida en su recorrido,
 
-**Escenario 2: Restricción de funciones**
+****Cuando**** el sistema ejecuta el proceso de reoptimización,
 
-**Dado** que el usuario tiene el rol de conductor,
+****Entonces**** debe generar una nueva alternativa evitando el tramo afectado y actualizar el itinerario de la ruta.
 
-**Cuando** intenta acceder a una función administrativa,
+****Criterio de Aceptación 2****
 
-**Entonces** el sistema debe impedir el acceso a dicha función.
+****Escenario:**** Mantener la última ruta conocida cuando el conductor está desconectado
 
-#### Tareas
+****Dado**** que una ruta activa requiere reoptimización y la aplicación del conductor se encuentra temporalmente sin conexión,
 
-* Diseñar vista simplificada.
-* Mostrar ruta.
-* Mostrar entregas pendientes.
-* Mostrar alertas.
-* Configurar permisos.
-* Bloquear funciones administrativas.
-* Realizar pruebas de usabilidad.
+****Cuando**** el sistema genera la nueva ruta,
 
----
+****Entonces**** debe conservar disponible la última ruta conocida en el dispositivo y dejar la nueva información pendiente de sincronización hasta recuperar la conexión.
 
-### EN-006 – Implementar monitoreo y contingencia de disponibilidad
+### US-008 – Consultar indicadores operativos y de sostenibilidad
 
-**ID:** EN-006
+****Criterio de Aceptación 1****
 
-**Título:** Implementar monitoreo y contingencia de disponibilidad
+****Escenario:**** Actualizar indicadores después de una operación
 
-**RNF de origen:** RNF-006
+****Dado**** que existen datos de rutas ejecutadas y operaciones registradas,
 
-**Tipo:** Disponibilidad
+****Cuando**** se actualiza la información operativa,
 
-**Redacción:**
+****Entonces**** el dashboard debe mostrar los indicadores correspondientes de distancia recorrida, consumo, emisiones de CO₂, ahorro y equivalentes ambientales.
 
-**Como** equipo técnico,
+****Criterio de Aceptación 2****
 
-**quiero** implementar mecanismos de monitoreo y recuperación ante interrupciones,
+****Escenario:**** Mostrar indicadores cuando no existen datos históricos
 
-**para** mantener la continuidad de las operaciones y recuperar el sistema de forma controlada cuando ocurra una falla.
+****Dado**** que no existen registros históricos suficientes para realizar una comparación,
 
-#### Criterios de Aceptación
+****Cuando**** el supervisor consulta el dashboard,
 
-**Escenario 1: Disponibilidad mensual**
+****Entonces**** el sistema debe mostrar los valores absolutos disponibles y evitar presentar una variación histórica que no pueda ser calculada.
 
-**Dado** que el sistema debe operar dentro del horario establecido de 05:00 a 22:00,
+### US-009 – Generar reportes de sostenibilidad y costos
 
-**Cuando** se evalúa la disponibilidad mensual,
+****Criterio de Aceptación 1****
 
-**Entonces** el objetivo de disponibilidad debe ser igual o superior al 99.5%.
+****Escenario:**** Generar un reporte con información disponible
 
-**Escenario 2: Interrupción del servicio**
+****Dado**** que existen operaciones registradas dentro del periodo seleccionado,
 
-**Dado** que se simula una interrupción del sistema,
+****Cuando**** el administrador solicita la generación del reporte,
 
-**Cuando** se ejecuta el mecanismo de contingencia,
+****Entonces**** el sistema debe generar un archivo PDF que contenga la información de sostenibilidad y costos correspondiente al periodo seleccionado.
 
-**Entonces** el sistema debe mantener la continuidad disponible o ejecutar un proceso controlado de recuperación.
+****Criterio de Aceptación 2****
 
-#### Tareas
+****Escenario:**** Solicitar un reporte sin información disponible
 
-* Configurar monitoreo.
-* Registrar disponibilidad.
-* Configurar alertas.
-* Preparar mecanismo de recuperación.
-* Simular interrupciones.
-* Validar recuperación.
-* Documentar resultados.
+****Dado**** que no existen operaciones registradas durante el periodo seleccionado,
 
----
+****Cuando**** el administrador solicita la generación del reporte,
 
-### EN-007 – Mantener documentación técnica y operativa
+****Entonces**** el sistema debe cancelar la generación e informar: ****“No se encontraron datos para generar el reporte en el periodo especificado.”****
 
-**ID:** EN-007
+### US-010 – Generar propuesta de compensación de carbono
 
-**Título:** Mantener documentación técnica y operativa
+****Criterio de Aceptación 1****
 
-**RNF de origen:** RNF-007
+****Escenario:**** Calcular una propuesta de compensación a partir de las emisiones
 
-**Tipo:** Documentación
+****Dado**** que el sistema dispone de las emisiones acumuladas de CO₂ correspondientes al periodo seleccionado,
 
-**Redacción:**
+****Cuando**** el responsable de sostenibilidad solicita el cálculo de compensación,
 
-**Como** equipo técnico,
+****Entonces**** el sistema debe calcular los equivalentes de compensación definidos para créditos de carbono y árboles.
 
-**quiero** mantener actualizada la documentación técnica y operativa del sistema,
+****Criterio de Aceptación 2****
 
-**para** asegurar que la información del proyecto corresponda con la versión implementada.
+****Escenario:**** Recalcular la distribución de compensación entre proyectos
 
-#### Criterios de Aceptación
+****Dado**** que existe una propuesta de compensación y el responsable selecciona los proyectos ambientales participantes,
 
-**Escenario 1: Actualización documental**
+****Cuando**** modifica la distribución entre los proyectos seleccionados,
 
-**Dado** que se realiza un cambio en la arquitectura, API o funcionalidad del sistema,
+****Entonces**** el sistema debe recalcular proporcionalmente la distribución de árboles y permitir la generación o exportación de la propuesta actualizada.
 
-**Cuando** el cambio es incorporado al proyecto,
+## C.2 Criterios de aceptación de los Enablers
 
-**Entonces** se deben actualizar los documentos afectados.
+Los Enablers representan las condiciones técnicas necesarias para soportar las Historias de Usuario y garantizar atributos relacionados con rendimiento, seguridad, accesibilidad, escalabilidad, usabilidad, disponibilidad y documentación.
 
-**Escenario 2: Revisión de documentación**
+### EN-001 – Rendimiento del algoritmo de optimización
 
-**Dado** que se alcanza un hito del proyecto,
+****Criterio de Aceptación 1****
 
-**Cuando** se revisa la documentación,
+****Escenario:**** Ejecutar la optimización dentro del tiempo establecido
 
-**Entonces** los documentos obligatorios correspondientes al hito deben encontrarse disponibles y alineados con la versión implementada.
+****Dado**** que el sistema cuenta con una carga de operación dentro de los parámetros definidos para la solución,
 
-#### Tareas
+****Cuando**** el operador ejecuta el algoritmo de optimización,
 
-* Revisar documentación existente.
-* Actualizar arquitectura.
-* Actualizar documentación de API.
-* Actualizar documentación funcional.
-* Revisar cambios por versión.
-* Validar consistencia documental.
+****Entonces**** el sistema debe generar una solución válida dentro del tiempo máximo establecido por el ****RNF-001****.
 
----
+****Criterio de Aceptación 2****
 
-## 7. Definition of Done (DoD) Global del Proyecto
+****Escenario:**** Ejecutar la reoptimización dentro del tiempo establecido
 
-Una Historia de Usuario o Historia Técnica se considerará **Done** únicamente cuando cumpla todos los criterios aplicables de la siguiente lista:
+****Dado**** que existe una ruta activa afectada por un evento que requiere una nueva planificación,
 
-### 7.1 Pruebas unitarias
+****Cuando**** el sistema ejecuta el proceso de reoptimización,
 
-* La funcionalidad debe contar con pruebas unitarias.
-* La cobertura de pruebas unitarias debe ser **igual o superior al 80%** en el código correspondiente a la funcionalidad implementada.
-* Las pruebas deben ejecutarse correctamente antes de cerrar la historia.
+****Entonces**** debe generar una nueva solución válida dentro del tiempo máximo de respuesta establecido por el ****RNF-001****.
 
-### 7.2 Análisis estático y seguridad
+### EN-002 – Seguridad de la aplicación y protección de datos
 
-* El código debe pasar el análisis estático mediante herramientas como **SonarQube o CodeQL**.
-* No deben existir vulnerabilidades críticas pendientes en el alcance evaluado.
-* Los problemas críticos detectados deben ser corregidos antes de considerar la historia terminada.
+****Criterio de Aceptación 1****
 
-### 7.3 Revisión de código
+****Escenario:**** Validar el acceso de usuarios autenticados
 
-* El código debe pasar por un proceso de **Peer Review**.
-* La revisión debe ser aprobada por al menos un integrante técnico diferente al autor.
-* La aprobación debe quedar registrada mediante un **Pull Request**.
+****Dado**** que un usuario intenta acceder a un módulo protegido de la aplicación,
 
-### 7.4 Despliegue
+****Cuando**** proporciona sus credenciales,
 
-* La funcionalidad debe poder desplegarse mediante el proceso automatizado definido por el proyecto.
-* El despliegue debe ser ejecutable en el ambiente de **Staging/Pruebas**.
-* La funcionalidad debe encontrarse disponible para su validación en dicho ambiente.
+****Entonces**** el sistema debe permitir el acceso únicamente cuando las credenciales sean válidas y el usuario cuente con los permisos correspondientes.
 
-### 7.5 Documentación
+****Criterio de Aceptación 2****
 
-* La documentación técnica y funcional relacionada con la historia debe estar actualizada.
-* Las modificaciones de API deben reflejarse en **OpenAPI/Swagger**.
-* Los cambios relevantes de código o arquitectura deben actualizar la documentación correspondiente.
+****Escenario:**** Impedir el acceso no autorizado a información protegida
 
-### 7.6 Criterios de aceptación
+****Dado**** que un usuario no posee permisos para acceder a determinada información o funcionalidad,
 
-* Todos los criterios de aceptación definidos para la Historia de Usuario o Enabler deben haber sido validados.
-* Los escenarios BDD/Gherkin deben ejecutarse satisfactoriamente.
-* No deben existir defectos críticos abiertos que impidan el uso de la funcionalidad.
+****Cuando**** intenta realizar una operación restringida,
 
-### 7.7 Integración
+****Entonces**** el sistema debe rechazar la solicitud y no debe exponer la información protegida.
 
-* La funcionalidad debe estar integrada en la rama correspondiente del proyecto.
-* El código debe cumplir las convenciones definidas por el equipo.
-* La integración no debe introducir errores críticos en funcionalidades existentes.
+### EN-003 – Accesibilidad de la interfaz
 
----
+****Criterio de Aceptación 1****
 
-## 8. Trazabilidad General
+****Escenario:**** Navegar por los controles principales de la aplicación
 
-La trazabilidad de los requisitos se mantiene mediante la relación:
+****Dado**** que un usuario accede a una interfaz del sistema,
 
-```text
-RF / RNF
-   │
-   ├── RF → Épica → Historia de Usuario → Tareas/Subtareas
-   │
-   └── RNF → Enabler → Tareas/Subtareas
-```
+****Cuando**** utiliza los mecanismos de navegación disponibles,
 
-| Requisito | Épica | Elemento ágil | Tipo                 |
-| --------- | ----- | -------------- | -------------------- |
-| RF-001    | EP-01 | US-001         | Historia de Usuario  |
-| RF-002    | EP-02 | US-003         | Historia de Usuario  |
-| RF-003    | EP-03 | US-005         | Historia de Usuario  |
-| RF-004    | EP-03 | US-006         | Historia de Usuario  |
-| RF-005    | EP-04 | US-008         | Historia de Usuario  |
-| RF-006    | EP-04 | US-009         | Historia de Usuario  |
-| RF-007    | EP-03 | US-007         | Historia de Usuario  |
-| RF-008    | EP-01 | US-002         | Historia de Usuario  |
-| RF-009    | EP-02 | US-004         | Historia de Usuario  |
-| RF-010    | EP-04 | US-010         | Historia de Usuario  |
-| RNF-001   | EP-05 | EN-001         | Enabler              |
-| RNF-002   | EP-05 | EN-002         | Enabler              |
-| RNF-003   | EP-05 | EN-003         | Enabler              |
-| RNF-004   | EP-05 | EN-004         | Enabler              |
-| RNF-005   | EP-05 | EN-005         | Enabler              |
-| RNF-006   | EP-05 | EN-006         | Enabler              |
-| RNF-007   | EP-05 | EN-007         | Enabler              |
+****Entonces**** los controles y funcionalidades principales deben poder identificarse y utilizarse de acuerdo con los criterios de accesibilidad establecidos para el sistema.
 
----
+****Criterio de Aceptación 2****
 
-## 9. Resumen del Backlog
+****Escenario:**** Identificar información mediante elementos visuales y textuales
 
-| Elemento                                | Cantidad                            |
-| ---------------------------------------- | ------------------------------------ |
-| Épicas                                  | 5                                    |
-| Historias de Usuario                    | 10                                   |
-| Enablers                                 | 7                                    |
-| Requerimientos Funcionales cubiertos    | 10                                   |
-| Requerimientos No Funcionales cubiertos | 7                                    |
-| Tareas y subtareas                       | Derivadas durante la implementación |
+****Dado**** que la interfaz presenta información, controles, alertas o mensajes,
 
-La estructura propuesta permite mantener una relación directa entre los requisitos originales y el backlog ágil, evitando convertir cada operación de mantenimiento, como editar, actualizar o consultar, en una Historia de Usuario independiente.
+****Cuando**** el usuario consulta dichos elementos,
 
-Las tareas y subtareas representan el trabajo técnico necesario para completar cada historia, mientras que las Historias de Usuario mantienen el enfoque en el valor entregado al usuario y los Enablers permiten controlar los atributos técnicos y de calidad requeridos por el sistema.
+****Entonces**** la información relevante debe presentarse mediante elementos identificables y comprensibles, respetando los criterios de accesibilidad definidos en el ****RNF-003****.
+
+### EN-004 – Escalabilidad operativa
+
+****Criterio de Aceptación 1****
+
+****Escenario:**** Procesar el volumen operativo definido
+
+****Dado**** que el sistema recibe una carga correspondiente al volumen operativo establecido en el ****RNF-004****,
+
+****Cuando**** se ejecutan las operaciones de gestión y planificación,
+
+****Entonces**** el sistema debe procesar dicha carga sin incumplir las condiciones de rendimiento y operación definidas.
+
+****Criterio de Aceptación 2****
+
+****Escenario:**** Incrementar la carga de operaciones
+
+****Dado**** que el volumen de pedidos y vehículos aumenta dentro de los límites establecidos para la solución,
+
+****Cuando**** el sistema procesa la nueva carga,
+
+****Entonces**** debe continuar operando sin pérdida de integridad de los datos ni interrupciones incompatibles con los parámetros definidos en el ****RNF-004****.
+
+### EN-005 – Usabilidad para conductores
+
+****Criterio de Aceptación 1****
+
+****Escenario:**** Consultar una ruta desde la aplicación del conductor
+
+****Dado**** que el conductor tiene una ruta asignada,
+
+****Cuando**** accede a la aplicación durante su jornada,
+
+****Entonces**** debe poder identificar y consultar de forma clara la ruta, las paradas y las indicaciones necesarias para ejecutar la operación.
+
+****Criterio de Aceptación 2****
+
+****Escenario:**** Recibir información ante una modificación de ruta
+
+****Dado**** que una ruta asignada ha sido modificada mediante el proceso de reoptimización,
+
+****Cuando**** el dispositivo del conductor recibe la actualización,
+
+****Entonces**** la aplicación debe presentar de forma clara la nueva información de ruta y las indicaciones correspondientes.
+
+### EN-006 – Disponibilidad del sistema
+
+****Criterio de Aceptación 1****
+
+****Escenario:**** Mantener la disponibilidad requerida del sistema
+
+****Dado**** que el sistema se encuentra en operación,
+
+****Cuando**** los usuarios acceden a las funcionalidades disponibles durante el periodo de servicio,
+
+****Entonces**** el sistema debe mantener el nivel de disponibilidad establecido en el ****RNF-006****.
+
+****Criterio de Aceptación 2****
+
+****Escenario:**** Recuperar la operación después de una interrupción
+
+****Dado**** que se produce una interrupción temporal del servicio,
+
+****Cuando**** se ejecutan los mecanismos de recuperación definidos,
+
+****Entonces**** el sistema debe restablecer la operación y conservar la integridad de la información registrada.
+
+### EN-007 – Documentación técnica y operativa
+
+****Criterio de Aceptación 1****
+
+****Escenario:**** Mantener actualizada la documentación técnica
+
+****Dado**** que se incorpora o modifica una funcionalidad o servicio del sistema,
+
+****Cuando**** se completa la implementación correspondiente,
+
+****Entonces**** la documentación técnica asociada debe actualizarse con la información necesaria para su mantenimiento e integración.
+
+****Criterio de Aceptación 2****
+
+****Escenario:**** Mantener actualizada la documentación de las API
+
+****Dado**** que el sistema expone o modifica un endpoint de API,
+
+****Cuando**** se libera la modificación correspondiente,
+
+****Entonces**** la documentación de la API, incluyendo las especificaciones aplicables en ****OpenAPI/Swagger****, debe reflejar la versión implementada.
+
+###   
+
+### D. Definition of Done (DoD) Global del Proyecto
+
+La ****Definition of Done (DoD)**** establece el conjunto de condiciones técnicas y de calidad que deben cumplirse para que una ****Historia de Usuario sea considerada finalizada ("Done")**** dentro del proyecto EcoLogística Lima.
+
+Los criterios son de cumplimiento obligatorio y deben verificarse antes de cerrar cualquier Historia de Usuario.
+
+#### Criterios del DoD Global
+
+Una Historia de Usuario se considera ****Done**** únicamente cuando cumple con todos los siguientes criterios:
+
+-   ****Implementación completada:**** todas las funcionalidades y tareas asociadas a la Historia de Usuario han sido implementadas de acuerdo con su descripción y criterios de aceptación.
+-   ****Criterios de aceptación cumplidos:**** los criterios de aceptación definidos mediante sintaxis BDD (Gherkin) han sido ejecutados y cumplen con los resultados esperados.
+-   ****Cobertura de pruebas unitarias ≥ 80%:**** el código desarrollado debe contar con una cobertura de pruebas unitarias igual o superior al ****80%****.
+-   ****Análisis estático de código:**** el código debe haber sido analizado mediante herramientas como ****SonarQube o CodeQL****, sin presentar vulnerabilidades críticas pendientes.
+-   ****Revisión de código (Peer Review):**** los cambios deben haber sido revisados y aprobados por ****al menos un par técnico**** mediante un ****Pull Request (PR)**** antes de integrarse a la rama correspondiente.
+-   ****Defectos críticos corregidos:**** no deben existir defectos críticos o bloqueantes relacionados con la Historia de Usuario pendientes de resolución.
+-   ****Integración correcta:**** la funcionalidad debe estar integrada correctamente con los componentes existentes del sistema y no debe generar errores que afecten funcionalidades previamente implementadas.
+-   ****Despliegue automatizado:**** el proyecto debe contar con un proceso de despliegue automatizado que pueda ejecutarse correctamente en el ambiente de ****Staging/Pruebas****.
+-   ****Validación en Staging/Pruebas:**** la Historia de Usuario debe haber sido desplegada y validada en el ambiente de Staging/Pruebas, verificando el cumplimiento de sus criterios de aceptación.
+-   ****Documentación actualizada:**** la documentación técnica relacionada con la funcionalidad implementada debe encontrarse actualizada.
+-   ****Documentación de API/código:**** cuando la Historia de Usuario implique la creación o modificación de servicios o endpoints, la documentación correspondiente debe actualizarse utilizando ****OpenAPI/Swagger****.
+-   ****Tareas y subtareas completadas:**** todas las tareas y subtareas asociadas a la Historia de Usuario deben encontrarse finalizadas y verificadas.
+
+####
+
+[← Volver al README Principal](../../README.md)
