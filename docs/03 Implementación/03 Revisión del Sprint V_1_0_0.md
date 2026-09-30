@@ -1,170 +1,232 @@
-# 03. Revisión del Sprint
+[← Volver al README principal](../../README.md)
+
+# Revisión del Sprint
+
+**Nombre del Proyecto:** EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana
+
+**Código del Proyecto:** PFA-ECOLIMA-2026
+
+**Líder del Proyecto:** Zayuri Cerron Medina — Directora de Proyecto / Project Manager
+
+**Código del Proyecto:** PFA-ECOLIMA-2026  
+**Responsable del documento:** Angela Rojas Quispe — Product Owner
+**Scrum Master:** Jheferson Martinez Valerio  
+**Analista de Riesgos / QA:** Maylit Mendoza Alarcon
+**Gestor de Stakeholders / Comunicaciones:** Diego Angulo Gonzales  
+**Sprint:** Sprint 1
+**Periodo:** 16 de septiembre al 9 de octubre de 2026
+**Fecha de corte de la revisión:** 30 de septiembre de 2026
+**Versión:** V_1_0_0
+**Estado:** Borrador para revisión del equipo
 
 ---
 
-## 1. Información del documento
+## Objetivo del Sprint
 
-| Campo | Detalle |
+El objetivo establecido para el Sprint 1 es:
+
+> Implementar las funcionalidades iniciales de gestión de vehículos, conductores y pedidos, estableciendo una base funcional para la posterior optimización y monitoreo de rutas.
+
+Al corte del 30 de septiembre de 2026, el Sprint continúa abierto. Por ello, esta revisión presenta el estado actualmente registrado y no considera como completadas aquellas Historias de Usuario que todavía no cuentan con evidencia de finalización y validación.
+
+---
+
+## Historias de Usuario completadas en este Sprint
+
+Al momento de realizar esta revisión, **no se declara completada ninguna Historia de Usuario funcional del Sprint 1**.
+
+El estado actual registrado en Jira muestra las siguientes historias:
+
+| Historia | Identificador Jira | Requisito de origen | Story Points | Estado | Subtareas completadas |
+| :--- | :--- | :--- | :---: | :--- | :---: |
+| **US-001** Gestionar vehículos de la flota | ANA-9 | RF-001 | 5 | Por hacer | 0/8 |
+| **US-002** Gestionar conductores y jornada | ANA-6 | RF-008 | 5 | Por hacer | 0/9 |
+| **Total Sprint 1** | | | **10 SP** | **10 SP pendientes** | **0/17** |
+
+Las 17 subtareas asociadas a las dos historias también figuran actualmente como pendientes y sin asignación en Jira.
+
+Por lo tanto, los **10 Story Points actualmente comprometidos en el Sprint permanecen pendientes**, y no deben considerarse como puntos completados.
+
+### US-001 — Gestionar vehículos de la flota
+
+Esta Historia de Usuario tiene como finalidad permitir la gestión de los vehículos pertenecientes a la flota logística.
+
+**Estado actual:** Por hacer.
+
+**Story Points:** 5 SP.
+
+**Requisito relacionado:** RF-001.
+
+**Subtareas:** 0/8 completadas.
+
+La historia permanecerá pendiente hasta que se implemente, pruebe y valide de acuerdo con los criterios de aceptación y la Definition of Done establecida para el proyecto.
+
+### US-002 — Gestionar conductores y jornada
+
+Esta Historia de Usuario contempla la gestión de los conductores y la información relacionada con su jornada de trabajo.
+
+**Estado actual:** Por hacer.
+
+**Story Points:** 5 SP.
+
+**Requisito relacionado:** RF-008.
+
+**Subtareas:** 0/9 completadas.
+
+La historia permanecerá pendiente hasta completar su implementación, validación y evidencias correspondientes.
+
+---
+
+## Cambio de alcance identificado
+
+Durante la revisión del Sprint se identificó un cambio respecto a la planificación histórica.
+
+La Historia de Usuario:
+
+- **US-003 — Gestionar pedidos y geolocalización**
+- **Identificador Jira:** ANA-7
+- **Story Points:** 8 SP
+
+ya no forma parte del Sprint 1 actual y fue trasladada al **Sprint 2**.
+
+La planificación histórica mostraba inicialmente tres historias:
+
+- US-001 — 5 SP.
+- US-002 — 5 SP.
+- US-003 — 8 SP.
+
+Esto representaba un total de **18 SP**.
+
+Actualmente, el Sprint 1 contiene:
+
+- US-001 — 5 SP.
+- US-002 — 5 SP.
+
+Por lo tanto, el alcance actual corresponde a **10 SP**.
+
+El traslado de US-003 al Sprint 2 explica la diferencia entre los 18 SP de la planificación histórica y los 10 SP actualmente registrados.
+
+La justificación del traslado debe quedar documentada y validada por el equipo antes del cierre definitivo del Sprint.
+
+---
+
+## Demostración del trabajo realizado
+
+Debido a que el Sprint 1 todavía se encuentra abierto y las Historias de Usuario US-001 y US-002 aparecen como **Por hacer**, esta revisión **no declara una demostración funcional del producto**.
+
+No se cuenta, al corte del 30 de septiembre de 2026, con evidencia suficiente para afirmar que las funcionalidades de gestión de vehículos y gestión de conductores hayan sido implementadas y validadas.
+
+La revisión se concentra en los artefactos de planificación, seguimiento y preparación del desarrollo.
+
+Entre los elementos actualmente disponibles se consideran:
+
+1. Repositorio GitHub del proyecto **EcoLogistica-Lima**.
+2. Documentación correspondiente a las fases de Inicio y Planificación.
+3. README principal del proyecto.
+4. Documentación de requisitos funcionales y no funcionales.
+5. Identificación y perfiles de usuarios.
+6. Reglas de negocio.
+7. Modelo y diseño inicial de la base de datos.
+8. Arquitectura y modelo C4.
+9. Product Backlog y Sprint Backlog.
+10. Historias de Usuario registradas en Jira.
+11. Evidencias históricas de la planificación del Sprint.
+12. Documentación correspondiente al Sprint 1.
+
+Esta revisión permite comprobar el estado del trabajo planificado, pero **no debe interpretarse como una demostración funcional del sistema**.
+
+---
+
+## Estado actual del Sprint
+
+El estado registrado al 30 de septiembre de 2026 es:
+
+| Indicador | Resultado |
 | :--- | :--- |
-| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
-| **Código del Proyecto** | PFA-ECOLIMA-2026 |
-| **Documento** | Revisión del Sprint |
-| **Código del Documento** | 03 |
-| **Versión** | V_1_0_0 |
-| **Sprint** | Sprint [N.º] |
-| **Fecha de revisión** | [DD/MM/2026] |
-| **Responsable** | Angela |
-| **Product Owner** | Cerron Medina Anahi |
-| **Scrum Master** | Martinez Valerio Jheferson Jesus |
-| **Estado** | Aprobado / En revisión |
+| Historias planificadas actualmente | 2 |
+| Story Points actuales | 10 SP |
+| Historias completadas | 0 |
+| Historias en curso | 0 |
+| Historias pendientes | 2 |
+| Subtareas completadas | 0/17 |
+| Subtareas pendientes | 17 |
+| Sprint finalizado | No |
+| Demo funcional realizada | No acreditada al corte |
+| US-003 | Trasladada al Sprint 2 |
+
+El valor de **0 SP completados** corresponde al estado actual del tablero y no representa todavía el resultado definitivo del Sprint, debido a que el Sprint finaliza el 9 de octubre de 2026.
 
 ---
 
-## 2. Objetivo de la Sprint Review
+## Retroalimentación y observaciones
 
-La Sprint Review tuvo como objetivo presentar los resultados obtenidos durante el Sprint, demostrar las funcionalidades desarrolladas y verificar el cumplimiento de las Historias de Usuario planificadas.
+A partir de la revisión de los artefactos disponibles se identificaron las siguientes observaciones:
 
-Durante la revisión se presentó el incremento desarrollado del proyecto **EcoLogistica-Lima**, permitiendo a los stakeholders observar el funcionamiento de las funcionalidades implementadas y proporcionar retroalimentación sobre los resultados obtenidos.
-
-Asimismo, se identificaron los elementos que quedaron pendientes de completar, corregir o mejorar, los cuales podrán ser considerados para los siguientes Sprints de acuerdo con su prioridad.
-
----
-
-## 3. Resumen del Sprint
-
-| Elemento | Detalle |
-| :--- | :--- |
-| **Sprint** | Sprint [N.º] |
-| **Duración** | [Fecha de inicio] – [Fecha de finalización] |
-| **Objetivo del Sprint** | [Describir brevemente el objetivo] |
-| **Historias planificadas** | [Cantidad] |
-| **Historias completadas** | [Cantidad] |
-| **Historias pendientes** | [Cantidad] |
-| **Incremento entregado** | [Descripción breve] |
-
-### 3.1 Objetivo planteado
-
-El objetivo establecido para el Sprint fue:
-
-> "[Colocar aquí el objetivo definido para el Sprint]"
-
-### 3.2 Resultado obtenido
-
-Al finalizar el Sprint se obtuvo:
-
-- [Resultado o funcionalidad desarrollada 1].
-- [Resultado o funcionalidad desarrollada 2].
-- [Resultado o funcionalidad desarrollada 3].
-- [Pruebas o validaciones realizadas].
-- [Otros resultados relevantes].
+- Es necesario mantener sincronizada la información entre Jira y los documentos Markdown del proyecto.
+- El traslado de US-003 al Sprint 2 debe quedar documentado junto con su motivo.
+- Debe conciliarse la diferencia entre las estimaciones históricas y las actualmente registradas.
+- Las historias deben contar con responsables asignados antes de iniciar su desarrollo.
+- Cada Historia de Usuario deberá contar con evidencias de pruebas y validación antes de declararse completada.
+- La Definition of Done debe utilizarse como criterio para determinar cuándo una historia realmente está terminada.
+- Las evidencias del Sprint deben mantenerse actualizadas y asociadas a las historias correspondientes.
 
 ---
 
-# 4. Historias de Usuario Completadas
+## Pendientes
 
-En esta sección se detallan las Historias de Usuario que fueron desarrolladas y cumplieron con los criterios de aceptación establecidos durante el Sprint.
+Para continuar con el Sprint 1 se identifican los siguientes elementos pendientes:
 
-## 4.1 HU-[XX] – [Nombre de la Historia de Usuario]
-
-**Historia de Usuario:**
-
-> Como [tipo de usuario], quiero [funcionalidad], para [beneficio].
-
-### Criterios de aceptación
-
-- [Criterio de aceptación 1].
-- [Criterio de aceptación 2].
-- [Criterio de aceptación 3].
-
-### Resultado
-
-**Estado:** COMPLETADA
-
-La Historia de Usuario fue implementada y validada de acuerdo con los criterios de aceptación establecidos.
-
-### Evidencia
-
-![Evidencia HU-[XX]](../ruta/de/la/evidencia.png)
-
-**Descripción de la evidencia:**  
-[Describir brevemente qué se observa en la captura o evidencia.]
+- Asignar responsables a US-001 y US-002.
+- Completar las subtareas asociadas a US-001.
+- Completar las subtareas asociadas a US-002.
+- Implementar la gestión de vehículos de la flota.
+- Implementar la gestión de conductores y jornada.
+- Realizar las pruebas correspondientes a cada Historia de Usuario.
+- Validar los criterios de aceptación.
+- Verificar el cumplimiento de la Definition of Done.
+- Registrar evidencias de implementación y pruebas en Jira.
+- Documentar la razón del traslado de US-003 al Sprint 2.
+- Revisar la coherencia entre el Sprint Goal y el alcance actual del Sprint.
+- Conciliar las diferencias de Story Points existentes entre la documentación histórica y Jira.
+- Preparar la demostración funcional para el cierre del Sprint.
+- Registrar la retroalimentación de los stakeholders durante la Sprint Review.
+- Actualizar la documentación del proyecto con los resultados finales del Sprint.
 
 ---
 
-## 4.2 HU-[XX] – [Nombre de la Historia de Usuario]
+## Próximas actividades
 
-**Historia de Usuario:**
+Antes del cierre del Sprint 1 se propone realizar las siguientes actividades:
 
-> Como [tipo de usuario], quiero [funcionalidad], para [beneficio].
-
-### Criterios de aceptación
-
-- [Criterio de aceptación 1].
-- [Criterio de aceptación 2].
-- [Criterio de aceptación 3].
-
-### Resultado
-
-**Estado:** COMPLETADA
-
-La Historia de Usuario fue implementada y validada de acuerdo con los criterios de aceptación establecidos.
-
-### Evidencia
-
-![Evidencia HU-[XX]](../ruta/de/la/evidencia.png)
-
-**Descripción de la evidencia:**  
-[Describir brevemente qué se observa en la captura o evidencia.]
+1. Revisar la asignación de responsables y la disponibilidad del equipo.
+2. Iniciar el desarrollo de US-001 y US-002.
+3. Registrar el avance de las subtareas directamente en Jira.
+4. Ejecutar las pruebas correspondientes.
+5. Validar las historias según sus criterios de aceptación.
+6. Reunir las evidencias de desarrollo y pruebas.
+7. Realizar la demostración funcional del incremento disponible.
+8. Recopilar la retroalimentación de los stakeholders.
+9. Actualizar el Sprint Backlog con el estado real.
+10. Registrar las conclusiones y acuerdos de la Sprint Review.
 
 ---
 
-## 4.3 Resumen de Historias de Usuario
+## Conclusión
 
-| ID | Historia de Usuario | Estado | Criterios cumplidos | Evidencia |
-| :--- | :--- | :---: | :---: | :--- |
-| HU-[XX] | [Nombre de HU] | Completada | Sí | [Evidencia] |
-| HU-[XX] | [Nombre de HU] | Completada | Sí | [Evidencia] |
-| HU-[XX] | [Nombre de HU] | Completada | Sí | [Evidencia] |
+La revisión del Sprint 1 evidencia que el proyecto cuenta con una planificación y estructura de trabajo definida, pero que al 30 de septiembre de 2026 las dos Historias de Usuario actualmente comprometidas permanecen en estado **Por hacer**.
+
+El alcance actual del Sprint comprende **US-001 y US-002, equivalentes a 10 Story Points**, mientras que **US-003 fue trasladada al Sprint 2**.
+
+Debido a que el Sprint todavía permanece abierto, no corresponde declarar las historias como completadas ni presentar una demo funcional como resultado final. La validación definitiva deberá realizarse al cierre del Sprint, considerando el estado real de las historias, las pruebas ejecutadas, los criterios de aceptación, la Definition of Done y la retroalimentación de los stakeholders.
 
 ---
 
-# 5. Demostración del Sprint
+## Control de cambios
 
-Durante la Sprint Review se realizó una demostración del incremento desarrollado durante el Sprint.
+| Versión | Fecha | Responsable | Descripción | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| V_1_0_0 | 30/09/2026 | Diego Angulo Gonzales | Primera versión de la Revisión del Sprint 1 con corte al 30/09/2026. | Borrador |
 
-La demostración permitió presentar a los stakeholders las funcionalidades implementadas y verificar su comportamiento desde la perspectiva del usuario.
+---
 
-## 5.1 Funcionalidades demostradas
-
-Durante la demostración se presentaron las siguientes funcionalidades:
-
-1. **[Funcionalidad 1]**
-   - [Descripción breve].
-   - [Resultado obtenido].
-
-2. **[Funcionalidad 2]**
-   - [Descripción breve].
-   - [Resultado obtenido].
-
-3. **[Funcionalidad 3]**
-   - [Descripción breve].
-   - [Resultado obtenido].
-
-## 5.2 Flujo de demostración
-
-El flujo utilizado durante la demostración fue el siguiente:
-
-```text
-Inicio
-  ↓
-[Acceso al sistema]
-  ↓
-[Funcionalidad / módulo 1]
-  ↓
-[Funcionalidad / módulo 2]
-  ↓
-[Registro / procesamiento]
-  ↓
-[Consulta / resultado]
-  ↓
-Fin
+[← Volver al README principal](../../README.md)
