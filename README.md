@@ -185,6 +185,15 @@ Toda la descomposición técnica y parametrización ágil reside en [`docs/02 Pl
 
 ---
 
+
+### 📍 Fase 03: Implementación — Sprint 1
+
+| Código | Artefacto Oficial | Responsable | Enfoque / Estado |
+| :---: | :--- | :--- | :--- |
+| **04** | [Retrospectiva del Sprint V_1_0_0.md](docs/03%20Implementaci%C3%B3n/04%20Retrospectiva%20del%20Sprint%20V_1_0_0.md) | Diego Angulo Gonzales | Análisis de Personas, Relaciones, Procesos y Herramientas con plan de mejora. Corte al 30 de septiembre de 2026; pendiente de validación al cierre. |
+
+---
+
 ## 👥 Directorio del Equipo de Proyecto
 
 <div align="center">
