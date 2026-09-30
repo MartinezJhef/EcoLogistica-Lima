@@ -1,34 +1,20 @@
 [← Volver al README principal](../../README.md)
 
 # Revisión del Sprint
-
-**Nombre del Proyecto:** EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana
-
-**Código del Proyecto:** PFA-ECOLIMA-2026
-
-**Líder del Proyecto:** Zayuri Cerron Medina — Directora de Proyecto / Project Manager
-
-**Código del Proyecto:** PFA-ECOLIMA-2026  
-
-**Responsable del documento:** Angela Rojas Quispe — Product Owner
-
-**Scrum Master:** Jheferson Martinez Valerio  
-
-**Analista de Riesgos / QA:** Maylit Mendoza Alarcon
-
-**Gestor de Stakeholders / Comunicaciones:** Diego Angulo Gonzales  
-
-**Sprint:** Sprint 1
-
-**Periodo:** 16 de septiembre al 9 de octubre de 2026
-
-**Fecha de corte de la revisión:** 30 de septiembre de 2026
-
-**Versión:** V_1_0_0
-
-**Estado:** Borrador para revisión del equipo
-
----
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Líder del Proyecto** | Zayuri Cerron Medina — Directora de Proyecto / Project Manager |
+| **Responsable del documento** | Angela Rojas Quispe — Product Owner |
+| **Scrum Master** | Jheferson Martinez Valerio |
+| **Analista de Riesgos / QA** | Maylit Mendoza Alarcon |
+| **Gestor de Stakeholders / Comunicaciones** | Diego Angulo Gonzales |
+| **Sprint** | Sprint 1 |
+| **Periodo** | 16 de septiembre al 9 de octubre de 2026 |
+| **Fecha de corte de la revisión** | 30 de septiembre de 2026 |
+| **Versión** | V_1_0_0 |
+| **Estado** | Borrador para revisión del equipo |
 
 ## Objetivo del Sprint
 
