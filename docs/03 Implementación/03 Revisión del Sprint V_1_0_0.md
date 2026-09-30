@@ -220,7 +220,7 @@ Debido a que el Sprint todavía permanece abierto, no corresponde declarar las h
 
 | Versión | Fecha | Responsable | Descripción | Estado |
 | :--- | :--- | :--- | :--- | :--- |
-| V_1_0_0 | 30/09/2026 | Diego Angulo Gonzales | Primera versión de la Revisión del Sprint 1 con corte al 30/09/2026. | Borrador |
+| V_1_0_0 | 30/09/2026 | Angela Rojas Quispe | Primera versión de la Revisión del Sprint 1 con corte al 30/09/2026. | Borrador |
 
 ---
 
