@@ -222,7 +222,7 @@ Como parte de la revisión se deberán considerar las evidencias disponibles en:
 * Documentación técnica correspondiente.
 
 Estas evidencias permiten mantener la trazabilidad entre las Historias de Usuario, las tareas desarrolladas y el incremento funcional.
-
+![alt text](image.png)
 ---
 
 ## 8. Estado actual del Sprint
