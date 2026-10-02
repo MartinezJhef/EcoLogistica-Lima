@@ -1,29 +1,28 @@
 [← Volver al README principal](../../README.md)
 
-# Reprospectiva del sprint
+# 04 Reprospectiva del sprint
 
-**Nombre del Proyecto:** EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana
+---
 
-**Líder del Proyecto:** Zayuri Cerron Medina — Directora de Proyecto / Project Manager
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales  |
+| **Responsable del Documento**| Angela Rojas Quispe |
+| **Fecha de Elaboración** | 30 de septiembre de 2026 |
+| **Versión** | 1.0.0 |
 
-**Código del Proyecto:** PFA-ECOLIMA-2026  
-**Responsable del documento:** Diego Angulo Gonzales — Gestor de Stakeholders / Comunicaciones  
-**Scrum Master:** Jheferson Martinez Valerio  
-**Product Owner:** Angela Rojas Quispe  
-**Analista de Riesgos / QA:** Maylit Mendoza Alarcon  
-**Sprint:** Sprint 1  
-**Periodo previsto:** 16 de septiembre al 9 de octubre de 2026  
-**Fecha de elaboración y corte de la revisión:** 30 de septiembre de 2026  
-**Versión:** 1.0.0 — V_1_0_0  
-**Estado:** Borrador para revisión del equipo; pendiente de validación al cierre del Sprint 1.
+---
 
-**Alcance de esta retrospectiva.** Este documento analiza la organización, seguimiento y trazabilidad del Sprint 1 con corte al 30 de septiembre de 2026. Se contrastaron la consigna y plantilla oficiales, la documentación publicada y el Jira del proyecto mediante consulta directa en lectura. El Sprint todavía está abierto: el análisis es provisional y las acciones son propuestas para validar con el equipo. No se atribuyen historias terminadas, demos realizadas, impedimentos materiales ni acuerdos aprobados sin evidencia.
+## Alcance de esta retrospectiva. 
+Este documento analiza la organización, seguimiento y trazabilidad del Sprint 1 con corte al 30 de septiembre de 2026. Se contrastaron la consigna y plantilla oficiales, la documentación publicada y el Jira del proyecto mediante consulta directa en lectura. El Sprint todavía está abierto: el análisis es provisional y las acciones son propuestas para validar con el equipo. No se atribuyen historias terminadas, demos realizadas, impedimentos materiales ni acuerdos aprobados sin evidencia.
 
 **Sprint Goal registrado:**
 
 > Implementar las funcionalidades iniciales de gestión de vehículos, conductores y pedidos, estableciendo una base funcional para la posterior optimización y monitoreo de rutas.
 
-**Alcance y estado actuales comprobados en Jira:**
+## Alcance y estado actuales comprobados en Jira:
 
 | Historia | Identificador Jira | Requisito de origen | SP actuales | Estado | Persona asignada | Subtareas completadas |
 |---|---|---|---:|---|---|---:|
