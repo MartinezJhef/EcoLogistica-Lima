@@ -20,8 +20,7 @@ En la ceremonia formal de **Sprint Review** realizada al cierre de la iteración
 | :---: | :--- | :--- | :---: | :---: | :---: |
 | **US-001** | Gestionar vehículos de la flota | EP-01 Gestión de Vehículos | 5 SP | 2/2 Cumplidos (Escenario 1 y 2) | **DONE** |
 | **US-002** | Gestionar conductores y jornada | EP-02 Gestión de Conductores | 5 SP | 2/2 Cumplidos (Escenario 1 y 2) | **DONE** |
-| **US-003** | Gestionar pedidos y geolocalización | EP-03 Gestión de Pedidos | 8 SP | 2/2 Cumplidos (Escenario 1 y 2) | **DONE** |
-| **TOTAL** | **Velocidad Lograda en el Sprint 1** | **3 Épicas Impactadas** | **18 SP** | **100% de Criterios Validados** | **DONE** |
+| **TOTAL** | **Velocidad Lograda en el Sprint 1** | **3 Épicas Impactadas** | **10 SP** | **100% de Criterios Validados** | **DONE** |
 
 ---
 
@@ -47,17 +46,6 @@ En la ceremonia formal de **Sprint Review** realizada al cierre de la iteración
   * Lógica de servicio en `FleetService` para el cómputo de horas de servicio y validación de turnos.
   * Vista web para administración de choferes con semaforización de estado operativo (Verde: Disponible, Amarillo: En Turno, Rojo: Límite Alcanzado).
 
-#### 3. US-003: Gestionar pedidos y geolocalización (ANA-7)
-* **Objetivo:** Ingestar pedidos con especificación de destino geográfico, ventanas horarias de entrega y parámetros de peso y volumen.
-* **Criterios de Aceptación Verificados:**
-  * *Escenario 1 (Ingreso de pedido con coordenadas válidas):* Persistencia espacial en PostgreSQL 16 con tipo `GEOMETRY(Point, 4326)`, validando que las coordenadas pertenezcan a la delimitación geográfica de Lima Metropolitana.
-  * *Escenario 2 (Validación de ventanas horarias - RN-007):* Comprobación estricta de que `ventana_fin > ventana_inicio` y que el rango sea de al menos 60 minutos para permitir el despacho logístico.
-* **Tareas Técnicas Cerradas:**
-  * Endpoint de carga masiva de pedidos por JSON para integración con el ERP de DistriRápido S.A.C.
-  * Creación de índices espaciales GiST en la columna `ubicacion_destino`.
-  * Formulario web interactivo con selector de horarios y previsualización de dirección.
-
----
 
 ## Demostración del trabajo completado
 Demostración a los stakeholres de las funcionalides implementadas.
