@@ -16,8 +16,8 @@
 | :--- | :--- |
 | **Periodo de Ejecución** | 16 de septiembre de 2026 al 09 de octubre de 2026 (Duración: 3 semanas) |
 | **Meta del Sprint (Sprint Goal)** | Implementar las funcionalidades iniciales de gestión de vehículos, conductores y pedidos, estableciendo una base funcional para la posterior optimización y monitoreo de rutas. |
-| **Velocidad Comprometida** | 18 Story Points (SP) |
-| **Velocidad Completada** | 18 Story Points (SP) — 100% de cumplimiento |
+| **Velocidad Comprometida** | 10 Story Points (SP) |
+| **Velocidad Completada** | 10 Story Points (SP) — 100% de cumplimiento |
 | **Estado General** | Cumplido exitosamente sin desvíos críticos |
 
 ---
