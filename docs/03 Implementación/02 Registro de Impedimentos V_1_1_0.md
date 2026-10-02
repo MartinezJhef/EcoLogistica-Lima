@@ -1,6 +1,6 @@
 [← Volver al README principal](../../README.md)
 
-# 03 Revisión del Sprint
+# 02 Registro de impedimentos
 
 ---
 
