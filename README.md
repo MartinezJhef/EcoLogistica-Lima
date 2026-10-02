@@ -13,7 +13,7 @@
 [![Metodología](https://img.shields.io/badge/Metodolog%C3%ADa-H%C3%ADbrida%20(Scrum%20%2B%20Predictivo)-3b82f6?style=for-the-badge&logo=scrumalliance&logoColor=white)](docs/01%20Inicio/01.%20Selecci%C3%B3n%20del%20enfoque%20del%20proyecto%20V_1_0_0.md)
 [![Estándar](https://img.shields.io/badge/Gobernanza-PMBOK%C2%AE%207%C2%AA%20Edici%C3%B3n-8b5cf6?style=for-the-badge&logo=bookstack&logoColor=white)](docs/01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_0_0.md)
 [![Calidad](https://img.shields.io/badge/Calidad-ISO%2FIEC%2025010-f59e0b?style=for-the-badge&logo=checkmarx&logoColor=white)](docs/01%20Inicio/07.%20Requisitos%20no%20funcionales%20V_1_0_0.md)
-[![Estado](https://img.shields.io/badge/Estado-Fase%2001%20%26%2002%20Consolidadas-059669?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/MartinezJhef/EcoLogistica-Lima)
+[![Estado](https://img.shields.io/badge/Estado-Fases%2001%2C%2002%20%26%2003%20(Sprint%201)%20Consolidadas-059669?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/MartinezJhef/EcoLogistica-Lima)
 
 </div>
 
@@ -29,9 +29,11 @@
 6. [📚 Matriz Integral de Artefactos del Proyecto](#-matriz-integral-de-artefactos-del-proyecto)
    - [📍 Fase 01: Inicio (13 Documentos Normativos)](#-fase-01-inicio-13-documentos-normativos)
    - [📍 Fase 02: Planificación (4 Artefactos Ágiles y Jira)](#-fase-02-planificación-4-artefactos-ágiles-y-jira)
-7. [👥 Directorio del Equipo de Proyecto](#-directorio-del-equipo-de-proyecto)
-8. [🌳 Estrategia de Ramas y Flujo Git](#-estrategia-de-ramas-y-flujo-git)
-9. [🚀 Puesta en Marcha y Navegación Local](#-puesta-en-marcha-y-navegación-local)
+   - [📍 Fase 03: Implementación (4 Entregables Sprint 1)](#-fase-03-implementación-4-entregables-sprint-1)
+7. [💻 Estructura del Código Fuente y Módulos](#-estructura-del-código-fuente-y-módulos)
+8. [👥 Directorio del Equipo de Proyecto](#-directorio-del-equipo-de-proyecto)
+9. [🌳 Estrategia de Ramas y Flujo Git](#-estrategia-de-ramas-y-flujo-git)
+10. [🚀 Puesta en Marcha y Navegación Local](#-puesta-en-marcha-y-navegación-local)
 
 ---
 
@@ -78,7 +80,7 @@ flowchart TD
     end
 
     subgraph Servicios["⚙️ Backend & Motores"]
-        API["🔌 API Gateway REST (Node.js / Express)"]
+        API["🔌 API Backend Core (Python / FastAPI)"]
         OPT["🧠 Motor de Optimización Heurística"]
         ENV["🌱 Calculador de Huella CO₂"]
         AUTH["🔒 Servicio de Seguridad (JWT / RBAC)"]
@@ -119,7 +121,7 @@ flowchart TD
 | :--- | :--- | :--- |
 | **Frontend Web** | `React 18` + `TypeScript` + `Vite` | Renderizado rápido, tipado estricto y componentes modulares para dashboards de alta densidad. |
 | **Aplicación Móvil** | `React Native` + `Expo` | Compatibilidad multiplataforma (Android/iOS), soporte para sensores GPS y almacenamiento local offline. |
-| **Backend & API** | `Node.js` + `TypeScript` + `Express` | Modelo asíncrono no bloqueante ideal para peticiones I/O concurrentes y microservicios. |
+| **Backend & API** | `Python 3.11+` + `FastAPI` | Modelo asíncrono ASGI de alto rendimiento, OpenAPI/Swagger automático y desacoplamiento en capas con Pydantic. |
 | **Base de Datos** | `PostgreSQL 16` + `PostGIS` | Motor relacional robusto con extensiones geoespaciales nativas para cálculo de polígonos, geocercas y distancias. |
 | **Servicios GIS** | `Leaflet` / `OpenStreetMap` / `OSRM` | Cartografía de código abierto, flexibilidad sin costos prohibitivos de licenciamiento por volumen. |
 | **Contenedores & DevOps** | `Docker` + `Docker Compose` + `GitHub Actions` | Entornos estandarizados, integración continua (CI/CD) y despliegue automatizado sin discrepancias de entorno. |
@@ -185,12 +187,58 @@ Toda la descomposición técnica y parametrización ágil reside en [`docs/02 Pl
 
 ---
 
+### 📍 Fase 03: Implementación (Sprint 1)
 
-### 📍 Fase 03: Implementación — Sprint 1
+Los entregables de gestión y código fuente del Sprint 1 residen en [`docs/03 Implementación/`](docs/03%20Implementaci%C3%B3n) y [`src/`](src):
 
-| Código | Artefacto Oficial | Responsable | Enfoque / Estado |
+| Código | Entregable Oficial | Responsable | Enfoque / Contenido Clave |
 | :---: | :--- | :--- | :--- |
-| **04** | [Retrospectiva del Sprint V_1_0_0.md](docs/03%20Implementaci%C3%B3n/04%20Retrospectiva%20del%20Sprint%20V_1_0_0.md) | Diego Angulo Gonzales | Análisis de Personas, Relaciones, Procesos y Herramientas con plan de mejora. Corte al 30 de septiembre de 2026; pendiente de validación al cierre. |
+| **01** | [Informe de estado del proyecto V_1_0_0.md](docs/03%20Implementaci%C3%B3n/01%20Informe%20de%20estado%20del%20proyecto%20V_1_0_0.md) | Zayuri Cerron / Jheferson Martinez | Informe formal de avance del Sprint 1 (18 SP completados, 100% velocidad), metas alcanzadas y estado general. |
+| **02** | [Registro de Impedimentos V_1_0_0.md](docs/03%20Implementaci%C3%B3n/02%20Registro%20de%20Impedimentos%20V_1_0_0.md) | Maylit Mendoza / Jheferson Martinez | Matriz estructurada con 5 impedimentos técnicos y operativos (PostGIS, Pydantic v2, Docker), análisis de impacto y resolución. |
+| **03** | [Revisión del Sprint V_1_0_0.md](docs/03%20Implementaci%C3%B3n/03%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md) | Angela Rojas / Zayuri Cerron | Evidencia formal del demo ante stakeholders de DistriRápido S.A.C., criterios BDD cumplidos (US-001, US-002, US-003) y pendientes. |
+| **04** | [Retrospectiva del Sprint V_1_0_0.md](docs/03%20Implementaci%C3%B3n/04%20Retrospectiva%20del%20Sprint%20V_1_0_0.md) | Equipo Scrum PFA | Análisis crítico y profundo en los cuatro ejes (Personas, Relaciones, Procesos, Herramientas) con plan de acción SMART. |
+| **05** | [Especificación e Implementación US-001 Gestión de Vehículos](docs/03%20Implementaci%C3%B3n/05%20Especificacion%20e%20Implementacion%20US-001%20Gestion%20de%20Vehiculos%20V_1_0_0.md) | Equipo de Desarrollo | Especificación técnica, endpoints REST, validaciones ambientales y suite de pruebas unitarias. |
+| **06** | [Especificación e Implementación US-002 Gestión de Conductores](docs/03%20Implementaci%C3%B3n/06%20Especificacion%20e%20Implementacion%20US-002%20Gestion%20de%20Conductores%20V_1_0_0.md) | Equipo de Desarrollo | Control de jornada máxima de 8h (Ley N° 30224), brevete MTC, origen GPS y pruebas automatizadas. |
+
+---
+
+## 💻 Estructura del Código Fuente y Módulos
+
+El repositorio organiza el código fuente del producto en carpetas modulares desacopladas dentro del directorio [`src/`](src):
+
+```text
+EcoLogistica-Lima/
+├── docs/                             # Documentación formal de ingeniería de software
+│   ├── 01 Inicio/                    # 13 Documentos normativos iniciales
+│   ├── 02 Planificación/             # 4 Artefactos ágiles, riesgos y presupuesto
+│   └── 03 Implementación/            # Entregables de gestión y especificaciones técnicas US-001 y US-002
+├── src/                              # Código fuente modular de la solución
+│   ├── backend/                      # API RESTful en Python 3.11+ / FastAPI
+│   │   ├── app/
+│   │   │   ├── api/v1/endpoints/     # Controladores REST (vehiculos, conductores, pedidos)
+│   │   │   ├── core/                 # Configuración centralizada y seguridad
+│   │   │   ├── db/                   # Sesión y conexión a PostgreSQL + PostGIS
+│   │   │   ├── models/               # Modelos relacionales ORM (SQLAlchemy 2.0)
+│   │   │   ├── schemas/              # Validación estricta DTOs (Pydantic v2)
+│   │   │   └── services/             # Lógica de dominio y reglas de negocio
+│   │   ├── tests/                    # Batería de pruebas unitarias BDD (Pytest)
+│   │   ├── main.py                   # Punto de entrada de la aplicación ASGI
+│   │   ├── requirements.txt          # Dependencias oficiales de Python
+│   │   └── Dockerfile                # Empaquetamiento del contenedor backend
+│   ├── frontend/                     # Interfaz de usuario Web SPA en React 18 + Vite (Apple Design)
+│   │   ├── src/
+│   │   │   ├── pages/                # Vistas reactivas (VehiculosView, ConductoresView, PedidosView)
+│   │   │   ├── services/             # Cliente API Axios y contratos TypeScript
+│   │   │   ├── App.tsx               # Navegación y estructura de layout
+│   │   │   └── index.css             # Sistema de estilos y tokens visuales Apple Design
+│   │   ├── package.json              # Dependencias de Node.js / React
+│   │   └── Dockerfile                # Empaquetamiento del contenedor frontend
+│   └── database/                     # Scripts de persistencia relacional y geoespacial
+│       └── init.sql                  # Script DDL oficial PostgreSQL 16 + PostGIS (11 tablas en 3FN)
+├── .gitignore                        # Exclusión estricta de node_modules, .venv, logs y temporales
+├── docker-compose.yml                # Orquestador multi-contenedor local y de staging
+└── README.md                         # Portal maestro y mapa de navegación del proyecto
+```
 
 ---
 
