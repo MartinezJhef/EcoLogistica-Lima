@@ -177,6 +177,16 @@ class TestUS001Vehiculos:
         )
         assert r_diesel_moderno == "PICO_Y_PLACA_AMBIENTAL"
 
+        # 5. Unidad con Consumo Crítico (ej. GNV a 1 km/gal -> 5.775 kg CO2/km)
+        factor_gnv_1km = FleetService.calcular_factor_emision("GNV", 1.0)
+        assert factor_gnv_1km == 5.775
+        r_gnv_critico = FleetService.determinar_restriccion_circulacion(
+            tipo_combustible="GNV",
+            anio_fabricacion=2024,
+            factor_emision_co2=factor_gnv_1km
+        )
+        assert r_gnv_critico == "RESTRINGIDO_CENTRO_HISTORICO"
+
     def test_sub001_03_consulta_por_id_y_placa(self):
         """SUB-001-03: Consulta de vehículos por UUID y por placa."""
         placa_busqueda = f"SRH-{int(time.time()) % 1000:03d}"

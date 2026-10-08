@@ -8,6 +8,7 @@ from main import app
 from app.db.session import Base, get_db
 from app.models.vehiculo import Vehiculo
 from app.models.conductor import Conductor
+from app.models.usuario import Usuario
 
 # Motor SQLite en memoria compartido para todas las pruebas unitarias e integrales
 engine_test = create_engine(
@@ -20,6 +21,7 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 # Crear tablas del dominio evaluado
 Vehiculo.__table__.create(bind=engine_test, checkfirst=True)
 Conductor.__table__.create(bind=engine_test, checkfirst=True)
+Usuario.__table__.create(bind=engine_test, checkfirst=True)
 
 def override_get_db():
     db = TestingSessionLocal()

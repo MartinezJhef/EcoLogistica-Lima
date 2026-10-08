@@ -9,12 +9,15 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE EXTENSION IF NOT EXISTS "postgis";
 
--- 2. TABLA: usuarios
+-- 2. TABLA: usuarios (RBAC: ROL-01 a ROL-04)
 CREATE TABLE IF NOT EXISTS usuarios (
     usuario_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR(255) NOT NULL UNIQUE,
+    nombre_completo VARCHAR(150) NOT NULL DEFAULT 'Usuario',
+    telefono VARCHAR(20),
     password_hash VARCHAR(255) NOT NULL,
-    rol VARCHAR(20) NOT NULL CHECK (rol IN ('ADMIN', 'OPERADOR', 'CONDUCTOR', 'AUDITOR')),
+    rol VARCHAR(20) NOT NULL CHECK (rol IN ('ADMIN', 'OFICINA', 'OPERADOR', 'REPARTIDOR', 'CONDUCTOR', 'CLIENTE', 'AUDITOR')),
+    permisos JSONB NOT NULL DEFAULT '[]'::jsonb,
     estado VARCHAR(20) NOT NULL DEFAULT 'ACTIVO' CHECK (estado IN ('ACTIVO', 'INACTIVO', 'BLOQUEADO')),
     creado_en TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -105,9 +108,19 @@ CREATE TABLE IF NOT EXISTS pedidos (
     ventana_fin TIME NOT NULL,
     prioridad VARCHAR(20) NOT NULL DEFAULT 'ESTANDAR' CHECK (prioridad IN ('BAJA', 'ESTANDAR', 'ALTA', 'URGENTE')),
     estado VARCHAR(20) NOT NULL DEFAULT 'PENDIENTE' CHECK (estado IN ('PENDIENTE', 'ASIGNADO', 'EN_TRANSITO', 'ENTREGADO', 'NO_ENTREGADO', 'CANCELADO')),
+    referencia_ubicacion TEXT,
+    restriccion_acceso VARCHAR(100) NOT NULL DEFAULT 'LIBRE_ACCESO',
+    foto_referencia_url TEXT,
+    telefono_contacto VARCHAR(20),
     creado_en TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT chk_ventana_horaria CHECK (ventana_fin > ventana_inicio)
 );
+
+-- Asegurar columnas si la tabla ya existía previamente
+ALTER TABLE pedidos ADD COLUMN IF NOT EXISTS referencia_ubicacion TEXT;
+ALTER TABLE pedidos ADD COLUMN IF NOT EXISTS restriccion_acceso VARCHAR(100) DEFAULT 'LIBRE_ACCESO';
+ALTER TABLE pedidos ADD COLUMN IF NOT EXISTS foto_referencia_url TEXT;
+ALTER TABLE pedidos ADD COLUMN IF NOT EXISTS telefono_contacto VARCHAR(20);
 
 CREATE INDEX IF NOT EXISTS idx_pedidos_ruta ON pedidos(ruta_id);
 CREATE INDEX IF NOT EXISTS idx_pedidos_estado ON pedidos(estado);

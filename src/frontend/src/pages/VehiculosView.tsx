@@ -2,6 +2,116 @@ import React, { useState, useEffect } from 'react';
 import { Truck, Plus, AlertCircle, Zap, Shield, Leaf, Gauge, Fuel, CheckCircle2, Pencil, X, Save, RefreshCw } from 'lucide-react';
 import { Vehiculo, VehiculoService } from '../services/api';
 
+interface DiagnosticoRestriccion {
+  codigo: 'LIBRE_CIRCULACION' | 'PICO_Y_PLACA_AMBIENTAL' | 'RESTRINGIDO_CENTRO_HISTORICO';
+  etiqueta: string;
+  badgeClass: string;
+  motivo: string;
+}
+
+export const calcularFactorEmisionCO2 = (combustible: string, consumoKmGal: number): number => {
+  const tipo = (combustible || '').toUpperCase();
+  if (tipo === 'ELECTRICO') return 0.0;
+  
+  const rendimiento = Number(consumoKmGal);
+  if (!rendimiento || rendimiento <= 0) {
+    return tipo === 'GNV' ? 0.165 : tipo === 'HIBRIDO' ? 0.120 : 0.245;
+  }
+  
+  // Emisión teórica estándar por galón (kg CO₂ / galón):
+  // GNV: 5.775 kg CO₂/gal equivalente (a 35 km/gal -> 0.165 kg/km)
+  // HIBRIDO: 4.200 kg CO₂/galón (a 35 km/gal -> 0.120 kg/km)
+  // DIESEL: 10.210 kg CO₂/galón (a 41.6 km/gal -> 0.245 kg/km)
+  const kgCo2PorGalon = tipo === 'GNV' ? 5.775 : tipo === 'HIBRIDO' ? 4.200 : 10.210;
+  const factor = kgCo2PorGalon / rendimiento;
+  return Number(factor.toFixed(4));
+};
+
+export const evaluarRestriccionZonalAutomatica = (
+  combustible: string,
+  anio: number,
+  pesoKg: number,
+  factorCo2: number,
+  placaStr?: string,
+  consumoKmGal?: number
+): DiagnosticoRestriccion => {
+  const tipo = (combustible || '').toUpperCase();
+  const esPesado = Number(pesoKg) > 3500;
+  const antiguedad = 2026 - (Number(anio) || 2024);
+
+  // 1. Cero emisiones directas: 100% Eléctrico
+  if (tipo === 'ELECTRICO') {
+    return {
+      codigo: 'LIBRE_CIRCULACION',
+      etiqueta: 'Libre Circulación',
+      badgeClass: 'badge-cyan',
+      motivo: 'Cero emisiones directas (0 g CO₂/km). Tránsito ecológico irrestricto en toda Lima Metropolitana.'
+    };
+  }
+
+  // 2. Control de Altas Emisiones por Consumo Excesivo o Ineficiencia (ej. 1 km/gal -> 5.775 kg CO₂/km)
+  // Umbral ZBE Centro Histórico / Damero de Pizarro: >= 0.35 kg CO2/km (350 g/km)
+  if (factorCo2 >= 0.35) {
+    const detalleRend = consumoKmGal !== undefined ? ` por consumo crítico de ${consumoKmGal} km/gal` : '';
+    return {
+      codigo: 'RESTRINGIDO_CENTRO_HISTORICO',
+      etiqueta: 'Centro Histórico Restringido',
+      badgeClass: 'badge-red',
+      motivo: `Emisión crítica de ${(factorCo2 * 1000).toFixed(0)} g CO₂/km (≥ 350 g/km)${detalleRend}. Excede límites de Zona de Bajas Emisiones (ZBE Damero de Pizarro).`
+    };
+  }
+
+  // 3. Restricción por Tonelaje Pesado en trama urbana central (> 3.5 t)
+  if (esPesado) {
+    return {
+      codigo: 'RESTRINGIDO_CENTRO_HISTORICO',
+      etiqueta: 'Restringido por Tonelaje (> 3.5 t)',
+      badgeClass: 'badge-red',
+      motivo: `Carga útil (${pesoKg} kg) excede 3.5 t. Restringido en vías urbanas angostas y Centro Histórico (Ord. 2160).`
+    };
+  }
+
+  // 4. Control de Emisiones Intermedias / Pico y Placa Ambiental (>= 0.24 kg CO₂/km)
+  if (factorCo2 >= 0.24) {
+    const digitoPlaca = placaStr ? placaStr.replace(/\D/g, '').slice(-1) : '';
+    const parImpar = digitoPlaca ? (Number(digitoPlaca) % 2 === 0 ? 'Placa Par' : 'Placa Impar') : '';
+    return {
+      codigo: 'PICO_Y_PLACA_AMBIENTAL',
+      etiqueta: 'Pico y Placa Ambiental',
+      badgeClass: 'badge-yellow',
+      motivo: `Emisiones de ${(factorCo2 * 1000).toFixed(0)} g CO₂/km. Sujeto a Pico y Placa ambiental en horas punta${parImpar ? ` (${parImpar})` : ''}.`
+    };
+  }
+
+  // 5. Flota Diésel: Evaluación de antigüedad (> 10 años)
+  if (tipo === 'DIESEL') {
+    if (antiguedad > 10) {
+      return {
+        codigo: 'RESTRINGIDO_CENTRO_HISTORICO',
+        etiqueta: 'Centro Histórico Restringido',
+        badgeClass: 'badge-red',
+        motivo: `Diésel con ${antiguedad} años de antigüedad (> 10 años). Acceso restringido a ZBE Damero de Pizarro.`
+      };
+    }
+    const digitoPlaca = placaStr ? placaStr.replace(/\D/g, '').slice(-1) : '';
+    const parImpar = digitoPlaca ? (Number(digitoPlaca) % 2 === 0 ? 'Placa Par' : 'Placa Impar') : '';
+    return {
+      codigo: 'PICO_Y_PLACA_AMBIENTAL',
+      etiqueta: 'Pico y Placa Ambiental',
+      badgeClass: 'badge-yellow',
+      motivo: `Diésel Euro VI (${anio}). Sujeto a Pico y Placa ambiental en horas punta${parImpar ? ` (${parImpar})` : ''}.`
+    };
+  }
+
+  // 6. Combustibles limpios de transición verde (GNV / Híbridos) con consumo eficiente
+  return {
+    codigo: 'LIBRE_CIRCULACION',
+    etiqueta: 'Libre Circulación',
+    badgeClass: 'badge-cyan',
+    motivo: `Combustible limpio eficiente (${tipo} · ${(factorCo2 * 1000).toFixed(0)} g CO₂/km). Tránsito autorizado Ord. MML 2160.`
+  };
+};
+
 export function VehiculosView() {
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
   const [filtro, setFiltro] = useState<'TODOS' | 'ELECTRICO' | 'GNV' | 'DIESEL'>('TODOS');
@@ -63,13 +173,18 @@ export function VehiculosView() {
     }
   };
 
+  const factorCreacion = calcularFactorEmisionCO2(combustible, consumo);
+  const diagnosticoCreacion = evaluarRestriccionZonalAutomatica(combustible, anio, peso, factorCreacion, placa, consumo);
+
+  const factorEdicion = calcularFactorEmisionCO2(editCombustible, editConsumo);
+  const diagnosticoEdicion = evaluarRestriccionZonalAutomatica(editCombustible, editAnio, editPeso, factorEdicion, editingVehiculo?.placa, editConsumo);
+
   const handleCrear = async (e: React.FormEvent) => {
     e.preventDefault();
     setAlerta(null);
     setExito(null);
     setCargando(true);
 
-    const factor = combustible === 'ELECTRICO' ? 0.0 : combustible === 'GNV' ? 0.165 : combustible === 'HIBRIDO' ? 0.120 : 0.245;
     const nuevoPayload = {
       placa: placa.trim().toUpperCase(),
       marca_modelo: marca,
@@ -78,14 +193,15 @@ export function VehiculosView() {
       capacidad_volumen_m3: volumen,
       consumo_km_gal: consumo,
       tipo_combustible: combustible,
-      factor_emision_co2: factor,
+      factor_emision_co2: factorCreacion,
+      restriccion_circulacion: diagnosticoCreacion.codigo,
       estado: 'DISPONIBLE'
     };
 
     try {
       const guardado = await VehiculoService.create(nuevoPayload);
       setVehiculos(prev => [guardado, ...prev]);
-      setExito(`Vehículo ${guardado.placa} registrado con éxito en la base de datos PostgreSQL. Restricción asignada: ${guardado.restriccion_circulacion || 'LIBRE_CIRCULACION'}.`);
+      setExito(`Vehículo ${guardado.placa} registrado con éxito. Restricción zonal calculada automáticamente: ${guardado.restriccion_circulacion}.`);
       setPlaca('');
       setMarca('');
     } catch (err: any) {
@@ -115,8 +231,6 @@ export function VehiculosView() {
     setAlerta(null);
     setExito(null);
 
-    const factor = editCombustible === 'ELECTRICO' ? 0.0 : editCombustible === 'GNV' ? 0.165 : editCombustible === 'HIBRIDO' ? 0.120 : 0.245;
-
     const payload = {
       marca_modelo: editMarca,
       anio_fabricacion: editAnio,
@@ -124,7 +238,8 @@ export function VehiculosView() {
       capacidad_peso_kg: editPeso,
       capacidad_volumen_m3: editVolumen,
       consumo_km_gal: editConsumo,
-      factor_emision_co2: factor,
+      factor_emision_co2: factorEdicion,
+      restriccion_circulacion: diagnosticoEdicion.codigo,
       estado: editEstado
     };
 
@@ -133,7 +248,7 @@ export function VehiculosView() {
       
       // Actualizar en el estado local de inmediato
       setVehiculos(prev => prev.map(v => v.vehiculo_id === actualizado.vehiculo_id ? actualizado : v));
-      setExito(`Vehículo ${actualizado.placa} actualizado exitosamente en PostgreSQL. Restricción recalculada: ${actualizado.restriccion_circulacion}.`);
+      setExito(`Vehículo ${actualizado.placa} actualizado exitosamente. Restricción: ${actualizado.restriccion_circulacion}.`);
       setEditingVehiculo(null);
     } catch (err: any) {
       const mensaje = err.response?.data?.detail || 'Error al actualizar el vehículo en la base de datos.';
@@ -224,45 +339,6 @@ export function VehiculosView() {
         </div>
       )}
 
-      {/* Tarjetas de Métricas Resumen (Apple Minimalist Glass) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '1.75rem' }}>
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <Truck size={16} /> Total Unidades en BDD
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em' }}>
-            {vehiculos.length}
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-cyan-text)', fontWeight: 500 }}>
-            {vehiculos.filter(v => v.tipo_combustible === 'ELECTRICO').length} Cero Emisiones
-          </span>
-        </div>
-
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <Leaf size={16} /> Emisión Promedio
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em' }}>
-            {vehiculos.length > 0 ? (vehiculos.reduce((acc, v) => acc + Number(v.factor_emision_co2), 0) / vehiculos.length).toFixed(3) : '0.000'}
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)' }}>
-            kg CO₂ por kilómetro
-          </span>
-        </div>
-
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <Gauge size={16} /> Capacidad Total
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em' }}>
-            {(vehiculos.reduce((acc, v) => acc + Number(v.capacidad_peso_kg), 0) / 1000).toFixed(1)} t
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)' }}>
-            {vehiculos.reduce((acc, v) => acc + Number(v.capacidad_volumen_m3), 0).toFixed(1)} m³ de volumen
-          </span>
-        </div>
-      </div>
-
       {/* Formulario de Alta con Respuesta Táctil (SUB-001-01 / SUB-001-05) */}
       <div className="card">
         <h3 style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -346,6 +422,30 @@ export function VehiculosView() {
               style={{ width: '100%' }}
             />
           </div>
+          <div style={{
+            background: '#F5F4EE',
+            border: '1.5px solid #CAD3BD',
+            borderRadius: '10px',
+            padding: '0.45rem 0.75rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            minHeight: '38px',
+            gridColumn: 'span 2'
+          }}>
+            <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#556B2F', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px' }}>
+              <Shield size={12} />
+              <span>Restricción Zonal Automática (SUB-001-06 · RN-004):</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span className={`badge ${diagnosticoCreacion.badgeClass}`} style={{ fontSize: '0.72rem', padding: '2px 8px', fontWeight: 700 }}>
+                {diagnosticoCreacion.etiqueta}
+              </span>
+              <span style={{ fontSize: '0.68rem', color: '#2D3A2E', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={diagnosticoCreacion.motivo}>
+                {diagnosticoCreacion.motivo}
+              </span>
+            </div>
+          </div>
           <button type="submit" className="btn" disabled={cargando} style={{ height: '38px', justifyContent: 'center' }}>
             {cargando ? 'Guardando...' : 'Guardar Unidad'}
           </button>
@@ -386,23 +486,40 @@ export function VehiculosView() {
                   {v.capacidad_peso_kg} kg · {v.capacidad_volumen_m3} m³
                 </td>
                 <td style={{ fontVariantNumeric: 'tabular-nums' }}>
-                  {v.consumo_km_gal ? `${v.consumo_km_gal} km/gal` : '35.0 km/gal'}
+                  <div style={{ fontWeight: 600 }}>{v.consumo_km_gal ? `${v.consumo_km_gal} km/gal` : '35.0 km/gal'}</div>
+                  {(() => {
+                    const factorReal = calcularFactorEmisionCO2(v.tipo_combustible, Number(v.consumo_km_gal) || 35.0);
+                    const esCritico = factorReal >= 0.35;
+                    return (
+                      <div style={{
+                        fontSize: '0.72rem',
+                        fontWeight: esCritico ? 700 : 500,
+                        color: esCritico ? '#DC2626' : 'var(--apple-text-tertiary)',
+                        marginTop: '2px'
+                      }}>
+                        {(factorReal * 1000).toFixed(0)} g CO₂/km
+                      </div>
+                    );
+                  })()}
                 </td>
                 <td>
-                  <span className={`badge ${
-                    v.restriccion_circulacion === 'LIBRE_CIRCULACION' 
-                      ? 'badge-cyan' 
-                      : v.restriccion_circulacion === 'RESTRINGIDO_CENTRO_HISTORICO'
-                      ? 'badge-red'
-                      : 'badge-yellow'
-                  }`}>
-                    <Shield size={11} />
-                    {v.restriccion_circulacion === 'LIBRE_CIRCULACION'
-                      ? 'Libre Circulación'
-                      : v.restriccion_circulacion === 'RESTRINGIDO_CENTRO_HISTORICO'
-                      ? 'Centro Histórico Restringido'
-                      : 'Pico y Placa Ambiental'}
-                  </span>
+                  {(() => {
+                    const factorReal = calcularFactorEmisionCO2(v.tipo_combustible, Number(v.consumo_km_gal) || 35.0);
+                    const diag = evaluarRestriccionZonalAutomatica(
+                      v.tipo_combustible,
+                      v.anio_fabricacion || 2024,
+                      Number(v.capacidad_peso_kg),
+                      factorReal,
+                      v.placa,
+                      v.consumo_km_gal
+                    );
+                    return (
+                      <span className={`badge ${diag.badgeClass}`} title={diag.motivo}>
+                        <Shield size={11} />
+                        {diag.etiqueta}
+                      </span>
+                    );
+                  })()}
                 </td>
                 <td>
                   <span className={`badge ${v.estado === 'DISPONIBLE' ? 'badge-cyan' : v.estado === 'EN_RUTA' ? 'badge-yellow' : 'badge-red'}`}>
@@ -527,6 +644,29 @@ export function VehiculosView() {
                     onChange={e => setEditConsumo(Number(e.target.value))}
                     style={{ width: '100%' }}
                   />
+                </div>
+              </div>
+
+              <div style={{
+                background: '#F5F4EE',
+                border: '1.5px solid #CAD3BD',
+                borderRadius: '10px',
+                padding: '0.75rem 0.9rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.35rem'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#556B2F', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Shield size={14} />
+                  <span>Restricción Zonal Evaluada Automáticamente (SUB-001-06 · RN-004):</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <span className={`badge ${diagnosticoEdicion.badgeClass}`} style={{ fontSize: '0.8rem', padding: '3px 10px', fontWeight: 700 }}>
+                    {diagnosticoEdicion.etiqueta}
+                  </span>
+                  <span style={{ fontSize: '0.74rem', color: '#2D3A2E' }}>
+                    {diagnosticoEdicion.motivo}
+                  </span>
                 </div>
               </div>
 

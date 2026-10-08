@@ -9,6 +9,25 @@ from typing import List, Optional
 
 class FleetService:
     @staticmethod
+    def calcular_factor_emision(tipo_combustible: str, consumo_km_gal: Optional[float] = None) -> float:
+        """
+        Calcula el factor de emisión de CO2 (kg CO2 / km) a partir del rendimiento (km/galón).
+        - GNV: 5.775 kg CO₂/galón equiv.
+        - HIBRIDO: 4.200 kg CO₂/galón
+        - DIESEL: 10.210 kg CO₂/galón
+        """
+        tipo = tipo_combustible.upper()
+        if tipo == "ELECTRICO":
+            return 0.0
+        consumo = max(0.1, float(consumo_km_gal or 35.0))
+        emision_galon = {
+            "GNV": 5.775,
+            "HIBRIDO": 4.200,
+            "DIESEL": 10.210
+        }.get(tipo, 8.500)
+        return round(emision_galon / consumo, 4)
+
+    @staticmethod
     def determinar_restriccion_circulacion(
         tipo_combustible: str,
         anio_fabricacion: int,
@@ -25,10 +44,11 @@ class FleetService:
         if tipo == "ELECTRICO":
             return "LIBRE_CIRCULACION"
         
-        # 2. Combustibles limpios de transición (GNV / Híbridos)
-        if tipo in ["GNV", "HIBRIDO"]:
-            return "LIBRE_CIRCULACION"
-        
+        # 2. Control de Altas Emisiones por Consumo Excesivo o Ineficiencia (ej. 1 km/gal -> 5.775 kg/km)
+        # Si un vehículo emite >= 0.35 kg CO2/km, excede el umbral ZBE y queda restringido
+        if factor_emision_co2 >= 0.35:
+            return "RESTRINGIDO_CENTRO_HISTORICO"
+
         # 3. Flota Diésel: Evaluación estricta de emisiones y antigüedad (Lima Este / Centro Histórico)
         if tipo == "DIESEL":
             antiguedad = 2026 - anio_fabricacion
@@ -36,6 +56,14 @@ class FleetService:
             if antiguedad > 10 or factor_emision_co2 >= 0.24:
                 return "RESTRINGIDO_CENTRO_HISTORICO"
             return "PICO_Y_PLACA_AMBIENTAL"
+
+        # 4. Control de Emisiones Intermedias
+        if factor_emision_co2 >= 0.24:
+            return "PICO_Y_PLACA_AMBIENTAL"
+
+        # 5. Combustibles limpios de transición (GNV / Híbridos) con consumo eficiente
+        if tipo in ["GNV", "HIBRIDO"]:
+            return "LIBRE_CIRCULACION"
         
         return "LIBRE_CIRCULACION"
 
@@ -92,13 +120,20 @@ class FleetService:
                 detail="La placa ingresada ya se encuentra registrada en el sistema."
             )
         
-        # SUB-001-06: Asignación automática de restricción si no fue indicada explícitamente
+        # SUB-001-06: Asignación automática de factor y restricción según consumo
+        factor = vehiculo_in.factor_emision_co2
+        if vehiculo_in.consumo_km_gal and (factor is None or factor in [0.165, 0.245, 0.12]):
+            factor = FleetService.calcular_factor_emision(
+                tipo_combustible=vehiculo_in.tipo_combustible,
+                consumo_km_gal=vehiculo_in.consumo_km_gal
+            )
+
         restriccion = vehiculo_in.restriccion_circulacion
-        if not restriccion:
+        if not restriccion or factor >= 0.35:
             restriccion = FleetService.determinar_restriccion_circulacion(
                 tipo_combustible=vehiculo_in.tipo_combustible,
                 anio_fabricacion=vehiculo_in.anio_fabricacion,
-                factor_emision_co2=vehiculo_in.factor_emision_co2
+                factor_emision_co2=factor
             )
 
         db_vehiculo = Vehiculo(
@@ -109,7 +144,7 @@ class FleetService:
             capacidad_volumen_m3=vehiculo_in.capacidad_volumen_m3,
             consumo_km_gal=vehiculo_in.consumo_km_gal,
             tipo_combustible=vehiculo_in.tipo_combustible,
-            factor_emision_co2=vehiculo_in.factor_emision_co2,
+            factor_emision_co2=factor,
             restriccion_circulacion=restriccion,
             estado=vehiculo_in.estado or "DISPONIBLE"
         )
@@ -144,8 +179,14 @@ class FleetService:
             if campo != "placa" and hasattr(db_vehiculo, campo):
                 setattr(db_vehiculo, campo, valor)
 
-        # Si no se pasó restricción explícita pero cambiaron atributos de emisión/antigüedad:
-        if "restriccion_circulacion" not in update_data:
+        if "consumo_km_gal" in update_data and ("factor_emision_co2" not in update_data or update_data.get("factor_emision_co2") in [0.165, 0.245, 0.12]):
+            db_vehiculo.factor_emision_co2 = FleetService.calcular_factor_emision(
+                db_vehiculo.tipo_combustible,
+                db_vehiculo.consumo_km_gal
+            )
+
+        # Si no se pasó restricción explícita o las emisiones superan el umbral ZBE:
+        if "restriccion_circulacion" not in update_data or float(db_vehiculo.factor_emision_co2) >= 0.35:
             db_vehiculo.restriccion_circulacion = FleetService.determinar_restriccion_circulacion(
                 tipo_combustible=db_vehiculo.tipo_combustible,
                 anio_fabricacion=db_vehiculo.anio_fabricacion,

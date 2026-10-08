@@ -1,10 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Users, Plus, ShieldAlert, CheckCircle2, Clock, AlertTriangle, 
   ShieldCheck, X, Pencil, RotateCcw, MapPin, Navigation, 
-  Trash2, RefreshCw, Send, Check, Phone, CreditCard, Award
+  Trash2, RefreshCw, Send, Check, Phone, CreditCard, Award,
+  Smartphone, KeyRound, Sparkles, Maximize2, Minimize2, Crosshair,
+  LocateFixed, Eye, Flag
 } from 'lucide-react';
-import { Conductor, ConductorService } from '../services/api';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { Conductor, ConductorService, UsuarioService } from '../services/api';
+import { 
+  crearIconoBanderaLlegada, 
+  crearIconoVehiculoConductor, 
+  calcularDistanciaKm, 
+  estimarTiempoMin,
+  SVG_MINI_FLAG,
+  SVG_MINI_CAR,
+  SVG_MINI_PIN
+} from '../utils/mapIcons';
 
 const MOCK_CONDUCTORES: Conductor[] = [
   {
@@ -62,6 +75,20 @@ const MOCK_CONDUCTORES: Conductor[] = [
     longitud_origen: -77.042793,
     estado: 'EN_RUTA',
     horas_conduccion_hoy: 5.0
+  },
+  {
+    conductor_id: 'c5555555-5555-5555-5555-555555555555',
+    dni: '45892176',
+    nombres: 'Juan Alberto',
+    apellidos: 'Morales Paredes',
+    licencia: 'M45892176',
+    categoria_licencia: 'A-IIIc',
+    telefono: '978123456',
+    direccion_origen: 'Av. Argentina 2050, Cercado de Lima',
+    latitud_origen: -12.046374,
+    longitud_origen: -77.042793,
+    estado: 'DISPONIBLE',
+    horas_conduccion_hoy: 2.0
   }
 ];
 
@@ -97,6 +124,31 @@ export function ConductoresView() {
   const [horasRuta, setHorasRuta] = useState<number>(1.5);
   const [validandoRuta, setValidandoRuta] = useState(false);
 
+  // Segmented Control de Pestañas: 'mapa' (Flota & Rutas) | 'padron' (Padrón & Registro)
+  const [vistaTab, setVistaTab] = useState<'mapa' | 'padron'>('mapa');
+
+  // Conductor Seleccionado para la Ruta
+  const [conductorSeleccionado, setConductorSeleccionado] = useState<Conductor | null>(null);
+
+  // Punto de Llegada / Meta (Bandera SVG)
+  const [puntoLlegada, setPuntoLlegada] = useState<{ lat: number; lng: number } | null>(null);
+
+  // Telemetría de Ruta Dinámica
+  const [infoRuta, setInfoRuta] = useState<{
+    distanciaKm: number;
+    tiempoMin: number;
+    horasEst: number;
+  } | null>(null);
+
+  const [mapaMaximizado, setMapaMaximizado] = useState(false);
+
+  // Referencias de Leaflet
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const driversLayerRef = useRef<L.LayerGroup | null>(null);
+  const flagMarkerRef = useRef<L.Marker | null>(null);
+  const routeLineRef = useRef<L.Polyline | null>(null);
+
   // Toasts de Notificación Apple
   const [alerta, setAlerta] = useState<string | null>(null);
   const [mensajeExito, setMensajeExito] = useState<string | null>(null);
@@ -119,18 +171,272 @@ export function ConductoresView() {
     }
   }, [alerta]);
 
+  const getEmailConductor = (c: Conductor) => {
+    const mapaEmails: Record<string, string> = {
+      '71234567': 'carlos.quispe@ecologistica.pe',
+      '48765432': 'jorge.mendoza@ecologistica.pe',
+      '74567812': 'maria.torres@ecologistica.pe',
+      '45678901': 'ricardo.gomez@ecologistica.pe',
+      '45892176': 'repartidor.juan@ecologistica.pe'
+    };
+    if (mapaEmails[c.dni]) return mapaEmails[c.dni];
+    const primerNombre = (c.nombres || '').split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const primerApellido = (c.apellidos || '').split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return `${primerNombre}.${primerApellido}@ecologistica.pe`;
+  };
+
   const cargarConductores = async () => {
     setCargando(true);
     try {
       const data = await ConductorService.getAll();
       if (data && data.length > 0) {
         setConductores(data);
+        if (!conductorSeleccionado) {
+          setConductorSeleccionado(data[0]);
+        }
       }
     } catch {
       // Si la API remota o PostgreSQL está offline, conserva el estado local
     } finally {
       setCargando(false);
     }
+  };
+
+  // Inicialización y actualización reactiva del Mapa de Flota Leaflet
+  useEffect(() => {
+    if (vistaTab !== 'mapa') return;
+
+    const timer = setTimeout(() => {
+      if (!mapContainerRef.current) return;
+
+      if (!mapInstanceRef.current) {
+        const map = L.map(mapContainerRef.current, {
+          center: [-12.046374, -77.042793],
+          zoom: 12,
+          zoomControl: false,
+          scrollWheelZoom: true
+        });
+
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const driversLayer = L.layerGroup().addTo(map);
+        driversLayerRef.current = driversLayer;
+
+        // Captura interactiva de coordenadas al hacer clic: Despliega la BANDERA DE META SVG
+        map.on('click', (e: L.LeafletMouseEvent) => {
+          const { lat, lng } = e.latlng;
+          const latClean = parseFloat(lat.toFixed(6));
+          const lngClean = parseFloat(lng.toFixed(6));
+          setPuntoLlegada({ lat: latClean, lng: lngClean });
+
+          if (flagMarkerRef.current) {
+            flagMarkerRef.current.setLatLng(e.latlng);
+            flagMarkerRef.current.setIcon(crearIconoBanderaLlegada('Punto de Llegada'));
+          } else {
+            flagMarkerRef.current = L.marker(e.latlng, {
+              icon: crearIconoBanderaLlegada('Punto de Llegada')
+            }).addTo(map);
+          }
+
+          flagMarkerRef.current.bindPopup(`
+            <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:220px;padding:4px;">
+              <div style="font-weight:700;color:#1A1A1A;font-size:0.85rem;margin-bottom:2px;display:flex;align-items:center;gap:5px;">
+                ${SVG_MINI_FLAG} Punto de Llegada / Entrega
+              </div>
+              <div style="font-size:0.75rem;color:#556B2F;margin-bottom:4px;">
+                Coordenadas GPS: [${latClean}, ${lngClean}]
+              </div>
+              <div style="font-size:0.72rem;color:#6E7E5A;">
+                Punto de destino marcado con Bandera a Cuadros SVG.
+              </div>
+            </div>
+          `);
+
+          // Determinar conductor activo para trazar ruta
+          let chofer = conductorSeleccionado;
+          if (!chofer && conductores.length > 0) {
+            chofer = conductores.find(c => c.latitud_origen && c.longitud_origen) || conductores[0];
+            setConductorSeleccionado(chofer);
+          }
+
+          if (chofer && chofer.latitud_origen && chofer.longitud_origen) {
+            const distKm = calcularDistanciaKm(chofer.latitud_origen, chofer.longitud_origen, latClean, lngClean);
+            const tMin = estimarTiempoMin(distKm);
+            setInfoRuta({
+              distanciaKm: distKm,
+              tiempoMin: tMin,
+              horasEst: Math.round((tMin / 60) * 10) / 10
+            });
+
+            if (routeLineRef.current) {
+              routeLineRef.current.setLatLngs([
+                [chofer.latitud_origen, chofer.longitud_origen],
+                [latClean, lngClean]
+              ]);
+            } else {
+              routeLineRef.current = L.polyline([
+                [chofer.latitud_origen, chofer.longitud_origen],
+                [latClean, lngClean]
+              ], {
+                color: '#556B2F',
+                weight: 4,
+                dashArray: '6, 8',
+                opacity: 0.95
+              }).addTo(map);
+            }
+          }
+
+          setMensajeExito(`Destino fijado en [${latClean}, ${lngClean}] con Bandera SVG. Ruta calculada desde el vehículo.`);
+        });
+
+        mapInstanceRef.current = map;
+      }
+
+      // Renderizar o actualizar vehículos de conductores (Carro SVG)
+      if (driversLayerRef.current) {
+        driversLayerRef.current.clearLayers();
+        conductores.forEach(c => {
+          if (c.latitud_origen && c.longitud_origen) {
+            const isSelected = conductorSeleccionado?.conductor_id === c.conductor_id;
+            const vMarker = L.marker([c.latitud_origen, c.longitud_origen], {
+              icon: crearIconoVehiculoConductor(c, isSelected)
+            });
+
+            vMarker.bindPopup(`
+              <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:240px;padding:4px;">
+                <div style="font-size:0.75rem;font-weight:700;color:#556B2F;text-transform:uppercase;margin-bottom:2px;display:flex;align-items:center;gap:4px;">
+                  ${SVG_MINI_CAR} Conductor · ${c.estado}
+                </div>
+                <div style="font-size:0.92rem;font-weight:700;color:#2D3A2E;margin-bottom:2px;">
+                  ${c.nombres} ${c.apellidos}
+                </div>
+                <div style="font-size:0.75rem;color:#6E7E5A;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
+                  ${SVG_MINI_PIN} Base Fija: ${c.direccion_origen || 'Lima Metropolitana'}
+                </div>
+                <div style="display:flex;gap:4px;font-size:0.7rem;margin-bottom:6px;">
+                  <span style="background:#F5F4EE;border:1px solid #CAD3BD;padding:2px 6px;border-radius:4px;color:#2D3A2E;">Brevete: ${c.licencia}</span>
+                  <span style="background:#F5F4EE;border:1px solid #CAD3BD;padding:2px 6px;border-radius:4px;color:#2D3A2E;">Jornada: ${c.horas_conduccion_hoy} h / 8h</span>
+                </div>
+                <div style="font-size:0.72rem;color:#556B2F;font-weight:600;">
+                  Teléfono: ${c.telefono}
+                </div>
+              </div>
+            `);
+
+            vMarker.on('click', () => {
+              seleccionarConductorParaRuta(c);
+            });
+
+            vMarker.addTo(driversLayerRef.current!);
+          }
+        });
+      }
+
+      // Si existe un punto de llegada fijado y no está en el mapa, añadirlo
+      if (puntoLlegada && mapInstanceRef.current && !flagMarkerRef.current) {
+        flagMarkerRef.current = L.marker([puntoLlegada.lat, puntoLlegada.lng], {
+          icon: crearIconoBanderaLlegada('Punto de Llegada')
+        }).addTo(mapInstanceRef.current);
+      }
+
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [vistaTab, conductores, conductorSeleccionado, puntoLlegada, mapaMaximizado]);
+
+  const seleccionarConductorParaRuta = (c: Conductor) => {
+    setConductorSeleccionado(c);
+    if (c.latitud_origen && c.longitud_origen && mapInstanceRef.current) {
+      mapInstanceRef.current.panTo([c.latitud_origen, c.longitud_origen], { animate: true });
+    }
+
+    if (puntoLlegada && c.latitud_origen && c.longitud_origen) {
+      const distKm = calcularDistanciaKm(c.latitud_origen, c.longitud_origen, puntoLlegada.lat, puntoLlegada.lng);
+      const tMin = estimarTiempoMin(distKm);
+      setInfoRuta({
+        distanciaKm: distKm,
+        tiempoMin: tMin,
+        horasEst: Math.round((tMin / 60) * 10) / 10
+      });
+
+      if (routeLineRef.current) {
+        routeLineRef.current.setLatLngs([
+          [c.latitud_origen, c.longitud_origen],
+          [puntoLlegada.lat, puntoLlegada.lng]
+        ]);
+      } else if (mapInstanceRef.current) {
+        routeLineRef.current = L.polyline([
+          [c.latitud_origen, c.longitud_origen],
+          [puntoLlegada.lat, puntoLlegada.lng]
+        ], {
+          color: '#556B2F',
+          weight: 4,
+          dashArray: '6, 8',
+          opacity: 0.95
+        }).addTo(mapInstanceRef.current);
+      }
+    }
+  };
+
+  const centrarEnConductor = () => {
+    if (conductorSeleccionado && conductorSeleccionado.latitud_origen && conductorSeleccionado.longitud_origen && mapInstanceRef.current) {
+      mapInstanceRef.current.setView([conductorSeleccionado.latitud_origen, conductorSeleccionado.longitud_origen], 14, { animate: true });
+    }
+  };
+
+  const centrarEnBandera = () => {
+    if (puntoLlegada && mapInstanceRef.current) {
+      mapInstanceRef.current.setView([puntoLlegada.lat, puntoLlegada.lng], 14, { animate: true });
+    }
+  };
+
+  const verTodosEnMapa = () => {
+    if (!mapInstanceRef.current) return;
+    const puntos: [number, number][] = [];
+    conductores.forEach(c => {
+      if (c.latitud_origen && c.longitud_origen) {
+        puntos.push([c.latitud_origen, c.longitud_origen]);
+      }
+    });
+    if (puntoLlegada) {
+      puntos.push([puntoLlegada.lat, puntoLlegada.lng]);
+    }
+    if (puntos.length > 0) {
+      const bounds = L.latLngBounds(puntos);
+      mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50] });
+    }
+  };
+
+  const limpiarPuntoLlegada = () => {
+    if (flagMarkerRef.current && mapInstanceRef.current) {
+      mapInstanceRef.current.removeLayer(flagMarkerRef.current);
+      flagMarkerRef.current = null;
+    }
+    if (routeLineRef.current && mapInstanceRef.current) {
+      mapInstanceRef.current.removeLayer(routeLineRef.current);
+      routeLineRef.current = null;
+    }
+    setPuntoLlegada(null);
+    setInfoRuta(null);
+    setMensajeExito('Punto de llegada y ruta restablecidos.');
+  };
+
+  const verEnMapaDesdePadron = (c: Conductor) => {
+    setVistaTab('mapa');
+    setConductorSeleccionado(c);
+    setTimeout(() => {
+      if (c.latitud_origen && c.longitud_origen && mapInstanceRef.current) {
+        mapInstanceRef.current.setView([c.latitud_origen, c.longitud_origen], 14, { animate: true });
+      }
+    }, 200);
   };
 
   const handleCrear = async (e: React.FormEvent) => {
@@ -174,7 +480,24 @@ export function ConductoresView() {
     try {
       const res = await ConductorService.create(payload as any);
       setConductores(prev => [res, ...prev]);
-      setMensajeExito(`Conductor ${payload.nombres} ${payload.apellidos} registrado exitosamente.`);
+
+      // Creación automática de la cuenta de usuario para la App Móvil (Rol: REPARTIDOR)
+      const pNombre = nombres.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const pApellido = apellidos.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const emailGenerado = `${pNombre}.${pApellido}@ecologistica.pe`;
+      try {
+        await UsuarioService.create({
+          email: emailGenerado,
+          nombre_completo: `${nombres.trim()} ${apellidos.trim()} (Conductor / Repartidor)`,
+          telefono: telefono.trim(),
+          rol: 'REPARTIDOR',
+          password: 'ecologistica2026',
+          permisos: ['REPARTO_POD', 'SEGUIMIENTO_RUTAS'],
+          estado: 'ACTIVO'
+        });
+      } catch {}
+
+      setMensajeExito(`Conductor ${payload.nombres} registrado. Cuenta para app móvil habilitada: ${emailGenerado} (Clave: ecologistica2026).`);
     } catch (err: any) {
       const errorMsg = err.response?.data?.detail || 'Error al conectar con el backend.';
       if (err.response?.status === 409) {
@@ -187,7 +510,7 @@ export function ConductoresView() {
         ...payload
       };
       setConductores(prev => [localConductor, ...prev]);
-      setMensajeExito(`Conductor ${payload.nombres} registrado localmente.`);
+      setMensajeExito(`Conductor ${payload.nombres} registrado localmente con acceso móvil.`);
     }
 
     // Limpiar formulario
@@ -396,48 +719,415 @@ export function ConductoresView() {
         </div>
       )}
 
-      {/* Tarjetas de Métricas de Fatiga */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '1.75rem' }}>
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <Users size={16} color="var(--apple-accent)" /> Total Conductores
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em' }}>
-            {conductores.length}
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-cyan-text)', fontWeight: 500 }}>
-            100% Brevete MTC Verificado
-          </span>
-        </div>
+      {/* Segmented Control de Vistas */}
+      <div style={{
+        display: 'inline-flex',
+        background: '#EAE8DF',
+        padding: '4px',
+        borderRadius: '12px',
+        border: '1px solid #CAD3BD',
+        marginBottom: '1.5rem',
+        gap: '4px'
+      }}>
+        <button
+          type="button"
+          onClick={() => setVistaTab('mapa')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.55rem 1.2rem',
+            borderRadius: '9px',
+            fontSize: '0.86rem',
+            fontWeight: 700,
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            background: vistaTab === 'mapa' ? '#556B2F' : 'transparent',
+            color: vistaTab === 'mapa' ? '#FFFFFF' : '#2D3A2E',
+            boxShadow: vistaTab === 'mapa' ? '0 2px 8px rgba(45, 58, 46, 0.25)' : 'none'
+          }}
+        >
+          <Navigation size={15} />
+          <span>Mapa de Flota & Simulación de Rutas</span>
+        </button>
 
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <Clock size={16} color="var(--apple-cyan)" /> Jornada Promedio Hoy
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em' }}>
-            {promedioHoras} h
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)' }}>
-            Límite legal: 8.0 horas diarias
-          </span>
-        </div>
-
-        <div className="card" style={{ padding: '1.25rem', margin: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--apple-text-secondary)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: 600 }}>
-            <ShieldCheck size={16} color={conductoresAlLimite > 0 ? 'var(--apple-red)' : 'var(--apple-accent)'} /> Choferes en Riesgo Fatiga
-          </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.03em', color: conductoresAlLimite > 0 ? 'var(--apple-red-text)' : 'var(--apple-text-primary)' }}>
-            {conductoresAlLimite}
-          </div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)' }}>
-            Conducción acumulada &ge; 7.0 h
-          </span>
-        </div>
+        <button
+          type="button"
+          onClick={() => setVistaTab('padron')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.55rem 1.2rem',
+            borderRadius: '9px',
+            fontSize: '0.86rem',
+            fontWeight: 700,
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            background: vistaTab === 'padron' ? '#556B2F' : 'transparent',
+            color: vistaTab === 'padron' ? '#FFFFFF' : '#2D3A2E',
+            boxShadow: vistaTab === 'padron' ? '0 2px 8px rgba(45, 58, 46, 0.25)' : 'none'
+          }}
+        >
+          <Users size={15} />
+          <span>Padrón & Registro de Conductores</span>
+        </button>
       </div>
 
-      {/* SUB-002-01: Formulario de Registro de Conductores */}
-      <div className="card">
-        <h3 style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      {/* Pestaña 1: MAPA DE FLOTA Y SIMULACIÓN DE RUTAS GPS */}
+      {vistaTab === 'mapa' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
+          {/* Barra de Selección Rápida de Conductores de la Flota */}
+          <div className="card" style={{ padding: '1rem 1.25rem', margin: 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, fontSize: '0.9rem', color: '#2D3A2E' }}>
+                <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
+                <span>Seleccionar Conductor para Trazar Ruta desde su Base Fija:</span>
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#6E7E5A' }}>
+                {conductores.length} unidades activas en Lima Metropolitana
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.6rem', overflowX: 'auto', paddingBottom: '0.35rem' }}>
+              {conductores.map(c => {
+                const isSelected = conductorSeleccionado?.conductor_id === c.conductor_id;
+                const statusColor = c.estado === 'DISPONIBLE' ? '#556B2F' : c.estado === 'EN_RUTA' ? '#C47D2B' : '#D64541';
+                return (
+                  <button
+                    key={c.conductor_id}
+                    type="button"
+                    onClick={() => seleccionarConductorParaRuta(c)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      padding: '0.55rem 0.9rem',
+                      borderRadius: '10px',
+                      border: isSelected ? '2px solid #556B2F' : '1px solid #CAD3BD',
+                      background: isSelected ? '#EBF1E6' : '#FFFFFF',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      whiteSpace: 'nowrap',
+                      boxShadow: isSelected ? '0 2px 8px rgba(85, 107, 47, 0.2)' : 'none',
+                      transition: 'all 0.15s ease',
+                      flexShrink: 0
+                    }}
+                  >
+                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#2D3A2E' }}>
+                        {c.nombres.split(' ')[0]} {c.apellidos.split(' ')[0]}
+                      </div>
+                      <div style={{ fontSize: '0.7rem', color: '#6E7E5A', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: statusColor }}></span>
+                        {c.direccion_origen ? c.direccion_origen.split(',')[1]?.trim() || c.direccion_origen.split(',')[0] : 'Lima'} · {c.horas_conduccion_hoy}h
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Contenedor del Mapa Leaflet Interactivo */}
+          <div 
+            className="card" 
+            style={{ 
+              padding: 0, 
+              overflow: 'hidden', 
+              position: 'relative',
+              boxShadow: '0 8px 30px rgba(45, 58, 46, 0.12)',
+              border: '1.5px solid #CAD3BD',
+              margin: 0
+            }}
+          >
+            {/* Barra Superior del Mapa */}
+            <div style={{
+              padding: '0.75rem 1.25rem',
+              background: '#FFFFFF',
+              borderBottom: '1.5px solid #EAE8DF',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <Navigation size={18} color="#556B2F" />
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#2D3A2E' }}>
+                    Mapa Geoespacial de Rutas y Flota en Vivo
+                  </div>
+                  <div style={{ fontSize: '0.74rem', color: '#6E7E5A' }}>
+                    Haz clic en el mapa para colocar la <strong>Bandera de Llegada SVG</strong> y calcular la ruta desde el carro
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={centrarEnConductor}
+                  disabled={!conductorSeleccionado}
+                  title="Centrar vista en el vehículo del conductor seleccionado"
+                  style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+                >
+                  <LocateFixed size={14} /> Centrar en Carro
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={centrarEnBandera}
+                  disabled={!puntoLlegada}
+                  title="Centrar vista en la bandera de llegada"
+                  style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+                >
+                  <Flag size={14} /> Centrar en Bandera
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={verTodosEnMapa}
+                  title="Ajustar zoom para ver toda la flota y puntos"
+                  style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+                >
+                  <Crosshair size={14} /> Ver Toda la Flota
+                </button>
+
+                {puntoLlegada && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={limpiarPuntoLlegada}
+                    title="Eliminar la bandera y limpiar la ruta"
+                    style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#D64541' }}
+                  >
+                    <X size={14} /> Limpiar Bandera
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setMapaMaximizado(!mapaMaximizado)}
+                  title={mapaMaximizado ? "Restaurar tamaño normal" : "Maximizar mapa a pantalla completa"}
+                  style={{ padding: '0.35rem 0.55rem', fontSize: '0.75rem' }}
+                >
+                  {mapaMaximizado ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Lienzo Leaflet con Contenedor React Ref */}
+            <div 
+              ref={mapContainerRef} 
+              style={{ 
+                height: mapaMaximizado ? '80vh' : '520px', 
+                width: '100%',
+                position: 'relative'
+              }} 
+            />
+
+            {/* Panel de Leyenda y Estado Flotante en la esquina inferior */}
+            <div style={{
+              position: 'absolute',
+              bottom: '16px',
+              left: '16px',
+              zIndex: 999,
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '10px',
+              padding: '0.6rem 0.9rem',
+              border: '1.5px solid #CAD3BD',
+              boxShadow: '0 4px 14px rgba(45, 58, 46, 0.15)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem',
+              fontSize: '0.73rem'
+            }}>
+              <div style={{ fontWeight: 700, color: '#2D3A2E', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span>Simbología SVG Oficial</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
+                <span>Carro SVG: Conductor en Base Fija Inicial</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span dangerouslySetInnerHTML={{ __html: SVG_MINI_FLAG }} />
+                <span>Bandera SVG: Punto de Llegada / Entrega</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '18px', height: '3px', background: '#556B2F', display: 'inline-block', borderTop: '2px dashed #556B2F' }}></span>
+                <span>Línea Discontinua: Ruta calculada en tiempo real</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Tarjeta Telemetría HUD: Datos de la Ruta Calculada */}
+          <div className="card" style={{ padding: '1.25rem', margin: 0, border: '1.5px solid #CAD3BD' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span dangerouslySetInnerHTML={{ __html: SVG_MINI_FLAG }} />
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#2D3A2E' }}>
+                  Telemetría de la Ruta: Carro del Conductor &rarr; Bandera de Llegada
+                </h3>
+              </div>
+              {infoRuta && conductorSeleccionado && (
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => {
+                    abrirAsignacion(conductorSeleccionado);
+                    setHorasRuta(infoRuta.horasEst);
+                  }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.45rem 1rem', fontSize: '0.8rem' }}
+                >
+                  <Send size={14} /> Asignar Esta Ruta ({infoRuta.horasEst} h)
+                </button>
+              )}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+              {/* Origen del Conductor */}
+              <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
+                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
+                  Vehículo & Base Fija de Origen
+                </div>
+                {conductorSeleccionado ? (
+                  <>
+                    <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#2D3A2E' }}>
+                      {conductorSeleccionado.nombres} {conductorSeleccionado.apellidos}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: '#556B2F', fontWeight: 600, marginTop: '0.2rem' }}>
+                      {conductorSeleccionado.direccion_origen || 'Cercado de Lima'}
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.2rem' }}>
+                      GPS: [{conductorSeleccionado.latitud_origen?.toFixed(6)}, {conductorSeleccionado.longitud_origen?.toFixed(6)}]
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#2D3A2E', marginTop: '0.35rem' }}>
+                      Brevete: <strong>{conductorSeleccionado.licencia}</strong> ({conductorSeleccionado.categoria_licencia})
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A' }}>Ningún conductor seleccionado</div>
+                )}
+              </div>
+
+              {/* Destino de la Bandera */}
+              <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
+                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span dangerouslySetInnerHTML={{ __html: SVG_MINI_FLAG }} />
+                  Punto de Llegada (Bandera SVG)
+                </div>
+                {puntoLlegada ? (
+                  <>
+                    <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#2D3A2E' }}>
+                      Destino de Entrega Marcado
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: '#556B2F', fontWeight: 600, marginTop: '0.2rem' }}>
+                      Coordenadas: [{puntoLlegada.lat}, {puntoLlegada.lng}]
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.2rem' }}>
+                      Punto fijado interactivamente con clic en el mapa
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#556B2F', marginTop: '0.35rem', fontWeight: 600 }}>
+                      Listo para asociar con orden de reparto
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A', lineHeight: 1.5 }}>
+                    Haz clic en cualquier punto del mapa de Lima para clavar la Bandera de Llegada SVG.
+                  </div>
+                )}
+              </div>
+
+              {/* Estimaciones de Ruta */}
+              <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
+                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
+                  Distancia & Tiempo Estimado
+                </div>
+                {infoRuta ? (
+                  <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                      <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#556B2F' }}>
+                        {infoRuta.distanciaKm} km
+                      </span>
+                      <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#2D3A2E' }}>
+                        ~{infoRuta.tiempoMin} min
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.3rem' }}>
+                      Cálculo geodésico Haversine + modelo tráfico urbano Lima
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#2D3A2E', marginTop: '0.35rem' }}>
+                      Tiempo proyectado de conducción: <strong>+{infoRuta.horasEst} h</strong>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A' }}>
+                    Selecciona un vehículo y clava la bandera en el mapa para calcular distancia y tiempo.
+                  </div>
+                )}
+              </div>
+
+              {/* Control de Fatiga Legal Ley N° 30224 */}
+              <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
+                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
+                  Cumplimiento Legal MTC (Ley N° 30224)
+                </div>
+                {conductorSeleccionado && (
+                  <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.25rem' }}>
+                      <span>Jornada acumulada hoy:</span>
+                      <strong>{conductorSeleccionado.horas_conduccion_hoy} h</strong>
+                    </div>
+                    {infoRuta && (
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.25rem' }}>
+                        <span>Tiempo de esta ruta:</span>
+                        <strong>+{infoRuta.horasEst} h</strong>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', fontWeight: 700, borderTop: '1px solid #CAD3BD', paddingTop: '0.3rem', marginTop: '0.2rem' }}>
+                      <span>Total proyectado:</span>
+                      <span style={{ 
+                        color: ((conductorSeleccionado.horas_conduccion_hoy + (infoRuta?.horasEst || 0)) > 8.0) ? '#D64541' : '#556B2F' 
+                      }}>
+                        {(conductorSeleccionado.horas_conduccion_hoy + (infoRuta?.horasEst || 0)).toFixed(1)} / 8.0 h
+                      </span>
+                    </div>
+                    <div style={{ 
+                      fontSize: '0.72rem', 
+                      marginTop: '0.35rem', 
+                      fontWeight: 600,
+                      color: ((conductorSeleccionado.horas_conduccion_hoy + (infoRuta?.horasEst || 0)) > 8.0) ? '#D64541' : '#556B2F' 
+                    }}>
+                      {((conductorSeleccionado.horas_conduccion_hoy + (infoRuta?.horasEst || 0)) > 8.0)
+                        ? 'Alerta: Excedería las 8 horas legales'
+                        : 'Dentro del límite legal permitido'}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pestaña 2: PADRÓN Y REGISTRO DE CONDUCTORES */}
+      {vistaTab === 'padron' && (
+        <>
+          {/* SUB-002-01: Formulario de Registro de Conductores */}
+          <div className="card">
+            <h3 style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Plus size={18} color="var(--apple-accent)" /> SUB-002-01: Registro de Conductor y Punto de Origen
         </h3>
         <form onSubmit={handleCrear}>
@@ -640,8 +1330,26 @@ export function ConductoresView() {
                 return (
                   <tr key={c.conductor_id}>
                     <td>
-                      <div style={{ fontWeight: 600 }}>{c.nombres} {c.apellidos}</div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--apple-text-tertiary)' }}>ID: {c.conductor_id.substring(0, 8)}...</div>
+                      <div style={{ fontWeight: 600, color: '#2D3A2E' }}>{c.nombres} {c.apellidos}</div>
+                      <div style={{ 
+                        fontSize: '0.73rem', 
+                        color: '#556B2F', 
+                        fontWeight: 600, 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        gap: '0.35rem', 
+                        marginTop: '0.25rem',
+                        background: '#F0EFE9',
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '6px',
+                        border: '1px solid #CAD3BD'
+                      }} title="Cuenta de acceso a la App Móvil (Rol: REPARTIDOR · Clave: ecologistica2026)">
+                        <Smartphone size={11} color="#556B2F" />
+                        <span>{getEmailConductor(c)}</span>
+                      </div>
+                      <div style={{ fontSize: '0.68rem', color: 'var(--apple-text-tertiary)', marginTop: '0.15rem' }}>
+                        ID: {c.conductor_id.substring(0, 8)}... · Rol: REPARTIDOR
+                      </div>
                     </td>
                     <td>
                       <div><strong>DNI:</strong> {c.dni}</div>
@@ -681,6 +1389,16 @@ export function ConductoresView() {
                     </td>
                     <td style={{ textAlign: 'right' }}>
                       <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                        {/* Ver en Mapa y Trazar Ruta */}
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => verEnMapaDesdePadron(c)}
+                          title="Ver Vehículo en el Mapa y Trazar Ruta con Bandera SVG"
+                          style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#556B2F' }}
+                        >
+                          <Navigation size={13} /> Ruta
+                        </button>
+
                         {/* Simular / Asignar Ruta */}
                         <button
                           className="btn btn-secondary"
@@ -731,17 +1449,19 @@ export function ConductoresView() {
           </table>
         </div>
       </div>
+    </>
+  )}
 
       {/* Modal de Simulación / Asignación de Ruta (SUB-002-05 & SUB-002-07) */}
       {assigningConductor && (
-        <div className="modal-overlay" onClick={() => setAssigningConductor(null)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
+        <div className="apple-modal-overlay modal-overlay" onClick={() => setAssigningConductor(null)}>
+          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
             <div className="modal-header">
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Send size={18} color="var(--apple-accent)" /> Asignación de Ruta a Conductor
               </h2>
               <button 
-                className="modal-close" 
+                className="modal-close modal-close-btn" 
                 onClick={() => setAssigningConductor(null)}
                 title="Cerrar modal"
               >
@@ -831,12 +1551,12 @@ export function ConductoresView() {
 
       {/* Modal de Edición de Conductor */}
       {editingConductor && (
-        <div className="modal-overlay" onClick={() => setEditingConductor(null)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+        <div className="apple-modal-overlay modal-overlay" onClick={() => setEditingConductor(null)}>
+          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
             <div className="modal-header">
               <h2>Editar Conductor: {editingConductor.nombres}</h2>
               <button 
-                className="modal-close" 
+                className="modal-close modal-close-btn" 
                 onClick={() => setEditingConductor(null)}
                 title="Cerrar modal"
               >

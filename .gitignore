@@ -15,8 +15,13 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+/lib/
+/lib64/
+!src/mobile/lib/
+!src/mobile/lib/**
+src/mobile/android/local.properties
+src/mobile/android/.gradle/
+src/mobile/.dart_tool/
 parts/
 sdist/
 var/

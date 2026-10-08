@@ -296,7 +296,114 @@ git checkout main
 git checkout feature/fase-01-inicio
 ```
 
-### Visualización de Documentación en VS Code
+---
+
+### 🐘 1. Base de Datos en Docker (PostgreSQL 16 + PostGIS)
+
+Asegúrate de tener abierta la aplicación **Docker Desktop** en Windows (*Engine running* en verde). Luego, desde la raíz del proyecto (`EcoLogistica-Lima`), ejecuta:
+
+```powershell
+# Levantar el contenedor de base de datos en segundo plano
+docker compose up -d db
+
+# Comprobar que el contenedor esté corriendo en el puerto 5432
+docker ps
+```
+
+* **Parámetros de conexión local:**
+  * **Host:** `localhost` | **Puerto:** `5432`
+  * **Base de datos:** `ecologistica_db`
+  * **Usuario:** `postgres` | **Contraseña:** `postgrespassword`
+  * **Script de inicio:** Carga automáticamente las tablas, tipos espaciales e índices GiST desde [`src/database/init.sql`](src/database/init.sql).
+
+---
+
+### ⚙️ 2. Backend (FastAPI + Python)
+
+Abre una terminal de PowerShell y sigue estos pasos:
+
+```powershell
+# 1. Ingresar a la carpeta del backend
+cd src/backend
+
+# 2. Crear el entorno virtual (solo la primera vez)
+python -m venv .venv
+
+# 3. Activar el entorno virtual en Windows
+.venv\Scripts\activate
+
+# 4. Instalar las dependencias del proyecto
+pip install -r requirements.txt
+
+# 5. Levantar el servidor backend en modo desarrollo con recarga automática
+uvicorn main:app --reload
+```
+
+* **Endpoints y Documentación Interactiva:**
+  * **API Base:** [http://localhost:8000](http://localhost:8000)
+  * **Swagger UI (OpenAPI interactivo):** [http://localhost:8000/docs](http://localhost:8000/docs)
+  * **ReDoc:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+* **Ejecutar Suite de Pruebas Automatizadas (Pytest):**
+  ```powershell
+  # Con el entorno virtual activo (.venv):
+  pytest -v
+  ```
+
+---
+
+### 💻 3. Frontend (React 18 + Vite + TypeScript)
+
+En una nueva terminal, navega a la carpeta del frontend y levanta la aplicación cliente con estilo Apple Design:
+
+```powershell
+# 1. Ingresar a la carpeta del frontend
+cd src/frontend
+
+# 2. Instalar dependencias de Node.js (solo la primera vez)
+npm install
+
+# 3. Iniciar el servidor local de desarrollo de Vite
+npm run dev
+```
+
+* **Acceso a la Plataforma Web (Enrutamiento Dinámico con React Router):**
+  * **URL Base:** [http://localhost:5173](http://localhost:5173)
+  * Cuenta con rutas dinámicas e independientes:
+    * 🚚 **Vehículos:** [http://localhost:5173/vehiculos](http://localhost:5173/vehiculos) (US-001: Gestión de Flota y Emisiones)
+    * 👥 **Conductores:** [http://localhost:5173/conductores](http://localhost:5173/conductores) (US-002: Control de Fatiga y Jornada Máxima de 8h)
+    * 📦 **Pedidos y GPS:** [http://localhost:5173/pedidos](http://localhost:5173/pedidos) (US-003: Registro y Mapa Geoespacial / US-004: Preferencias del Cliente)
+    * 🛡️ **Administración y Roles:** [http://localhost:5173/admin](http://localhost:5173/admin) (Gestión RBAC: Alta de Personal de Oficina, Repartidores y Clientes con Permisos Granulares)
+
+---
+
+### 📱 4. Aplicación Móvil (Flutter: Repartidores y Clientes)
+
+En una nueva terminal, ingresa al directorio móvil e inicia la aplicación Flutter:
+
+```powershell
+# 1. Ingresar a la carpeta de la app móvil
+cd src/mobile
+
+# 2. Obtener las dependencias de Flutter
+flutter pub get
+
+# 3. Ejecutar la aplicación en el navegador Chrome, Windows o Emulador Android
+flutter run -d chrome     # Opción rápida web
+# O bien:
+flutter run -d windows    # Opción de escritorio Windows
+```
+
+* **Características implementadas:**
+  * 🔐 **Autenticación con Detección Automática de Rol:** Deriva a la interfaz de Repartidor o Cliente.
+  * 🚚 **Modo Repartidor:** Selección de pedido, visualización de ruta (A ➔ B), cálculo de tiempo de llegada (ETA), consumo de combustible, emisiones de $CO_2$ y captura de foto de entrega (POD).
+  * 🏪 **Modo Cliente / Recepción:** Emisión de nuevos pedidos (Punto A a B), especificación de precio del producto y modalidad de pago ("Pago inmediato" o "Contraentrega").
+  * 🔄 **Arquitectura Offline-First:** Persistencia en base de datos local SQL en caso de pérdida de conexión; al reconectar con PostgreSQL, las transacciones pendientes se sincronizan automáticamente.
+  * 🍎 **Apple Design System:** Interfaz en modo oscuro *Obsidian Glass*, física táctil con resortes y componentes Cupertino fluidos.
+
+---
+
+### 📚 Visualización de Documentación en VS Code
 Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), tablas y diagramas Mermaid:
 1. Instala la extensión **Markdown Preview Enhanced** o utiliza el visor nativo de VS Code (`Ctrl + Shift + V`).
 2. Todos los documentos cuentan con navegación cruzada e hipervínculos relativos para saltar entre requisitos, reglas y código.
