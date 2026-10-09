@@ -365,4 +365,3 @@ Las siguientes versiones registrarán los cambios de estado, las funcionalidades
 
 [← Volver al README principal](../../README.md)
 
->>>>>>> feature/fase-01-inicio

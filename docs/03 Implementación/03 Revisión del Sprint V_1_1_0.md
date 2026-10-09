@@ -395,7 +395,6 @@ La revisión definitiva deberá considerar el estado final de las historias, las
 ---
 =======
 ----
->>>>>>> feature/fase-01-inicio
 
 [← Volver al README principal](../../README.md)
 
