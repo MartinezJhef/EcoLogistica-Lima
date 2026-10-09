@@ -8,7 +8,6 @@
 
 | Campo                         | Detalle                                                                                                               |
 | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-<<<<<<< HEAD
 | **Nombre del Proyecto**       | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana                    |
 | **Código del Proyecto**       | PFA-ECOLIMA-2026                                                                                                      |
 | **Integrantes del Equipo**    | Zayuri Cerron Medina, Jheferson Martinez Valerio, Angela Rojas Quispe, Maylit Mendoza Alarcon y Diego Angulo Gonzales |
