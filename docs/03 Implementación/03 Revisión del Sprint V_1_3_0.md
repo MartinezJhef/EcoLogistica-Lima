@@ -1,91 +1,214 @@
-[← Volver al README Principal](../../README.md)
+[← Volver al README principal](../../README.md)
 
-# Revisión del sprint
-
-**Nombre del Proyecto:** EcoLogística Lima – Plataforma Inteligente para la Optimización de Rutas Sostenibles de Última Milla (DistriRápido S.A.C.)
-
-**Código Institucional:** PFA-ECOLIMA-2026
-
-**Líder del Proyecto:** Zayuri Cerron Medina (Directora de Proyecto) / Jheferson Martinez Valerio (Scrum Master)
+# 03. Revisión del Sprint
 
 ---
 
-## Historias de Usuario completadas en este Sprint
+## 1. Información del documento
 
-En la ceremonia formal de **Sprint Review** realizada al cierre de la iteración (Sprint 1: 16 de septiembre al 09 de octubre de 2026), se presentó el incremento de software potencialmente desplegable correspondiente a las **3 Historias de Usuario principales** y los **Enablers de arquitectura** planificados:
-
-### Resumen de Cumplimiento de Historias de Usuario
-
-| ID Historia | Título de la Historia de Usuario | Épica Asociada | Story Points | Criterios BDD Verificados | Estado Final |
-| :---: | :--- | :--- | :---: | :---: | :---: |
-| **US-001** | Gestionar vehículos de la flota | EP-01 Gestión de Vehículos | 5 SP | 2/2 Cumplidos (Escenario 1 y 2) | **DONE** |
-| **US-002** | Gestionar conductores y jornada | EP-02 Gestión de Conductores | 5 SP | 2/2 Cumplidos (Escenario 1 y 2) | **DONE** |
-| **TOTAL** | **Velocidad Lograda en el Sprint 1** | **3 Épicas Impactadas** | **10 SP** | **100% de Criterios Validados** | **DONE** |
-
----
-
-### Detalle Técnico por Historia de Usuario
-
-#### 1. US-001: Gestionar vehículos de la flota (ANA-9)
-* **Objetivo:** Permitir al administrador de flota registrar, consultar, actualizar y tipificar las unidades vehiculares de DistriRápido S.A.C., calculando sus factores de emisión y validando restricciones de capacidad.
-* **Criterios de Aceptación Verificados:**
-  * *Escenario 1 (Registro con datos válidos):* Registro exitoso de vehículos (Placa, Capacidad en Kg, Volumen en $m^3$, Combustible Diésel/GNV y Factor de Emisión) en un tiempo promedio de respuesta de $180\text{ ms}$ (meta $< 1000\text{ ms}$). Estado inicial asignado: `DISPONIBLE`.
-  * *Escenario 2 (Validación de placa duplicada):* Rechazo automático ante intentos de ingreso de placas ya existentes en el sistema, emitiendo respuesta HTTP `409 Conflict` con el mensaje: *"La placa ingresada ya se encuentra registrada en el sistema."*
-* **Tareas Técnicas Cerradas:**
-  * Creación del modelo relacional `vehiculos` en SQLAlchemy 2.0 y esquemas Pydantic v2.
-  * Implementación de endpoints REST: `GET /api/v1/vehiculos`, `POST /api/v1/vehiculos`, `GET /api/v1/vehiculos/{id}`, `PUT /api/v1/vehiculos/{id}`.
-  * Construcción de la vista en React 18 con catálogo reactivo, filtros dinámicos y tabla con paginación.
-
-#### 2. US-002: Gestionar conductores y jornada (ANA-6)
-* **Objetivo:** Registrar a los conductores de reparto y controlar estrictamente sus límites de fatiga y jornada legal para prevenir sobrecargas de trabajo.
-* **Criterios de Aceptación Verificados:**
-  * *Escenario 1 (Alta de conductor):* Registro correcto de chofer con DNI, licencia de conducir vigente y punto de partida autorizado. Perfil creado con estado inicial `DISPONIBLE`.
-  * *Escenario 2 (Bloqueo por exceso de jornada - RN-004):* Verificación automática de horas acumuladas de manejo. Si un conductor registra $\ge 7.5\text{ h}$, el sistema rechaza la asignación de rutas adicionales emitiendo el mensaje legal: *"Asignación rechazada: Supera el límite legal de 8 horas diarias (Ley N° 30224 / D.S. 033-2012-MTC)."*
-* **Tareas Técnicas Cerradas:**
-  * Creación de la tabla `conductores` con clave foránea hacia `usuarios` y restricción de unicidad en licencia.
-  * Lógica de servicio en `FleetService` para el cómputo de horas de servicio y validación de turnos.
-  * Vista web para administración de choferes con semaforización de estado operativo (Verde: Disponible, Amarillo: En Turno, Rojo: Límite Alcanzado).
-
-
-## Demostración del trabajo completado
-Demostración a los stakeholres de las funcionalides implementadas.
-
-La demostración del trabajo completado se desarrolló en sesión formal virtual el **09 de octubre de 2026 a las 17:00 horas**, contando con la asistencia de:
-* **Ing. Asesor del PFA:** Evaluador de Taller de Proyectos 2 (Escuela Profesional de Ingeniería de Sistemas e Informática).
-* **Lic. Roberto Morales:** Representante de Operaciones y Distribución de DistriRápido S.A.C.
-* **Equipo de Desarrollo del Proyecto EcoLogística Lima.**
-
-### Agenda de la Demostración y Resultados Obtenidos
-
-1. **Presentación de la Arquitectura en Ejecución:**
-   * Se mostró la arquitectura en capas funcionando en contenedores Docker: API Backend en **FastAPI (Python 3.11)**, Base de datos **PostgreSQL 16 + PostGIS 3.4** y Frontend en **React 18 + Vite**.
-   * Se evidenció la documentación Swagger UI interactiva en `http://localhost:8000/docs`, ejecutando pruebas de endpoints con respuestas menores a $250\text{ ms}$.
-
-2. **Flujo Operativo de Demostración en Vivo:**
-   * **Paso 1 (Gestión de Flota):** Se registró un camión liviano de reparto eléctrico y una furgoneta diésel, demostrando cómo el sistema asigna automáticamente el factor de emisión de $CO_2$ ($g/km$) según la norma Euro correspondiente. Se forzó un intento de duplicar la placa `ABC-123`, demostrando el bloqueo y el mensaje de alerta.
-   * **Paso 2 (Gestión de Conductores):** Se dio de alta a dos conductores. Se simuló una jornada acumulada de 7.5 horas para el conductor "Carlos Quispe", intentando asignarle una ruta de prueba adicional de 1 hora; el sistema ejecutó el bloqueo automático conforme a la Ley N° 30224.
-   * **Paso 3 (Gestión de Pedidos):** Se demostró la importación de un archivo de 20 pedidos con coordenadas geográficas en Lima Este (Ate, Santa Anita y San Juan de Lurigancho). Se validaron ventanas horarias de entrega y pesos de carga.
-
-3. **Retroalimentación de los Stakeholders:**
-   * **DistriRápido S.A.C.:** *"La validación automática del límite legal de jornada para los conductores evita riesgos de sanciones laborales por parte de SUNAFIL. Es un gran acierto tenerlo sistematizado."*
-   * **Asesor del Proyecto:** Felicitó el cumplimiento estricto de la arquitectura C4 y el uso de tipos de datos espaciales nativos mediante PostGIS en lugar de simples campos de texto para las coordenadas.
+| Campo                         | Detalle                                                                                                               |
+| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| **Nombre del proyecto**       | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana                    |
+| **Código del proyecto**       | PFA-ECOLIMA-2026                                                                                                      |
+| **Organización piloto**       | DistriRápido S.A.C.                                                                                                   |
+| **Responsable del documento** | Angela Rojas Quispe                                                                                                   |
+| **Equipo del proyecto**       | Zayuri Cerron Medina, Jheferson Martinez Valerio, Angela Rojas Quispe, Maylit Mendoza Alarcon y Diego Angulo Gonzales |
+| **Fecha de elaboración**      | 07 de octubre de 2026                                                                                                 |
+| **Versión**                   | V_1_3_0                                                                                                               |
+| **Estado del documento**      | Actualización del avance del Sprint 1                                                                                 |
 
 ---
 
-## Pendientes
+## 2. Objetivo del Sprint
 
-Habiéndose cerrado el 100% de los elementos del Sprint 1, los siguientes ítems constituyen el alcance comprometido para la planificación del **Sprint 2 (10 al 30 de octubre de 2026)**:
+El objetivo del Sprint 1 es establecer una base funcional para EcoLogistica-Lima mediante el desarrollo progresivo de las funcionalidades de gestión de vehículos, conductores y pedidos logísticos.
 
-1. **US-005 (Optimización de Rutas con Algoritmos Heurísticos):**
-   * Desarrollo del solucionador Green VRPTW utilizando la librería **Google OR-Tools** en el backend.
-   * Integración del cálculo de la matriz de distancias y tiempos de tránsito mediante servicios cartográficos (OSRM).
-2. **US-006 (Visualización Geoespacial e Interactiva de Rutas):**
-   * Integración del visor de mapas **Leaflet** en el frontend de React para dibujar los tramos poligonales de las rutas optimizadas y las paradas ordenadas de entrega.
-3. **US-004 (Gestión de Preferencias y Restricciones del Cliente):**
-   * Módulo para registrar horarios de recepción de clientes B2B (supermercados, bodegas) y zonas de acceso peatonal o restringido.
-4. **Despliegue del Sistema de Tareas Asíncronas (Celery + Redis):**
-   * Implementación del procesamiento en segundo plano para evitar demoras en la API durante el cálculo de rutas de gran escala.
+Al corte del **07 de octubre de 2026**, las historias **US-001 — Registrar y administrar vehículos**, **US-002 — Administrar conductores** y **US-003 — Registrar pedidos logísticos** se registran como completadas.
+
+La siguiente historia en la secuencia funcional es **US-004 — Gestionar clientes y preferencias**, que permanece pendiente de finalización en esta revisión.
 
 ---
 
-[← Volver al README Principal](../../README.md)
+## 3. Resumen de las historias de usuario
+
+| Código                  | Historia de usuario               | Story Points | Estado al corte                        |
+| :---------------------- | :-------------------------------- | :----------: | :------------------------------------- |
+| US-001                  | Registrar y administrar vehículos |     5 SP     | **Completada**                         |
+| US-002                  | Administrar conductores           |     5 SP     | **Completada**                         |
+| US-003                  | Registrar pedidos logísticos      |     8 SP     | **Completada**                         |
+| US-004                  | Gestionar clientes y preferencias |     3 SP     | **Pendiente**                          |
+| **Total de referencia** | **Cuatro historias**              |   **21 SP**  | **18 SP completados; 3 SP pendientes** |
+
+De acuerdo con los estados indicados para esta versión, se registran **18 de los 21 Story Points** como completados, equivalentes aproximadamente al **85,7 %** del alcance acumulado de estas cuatro historias.
+
+La matriz de casos de uso contempla siete subtareas para US-001, cinco para US-002, cinco para US-003 y cuatro para US-004. El estado de cada subtarea debe verificarse en Jira.
+
+---
+
+## 4. US-001 — Registrar y administrar vehículos
+
+**Requisito relacionado:** RF-001
+**Story Points:** 5 SP
+**Estado:** Completada
+
+Esta historia permite administrar los vehículos de la flota logística.
+
+Su alcance técnico comprende el modelo de datos, las migraciones y restricciones de base de datos, los endpoints REST, las validaciones de negocio, las pruebas y la integración de la interfaz web con la API.
+
+La historia se conserva como completada según el estado registrado en las revisiones anteriores.
+
+---
+
+## 5. US-002 — Administrar conductores
+
+**Requisito relacionado:** RF-008
+**Story Points:** 5 SP
+**Estado:** Completada
+
+Esta historia contempla el mantenimiento de la información de los conductores, sus datos de identificación, licencia, experiencia, disponibilidad y punto de partida.
+
+Su alcance incluye los servicios REST, las reglas de disponibilidad y jornada, las pantallas de administración y las pruebas de integración con la persistencia.
+
+La historia se conserva como completada según el estado registrado en la versión anterior.
+
+---
+
+## 6. US-003 — Registrar pedidos logísticos
+
+**Story Points:** 8 SP
+**Estado:** Completada
+
+### 6.1. Objetivo
+
+Permitir el registro de pedidos logísticos con datos de peso, volumen, prioridad, ventanas horarias y ubicación geográfica.
+
+### 6.2. Alcance técnico
+
+| Subtarea   | Actividad                                                                                       |
+| :--------- | :---------------------------------------------------------------------------------------------- |
+| SUB-003-01 | Crear la tabla `pedidos` en PostgreSQL/PostGIS con atributos logísticos y coordenadas GPS.      |
+| SUB-003-02 | Implementar el endpoint backend para recepción individual y carga masiva.                       |
+| SUB-003-03 | Programar el validador de geocodificación para identificar ubicaciones inválidas o incompletas. |
+| SUB-003-04 | Construir el formulario frontend para registrar pedidos y referencias locales.                  |
+| SUB-003-05 | Integrar el formulario con la API de validación de ubicaciones y la gestión de errores.         |
+
+### 6.3. Resultado de la revisión
+
+Al corte del 07 de octubre de 2026, US-003 se registra como completada. Su cierre deberá respaldarse con las evidencias de implementación y validación, además del estado actualizado de sus subtareas.
+
+La funcionalidad de pedidos permite registrar la información logística necesaria para continuar con la administración de clientes y sus preferencias de entrega.
+
+---
+
+## 7. US-004 — Gestionar clientes y preferencias
+
+**Story Points:** 3 SP
+**Estado:** Pendiente
+
+### 7.1. Objetivo
+
+Permitir la administración de los clientes y sus preferencias de entrega, considerando horarios de recepción y restricciones de acceso.
+
+### 7.2. Alcance técnico previsto
+
+| Subtarea   | Actividad                                                                                                    |
+| :--------- | :----------------------------------------------------------------------------------------------------------- |
+| SUB-004-01 | Diseñar el modelo relacional de `clientes` y `preferencias_entrega`.                                         |
+| SUB-004-02 | Crear servicios REST para consultar, asignar y actualizar preferencias de horario y restricciones de acceso. |
+| SUB-004-03 | Desarrollar la vista de administración de clientes y preferencias en el frontend.                            |
+| SUB-004-04 | Conectar la vista con los servicios API e implementar alertas de confirmación al guardar cambios.            |
+
+### 7.3. Estado al corte
+
+US-004 permanece pendiente al 07 de octubre de 2026. Las actividades indicadas constituyen el alcance previsto y deberán ejecutarse, probarse y validarse antes de declarar la historia completada.
+
+La información de clientes y sus preferencias permitirá complementar los datos de los pedidos con las condiciones de recepción de cada destino.
+
+---
+
+## 8. Resumen de la demostración
+
+La revisión de este corte comprende las funcionalidades de administración de vehículos, conductores y pedidos logísticos.
+
+| Elemento                          | Resultado                                                                  |
+| :-------------------------------- | :------------------------------------------------------------------------- |
+| US-001 — Vehículos                | Completada según el estado registrado.                                     |
+| US-002 — Conductores              | Completada según el estado registrado.                                     |
+| US-003 — Pedidos logísticos       | Completada según el estado registrado en esta versión.                     |
+| US-004 — Clientes y preferencias  | Pendiente de finalización.                                                 |
+| Evidencias                        | Conservar capturas, pruebas y registros de Jira asociados a cada historia. |
+| Retroalimentación de stakeholders | Registrar las observaciones efectivamente recopiladas durante la revisión. |
+
+La demostración debe permitir revisar las funcionalidades disponibles para gestionar vehículos, conductores y pedidos. La funcionalidad de clientes y preferencias deberá incorporarse cuando su implementación y validación hayan concluido.
+
+---
+
+## 9. Estado del Sprint
+
+| Indicador                              | Resultado      |
+| :------------------------------------- | :------------- |
+| Historias consideradas en la secuencia | 4              |
+| Story Points acumulados                | 21 SP          |
+| Historias completadas                  | 3              |
+| Historias pendientes                   | 1              |
+| Story Points completados               | 18 SP          |
+| Story Points pendientes                | 3 SP           |
+| US-001                                 | **Completada** |
+| US-002                                 | **Completada** |
+| US-003                                 | **Completada** |
+| US-004                                 | **Pendiente**  |
+
+El estado presentado corresponde al corte del 07 de octubre de 2026. La siguiente actualización deberá registrar el resultado de US-004 y las evidencias de su finalización.
+
+---
+
+## 10. Observaciones y elementos pendientes
+
+* Conservar las evidencias de implementación y validación de US-001, US-002 y US-003.
+* Verificar que los criterios de aceptación de US-003 estén respaldados por pruebas.
+* Desarrollar el modelo de datos de clientes y preferencias de entrega.
+* Implementar los servicios REST de consulta y actualización de preferencias.
+* Desarrollar la interfaz web de administración.
+* Integrar el frontend con la API.
+* Verificar las alertas de confirmación al guardar cambios.
+* Ejecutar las pruebas correspondientes a US-004.
+* Actualizar Jira y el Sprint Backlog.
+* Registrar la retroalimentación de los stakeholders.
+
+---
+
+## 11. Próximas actividades
+
+1. Confirmar las evidencias de cierre de US-003.
+2. Desarrollar US-004 — Gestionar clientes y preferencias.
+3. Implementar las tablas y relaciones de datos necesarias.
+4. Desarrollar los servicios REST para las preferencias de entrega.
+5. Construir e integrar la interfaz de administración.
+6. Verificar las confirmaciones y validaciones de la interfaz.
+7. Ejecutar pruebas funcionales y de integración.
+8. Validar los criterios de aceptación de US-004.
+9. Actualizar Jira y la documentación del proyecto.
+10. Preparar la siguiente revisión del Sprint.
+
+---
+
+## 12. Conclusión
+
+Al 07 de octubre de 2026, US-001, US-002 y US-003 se registran como completadas, con un total acumulado de **18 Story Points**. La siguiente historia, US-004 — Gestionar clientes y preferencias, permanece pendiente y representa 3 Story Points adicionales.
+
+La secuencia funcional ha avanzado desde la administración de los recursos de la flota hasta el registro de pedidos logísticos. La siguiente revisión deberá reflejar el resultado de US-004 y las evidencias que permitan comprobar su finalización.
+
+---
+
+## 13. Control de cambios
+
+| Versión | Fecha      | Responsable         | Descripción                                                                                | Estado      |
+| :------ | :--------- | :------------------ | :----------------------------------------------------------------------------------------- | :---------- |
+| V_1_0_0 | 24/09/2026 | Angela Rojas Quispe | Borrador inicial de la Revisión del Sprint 1.                                              | Histórico   |
+| V_1_1_0 | 30/09/2026 | Angela Rojas Quispe | US-001 completada y US-002 pendiente.                                                      | Histórico   |
+| V_1_2_0 | 01/10/2026 | Angela Rojas Quispe | US-002 completada y US-003 pendiente.                                                      | Histórico   |
+| V_1_3_0 | 07/10/2026 | Angela Rojas Quispe | US-003 registrada como completada y US-004 identificada como siguiente historia pendiente. | Actualizada |
+
+---
+
+[← Volver al README principal](../../README.md)
