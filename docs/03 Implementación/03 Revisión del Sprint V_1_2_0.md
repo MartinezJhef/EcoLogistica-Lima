@@ -196,6 +196,7 @@ La gestión de vehículos y conductores constituye la base para continuar con el
 | V_1_1_0 | 30/09/2026 | Angela Rojas Quispe | US-001 completada y US-002 pendiente.                                                                    | Histórico   |
 | V_1_2_0 | 01/10/2026 | Angela Rojas Quispe | Actualización que registra US-002 como completada e identifica US-003 como siguiente historia pendiente. | Actualizada |
 
----
+----
 
 [← Volver al README principal](../../README.md)
+

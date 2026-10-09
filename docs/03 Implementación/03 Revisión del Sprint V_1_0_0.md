@@ -161,6 +161,7 @@ Las siguientes versiones registrarán los cambios de estado, las funcionalidades
 | :------ | :--------- | :------------------ | :------------------------------------------------------------ | :------- |
 | V_1_0_0 | 24/09/2026 | Angela Rojas Quispe | Elaboración del borrador inicial de la Revisión del Sprint 1. | Borrador |
 
----
+----
 
 [← Volver al README principal](../../README.md)
+

@@ -202,6 +202,6 @@ La siguiente historia de la matriz es **US-005 — Generar rutas optimizadas**, 
 | V_1_3_0 | 07/10/2026 | Angela Rojas Quispe | US-003 completada y US-004 pendiente.                                                                      | Histórico   |
 | V_1_4_0 | 08/10/2026 | Angela Rojas Quispe | US-004 registrada como completada y US-005 identificada como siguiente historia de la secuencia funcional. | Actualizada |
 
----
+----
 
 [← Volver al README principal](../../README.md)

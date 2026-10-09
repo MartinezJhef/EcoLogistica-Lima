@@ -209,6 +209,7 @@ La secuencia funcional ha avanzado desde la administración de los recursos de l
 | V_1_2_0 | 01/10/2026 | Angela Rojas Quispe | US-002 completada y US-003 pendiente.                                                      | Histórico   |
 | V_1_3_0 | 07/10/2026 | Angela Rojas Quispe | US-003 registrada como completada y US-004 identificada como siguiente historia pendiente. | Actualizada |
 
----
+----
 
 [← Volver al README principal](../../README.md)
+

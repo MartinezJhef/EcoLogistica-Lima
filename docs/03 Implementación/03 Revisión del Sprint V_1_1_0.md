@@ -181,6 +181,7 @@ Esta versión representa una actualización respecto al borrador del 24 de septi
 | V_1_0_0 | 24/09/2026 | Angela Rojas Quispe | Borrador inicial de la Revisión del Sprint 1.                                                                               | Histórico   |
 | V_1_1_0 | 30/09/2026 | Angela Rojas Quispe | US-001 registrada como completada y US-002 como pendiente; actualización del avance, demostración y actividades siguientes. | Actualizada |
 
----
+----
 
 [← Volver al README principal](../../README.md)
+
