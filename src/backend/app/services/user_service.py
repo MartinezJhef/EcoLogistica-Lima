@@ -61,6 +61,24 @@ class UserService:
                 rol=RolUsuario.CLIENTE.value,
                 permisos=PERMISOS_POR_DEFECTO[RolUsuario.CLIENTE],
                 estado=EstadoUsuario.ACTIVO.value
+            ),
+            Usuario(
+                email="repartidor@ecologistica.com",
+                nombre_completo="Repartidor Oficial (EcoLogística)",
+                telefono="987654321",
+                password_hash=_hash_password("12345678"),
+                rol=RolUsuario.REPARTIDOR.value,
+                permisos=PERMISOS_POR_DEFECTO[RolUsuario.REPARTIDOR],
+                estado=EstadoUsuario.ACTIVO.value
+            ),
+            Usuario(
+                email="cliente@ecologistica.com",
+                nombre_completo="Cliente Oficial (EcoLogística)",
+                telefono="912345678",
+                password_hash=_hash_password("12345678"),
+                rol=RolUsuario.CLIENTE.value,
+                permisos=PERMISOS_POR_DEFECTO[RolUsuario.CLIENTE],
+                estado=EstadoUsuario.ACTIVO.value
             )
         ]
 
