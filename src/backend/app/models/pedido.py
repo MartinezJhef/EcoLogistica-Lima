@@ -27,6 +27,7 @@ class Pedido(Base):
 
     # Campos específicos para US-003 y US-004 (Preferencias y Restricciones del Cliente)
     referencia_ubicacion = Column(Text, nullable=True)
+    referencia_destino = Column(Text, nullable=True)
     restriccion_acceso = Column(String(100), nullable=False, default="LIBRE_ACCESO")
     foto_referencia_url = Column(Text, nullable=True)
     telefono_contacto = Column(String(20), nullable=True)

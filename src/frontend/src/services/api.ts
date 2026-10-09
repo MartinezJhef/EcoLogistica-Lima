@@ -79,6 +79,7 @@ export interface Pedido {
   prioridad: string;
   estado: string;
   referencia_ubicacion?: string;
+  referencia_destino?: string;
   restriccion_acceso?: string;
   foto_referencia_url?: string;
   telefono_contacto?: string;

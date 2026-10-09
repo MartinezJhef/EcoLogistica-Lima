@@ -38,6 +38,7 @@ class OrderService:
             prioridad=p.prioridad,
             estado=p.estado,
             referencia_ubicacion=p.referencia_ubicacion,
+            referencia_destino=p.referencia_destino,
             restriccion_acceso=p.restriccion_acceso or "LIBRE_ACCESO",
             foto_referencia_url=p.foto_referencia_url,
             telefono_contacto=p.telefono_contacto,
@@ -126,6 +127,7 @@ class OrderService:
             prioridad=pedido_in.prioridad or "ESTANDAR",
             estado="PENDIENTE",  # Estado inicial obligatorio: Pendiente de Programación
             referencia_ubicacion=pedido_in.referencia_ubicacion,
+            referencia_destino=pedido_in.referencia_destino,
             restriccion_acceso=pedido_in.restriccion_acceso or "LIBRE_ACCESO",
             foto_referencia_url=pedido_in.foto_referencia_url,
             telefono_contacto=pedido_in.telefono_contacto,

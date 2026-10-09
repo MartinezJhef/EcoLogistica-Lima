@@ -3,16 +3,19 @@ import {
   PackageCheck, Plus, MapPin, AlertCircle, Clock, Weight, 
   CheckCircle2, X, Sliders, ShieldAlert, Store, Phone, 
   Eye, RefreshCw, Navigation, Truck, Ban, Check, Sparkles,
-  Maximize2, Minimize2, Crosshair, Dices, Wand2, Hash, Search
+  Maximize2, Minimize2, Crosshair, Wand2, Hash, Search,
+  Home, Flag
 } from 'lucide-react';
 import L from 'leaflet';
 import { Pedido, PedidoService, PreferenciasClienteUpdate, Conductor, ConductorService } from '../services/api';
 import { 
   crearIconoBanderaLlegada, 
+  crearIconoCasaOrigen,
   crearIconoVehiculoConductor, 
   calcularDistanciaKm, 
   estimarTiempoMin,
   SVG_MINI_FLAG,
+  SVG_MINI_HOUSE,
   SVG_MINI_CAR,
   SVG_MINI_PIN
 } from '../utils/mapIcons';
@@ -167,10 +170,13 @@ export function PedidosView() {
   const [codigo, setCodigo] = useState('');
   const [cliente, setCliente] = useState('');
   const [origenDireccion, setOrigenDireccion] = useState('Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)');
+  const [origenLat, setOrigenLat] = useState<number>(-12.052000);
+  const [origenLng, setOrigenLng] = useState<number>(-77.085000);
   const [referenciaUbicacion, setReferenciaUbicacion] = useState(''); // Referencia textual exclusiva del Punto A (Origen)
   const [direccion, setDireccion] = useState(''); // Dirección de Destino (Punto B)
   const [latitud, setLatitud] = useState<number>(-12.046374);
   const [longitud, setLongitud] = useState<number>(-77.042793);
+  const [referenciaDestino, setReferenciaDestino] = useState(''); // Referencia textual exclusiva del Punto B (Destino)
   const [peso, setPeso] = useState<number>(50.0);
   const [volumen, setVolumen] = useState<number>(0.8);
   const [vInicio, setVInicio] = useState('08:30');
@@ -178,6 +184,10 @@ export function PedidosView() {
   const [prioridad, setPrioridad] = useState('ESTANDAR');
   const [restriccionAcceso, setRestriccionAcceso] = useState('LIBRE_ACCESO');
   const [telefonoContacto, setTelefonoContacto] = useState('');
+
+  // Selector de modo de fijación en el mapa: 'A' (Casa Origen) o 'B' (Bandera de Meta)
+  const [modoFijarPunto, setModoFijarPunto] = useState<'A' | 'B'>('B');
+  const modoFijarPuntoRef = useRef<'A' | 'B'>('B');
 
   // Estados para US-004 (Preferencias del Cliente)
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState<Pedido | null>(null);
@@ -204,6 +214,8 @@ export function PedidosView() {
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const driversLayerRef = useRef<L.LayerGroup | null>(null);
+  const markerPuntoARef = useRef<L.Marker | null>(null);
+  const markerPuntoBRef = useRef<L.Marker | null>(null);
   const tempMarkerRef = useRef<L.Marker | null>(null);
   const routeLineRef = useRef<L.Polyline | null>(null);
 
@@ -279,14 +291,18 @@ export function PedidosView() {
     setCodigo(`PED-LIMA-${num}`);
   };
 
-  // Abrir mapa interactivo para fijar coordenadas de entrega
-  const abrirMapaParaFijar = () => {
+  // Abrir mapa interactivo para fijar coordenadas de Punto A (Casa) o Punto B (Bandera Meta)
+  const abrirMapaParaFijar = (punto: 'A' | 'B') => {
+    setModoFijarPunto(punto);
+    modoFijarPuntoRef.current = punto;
     setSubTab('mapa');
     setTimeout(() => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.invalidateSize();
-        if (latitud && longitud) {
-          mapInstanceRef.current.setView([latitud, longitud], 15, { animate: true });
+        const targetLat = punto === 'A' ? origenLat : latitud;
+        const targetLng = punto === 'A' ? origenLng : longitud;
+        if (targetLat && targetLng) {
+          mapInstanceRef.current.setView([targetLat, targetLng], 15, { animate: true });
         }
       }
     }, 150);
@@ -310,8 +326,11 @@ export function PedidosView() {
       {
         cliente: 'Distribuidora Santa Anita S.A.C.',
         origen: 'Av. Nicolás Ayllón 2340, Ate (Centro de Distribución EcoLogística)',
+        origenLat: -12.049000,
+        origenLng: -76.972000,
         refOrigen: 'Rampa de Carga 2, Muelle Este, portón metálico frente a garita de pesaje.',
         direccion: 'Av. Los Ruiseñores 420, Santa Anita',
+        refDest: 'Frente al parque Los Ruiseñores, portón negro, timbre 201.',
         lat: -12.045000,
         lng: -76.965000,
         peso: 75.0,
@@ -325,8 +344,11 @@ export function PedidosView() {
       {
         cliente: 'Bodega San Martín · Surco',
         origen: 'Av. Argentina 2060, Callao (Almacén Central Callao)',
+        origenLat: -12.052000,
+        origenLng: -77.085000,
         refOrigen: 'Pabellón B, Rampa 5, acceso exclusivo por Av. Materiales.',
         direccion: 'Av. Primavera 654, Santiago de Surco',
+        refDest: 'Pasando el óvalo Higuereta, fachada con toldo verde.',
         lat: -12.112000,
         lng: -76.998000,
         peso: 45.0,
@@ -340,8 +362,11 @@ export function PedidosView() {
       {
         cliente: 'Supermercado Central Miraflores',
         origen: 'Av. Elmer Faucett 2823, Callao (Hub Logístico Aeropuerto)',
+        origenLat: -12.023000,
+        origenLng: -77.108000,
         refOrigen: 'Bahía de Despacho Rápido 1, presentar fotocheck y guía de remisión.',
         direccion: 'Av. José Pardo 805, Miraflores',
+        refDest: 'Sótano 1, muelle de recepción de proveedores con rampa de tijera.',
         lat: -12.119000,
         lng: -77.034000,
         peso: 120.0,
@@ -355,8 +380,11 @@ export function PedidosView() {
       {
         cliente: 'Minimarket Los Olivos Express',
         origen: 'Av. Trapiche 150, Comas (Hub Lima Norte)',
+        origenLat: -11.932000,
+        origenLng: -77.054000,
         refOrigen: 'Rampa de Carga Liviana 3, galpón C, puerta enrollable gris.',
         direccion: 'Av. Antúnez de Mayolo 1240, Los Olivos',
+        refDest: 'Al lado de la farmacia, puerta corrediza blanca con intercomunicador.',
         lat: -11.995000,
         lng: -77.072000,
         peso: 50.0,
@@ -373,8 +401,11 @@ export function PedidosView() {
     setCodigo(`PED-LIMA-${num}`);
     setCliente(item.cliente);
     setOrigenDireccion(item.origen);
+    setOrigenLat(item.origenLat);
+    setOrigenLng(item.origenLng);
     setReferenciaUbicacion(item.refOrigen);
     setDireccion(item.direccion);
+    setReferenciaDestino(item.refDest);
     setLatitud(item.lat);
     setLongitud(item.lng);
     setPeso(item.peso);
@@ -449,75 +480,139 @@ export function PedidosView() {
         const driversLayer = L.layerGroup().addTo(map);
         driversLayerRef.current = driversLayer;
 
-        // Captura interactiva de coordenadas al hacer clic: Despliega la BANDERA DE META SVG
+        // Marcadores iniciales de Origen (Casa) y Destino (Bandera Meta)
+        if (origenLat && origenLng && !markerPuntoARef.current) {
+          markerPuntoARef.current = L.marker([origenLat, origenLng], {
+            icon: crearIconoCasaOrigen('Origen (Casa Despacho)')
+          }).addTo(map);
+        }
+        if (latitud && longitud && !markerPuntoBRef.current) {
+          markerPuntoBRef.current = L.marker([latitud, longitud], {
+            icon: crearIconoBanderaLlegada('Destino (Meta Final)')
+          }).addTo(map);
+        }
+        if (origenLat && origenLng && latitud && longitud && !routeLineRef.current) {
+          routeLineRef.current = L.polyline([
+            [origenLat, origenLng],
+            [latitud, longitud]
+          ], {
+            color: '#556B2F',
+            weight: 4,
+            dashArray: '6, 8',
+            opacity: 0.9
+          }).addTo(map);
+        }
+
+        // Captura interactiva de coordenadas al hacer clic:
+        // Casa SVG para Origen, Bandera de Fin de Carrera SVG para Destino
         map.on('click', async (e: L.LeafletMouseEvent) => {
           const { lat, lng } = e.latlng;
           const latFija = parseFloat(lat.toFixed(6));
           const lngFija = parseFloat(lng.toFixed(6));
-          setLatitud(latFija);
-          setLongitud(lngFija);
-
-          // Ajustar automáticamente la DIRECCIÓN DE DESTINO según las coordenadas seleccionadas
+          const modo = modoFijarPuntoRef.current;
           const nuevaDir = await resolverDireccionLima(latFija, lngFija);
-          setDireccion(nuevaDir);
 
-          // Colocar o actualizar la BANDERA A CUADROS SVG de meta/llegada
-          if (tempMarkerRef.current) {
-            tempMarkerRef.current.setLatLng(e.latlng);
-            tempMarkerRef.current.setIcon(crearIconoBanderaLlegada('Punto de Entrega'));
+          if (modo === 'A') {
+            setOrigenLat(latFija);
+            setOrigenLng(lngFija);
+            setOrigenDireccion(nuevaDir);
+
+            // Colocar o actualizar la CASA SVG para Origen
+            if (markerPuntoARef.current) {
+              markerPuntoARef.current.setLatLng(e.latlng);
+              markerPuntoARef.current.setIcon(crearIconoCasaOrigen('Origen (Casa Despacho)'));
+            } else {
+              markerPuntoARef.current = L.marker(e.latlng, {
+                icon: crearIconoCasaOrigen('Origen (Casa Despacho)')
+              }).addTo(map);
+            }
+
+            markerPuntoARef.current.bindPopup(`
+              <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:220px;padding:4px;">
+                <div style="font-weight:700;color:#556B2F;font-size:0.85rem;margin-bottom:2px;display:flex;align-items:center;gap:5px;">
+                  ${SVG_MINI_HOUSE} Origen (Casa de Despacho)
+                </div>
+                <div style="font-size:0.75rem;color:#2D3A2E;margin-bottom:2px;font-weight:600;">
+                  ${nuevaDir}
+                </div>
+                <div style="font-size:0.72rem;color:#6E7E5A;margin-bottom:4px;">
+                  GPS Origen: [${latFija}, ${lngFija}]
+                </div>
+                <div style="font-size:0.7rem;color:#556B2F;background:#EBF1E6;padding:2px 5px;border-radius:4px;border:1px solid #CAD3BD;">
+                  Dirección de Origen transferida al formulario.
+                </div>
+              </div>
+            `);
+
+            setToast({
+              tipo: 'success',
+              titulo: 'Origen Fijado con Casa SVG',
+              mensaje: `Origen: "${nuevaDir}" [${latFija}, ${lngFija}]. Datos transferidos al formulario.`
+            });
           } else {
-            tempMarkerRef.current = L.marker(e.latlng, {
-              icon: crearIconoBanderaLlegada('Punto de Entrega')
-            }).addTo(map);
+            // Modo Destino con Bandera de Fin de Carrera SVG
+            setLatitud(latFija);
+            setLongitud(lngFija);
+            setDireccion(nuevaDir);
+
+            // Colocar o actualizar la BANDERA DE FIN DE CARRERA SVG de meta/llegada
+            if (markerPuntoBRef.current) {
+              markerPuntoBRef.current.setLatLng(e.latlng);
+              markerPuntoBRef.current.setIcon(crearIconoBanderaLlegada('Destino (Meta Final)'));
+            } else {
+              markerPuntoBRef.current = L.marker(e.latlng, {
+                icon: crearIconoBanderaLlegada('Destino (Meta Final)')
+              }).addTo(map);
+            }
+
+            markerPuntoBRef.current.bindPopup(`
+              <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:220px;padding:4px;">
+                <div style="font-weight:700;color:#1A1A1A;font-size:0.85rem;margin-bottom:2px;display:flex;align-items:center;gap:5px;">
+                  ${SVG_MINI_FLAG} Destino (Meta Final)
+                </div>
+                <div style="font-size:0.75rem;color:#C47D2B;margin-bottom:2px;font-weight:600;">
+                  ${nuevaDir}
+                </div>
+                <div style="font-size:0.72rem;color:#6E7E5A;margin-bottom:4px;">
+                  GPS Destino: [${latFija}, ${lngFija}]
+                </div>
+                <div style="font-size:0.7rem;color:#2D3A2E;background:#F5F4EE;padding:2px 5px;border-radius:4px;border:1px solid #CAD3BD;">
+                  Dirección de Destino transferida al formulario.
+                </div>
+              </div>
+            `);
+
+            setToast({
+              tipo: 'success',
+              titulo: 'Destino Fijado con Bandera de Meta',
+              mensaje: `Destino: "${nuevaDir}" [${latFija}, ${lngFija}]. Datos transferidos al formulario.`
+            });
           }
 
-          tempMarkerRef.current.bindPopup(`
-            <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:220px;padding:4px;">
-              <div style="font-weight:700;color:#1A1A1A;font-size:0.85rem;margin-bottom:2px;display:flex;align-items:center;gap:5px;">
-                ${SVG_MINI_FLAG} Punto de Entrega Seleccionado
-              </div>
-              <div style="font-size:0.75rem;color:#556B2F;margin-bottom:2px;font-weight:600;">
-                ${nuevaDir}
-              </div>
-              <div style="font-size:0.72rem;color:#6E7E5A;margin-bottom:4px;">
-                Coordenadas GPS: [${latFija}, ${lngFija}]
-              </div>
-              <div style="font-size:0.7rem;color:#2D3A2E;background:#F5F4EE;padding:2px 5px;border-radius:4px;border:1px solid #CAD3BD;">
-                Dirección transferida automáticamente al formulario (US-003).
-              </div>
-            </div>
-          `);
+          // Si ambos puntos están fijados, trazar ruta entre Origen y Destino
+          const pALat = modo === 'A' ? latFija : (markerPuntoARef.current ? markerPuntoARef.current.getLatLng().lat : null);
+          const pALng = modo === 'A' ? lngFija : (markerPuntoARef.current ? markerPuntoARef.current.getLatLng().lng : null);
+          const pBLat = modo === 'B' ? latFija : (markerPuntoBRef.current ? markerPuntoBRef.current.getLatLng().lat : null);
+          const pBLng = modo === 'B' ? lngFija : (markerPuntoBRef.current ? markerPuntoBRef.current.getLatLng().lng : null);
 
-          // Determinar conductor para trazar ruta (el seleccionado o el más cercano a este punto)
-          let choferParaRuta = conductorSeleccionado;
-          if (!choferParaRuta && conductores.length > 0) {
-            choferParaRuta = conductores.reduce((prev, curr) => {
-              const dPrev = calcularDistanciaKm(prev.latitud_origen || -12.0463, prev.longitud_origen || -77.0427, lat, lng);
-              const dCurr = calcularDistanciaKm(curr.latitud_origen || -12.0463, curr.longitud_origen || -77.0427, lat, lng);
-              return dCurr < dPrev ? curr : prev;
-            }, conductores[0]);
-            setConductorSeleccionado(choferParaRuta);
-          }
-
-          if (choferParaRuta && choferParaRuta.latitud_origen && choferParaRuta.longitud_origen) {
-            const distKm = calcularDistanciaKm(choferParaRuta.latitud_origen, choferParaRuta.longitud_origen, lat, lng);
+          if (pALat && pALng && pBLat && pBLng) {
+            const distKm = calcularDistanciaKm(pALat, pALng, pBLat, pBLng);
             const tMin = estimarTiempoMin(distKm);
             setInfoRuta({
               distanciaKm: distKm,
               tiempoMin: tMin,
-              conductorNombre: `${choferParaRuta.nombres} ${choferParaRuta.apellidos}`
+              conductorNombre: 'Ruta Origen (Casa) → Destino (Meta)'
             });
 
-            // Trazar o mover la línea de ruta dinámica entre el vehículo (Carro SVG) y el destino (Bandera SVG)
             if (routeLineRef.current) {
               routeLineRef.current.setLatLngs([
-                [choferParaRuta.latitud_origen, choferParaRuta.longitud_origen],
-                [lat, lng]
+                [pALat, pALng],
+                [pBLat, pBLng]
               ]);
             } else {
               routeLineRef.current = L.polyline([
-                [choferParaRuta.latitud_origen, choferParaRuta.longitud_origen],
-                [lat, lng]
+                [pALat, pALng],
+                [pBLat, pBLng]
               ], {
                 color: '#556B2F',
                 weight: 4,
@@ -526,12 +621,6 @@ export function PedidosView() {
               }).addTo(map);
             }
           }
-
-          setToast({
-            tipo: 'success',
-            titulo: 'Punto y Dirección Fijados (Bandera SVG)',
-            mensaje: `Destino: "${nuevaDir}" [${latFija}, ${lngFija}]. Datos transferidos al formulario.`
-          });
         });
 
         mapInstanceRef.current = map;
@@ -603,11 +692,47 @@ export function PedidosView() {
         });
       }
 
-      // 2. Si ya hay coordenadas cargadas en el formulario y no se había puesto la bandera, posicionarla
-      if (latitud && longitud && mapInstanceRef.current && !tempMarkerRef.current) {
-        tempMarkerRef.current = L.marker([latitud, longitud], {
-          icon: crearIconoBanderaLlegada('Punto de Entrega')
-        }).addTo(mapInstanceRef.current);
+      // 2. Sincronizar marcadores Origen (Casa) y Destino (Bandera Meta Final)
+      if (mapInstanceRef.current) {
+        if (origenLat && origenLng) {
+          if (!markerPuntoARef.current) {
+            markerPuntoARef.current = L.marker([origenLat, origenLng], {
+              icon: crearIconoCasaOrigen('Origen (Casa Despacho)')
+            }).addTo(mapInstanceRef.current);
+          } else {
+            markerPuntoARef.current.setLatLng([origenLat, origenLng]);
+          }
+        }
+
+        if (latitud && longitud) {
+          if (!markerPuntoBRef.current) {
+            markerPuntoBRef.current = L.marker([latitud, longitud], {
+              icon: crearIconoBanderaLlegada('Destino (Meta Final)')
+            }).addTo(mapInstanceRef.current);
+          } else {
+            markerPuntoBRef.current.setLatLng([latitud, longitud]);
+          }
+        }
+
+        // Sincronizar trazado de ruta entre A y B
+        if (origenLat && origenLng && latitud && longitud) {
+          if (!routeLineRef.current) {
+            routeLineRef.current = L.polyline([
+              [origenLat, origenLng],
+              [latitud, longitud]
+            ], {
+              color: '#556B2F',
+              weight: 4,
+              dashArray: '6, 8',
+              opacity: 0.9
+            }).addTo(mapInstanceRef.current);
+          } else {
+            routeLineRef.current.setLatLngs([
+              [origenLat, origenLng],
+              [latitud, longitud]
+            ]);
+          }
+        }
       }
 
       // 3. Actualizar marcadores de pedidos existentes
@@ -646,7 +771,7 @@ export function PedidosView() {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [subTab, pedidos, conductores, conductorSeleccionado, mapaMaximizado]);
+  }, [subTab, pedidos, conductores, conductorSeleccionado, mapaMaximizado, origenLat, origenLng, latitud, longitud]);
 
   // =========================================================================
   // SUB-003: Registrar Pedido con Geolocalización
@@ -665,23 +790,23 @@ export function PedidosView() {
       return;
     }
 
-    // 2. Validación de Dirección de Origen (Punto A)
+    // 2. Validación de Dirección de Origen
     if (!origenDireccion || !origenDireccion.trim()) {
       setToast({
         tipo: 'warning',
-        titulo: 'Campo Requerido: Dirección de Origen (Punto A)',
-        mensaje: 'Por favor, ingresa la Dirección de Origen (Punto A) para el despacho.'
+        titulo: 'Campo Requerido: Dirección de Origen',
+        mensaje: 'Por favor, ingresa la Dirección de Origen para el despacho.'
       });
       origenInputRef.current?.focus();
       return;
     }
 
-    // 3. Validación de Dirección de Destino (Punto B)
+    // 3. Validación de Dirección de Destino
     if (!direccion || !direccion.trim()) {
       setToast({
         tipo: 'warning',
-        titulo: 'Campo Requerido: Dirección de Destino (Punto B)',
-        mensaje: 'Por favor, ingresa la Dirección de Destino (Punto B) en Lima Metropolitana.'
+        titulo: 'Campo Requerido: Dirección de Destino',
+        mensaje: 'Por favor, ingresa la Dirección de Destino en Lima Metropolitana.'
       });
       direccionInputRef.current?.focus();
       return;
@@ -734,8 +859,8 @@ export function PedidosView() {
       codigo_seguimiento: codFinal,
       cliente_nombre: cliente.trim(),
       origen_direccion: origenDireccion.trim(),
-      origen_lat: -12.046374,
-      origen_lng: -77.042793,
+      origen_lat: origenLat,
+      origen_lng: origenLng,
       direccion_destino: direccion.trim(),
       latitud,
       longitud,
@@ -745,6 +870,7 @@ export function PedidosView() {
       ventana_fin: vFin,
       prioridad,
       referencia_ubicacion: referenciaUbicacion.trim() || undefined,
+      referencia_destino: referenciaDestino.trim() || undefined,
       restriccion_acceso: restriccionAcceso,
       telefono_contacto: telefonoContacto.trim() || undefined
     };
@@ -782,8 +908,11 @@ export function PedidosView() {
     setCodigo('');
     setCliente('');
     setOrigenDireccion('Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)');
+    setOrigenLat(-12.052000);
+    setOrigenLng(-77.085000);
     setDireccion('');
     setReferenciaUbicacion('');
+    setReferenciaDestino('');
     setTelefonoContacto('');
   };
 
@@ -1001,22 +1130,6 @@ export function PedidosView() {
                   <Wand2 size={13} color="#556B2F" />
                   <span>Datos de Prueba</span>
                 </button>
-                <button 
-                  type="button" 
-                  onClick={autogenerarCodigo}
-                  className="btn-secondary" 
-                  style={{ 
-                    fontSize: '0.74rem', 
-                    padding: '0.28rem 0.65rem', 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '0.35rem' 
-                  }}
-                  title="Generar código PED-LIMA aleatorio"
-                >
-                  <Dices size={13} color="#556B2F" />
-                  <span>Código</span>
-                </button>
               </div>
             </div>
 
@@ -1065,7 +1178,7 @@ export function PedidosView() {
                 </div>
               </div>
 
-              {/* Fila 2: Ruta Logística · Punto A (Origen) y Punto B (Destino) */}
+              {/* Fila 2: Ruta Logística · Origen y Destino */}
               <div style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', 
@@ -1075,67 +1188,23 @@ export function PedidosView() {
                 borderRadius: '12px',
                 padding: '1.15rem'
               }}>
-                {/* Columna Izquierda: PUNTO A (ORIGEN) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', paddingBottom: '0.35rem', borderBottom: '1px solid #CAD3BD' }}>
-                    <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#556B2F', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>
-                      A
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#2D3A2E' }}>
-                        PUNTO A · ORIGEN (PUNTO DE RECOJO / DESPACHO)
-                      </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
-                      DIRECCIÓN DE ORIGEN (PUNTO A) *
-                    </label>
-                    <input 
-                      ref={origenInputRef}
-                      type="text" 
-                      value={origenDireccion} 
-                      onChange={e => setOrigenDireccion(e.target.value)} 
-                      placeholder="Ej. Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)" 
-                      style={{ width: '100%', background: '#FFFFFF' }}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
-                      REFERENCIA TEXTUAL DEL ORIGEN (PUNTO A)
-                    </label>
-                    <input 
-                      type="text" 
-                      value={referenciaUbicacion} 
-                      onChange={e => setReferenciaUbicacion(e.target.value)} 
-                      placeholder="Ej. Rampa de Despacho 4, Pabellón Este, ingresar por garita de pesaje..."
-                      style={{ width: '100%', background: '#FFFFFF' }}
-                    />
-                    <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '0.25rem' }}>
-                      * Referencia física/textual para el transportista exclusiva del punto de partida A.
-                    </div>
-                  </div>
-                </div>
-
-                {/* Columna Derecha: PUNTO B (DESTINO) */}
+                {/* Columna Izquierda: ORIGEN */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '0.35rem', borderBottom: '1px solid #CAD3BD' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#C47D2B', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>
-                        B
+                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#556B2F', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Home size={12} color="#FFFFFF" />
                       </div>
                       <div>
                         <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#2D3A2E' }}>
-                          PUNTO B · DESTINO (PUNTO DE ENTREGA)
+                          ORIGEN (PUNTO DE RECOJO / DESPACHO)
                         </span>
                       </div>
                     </div>
 
                     <button
                       type="button"
-                      onClick={abrirMapaParaFijar}
+                      onClick={() => abrirMapaParaFijar('A')}
                       className="btn-secondary"
                       style={{ 
                         fontSize: '0.72rem', 
@@ -1149,16 +1218,88 @@ export function PedidosView() {
                         fontWeight: 600,
                         borderRadius: '6px'
                       }}
-                      title="Abrir mapa para fijar coordenadas de entrega en Lima"
+                      title="Abrir mapa para fijar coordenadas de origen en Lima con Casa SVG"
                     >
-                      <MapPin size={12} color="#C47D2B" />
+                      <Home size={12} color="#556B2F" />
                       <span>Fijar en Mapa</span>
                     </button>
                   </div>
 
                   <div>
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
-                      DIRECCIÓN DE DESTINO (PUNTO B) *
+                      DIRECCIÓN DE ORIGEN *
+                    </label>
+                    <input 
+                      ref={origenInputRef}
+                      type="text" 
+                      value={origenDireccion} 
+                      onChange={e => setOrigenDireccion(e.target.value)} 
+                      placeholder="Ej. Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)" 
+                      style={{ width: '100%', background: '#FFFFFF' }}
+                    />
+                    <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <Navigation size={11} color="#556B2F" />
+                      <span>GPS Origen fijado: <strong style={{ color: '#2D3A2E', fontFamily: 'monospace' }}>[{origenLat.toFixed(6)}, {origenLng.toFixed(6)}]</strong></span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                      REFERENCIA TEXTUAL DEL ORIGEN
+                    </label>
+                    <input 
+                      type="text" 
+                      value={referenciaUbicacion} 
+                      onChange={e => setReferenciaUbicacion(e.target.value)} 
+                      placeholder="Ej. Rampa de Despacho 4, Pabellón Este, ingresar por garita de pesaje..."
+                      style={{ width: '100%', background: '#FFFFFF' }}
+                    />
+                    <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '0.25rem' }}>
+                      * Referencia física/textual para el transportista exclusiva del punto de partida.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Columna Derecha: DESTINO */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '0.35rem', borderBottom: '1px solid #CAD3BD' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#C47D2B', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Flag size={12} color="#FFFFFF" />
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#2D3A2E' }}>
+                          DESTINO (PUNTO DE ENTREGA)
+                        </span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => abrirMapaParaFijar('B')}
+                      className="btn-secondary"
+                      style={{ 
+                        fontSize: '0.72rem', 
+                        padding: '0.2rem 0.6rem', 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        gap: '0.35rem',
+                        color: '#2D3A2E',
+                        background: '#FFFFFF',
+                        borderColor: '#CAD3BD',
+                        fontWeight: 600,
+                        borderRadius: '6px'
+                      }}
+                      title="Abrir mapa para fijar coordenadas de entrega con Bandera de Fin de Carrera SVG"
+                    >
+                      <Flag size={12} color="#C47D2B" />
+                      <span>Fijar en Mapa</span>
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                      DIRECCIÓN DE DESTINO *
                     </label>
                     <input 
                       ref={direccionInputRef}
@@ -1170,24 +1311,24 @@ export function PedidosView() {
                     />
                     <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                       <Navigation size={11} color="#C47D2B" />
-                      <span>GPS Punto B fijado: <strong style={{ color: '#2D3A2E', fontFamily: 'monospace' }}>[{latitud.toFixed(6)}, {longitud.toFixed(6)}]</strong></span>
+                      <span>GPS Destino fijado: <strong style={{ color: '#2D3A2E', fontFamily: 'monospace' }}>[{latitud.toFixed(6)}, {longitud.toFixed(6)}]</strong></span>
                     </div>
                   </div>
 
-                  <div style={{ 
-                    background: '#FFFFFF', 
-                    border: '1px dashed #CAD3BD', 
-                    borderRadius: '8px', 
-                    padding: '0.55rem 0.75rem',
-                    fontSize: '0.7rem',
-                    color: '#6E7E5A',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.45rem',
-                    marginTop: 'auto'
-                  }}>
-                    <Sparkles size={13} color="#C47D2B" style={{ flexShrink: 0 }} />
-                    <span>Geocodificación PostGIS activa. Coordenadas de entrega vinculadas a la ruta y huella de carbono.</span>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#C47D2B', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                      REFERENCIA TEXTUAL DEL DESTINO
+                    </label>
+                    <input 
+                      type="text" 
+                      value={referenciaDestino} 
+                      onChange={e => setReferenciaDestino(e.target.value)} 
+                      placeholder="Ej. Pasando el óvalo Higuereta, fachada con toldo verde, timbre 201..."
+                      style={{ width: '100%', background: '#FFFFFF' }}
+                    />
+                    <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '0.25rem' }}>
+                      * Referencia física/textual para el transportista exclusiva del punto de entrega.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1434,18 +1575,18 @@ export function PedidosView() {
                         {p.cliente_nombre}
                       </h3>
 
-                      {/* Origen (Punto A) */}
+                      {/* Origen */}
                       <div style={{ fontSize: '0.74rem', color: '#2D3A2E', display: 'flex', alignItems: 'flex-start', gap: '0.35rem', lineHeight: 1.3, marginBottom: '0.25rem' }}>
-                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#EBF1E6', border: '1px solid #CAD3BD', borderRadius: '4px', padding: '1px 5px', color: '#556B2F', flexShrink: 0 }}>
-                          A · Origen
+                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#EBF1E6', border: '1px solid #CAD3BD', borderRadius: '4px', padding: '1px 5px', color: '#556B2F', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+                          <Home size={10} color="#556B2F" /> Origen
                         </span>
                         <span style={{ color: '#556B2F', fontWeight: 600, fontSize: '0.73rem' }}>{p.origen_direccion || 'Centro de Distribución Central'}</span>
                       </div>
 
-                      {/* Destino (Punto B) */}
+                      {/* Destino */}
                       <div style={{ fontSize: '0.74rem', color: '#2D3A2E', display: 'flex', alignItems: 'flex-start', gap: '0.35rem', lineHeight: 1.3 }}>
-                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#FBEEDB', border: '1px solid #E5CEAC', borderRadius: '4px', padding: '1px 5px', color: '#C47D2B', flexShrink: 0 }}>
-                          B · Destino
+                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#FBEEDB', border: '1px solid #E5CEAC', borderRadius: '4px', padding: '1px 5px', color: '#C47D2B', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+                          <Flag size={10} color="#C47D2B" /> Destino
                         </span>
                         <span style={{ color: '#2D3A2E', fontSize: '0.73rem' }}>{p.direccion_destino}</span>
                       </div>
@@ -1660,13 +1801,13 @@ export function PedidosView() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
-                      REFERENCIA TEXTUAL DEL ORIGEN (PUNTO A)
+                      REFERENCIA TEXTUAL DEL ORIGEN
                     </label>
                     <textarea 
                       rows={3} 
                       value={prefReferencia} 
                       onChange={e => setPrefReferencia(e.target.value)} 
-                      placeholder="Instrucciones para el punto de recojo A (rampa de carga, muelle este, garita de pesaje...)"
+                      placeholder="Instrucciones para el punto de recojo (rampa de carga, muelle este, garita de pesaje...)"
                       style={{ width: '100%', resize: 'none' }}
                     />
                   </div>
@@ -1778,6 +1919,75 @@ export function PedidosView() {
 
             {/* Acciones y Botón de Pantalla Completa */}
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              {/* Selector de Modo de Fijación con Clic */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.3rem',
+                background: '#FFFFFF',
+                border: '1.5px solid #CAD3BD',
+                borderRadius: '8px',
+                padding: '0.2rem 0.35rem'
+              }}>
+                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#6E7E5A', padding: '0 0.25rem' }}>
+                  Fijar con Clic:
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModoFijarPunto('A');
+                    modoFijarPuntoRef.current = 'A';
+                    if (markerPuntoARef.current && mapInstanceRef.current) {
+                      mapInstanceRef.current.setView(markerPuntoARef.current.getLatLng(), 15, { animate: true });
+                    }
+                  }}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '0.25rem 0.55rem',
+                    borderRadius: '6px',
+                    border: modoFijarPunto === 'A' ? '1.5px solid #556B2F' : '1px solid transparent',
+                    background: modoFijarPunto === 'A' ? '#EBF1E6' : 'transparent',
+                    color: modoFijarPunto === 'A' ? '#556B2F' : '#2D3A2E',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.3rem'
+                  }}
+                  title="Fijar Origen (con Casa SVG)"
+                >
+                  <Home size={12} color="#556B2F" />
+                  <span>Origen (Casa Despacho)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModoFijarPunto('B');
+                    modoFijarPuntoRef.current = 'B';
+                    if (markerPuntoBRef.current && mapInstanceRef.current) {
+                      mapInstanceRef.current.setView(markerPuntoBRef.current.getLatLng(), 15, { animate: true });
+                    }
+                  }}
+                  style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    padding: '0.25rem 0.55rem',
+                    borderRadius: '6px',
+                    border: modoFijarPunto === 'B' ? '1.5px solid #C47D2B' : '1px solid transparent',
+                    background: modoFijarPunto === 'B' ? '#FBF4E8' : 'transparent',
+                    color: modoFijarPunto === 'B' ? '#C47D2B' : '#2D3A2E',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.3rem'
+                  }}
+                  title="Fijar Destino (con Bandera de Meta SVG)"
+                >
+                  <Flag size={12} color="#C47D2B" />
+                  <span>Destino (Bandera Meta)</span>
+                </button>
+              </div>
+
               <button 
                 type="button" 
                 onClick={centrarEnLima}
@@ -1827,7 +2037,7 @@ export function PedidosView() {
               }} 
             />
 
-            {/* Floating Pill con Coordenadas Capturadas */}
+            {/* Floating Pill con Coordenadas Capturadas (Origen y Destino) */}
             <div style={{
               position: 'absolute',
               bottom: '20px',
@@ -1841,40 +2051,59 @@ export function PedidosView() {
               boxShadow: '0 6px 20px rgba(45, 58, 46, 0.16)',
               display: 'flex',
               alignItems: 'center',
-              gap: '1rem',
-              maxWidth: '92%',
+              gap: '1.25rem',
+              maxWidth: '94%',
               flexWrap: 'wrap'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Navigation size={15} color="#556B2F" />
+              {/* Origen (Casa Despacho) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', paddingRight: '0.85rem', borderRight: '1px solid #CAD3BD' }}>
+                <Home size={16} color="#556B2F" />
                 <div>
-                  <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#556B2F', textTransform: 'uppercase' }}>
-                    Coordenada Fijada en Lima:
+                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#556B2F', textTransform: 'uppercase' }}>
+                    Origen (Casa Despacho):
                   </div>
-                  <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#2D3A2E', fontFamily: 'monospace' }}>
-                    Lat: {latitud.toFixed(6)} | Lng: {longitud.toFixed(6)}
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2D3A2E', fontFamily: 'monospace' }}>
+                    [{origenLat.toFixed(5)}, {origenLng.toFixed(5)}]
+                  </div>
+                  <div style={{ fontSize: '0.68rem', color: '#6E7E5A', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {origenDireccion}
                   </div>
                 </div>
               </div>
 
+              {/* Destino (Bandera Meta) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <Flag size={16} color="#C47D2B" />
+                <div>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#C47D2B', textTransform: 'uppercase' }}>
+                    Destino (Bandera Meta):
+                  </div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2D3A2E', fontFamily: 'monospace' }}>
+                    [{latitud.toFixed(5)}, {longitud.toFixed(5)}]
+                  </div>
+                  <div style={{ fontSize: '0.68rem', color: '#6E7E5A', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {direccion || 'Sin fijar'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Botón Volver al Formulario */}
               <button
                 type="button"
-                onClick={async () => {
-                  const nuevaDir = await resolverDireccionLima(latitud, longitud);
-                  if (nuevaDir) setDireccion(nuevaDir);
+                onClick={() => {
                   if (mapaMaximizado) setMapaMaximizado(false);
                   setSubTab('registro');
                   setToast({
                     tipo: 'success',
-                    titulo: 'Coordenada y Dirección Aplicadas',
-                    mensaje: `Dirección fijada en el formulario: "${nuevaDir || direccion}" [${latitud.toFixed(6)}, ${longitud.toFixed(6)}].`
+                    titulo: 'Coordenadas Listas',
+                    mensaje: `Origen (Casa) y Destino (Bandera) listos en el formulario de registro.`
                   });
                 }}
                 className="btn"
-                style={{ fontSize: '0.78rem', padding: '0.4rem 0.85rem' }}
+                style={{ fontSize: '0.78rem', padding: '0.4rem 0.85rem', marginLeft: 'auto' }}
               >
                 <PackageCheck size={14} />
-                <span>Usar en Formulario de Pedido</span>
+                <span>Volver al Formulario</span>
               </button>
             </div>
           </div>

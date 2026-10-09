@@ -47,7 +47,8 @@ class PedidoBase(BaseModel):
     prioridad: Optional[str] = Field("ESTANDAR", description="Prioridad del pedido")
 
     # Campos de US-003 y US-004 (Preferencias y Restricciones del Cliente)
-    referencia_ubicacion: Optional[str] = Field(None, max_length=500, description="Referencia manual o textual de ubicación")
+    referencia_ubicacion: Optional[str] = Field(None, max_length=500, description="Referencia manual o textual de ubicación origen (Punto A)")
+    referencia_destino: Optional[str] = Field(None, max_length=500, description="Referencia manual o textual de destino (Punto B)")
     restriccion_acceso: Optional[str] = Field("LIBRE_ACCESO", description="Restricción vehicular de acceso al local")
     foto_referencia_url: Optional[str] = Field(None, description="URL o fotografía de referencia de fachada")
     telefono_contacto: Optional[str] = Field(None, max_length=20, description="Teléfono de contacto del cliente receptor")

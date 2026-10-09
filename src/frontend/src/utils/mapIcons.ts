@@ -144,6 +144,78 @@ export const crearIconoBanderaLlegada = (titulo: string = 'Punto de Entrega') =>
 };
 
 /**
+ * Genera el SVG vector de la Casa de Origen (Punto A)
+ * Diseñado con geometría de casa nítida, techo, chimenea y tonos EcoLogística.
+ */
+export const SVG_CASA_ORIGEN = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 54" width="44" height="44" style="filter: drop-shadow(0 4px 10px rgba(45,58,46,0.45));">
+  <!-- Halo / Pin Circular Exterior con tema Verde EcoLogística -->
+  <circle cx="27" cy="27" r="24" fill="#FFFFFF" stroke="#556B2F" stroke-width="3"/>
+  <circle cx="27" cy="27" r="20" fill="#EBF1E6"/>
+  <!-- Casa SVG -->
+  <g transform="translate(14, 13)">
+    <!-- Chimenea -->
+    <rect x="18" y="2" width="3.5" height="7" fill="#6E7E5A" rx="1"/>
+    <!-- Techo Triangular -->
+    <path d="M 13 1 L 1 11 L 4 11 L 4 23 L 22 23 L 22 11 L 25 11 Z" fill="#556B2F" stroke="#2D3A2E" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Alero / frontis -->
+    <path d="M 13 3 L 3.5 11 L 22.5 11 Z" fill="#6E7E5A"/>
+    <!-- Puerta -->
+    <rect x="10.5" y="14" width="5" height="9" rx="1" fill="#FFFFFF" stroke="#2D3A2E" stroke-width="0.8"/>
+    <!-- Pomo de puerta -->
+    <circle cx="14" cy="18.5" r="0.7" fill="#FEE11A"/>
+    <!-- Ventana Izquierda -->
+    <rect x="5.5" y="13" width="3.5" height="3.5" rx="0.5" fill="#CAD3BD" stroke="#2D3A2E" stroke-width="0.6"/>
+    <!-- Ventana Derecha -->
+    <rect x="17" y="13" width="3.5" height="3.5" rx="0.5" fill="#CAD3BD" stroke="#2D3A2E" stroke-width="0.6"/>
+  </g>
+</svg>
+`;
+
+export const SVG_MINI_HOUSE = `
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
+  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#556B2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#EBF1E6"/>
+  <polyline points="9 22 9 12 15 12 15 22" stroke="#556B2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+/**
+ * Crea el icono Leaflet de la Casa de Origen
+ */
+export const crearIconoCasaOrigen = (titulo: string = 'Origen (Casa Despacho)') => {
+  return L.divIcon({
+    className: 'custom-house-marker',
+    html: `
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;">
+        ${SVG_CASA_ORIGEN}
+        <div style="
+          margin-top:-6px;
+          background:#556B2F;
+          color:#F5F4EE;
+          font-size:0.68rem;
+          font-weight:700;
+          padding:2px 7px;
+          border-radius:10px;
+          border:1.5px solid #CAD3BD;
+          white-space:nowrap;
+          box-shadow:0 3px 6px rgba(0,0,0,0.3);
+          letter-spacing:0.02em;
+          display:inline-flex;
+          align-items:center;
+          gap:4px;
+        ">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#FEE11A;"></span>
+          ${titulo}
+        </div>
+      </div>
+    `,
+    iconSize: [46, 56],
+    iconAnchor: [23, 48],
+    popupAnchor: [0, -46]
+  });
+};
+
+/**
  * Crea el icono Leaflet del Vehículo / Carro de Conductor
  */
 export const crearIconoVehiculoConductor = (conductor: Conductor, esSeleccionado: boolean = false) => {
