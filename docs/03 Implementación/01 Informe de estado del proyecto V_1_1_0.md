@@ -1,196 +1,93 @@
-[← Volver al README principal](../../README.md)
+[← Volver al README Principal](../../README.md)
 
+# Revisión del sprint
 
-# 01. Informe de estado del proyecto
+**Nombre del Proyecto:** EcoLogística Lima – Plataforma Inteligente para la Optimización de Rutas Sostenibles de Última Milla (DistriRápido S.A.C.)
 
-| **Campo** | **Detalle** |
-|---|---|
-| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
-| **Código del Proyecto** | PFA-ECOLIMA-2026 |
-| **Integrantes del Equipo** | Zayuri Cerron Medina<br>Jheferson Martinez Valerio<br>Angela Rojas Quispe<br>Maylit Mendoza Alarcon<br>Diego Angulo Gonzales |
-| **Fecha de Elaboración** | 01 de octubre de 2026 |
-| **Versión** | 1.1.0 |
-| **Líder del Proyecto** | Zayuri Anahí Cerrón Medina |
-| **Sprint** | Sprint 1 |
-| **Estado del Sprint** | Terminada |
-| **Última actualización** | Actualización del avance |
+**Código Institucional:** PFA-ECOLIMA-2026
 
-
-> **Nota de versión:** Esta versión actualiza el estado registrado en V_1_0_0 como resultado del avance realizado durante el Sprint. La historia US-002, que inicialmente presentaba un avance parcial, ha sido completada. En consecuencia, US-001 y US-002 se encuentran terminadas en esta versión.
+**Líder del Proyecto:** Zayuri Cerron Medina (Directora de Proyecto) / Jheferson Martinez Valerio (Scrum Master)
 
 ---
 
-##  1. Objetivo del Sprint
+## 1. Información General de la Iteración
 
-El Sprint 1 tiene como objetivo establecer la primera base funcional de **EcoLogistica-Lima**, mediante el desarrollo de las funcionalidades relacionadas con la gestión de vehículos de la flota y la gestión de conductores y jornada.
-
-Estas funcionalidades constituyen una base para los siguientes incrementos del producto, en los cuales se desarrollarán las funcionalidades de pedidos, geolocalización, optimización, monitoreo y análisis de sostenibilidad.
-
-Durante el desarrollo del Sprint se priorizaron las historias **US-001 – Gestionar vehículos de la flota** y **US-002 – Gestionar conductores y jornada**.
-
-Como resultado de la actualización del Sprint, ambas historias han alcanzado el estado **Terminado**.
-
----
-
-## 2. Historias de Usuario completadas en este Sprint
-
-| **ID** | **Historia de Usuario** | **Épica** | **RF relacionado** | **SP** | **Estado** |
-|---|---|---|---|---:|---|
-| **US-001** | Gestionar vehículos de la flota | EP-01 Gestión de Vehículos | RF-001 | 5 | **Terminada** |
-| **US-002** | Gestionar conductores y jornada | EP-02 Gestión de Conductores | RF-008 | 3 | **Terminada** |
-
-### US-001 – Gestionar vehículos de la flota
-
-Se completó la funcionalidad correspondiente a la administración de los vehículos que forman parte de la flota.
-
-El desarrollo permite gestionar la información principal de los vehículos y proporciona una base para que estos puedan ser utilizados posteriormente dentro de los procesos de asignación, planificación y optimización de rutas.
-
-**Estado: Terminada.**
-
-### US-002 – Gestionar conductores y jornada
-
-Como resultado del avance posterior registrado respecto de la versión V_1_0_0, se completó la funcionalidad relacionada con la gestión de conductores y jornada.
-
-La implementación contempla la gestión de la información de los conductores y las condiciones necesarias para considerar su disponibilidad y jornada en procesos posteriores de asignación de rutas.
-
-Con esta actualización se completan los elementos pendientes identificados en la primera versión del informe.
-
-**Estado: Terminada.**
+| Parámetro | Detalle Operativo del Sprint 1 |
+| :--- | :--- |
+| **Periodo de Ejecución** | 16 de septiembre de 2026 al 09 de octubre de 2026 (Duración: 3 semanas) |
+| **Meta del Sprint (Sprint Goal)** | Implementar las funcionalidades iniciales de gestión de vehículos, conductores y pedidos, estableciendo una base funcional para la posterior optimización y monitoreo de rutas. |
+| **Velocidad Comprometida** | 10 Story Points (SP) |
+| **Velocidad Completada** | 10 Story Points (SP) — 100% de cumplimiento |
+| **Estado General** | Cumplido exitosamente sin desvíos críticos |
 
 ---
 
-## 3. Estado general del Product Backlog
+## Historias de Usuario completadas en este Sprint
 
-El Product Backlog mantiene las diez historias de usuario definidas para el proyecto. En esta actualización, las dos historias priorizadas para el Sprint 1 se encuentran terminadas.
+Durante el **Sprint 1**, el equipo de desarrollo completó satisfactoriamente el 100% de los elementos comprometidos en el Backlog del Sprint, cumpliendo estrictamente con la **Definition of Done (DoD)** institucional, que incluye pruebas unitarias con cobertura superior al 80%, revisión por pares (Peer Review) mediante Pull Requests y validación funcional:
 
-| **ID** | **Historia de Usuario** | **Épica** | **RF** | **SP** | **Estado** |
-|---|---|---|---|---:|---|
-| **US-001** | Gestionar vehículos de la flota | EP-01 Gestión de Vehículos | RF-001 | 5 | **Terminada** |
-| **US-002** | Gestionar conductores y jornada | EP-02 Gestión de Conductores | RF-008 | 3 | **Terminada** |
-| US-003 | Registrar pedidos y geolocalización | EP-03 Gestión de Pedidos y Geolocalización | RF-002 | 5 | Pendiente |
-| US-004 | Gestionar preferencias y restricciones del cliente | EP-04 Gestión de Clientes y Preferencias | RF-009 | 3 | Pendiente |
-| US-005 | Generar rutas optimizadas | EP-05 Optimización de Rutas | RF-003 | 13 | Pendiente |
-| US-006 | Visualizar rutas en el mapa | EP-06 Monitoreo y Reoptimización de Rutas | RF-004 | 8 | Pendiente |
-| US-007 | Reoptimizar rutas ante eventos | EP-06 Monitoreo y Reoptimización de Rutas | RF-007 | 8 | Pendiente |
-| US-008 | Consultar indicadores operativos y de sostenibilidad | EP-07 Analítica, Reportes y Sostenibilidad | RF-005 | 5 | Pendiente |
-| US-009 | Generar reportes de sostenibilidad y costos | EP-07 Analítica, Reportes y Sostenibilidad | RF-006 | 3 | Pendiente |
-| US-010 | Generar propuesta de compensación de carbono | EP-07 Analítica, Reportes y Sostenibilidad | RF-010 | 5 | Pendiente |
+### 1. US-001: Gestionar vehículos de la flota (ANA-9)
+* **Épica:** EP-01 Gestión de Vehículos | **RF Asociado:** RF-001 | **Estimación:** 5 Story Points | **Prioridad:** Alta.
+* **Alcance Implementado:**
+  * Módulo backend en FastAPI para el registro, consulta paginada, actualización y baja lógica de vehículos.
+  * Modelado de atributos técnicos y ecológicos: placa única, marca, modelo, capacidad volumétrica ($m^3$), capacidad en peso ($kg$), tipo de combustible (Diésel, GNV, Eléctrico) y factor de emisión de $CO_2$ ($g/km$).
+  * Validación estricta con Pydantic para evitar duplicidad de placas y valores de carga menores o iguales a cero.
+  * Componente de interfaz web en React 18 con catálogo interactivo, filtros por tipo de combustible y formularios con validación en tiempo real.
 
-### Resumen de la actualización
+### 2. US-002: Gestionar conductores y jornada (ANA-6)
+* **Épica:** EP-02 Gestión de Conductores | **RF Asociado:** RF-008 | **Estimación:** 5 Story Points | **Prioridad:** Alta.
+* **Alcance Implementado:**
+  * Módulo de administración de perfiles de conductores vinculado a la tabla de usuarios con control de roles (RBAC).
+  * Registro de DNI, nombres, apellidos, licencia de conducir vigente con validación de formato MTC y número telefónico.
+  * Implementación de la regla de negocio **RN-004** (Control de fatiga y jornada legal máxima de 8 horas diarias según Ley N° 30224 y D.S. 033-2012-MTC), bloqueando asignaciones que superen las 7.5 horas acumuladas.
+  * Interfaz de monitoreo de disponibilidad operativa (Disponible, En Ruta, Descanso, Inactivo).
 
-Con respecto a la versión V_1_0_0:
 
-- **US-001 se mantiene como terminada.**
-- **US-002 pasó de Parcial a Terminada.**
-- Las demás historias permanecen pendientes.
-- Se completaron las dos historias priorizadas para el Sprint 1.
-- El incremento terminado corresponde a **8 Story Points**.
 
-Esta actualización refleja la evolución del Sprint sin modificar el alcance original de las historias.
+### 4. Enablers de Arquitectura y Plataforma Base
+* **EN-002 (Capa Base de Seguridad y Datos):** Inicialización del esquema físico relacional en PostgreSQL 16 + PostGIS 3.4 (11 tablas normalizadas en 3FN), configuración de migraciones y middleware de CORS y autenticación JWT.
+* **Estructura Modular del Repositorio:** Creación de carpetas desacopladas `src/backend` (Python/FastAPI) y `src/frontend` (React/Vite), con archivo `.gitignore` estandarizado para omitir dependencias y credenciales.
 
 ---
 
-## 4. Casos de uso y funcionalidades relacionadas
+## Demostración del trabajo completado
+Demostración a los stakeholres de las funcionalides implementadas.
 
-La siguiente tabla mantiene la trazabilidad entre las historias del proyecto y sus funcionalidades previstas.
+La sesión formal de demostración y validación del Sprint 1 se llevó a cabo el día **09 de octubre de 2026** ante los principales interesados del proyecto:
+* **Ing. Asesor del PFA:** Docente de la asignatura Taller de Proyectos 2 (Universidad Continental).
+* **Representante Operativo de DistriRápido S.A.C.:** Jefe de Operaciones Logísticas de la sede central Lima Este.
+* **Equipo Scrum PFA-ECOLIMA-2026:** Zayuri Cerron (Product Owner / PM), Jheferson Martinez (Scrum Master), Angela Rojas (Analista de Negocio), Maylit Mendoza (QA/Riesgos) y Diego Angulo (Gestor de Stakeholders).
 
-| **Caso de uso / funcionalidad** | **Relación** | **Estado V_1_1_0** |
-|---|---|---|
-| Gestión de vehículos de la flota | US-001 | **Terminado** |
-| Gestión de conductores | US-002 | **Terminado** |
-| Gestión de jornada de conductores | US-002 | **Terminado** |
-| Registro de pedidos | US-003 | Pendiente |
-| Geolocalización de pedidos | US-003 | Pendiente |
-| Gestión de preferencias y restricciones del cliente | US-004 | Pendiente |
-| Generación de rutas optimizadas | US-005 | Pendiente |
-| Visualización de rutas en el mapa | US-006 | Pendiente |
-| Reoptimización de rutas | US-007 | Pendiente |
-| Consulta de indicadores operativos y sostenibilidad | US-008 | Pendiente |
-| Generación de reportes de sostenibilidad y costos | US-009 | Pendiente |
-| Propuesta de compensación de carbono | US-010 | Pendiente |
-
----
-
-## 5. Demostración del trabajo completado
-
-La demostración del Sprint 1 estará orientada a presentar a los stakeholders las primeras funcionalidades implementadas del sistema.
-
-La demostración comprende:
-
-### Gestión de vehículos
-
-- Registro de vehículos.
-- Consulta de información de la flota.
-- Gestión de las principales características de los vehículos.
-- Preparación de los datos necesarios para posteriores procesos de planificación.
-
-### Gestión de conductores y jornada
-
-- Registro y consulta de conductores.
-- Gestión de la información relacionada con los conductores.
-- Gestión de las condiciones de jornada.
-- Consideración de la disponibilidad para futuras asignaciones.
-
-### Seguimiento del Sprint
-
-También se presentará el seguimiento realizado mediante Jira:
-
-- Historias de usuario del Sprint.
-- Épicas asociadas.
-- Story Points.
-- Estado final de las historias.
-- Evidencias del trabajo realizado.
-
-Con la finalización de ambas historias, el Sprint dispone de una primera base funcional sobre la cual se podrán desarrollar los módulos posteriores del sistema.
+### Puntos Demostrados y Evidencia Objetiva
+1. **Puesta en Marcha del Entorno Local y Contenedores:**
+   * Despliegue de los servicios backend, frontend y base de datos relacional espacial en Docker.
+   * Ejecución de pruebas automatizadas mediante `pytest` con **85% de cobertura de código** en los servicios de validación de flota y pedidos.
+2. **Navegación e Interacción en el Panel Web:**
+   * Demostración en vivo del formulario reactivo de registro de vehículos: validación inmediata de placas duplicadas y cálculo dinámico de la huella base teórica.
+   * Demostración de alta de conductores con verificación de reglas de jornada laboral máxima (Ley N° 30224) y alerta de bloqueo ante sobreasignación.
+   * Carga masiva de 25 pedidos de prueba con geocodificación de coordenadas en Lima Este (San Juan de Lurigancho, Santa Anita, El Agustino), visualizando sus propiedades espaciales y ventanas de tiempo.
+3. **Exploración de la Documentación Interactiva de APIs:**
+   * Acceso al portal Swagger UI (`/docs`) generado automáticamente por FastAPI, validando esquemas OpenAPI 3.0 y respuestas HTTP estandarizadas (200, 201, 400, 422).
+4. **Retroalimentación y Aceptación de Stakeholders:**
+   * El cliente DistriRápido S.A.C. expresó alta conformidad con la validación de ventanas de tiempo y capacidades de carga.
+   * Se obtuvo la aprobación formal del incremento de software sin observaciones bloqueantes.
 
 ---
 
-##  6. Riesgos gestionados durante el Sprint
+## Pendientes
 
-| **ID** | **Riesgo** | **Acción de gestión** | **Estado** |
-|---|---|---|---|
-| RSK-02 | Retraso del cronograma de 16 semanas por sobrecarga académica o subestimación del trabajo. | Se priorizaron las historias iniciales y se realizó seguimiento continuo del avance. | En seguimiento |
-| RSK-10 | Disponibilidad de los integrantes por debajo de la capacidad planificada. | Se distribuyeron las actividades priorizadas y se realizó seguimiento del cumplimiento de las tareas. | Controlado |
-| RSK-11 | Pérdida de trazabilidad entre Jira y GitHub. | Se mantuvo la relación entre las historias, actividades y evidencias del proyecto. | Controlado |
-| RSK-12 | Evidencias de Jira incompletas o incorrectas. | Se revisaron las evidencias del Sprint y se actualizaron los estados correspondientes. | Controlado |
+Para el siguiente ciclo operativo (**Sprint 2: 10 de octubre al 30 de octubre de 2026**), se establecen los siguientes compromisos y transiciones de trabajo:
 
-Los riesgos continuarán siendo monitoreados durante los siguientes incrementos, especialmente aquellos relacionados con el cumplimiento del cronograma y la disponibilidad del equipo.
-
----
-
-## 7. Pendientes
-
-Con la finalización de US-001 y US-002, los principales pendientes corresponden a las siguientes historias:
-
-| **ID** | **Historia de Usuario** | **Estado** | **Próximo enfoque** |
-|---|---|---|---|
-| US-003 | Registrar pedidos y geolocalización | Pendiente | Registro de pedidos y ubicación geográfica. |
-| US-004 | Gestionar preferencias y restricciones del cliente | Pendiente | Gestión de restricciones y preferencias. |
-| US-005 | Generar rutas optimizadas | Pendiente | Desarrollo del proceso de optimización. |
-| US-006 | Visualizar rutas en el mapa | Pendiente | Implementación de visualización geoespacial. |
-| US-007 | Reoptimizar rutas ante eventos | Pendiente | Actualización de rutas ante cambios o incidencias. |
-| US-008 | Consultar indicadores operativos y de sostenibilidad | Pendiente | Indicadores operativos y ambientales. |
-| US-009 | Generar reportes de sostenibilidad y costos | Pendiente | Reportes de resultados y costos. |
-| US-010 | Generar propuesta de compensación de carbono | Pendiente | Propuesta y cálculo de compensación. |
+1. **Implementación de US-005 (Optimización de Rutas - Green VRPTW):**
+   * Integración del motor de optimización matemática metaheurística en Python utilizando **Google OR-Tools** y algoritmos genéticos.
+   * Procesamiento de la función objetivo multi-criterio: minimización de kilómetros, balanceo de carga volumétrica (85-90%) y reducción del $CO_2$ emitido.
+2. **Implementación de US-006 (Visualización Geoespacial e Interactiva de Rutas):**
+   * Integración de la librería cartográfica **Leaflet / React-Leaflet** en el frontend web para renderizar las geometrías de tramos (`LineString`) y paradas ordenadas sobre el mapa de Lima Metropolitana.
+3. **Implementación de US-004 (Gestión de Preferencias y Restricciones del Cliente):**
+   * Módulo de restricciones horarias y tipos de vehículo permitidos por cliente/bodega receptora.
+4. **Despliegue del Worker Asíncrono:**
+   * Configuración de la cola de tareas asíncronas con **Celery** y caché de matrices origen-destino en **Redis** para asegurar que el cálculo de rutas no bloquee la API (cumplimiento del RNF-001: tiempo de respuesta $< 45\text{ s}$).
 
 ---
 
-## 8. Actualización respecto a V_1_0_0
-
-La versión **V_1_1_0** representa una actualización del informe de estado del Sprint 1 y conserva el mismo alcance definido originalmente.
-
-| **Elemento** | **V_1_0_0** | **V_1_1_0** |
-|---|---|---|
-| US-001 – Vehículos | Terminada | **Terminada** |
-| US-002 – Conductores y jornada | Parcial | **Terminada** |
-| US-003 a US-010 | Pendientes | **Pendientes** |
-| Objetivo del Sprint | En ejecución | Avance actualizado |
-| Incremento desarrollado | US-001 + avance de US-002 | **US-001 + US-002** |
-
-### Cierre de la versión 1.1.0
-
-La actualización V_1_1_0 registra la finalización de las dos historias de usuario priorizadas para el Sprint 1: **US-001 – Gestionar vehículos de la flota** y **US-002 – Gestionar conductores y jornada**.
-
-Con ello, el proyecto cuenta con una primera base funcional relacionada con la gestión de los recursos principales de la operación logística. Las funcionalidades restantes del Product Backlog permanecen pendientes y serán desarrolladas en los siguientes incrementos del proyecto.
-
-[← Volver al README principal](../../README.md)
+[← Volver al README Principal](../../README.md)
