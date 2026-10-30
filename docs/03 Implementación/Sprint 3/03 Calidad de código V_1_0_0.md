@@ -96,48 +96,20 @@ Esto afecta la calidad de la experiencia del usuario y puede provocar errores fu
 ### 4.3 Mantenibilidad
 La mantenibilidad registra **27 code smells**. Aunque no son críticos por severidad, sí evidencian una deuda técnica que, si se acumula, puede generar problemas futuros en la evolución del producto.
 
-## 5. Plan de Remediación y Deuda Técnica
+## 3. Plan de Remediación y Deuda Técnica
+- **Deuda Técnica Estimada:** 2h 30m a 4h de trabajo técnico prioritario.
+- **Principales hallazgos y acciones correctivas:**
+  1. **Hallazgo 1: Uso de PRNG en contextos de seguridad y credenciales hard-coded.** Se detectaron 7 incidencias relacionadas con generadores pseudoaleatorios inseguros y 2 hallazgos asociados a credenciales embebidas en el código. La corrección aplicada consiste en migrar los secretos a variables de entorno o gestores de secretos y reemplazar el uso de funciones no seguras por mecanismos criptográficamente seguros para la generación de tokens, identificadores y valores de autenticación.
+  2. **Hallazgo 2: Problemas de fiabilidad en la interfaz y accesibilidad.** SonarQube reportó 116 bugs de tipo fiabilidad, siendo los más repetidos los elementos con etiquetas faltantes, controles interactivos en elementos no interactivos y promesas no manejadas. La corrección aplicada contempla reforzar atributos semánticos, mejorar el manejo de foco y teclado, y revisar los eventos del frontend para evitar errores de interacción y accesibilidad.
 
-La deuda técnica reportada por SonarQube no es crítica a nivel estructural, pero sí tiene impacto directo sobre la estabilidad del sistema, la seguridad operativa y la experiencia de usuario. Por ello, la estrategia de corrección debe priorizar primero los riesgos más inmediatos y luego consolidar la calidad en la capa de presentación.
+### Conclusión
+La deuda técnica del proyecto es moderada y no compromete de forma crítica el estado del Quality Gate, pero sí exige atención prioritaria en seguridad, fiabilidad y cobertura de pruebas. La ejecución de estas correcciones reducirá el riesgo operativo, mejorará la calidad de la experiencia de usuario y fortalecerá la preparación del sistema para una entrega más sostenible.
 
-- **Deuda Técnica Estimada:** 2h 30m a 4h de trabajo técnico prioritario para saneamiento inmediato.
-- **Impacto esperado:** reducción de riesgo en seguridad, mejora de accesibilidad, menor probabilidad de regresiones y aumento de confianza operativa.
+## 4. Conclusión General
 
-### 5.1 Priorización de correcciones
+El proyecto **EcoLogistica-Lima** presenta un estado general de calidad **aprobado** en SonarQube, con una duplicación baja y una base técnica razonablemente ordenada. Sin embargo, la cobertura de pruebas sigue siendo una zona de mejora y la deuda técnica acumulada en seguridad y fiabilidad debe reducirse para fortalecer la preparación del sistema antes de una entrega operativa.
 
-1. **Seguridad de credenciales y aleatoriedad**
-   - Eliminar cualquier secreto hard-coded del repositorio.
-   - Moverlos a variables de entorno, configuración segura o gestores de secretos.
-   - Reemplazar PRNG inseguros por generadores criptográficamente seguros para tokens, claves, identificadores y valores sensibles.
-   - Esta corrección es crítica porque afecta directamente la integridad y la confidencialidad del sistema.
-
-2. **Fiabilidad de la interfaz y manejo de eventos**
-   - Corregir etiquetas faltantes en elementos UI y elementos interactivos sin texto asociado.
-   - Revisar la lógica de eventos para evitar elementos no interactivos con handlers interactivos.
-   - Controlar promesas no manejadas y condiciones de error en la capa frontend.
-   - Este punto es esencial para evitar comportamientos inconsistentes y errores visibles para los usuarios.
-
-3. **Cobertura de pruebas y validación funcional**
-   - Fortalecer pruebas para módulos críticos de rutas, conductores, vehículos, validaciones y flujo de entregas.
-   - Priorizar pruebas unitarias y de integración en las reglas de negocio más sensibles.
-   - Aumentar la cobertura de código para reducir riesgo de regresión en futuras entregas.
-
-4. **Mantenibilidad y limpieza de código**
-   - Reducir el uso de métodos y propiedades globales en frontend.
-   - Refactorizar componentes con responsabilidades superpuestas.
-   - Consolidar un patrón de diseño más claro para facilitar mantenimiento y evolución del producto.
-
-### 5.2 Recomendación de ejecución
-
-La prioridad recomendada es:
-1. corregir seguridad,
-2. revisar fiabilidad y accesibilidad,
-3. elevar cobertura de pruebas,
-4. limpiar mantenibilidad.
-
-Con este enfoque, el proyecto puede pasar de un estado aprobado a uno más robusto, con menor riesgo operativo y mejor preparación para producción.
-
-## 6. Conclusión
+[← Volver al README Principal](../../README.md)
 
 El proyecto **EcoLogistica-Lima** mantiene un nivel de calidad técnico **aceptable y aprobado por el Quality Gate**, con una buena gestión de duplicación y una estructura general razonable. Sin embargo, la calidad no puede considerarse plenamente madura porque aún persisten deficiencias en cobertura de pruebas, seguridad y fiabilidad de interfaz.
 
