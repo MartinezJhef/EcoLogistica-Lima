@@ -38,10 +38,35 @@
 | A10:2025-Server-Side Request Forgery (SSRF) | Limpio | 0 |
 
 ## 2. Detalles de Security Hotspots y Vulnerabilidades Críticas
-- **Hotspot #1:** Uso de PRNG en contexto de seguridad; identificado en el código del proyecto y asociado a la regla de SonarQube sobre generadores pseudoaleatorios no seguros. Mitigación: reemplazar por generadores criptográficamente seguros y revisar los puntos donde se generen tokens, identificadores o valores sensibles.
-- **Hotspot #2:** Credenciales hard-coded en código fuente; hallazgo reportado por SonarQube y relacionado con el manejo de secretos. Mitigación: mover las credenciales a variables de entorno, secretos de infraestructura o gestores seguros y evitar almacenamiento literal en el repositorio.
+
+### Hotspot #1: Uso de PRNG en contexto de seguridad
+El primer hallazgo relevante corresponde a la categoría **A02:2025-Cryptographic Failures**. SonarQube reporta el uso de generadores pseudoaleatorios no seguros para contextos que requieren aleatoriedad criptográfica. Esto puede afectar la generación de tokens, validaciones temporales, identificadores o cualquier mecanismo que dependa de valores aleatorios para asegurar la integridad del sistema.
+
+**Riesgo:** pérdida de seguridad en mecanismos de autenticación, validación o control de sesión.
+
+**Mitigación recomendada:**
+- reemplazar funciones no seguras por generadores criptográficamente fuertes,
+- revisar cada punto donde se genere un valor confidencial,
+- aplicar pruebas específicas para confirmar que los valores producidos cumplen con seguridad criptográfica.
+
+### Hotspot #2: Credenciales hard-coded
+El segundo hallazgo principal corresponde a **A07:2025-Identification and Authentication Failures**. La presencia de credenciales escritas directamente en el código fuente representa un riesgo alto de exposición accidental, especialmente cuando el repositorio se comparte o se despliega sin una Política de secretos adecuada.
+
+**Riesgo:** exposición de datos, escalamiento de privilegios o compromiso del entorno.
+
+**Mitigación recomendada:**
+- mover secretos a variables de entorno,
+- usar gestores de secretos en infraestructura,
+- reforzar estándares de configuración y revisión de código antes del despliegue.
+
+### Otros puntos de revisión
+Aunque no se encontraron hallazgos de inyección, SSRF ni configuraciones visibles de alto riesgo en esta revisión, el proyecto debe mantener vigilancia continua porque la infraestructura de logística y gestión de flotas puede incorporar nuevos componentes y servicios que agraven la superficie de ataque en futuras versiones.
+
+## 3. Evaluación global del riesgo
+
+La evaluación del proyecto muestra que el riesgo de seguridad es **moderado y controlable**, no crítico en magnitud, pero sí relevante en el corto plazo. El análisis del Quality Gate no bloquea la entrega, pero los hallazgos actuales indican que la solución aún necesita reforzar la protección de credenciales y la generación segura de valores aleatorios.
 
 ### Conclusión
-El proyecto presenta una evaluación de seguridad global aceptable, con un Quality Gate aprobado, pero con riesgos moderados concretos en la categoría A02 y A07 del OWASP Top 10 2025. La corrección de estos hallazgos es crítica para reforzar la postura de seguridad antes de una entrega operativa.
+El proyecto presenta una evaluación de seguridad global aceptable, con un Quality Gate aprobado, pero con riesgos moderados concretos en la categoría A02 y A07 del OWASP Top 10 2025. La corrección de estos hallazgos es crítica para reforzar la postura de seguridad antes de una entrega operativa y reducir la exposición de la solución en entornos reales.
 
 [← Volver al README Principal](../../README.md)

@@ -98,12 +98,44 @@ La mantenibilidad registra **27 code smells**. Aunque no son críticos por sever
 
 ## 5. Plan de Remediación y Deuda Técnica
 
-- **Deuda Técnica Estimada:** 2h 30m a 4h de trabajo técnico prioritario.
-- **Principales hallazgos y acciones correctivas:**
-  1. **Seguridad de datos y secretos**: revisar y eliminar credenciales hard-coded; mover secretos a variables de entorno o servicios seguros. Reemplazar PRNG inseguros por mecanismos criptográficamente adecuados.
-  2. **Accesibilidad y fiabilidad de interfaz**: corregir problemas de etiquetado de elementos, controles faltantes y manejo de foco; revisar eventos y promesas no gestionadas.
-  3. **Cobertura de pruebas**: fortalecer pruebas unitarias para lógicas críticas de rutas, validaciones y gestión de conductores/vehículos.
-  4. **Refactorización de mantenibilidad**: reducir el uso de métodos y propiedades globales en frontend y consolidar un patrón de componentes más estable.
+La deuda técnica reportada por SonarQube no es crítica a nivel estructural, pero sí tiene impacto directo sobre la estabilidad del sistema, la seguridad operativa y la experiencia de usuario. Por ello, la estrategia de corrección debe priorizar primero los riesgos más inmediatos y luego consolidar la calidad en la capa de presentación.
+
+- **Deuda Técnica Estimada:** 2h 30m a 4h de trabajo técnico prioritario para saneamiento inmediato.
+- **Impacto esperado:** reducción de riesgo en seguridad, mejora de accesibilidad, menor probabilidad de regresiones y aumento de confianza operativa.
+
+### 5.1 Priorización de correcciones
+
+1. **Seguridad de credenciales y aleatoriedad**
+   - Eliminar cualquier secreto hard-coded del repositorio.
+   - Moverlos a variables de entorno, configuración segura o gestores de secretos.
+   - Reemplazar PRNG inseguros por generadores criptográficamente seguros para tokens, claves, identificadores y valores sensibles.
+   - Esta corrección es crítica porque afecta directamente la integridad y la confidencialidad del sistema.
+
+2. **Fiabilidad de la interfaz y manejo de eventos**
+   - Corregir etiquetas faltantes en elementos UI y elementos interactivos sin texto asociado.
+   - Revisar la lógica de eventos para evitar elementos no interactivos con handlers interactivos.
+   - Controlar promesas no manejadas y condiciones de error en la capa frontend.
+   - Este punto es esencial para evitar comportamientos inconsistentes y errores visibles para los usuarios.
+
+3. **Cobertura de pruebas y validación funcional**
+   - Fortalecer pruebas para módulos críticos de rutas, conductores, vehículos, validaciones y flujo de entregas.
+   - Priorizar pruebas unitarias y de integración en las reglas de negocio más sensibles.
+   - Aumentar la cobertura de código para reducir riesgo de regresión en futuras entregas.
+
+4. **Mantenibilidad y limpieza de código**
+   - Reducir el uso de métodos y propiedades globales en frontend.
+   - Refactorizar componentes con responsabilidades superpuestas.
+   - Consolidar un patrón de diseño más claro para facilitar mantenimiento y evolución del producto.
+
+### 5.2 Recomendación de ejecución
+
+La prioridad recomendada es:
+1. corregir seguridad,
+2. revisar fiabilidad y accesibilidad,
+3. elevar cobertura de pruebas,
+4. limpiar mantenibilidad.
+
+Con este enfoque, el proyecto puede pasar de un estado aprobado a uno más robusto, con menor riesgo operativo y mejor preparación para producción.
 
 ## 6. Conclusión
 
