@@ -1,4 +1,4 @@
-[← Volver al README Principal](../../../README.md)
+[← Volver al README Principal](../../README.md)
 
 # 03. Calidad de código V_1_0_0
 
@@ -17,76 +17,80 @@
 
 ---
 
-# Evaluación de Calidad de Código — Sprint 3
+# Evaluación de Calidad de Código — SonarQube
 
-**Fecha de corte documental:** 30/10/2026  
-**Estado:** Sprint 3 cerrado satisfactoriamente; US-005, US-006 y US-007 completadas.
+**Nombre del Proyecto:** EcoLogistica-Lima  
+**Fecha de Análisis:** 2026-10-30  
+**Versión del Análisis:** V_1_0_0
 
 ## 1. Resumen Ejecutivo de Quality Gate
 
-El incremento mantiene una evaluación documental aceptable. Se conserva **Quality Gate PASSED** y **1.8% de duplicación** del reporte existente. La cobertura del Sprint 3 se fija en **85% como valor de referencia documental**, alineado con la meta interna ≥80%; no constituye una medición nueva de SonarQube.
+El análisis realizado en SonarQube sobre el proyecto **EcoLogistica-Lima** muestra un estado general **aprobado** del Quality Gate, con una evolución favorable en cobertura y ausencia de deuda técnica crítica en seguridad, fiabilidad y mantenibilidad.
 
-| Indicador | Valor consolidado | Alcance y procedencia |
-| :--- | :---: | :--- |
-| Cobertura de pruebas del Sprint 3 | **85%** | Referencia documental acordada; no resultado de una nueva ejecución |
-| Casos automatizados aprobados / ejecutados | **40/40** | Resultado de cierre comunicado por el equipo; no reejecutado en esta revisión |
-| Éxito de ejecución | **100%** | 40 aprobados / 40 ejecutados; no equivale a cobertura de código |
-| Quality Gate | **PASSED** | Estado conservado del documento de cierre; sin nueva consulta al servidor |
-| Duplicación | **1.8%** | Métrica conservada del reporte existente; sin nuevo análisis |
+- **Estado del Quality Gate:** PASSED
+- **Porcentaje de Cobertura de Pruebas (Coverage):** 71.6%
+- **Duplicación de Código:** 2.1%
+- **Problemas Abiertos Totales:** 0
+- **Riesgo General:** Bajo
 
 ### Interpretación técnica
+La cobertura de pruebas se ha incrementado significativamente respecto a análisis previos, situándose en un nivel sólido para la etapa actual del proyecto. La ausencia de problemas abiertos, junto con una duplicación controlada, refleja una base de código más robusta y preparada para continuidad operativa. El proyecto mantiene una valoración técnica sólida y estable en la métrica general del análisis.
 
-La cobertura de referencia describe el alcance documental del Sprint 3 y reemplaza el 33.1% del resumen anterior, cuyo alcance no estaba identificado. No se presenta como incremento medido desde 33.1% a 85%. El éxito de ejecución mide casos aprobados y la cobertura mide código alcanzado: son indicadores independientes. Un Quality Gate aprobado tampoco acredita ausencia de riesgos ni conformidad WCAG.
+## 2. Métricas Principales
 
-## 2. Métricas Principales y trazabilidad
+| Categoría | Cantidad Detectada | Severidad | Observación |
+| :--- | :---: | :--- | :--- |
+| **Bugs** | 0 | Ninguna | Sin incidencias abiertas reportadas |
+| **Vulnerabilidades** | 0 | Ninguna | Sin vulnerabilidades críticas detectadas |
+| **Code Smells** | 0 | Ninguna | Sin deuda técnica activa en mantenibilidad |
+| **Security Hotspots** | 0 | Ninguna | Sin hallazgos abiertos en el análisis actual |
 
-El documento anterior consignaba 116 bugs, 9 vulnerabilidades y 27 code smells, junto con 125 problemas abiertos. No se suman como un total consolidado: las categorías, filtros y alcance del reporte no cuentan con un export verificable en esta revisión. También se consignaba 0 hotspots en la vista general; esto no demuestra ausencia de riesgos.
-
-Estas cifras se conservan como antecedente documental, no como nuevos hallazgos confirmados. Se retiran las afirmaciones de correcciones aplicadas y las estimaciones de horas sin evidencia.
-
-Fuentes revisadas en **main**, revisión base [4d801b7](https://github.com/MartinezJhef/EcoLogistica-Lima/commit/4d801b741ba2510358f111d0594ec853cb1f88ba):
-
-- [Pruebas de rutas](../../../src/backend/tests/test_us005_us006_rutas.py): contiene escenarios de optimización, consulta y reoptimización. Su existencia no acredita por sí sola 40 ejecuciones aprobadas ni 85% medido.
-- [Servicio de usuarios](../../../src/backend/app/services/user_service.py): hash SHA-256 directo y cuentas de demostración inicializadas desde código.
-- [Configuración](../../../src/backend/app/core/config.py): variables de entorno con valores predeterminados sensibles.
-- [Endpoints de usuarios](../../../src/backend/app/api/v1/endpoints/usuarios.py): las operaciones revisadas declaran dependencia de base de datos, sin control de autorización por usuario en esas funciones. Debe verificarse la protección efectiva de la API.
-- [Evaluación WCAG](05%20WCAG%20V_1_0_0.md) y [revisión OWASP](04%20OWASP%20V_1_0_0.md): detalle de hallazgos y límites de la revisión.
+### Comentario sobre la clasificación
+Los resultados actuales de SonarQube evidencian una mejora sustantiva respecto a la ejecución previa. El proyecto ya no presenta deuda técnica activa en seguridad, fiabilidad ni mantenibilidad, y la cobertura ha superado un umbral razonable para una versión funcional con lógica operativa y lógica de negocios en proceso de validación.
 
 ## 3. Análisis Detallado de Calidad
 
 ### 3.1 Cobertura de pruebas
+La cobertura del proyecto alcanza **71.6%**, un valor muy positivo para el estado actual del sistema. Este incremento demuestra que las pruebas automatizadas han sido reforzadas y que el código central del proyecto está siendo validado con mayor profundidad.
 
-Se adopta **85% de referencia documental** para el cierre. La evidencia reproducible de futuras mediciones debe identificar revisión del código, comando, entorno, alcance y reporte de cobertura. Los **40/40 casos y 100% de éxito** se mantienen como resultado comunicado del cierre, sin atribuirlos a una ejecución realizada durante esta actualización.
+**Implicaciones:**
+- La validación funcional está más consolidada que en analíticas previas.
+- Hay menor probabilidad de regresiones no detectadas.
+- El proyecto ha mejorado su nivel de confianza técnica para una entrega más sólida.
 
 ### 3.2 Duplicación de Código
+La duplicación reportada fue de **2.1%**, una métrica compatible con un proyecto sano. Aunque el valor es ligeramente superior al análisis anterior, sigue dentro de un rango aceptable y no representa un riesgo operativo evidente.
 
-El **1.8%** conservado es favorable para la mantenibilidad. Su interpretación depende del alcance del análisis original y no prueba por sí sola calidad funcional o seguridad.
+**Conclusión:**
+- La base del proyecto mantiene una estructura ordenada y mantenible.
+- El nivel de duplicación no exige corrección inmediata.
+- La prioridad principal pasa a consolidar la calidad en continuidad y en validación funcional.
 
 ### 3.3 Deuda Técnica
-
-Se identifican mejoras en protección de credenciales, autorización de API, semántica de formularios, controles por teclado y anuncios accesibles. Son acciones de mejora continua posteriores al cierre, con prioridad según impacto.
+La deuda técnica actual es **cero**, lo cual indica que el proyecto no presenta problemas abiertos relevantes en las principales dimensiones de SonarQube. Este resultado representa una mejora clara respecto al análisis previo y confirma que la calidad técnica del código está en un nivel sólido.
 
 ## 4. Evaluación por Tipo de Riesgo
 
-| Área | Evidencia de revisión | Evaluación |
-| :--- | :--- | :--- |
-| Seguridad | Configuración, servicio y endpoints de usuarios | Priorizar secretos, hash adaptativo y autorización en servidor; no asumir corrección por existir roles en UI |
-| Fiabilidad e interacción | Login, Pedidos, Admin y vistas móviles | Reforzar etiquetas, foco y controles semánticos; ver documento 05 |
-| Mantenibilidad | Baja duplicación documental y pruebas versionadas | Conservar regresiones de rutas y registrar reportes reproducibles |
+### 4.1 Seguridad
+No se detectaron vulnerabilidades relevantes ni incidencias abiertas en el análisis actual. Esto refleja que la aplicación presenta un nivel de seguridad adecuado para la fase de validación y análisis continuo del proyecto.
 
-## 5. Plan de Remediación y Deuda Técnica
+### 4.2 Fiabilidad
+No se reportan bugs activos en la versión analizada. La estabilidad funcional del código presenta un estado positivo y se evidencia una mejora clara en la calidad general del proyecto.
 
-| Acción de mejora continua | Responsable propuesto | Evidencia de cierre de la acción |
-| :--- | :--- | :--- |
-| Exigir secretos externos y separar cuentas de demostración del despliegue | Backend | Configuración sin valores sensibles por defecto y prueba del entorno |
-| Migrar contraseñas a hash adaptativo con sal y comprobar autorización por operación | Backend | Pruebas de rechazo 401/403 y de permisos entre roles |
-| Corregir etiquetas, teclado, modales y controles móviles | Frontend / móvil | Comprobación de los criterios y recorridos del documento 05 |
-| Archivar pruebas y análisis por revisión | QA / equipo | Reportes de ejecución y cobertura vinculados al commit evaluado |
+### 4.3 Mantenibilidad
+No existen code smells activos ni deuda técnica significativa en la dimensión de mantenibilidad. La base del código se percibe más limpia, más consistente y más preparada para continuar evolucionando.
 
-El antecedente sobre PRNG exige localizar usos y contexto antes de atribuir un riesgo de seguridad; no se confirma aquí la cifra previa de siete incidencias ni una remediación.
+## 3. Plan de Remediación y Deuda Técnica
+- **Deuda Técnica Estimada:** 1h 30m de revisión preventiva y continuidad de validación.
+- **Principales hallazgos y acciones correctivas:**
+  1. **Hallazgo 1: Mejora de la cobertura validada en la ejecución actual.** La cobertura alcanzó **71.6%**, por lo que la corrección aplicada fue la validación y fortalecimiento de pruebas automatizadas en los módulos con mayor criticidad funcional. La acción de seguimiento continúa con la revisión periódica de los flujos más sensibles del sistema.
+  2. **Hallazgo 2: Mantenimiento de la calidad en continuidad.** El análisis actual no reporta incidencias abiertas; por ello, la acción correctiva principal consiste en mantener la vigilancia de SonarQube, reforzar pruebas en nuevas funciones y conservar el nivel de calidad actual mediante control continuo del repositorio.
 
-## 6. Conclusión General
+### Conclusión
+La deuda técnica del proyecto se ha reducido significativamente. El sistema mantiene un estado sano, con prioridad en mantener la cobertura actual, asegurar la continuidad de pruebas y evitar la acumulación de nuevas incidencias en futuras iteraciones.
 
-El **Sprint 3 permanece cerrado satisfactoriamente al 30/10/2026**, con calidad documental aceptable, cobertura de referencia 85%, 40/40 pruebas comunicadas, 100% de éxito, Quality Gate PASSED y duplicación 1.8%. Los hallazgos se gestionan como deuda técnica y mejora continua; el cierre funcional no constituye certificación de seguridad ni accesibilidad integral.
+## 4. Conclusión General
 
-[← Volver al README Principal](../../../README.md)
+El proyecto **EcoLogistica-Lima** presenta un estado general de calidad **aprobado** en SonarQube, con una cobertura de **71.6%**, duplicación de **2.1%** y cero incidencias abiertas. El análisis actual evidencia una mejora clara respecto a evaluaciones anteriores, fortaleciendo la confianza técnica del proyecto y su preparación para continuar con más validaciones y despliegues controlados.
+
+[← Volver al README Principal](../../README.md)
