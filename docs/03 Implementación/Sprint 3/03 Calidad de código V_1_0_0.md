@@ -46,9 +46,10 @@ La cobertura de pruebas pasó de **33.1%** a **71.6%**, lo que representa una me
 | **Security Hotspots** | 0 | N/D | Sin hallazgos abiertos |
 | **Coverage** | 71.6% | 33.1% | +38.5 puntos |
 | **Duplicación** | 2.1% | 1.8% | Levemente mayor, pero aún aceptable |
+| **Observaciones manuales de seguridad residual** | 3 | N/D | Riesgos leves pendientes de hardening |
 
 ### Comentario sobre la clasificación
-Los indicadores actuales muestran que el proyecto ya no presenta deuda técnica activa en las dimensiones principales de calidad. La reducción desde 116 bugs y 9 vulnerabilidades hasta 0 evidencia que las correcciones aplicadas fueron efectivas y se reflejan directamente en el análisis actual de SonarQube.
+Los indicadores actuales muestran que el proyecto ya no presenta deuda técnica activa en las dimensiones principales de calidad según SonarQube. La reducción desde 116 bugs y 9 vulnerabilidades hasta 0 evidencia que las correcciones aplicadas fueron efectivas. Sin embargo, la revisión técnica del código también identifica **3 observaciones leves de seguridad** que no aparecen como incidencias del escáner, pero sí tienen relación directa con la matriz OWASP del documento 04: configuración de secretos, credenciales por defecto y uso de hashing no recomendado para autenticación.
 
 ## 3. Análisis Detallado de Calidad
 
@@ -72,13 +73,28 @@ La duplicación reportada fue de **2.1%**, una métrica compatible con un proyec
 La deuda técnica actual es **0**, lo cual indica que el proyecto no presenta problemas abiertos relevantes en las principales dimensiones de SonarQube. Este resultado supone una mejora clara respecto a estudios previos y valida la efectividad de las correcciones realizadas.
 
 ## 3. Plan de Remediación y Deuda Técnica
-- **Deuda Técnica Estimada:** 1h 30m de revisión preventiva y continuidad de validación.
-- **Principales hallazgos y acciones correctivas:**
-  1. **Hallazgo 1: Reducción de bugs y vulnerabilidades.** En la primera revisión se reportaron **116 bugs** y **9 vulnerabilidades**. La corrección aplicada consistió en reforzar la seguridad de la interfaz, ajustar elementos de acceso y eliminar errores funcionales en la capa de interacción. En la última ejecución, estas incidencias quedaron **en 0**.
-  2. **Hallazgo 2: Fortalecimiento de cobertura y control de calidad.** La cobertura pasó de **33.1%** a **71.6%** mediante la ampliación de pruebas automatizadas y la validación de flujos críticos del proyecto. La acción de seguimiento continua es mantener esta tendencia, revisando cada nueva funcionalidad para que no vuelva a aparecer deuda técnica.
+
+### 3.1. Estado de deuda técnica y relación con la revisión de seguridad
+La deuda técnica actual según SonarQube es **0 incidencias abiertas**, lo que refleja un proyecto con un estado de calidad muy satisfactorio en la última ejecución. No obstante, la evaluación de seguridad realizada en el documento 04 evidencia **3 observaciones leves** que no fueron reportadas por el escáner principal, pero sí requieren seguimiento para reforzar la seguridad en producción real.
+
+**Deuda técnica estimada:** 1h 30m de revisión y corrección preventiva.
+
+### 3.2. Hallazgos prioritarios y plan de acción
+1. **Hallazgo 1: Reducción de bugs y vulnerabilidades.** En revisiones previas se reportaron **116 bugs** y **9 vulnerabilidades**, principalmente relacionadas con estabilidad y acceso. La corrección aplicada y validada en la última ejecución redujo esos valores a **0** en SonarQube, consolidando una base de código más estable.
+
+2. **Hallazgo 2: Fortalecimiento de cobertura y validación funcional.** La cobertura pasó de **33.1%** a **71.6%** mediante la ampliación de pruebas automatizadas y la validación de flujos críticos. Este crecimiento permite reducir regresiones y mejora la confianza técnica del proyecto.
+
+3. **Hallazgo 3: Riesgos residuales leves de seguridad (relación con OWASP).** Aunque SonarQube no muestra vulnerabilidades abiertas, la revisión manual del código evidenció **3 observaciones leves**: secretos por defecto, usuarios con credenciales predefinidas y hashing de contraseñas con SHA-256. Este punto se relaciona directamente con el documento 04 y debe cerrarse como hardening previo a producción.
+
+### 3.3. Acciones recomendadas
+- Reemplazar secretos y credenciales por variables de entorno.
+- Eliminar usuarios semilla con credenciales simples o predefinidas.
+- Migrar el almacenamiento de contraseñas a un algoritmo robusto como bcrypt o argon2.
+- Mantener la práctica de escaneo automático con SonarQube en cada pull request.
+- Reforzar pruebas de seguridad para nuevas funcionalidades.
 
 ### Conclusión
-La deuda técnica del proyecto se ha reducido de forma significativa. El sistema mantiene un estado sano, con prioridad en mantener la cobertura actual, asegurar la continuidad de pruebas y evitar la acumulación de nuevas incidencias en futuras iteraciones.
+La deuda técnica del proyecto se ha reducido de forma significativa y el estado general es sólido. El objetivo principal del siguiente ciclo es mantener la buena salud del Quality Gate y cerrar las observaciones leves de seguridad que, aunque no aparecen en SonarQube, sí afectan la postura de seguridad real del sistema.
 
 ## 4. Conclusión General
 

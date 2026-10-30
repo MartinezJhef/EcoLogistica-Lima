@@ -24,48 +24,62 @@
 
 ## 1. Matriz de Cumplimiento OWASP Top 10 2025
 
-| Categoría OWASP 2025 | Equivale a (plantilla de la consigna) | Estado en Proyecto | Hallazgos de SonarQube |
+| Categoría OWASP 2025 | Estado en Proyecto | Hallazgos observados | Severidad |
 | :--- | :--- | :--- | :--- |
-| **A01:2025 Broken Access Control (incluye SSRF)** | **A01 Broken Access Control y A10 SSRF** | **Limpio** | 0; no existen incidencias abiertas actuales |
-| **A02:2025 Security Misconfiguration** | **A05 Security Misconfiguration** | **Limpio** | 0; sin hallazgos abiertos en el análisis actual |
-| **A03:2025 Software Supply Chain Failures** | **A06 Vulnerable and Outdated Components** | **Limpio** | 0; sin dependencias críticas reportadas |
-| **A04:2025 Cryptographic Failures** | **A02 Cryptographic Failures** | **Limpio** | 0; sin hallazgos activos en la ejecución actual |
-| **A05:2025 Injection** | **A03 Injection** | **Limpio** | 0; sin inyección SQL, XSS ni comandos detectados |
-| **A06:2025 Insecure Design** | **A04 Insecure Design** | **Bajo revisión** | 0; se mantiene revisión manual conforme a diseño y arquitectura |
-| **A07:2025 Authentication Failures** | **A07 Identification and Authentication Failures** | **Limpio** | 0; sin credenciales abiertas ni fallas activas |
-| **A08:2025 Software or Data Integrity Failures** | **A08 Software and Data Integrity Failures** | **Bajo revisión** | 0; revisión continua de integridad y validación de datos |
-| **A09:2025 Security Logging and Alerting Failures** | **A09 Security Logging and Monitoring Failures** | **Bajo revisión** | 0; sin eventos críticos reportados |
-| **A10:2025 Mishandling of Exceptional Conditions** | **No existe en la plantilla; reemplaza a SSRF** | **Limpio** | 0; sin incidencias relevantes reportadas |
+| **A01:2025 - Broken Access Control** | **Limpio** | Sin bypass directo evidenciado en la lógica de acceso actual | **Ninguna reportada por SonarQube** |
+| **A02:2025 - Cryptographic Failures** | **Revisión manual pendiente** | Se usan valores por defecto para secretos y conexión a base de datos | **Baja** |
+| **A03:2025 - Injection** | **Limpio** | No se evidencian consultas SQL dinámicas ni entrada sin validar | **Ninguna reportada por SonarQube** |
+| **A04:2025 - Insecure Design** | **Bajo revisión** | El diseño actual es funcional, pero requiere control en nuevas funcionalidades | **Baja** |
+| **A05:2025 - Security Misconfiguration** | **Revisión manual pendiente** | Se detectan secretos y CORS con valores por defecto | **Baja** |
+| **A06:2025 - Vulnerable and Outdated Components** | **Limpio** | No se evidencian dependencias críticamente obsoletas en la revisión actual | **Ninguna reportada por SonarQube** |
+| **A07:2025 - Authentication Failures** | **Revisión manual pendiente** | Hay usuarios semilla con credenciales simples y predefinidas | **Baja** |
+| **A08:2025 - Software and Data Integrity Failures** | **Limpio** | No se evidencian alteraciones de integridad visibles en la capa actual | **Ninguna reportada por SonarQube** |
+| **A09:2025 - Security Logging and Monitoring Failures** | **Limpio** | Sin fallas funcionales evidentes de auditoría en la revisión actual | **Ninguna reportada por SonarQube** |
+| **A10:2025 - SSRF / Request Forgery** | **Limpio** | No se observan llamadas externas no controladas en la implementación actual | **Ninguna reportada por SonarQube** |
 
-### Observación relevante
-En la última ejecución del análisis, SonarQube reporta **0 vulnerabilidades abiertas, 0 Security Hotspots y 0 bugs de seguridad** para el proyecto. Esto representa una mejora clara respecto a ejecuciones anteriores, en donde sí se documentaron incidencias de seguridad, especialmente en la categoría de autenticación y seguridad criptográfica.
+### Observación importante
+La última ejecución de SonarQube reporta **0 vulnerabilidades abiertas, 0 Security Hotspots y 0 bugs de seguridad**. Sin embargo, durante la revisión del código se identificaron **observaciones leves de seguridad** relacionadas con la configuración y credenciales por defecto, y estas se registran como riesgos residuales pendientes de hardening, no como hallazgos activos del escáner.
 
-## 2. Detalles de Security Hotspots y Vulnerabilidades Críticas
+## 2. Hallazgos de revisión manual (leves, pocos y documentados)
 
-### Hotspot #1: Riesgo de seguridad resuelto en la última ejecución
-La revisión actual no reporta hallazgos críticos de seguridad. Los riesgos anteriormente asociados a credenciales hard-coded y generación insegura de valores aleatorios quedaron resueltos en la última revisión, por lo que la recomendación principal actual es mantener la validación automática en cada cambio del proyecto.
+### Hallazgo #1: Secretos y configuración por defecto
+En [src/backend/app/core/config.py](src/backend/app/core/config.py#L11-L37) se observan valores por defecto para `SECRET_KEY`, `POSTGRES_PASSWORD` y la cadena de conexión de base de datos. Aunque no son reportados como vulnerabilidad por SonarQube en la ejecución actual, en entornos reales estos valores pueden exponer la aplicación si no se externalizan con variables de entorno.
 
-**Riesgo actual:** bajo.
-
-**Mitigación aplicada:**
-- revisión de secretos,
-- control de autenticación,
-- validación de datos y flujo de seguridad,
-- continuidad de análisis automatizado.
-
-### Hotspot #2: Mantenimiento de la calidad de seguridad
-Aunque la versión actual no presenta vulnerabilidades abiertas, el proyecto aún requiere mantener la disciplina de seguridad en nuevas incorporaciones. Las categorías de diseño, integridad y logging deben seguir revisándose manualmente para asegurar que no entren nuevas brechas en futuras iteraciones.
-
-**Riesgo actual:** controlado y preventivo.
+**Severidad:** baja  
+**Riesgo:** configuración insegura en despliegues sin variables de entorno adecuadas.
 
 **Mitigación recomendada:**
-- ejecutar SonarQube en cada integración o despliegue,
-- revisar dependencias antes de merge,
-- mantener políticas de secretos y acceso,
-- validar que toda nueva funcionalidad pase por revisión de seguridad.
+- mover secretos a variables de entorno,
+- usar claves únicas por ambiente,
+- no dejar credenciales por defecto en repositorios ni archivos de configuración.
 
-## 3. Resultado del reanálisis
+### Hallazgo #2: Credenciales predefinidas y usuarios semilla
+En [src/backend/app/services/user_service.py](src/backend/app/services/user_service.py#L12-L84) se crean usuarios iniciales con contraseñas conocidas, incluyendo valores simples como `12345678` y otras credenciales definidas en el código. Esto no aparece como una incidencia del escáner actual, pero sí representa un riesgo de seguridad práctico si la aplicación se despliega sin cambios de seguridad adicionales.
 
-**Resultado del reanálisis (30-10-2026): 0 vulnerabilidades abiertas, 0 Security Hotspots y calificación de seguridad A.** La evolución del proyecto demuestra una mejora significativa en la postura de seguridad y en la calidad del código, reflejada en la reducción de incidencias desde análisis previos hasta la validación actual.
+**Severidad:** baja  
+**Riesgo:** autenticación vulnerable en ambientes de prueba o despliegue sin hardening.
+
+**Mitigación recomendada:**
+- eliminar o reconfigurar usuarios semilla,
+- exigir contraseñas complejas y cambiar las credenciales por defecto,
+- evitar persistir datos sensibles en el código fuente.
+
+### Hallazgo #3: Uso de SHA-256 para almacenamiento de contraseñas
+En [src/backend/app/services/user_service.py](src/backend/app/services/user_service.py#L15-L18), el hash de contraseña se calcula con `hashlib.sha256`. Aunque funciona para un prototipo, no es el mecanismo recomendado para autenticación moderna; lo apropiado sería usar `bcrypt`, `argon2` o un algoritmo de password hashing más robusto.
+
+**Severidad:** baja  
+**Riesgo:** menor resistencia frente a ataques de fuerza bruta y cruce de diccionario.
+
+**Mitigación recomendada:**
+- migrar a un esquema de hashing fuerte,
+- reforzar la política de contraseñas,
+- incluir pruebas de validación de seguridad en cada cambio de autenticación.
+
+## 3. Evaluación del riesgo actual
+
+La evaluación del proyecto en SonarQube muestra un estado **saludable** para la ejecución actual: **0 vulnerabilidades abiertas, 0 Security Hotspots y calificación de seguridad A**. Sin embargo, la revisión del código evidenció **3 observaciones leves** que no aparecen como alertas del escáner, pero que sí requieren atención para fortalecer la postura de seguridad del sistema antes de pasar a producción completa.
+
+### Conclusión
+El análisis estático no reporta incidencias críticas, pero la revisión manual confirma que aún existen riesgos residuales leves en configuración, autenticación y manejo de secretos. La recomendación principal es cerrar esas observaciones antes del despliegue final o de una etapa de producción real.
 
 [← Volver al README Principal](../../README.md)
