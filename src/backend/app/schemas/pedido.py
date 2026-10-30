@@ -18,7 +18,9 @@ ESTADOS_PEDIDO = (
     'EN_TRANSITO',
     'ENTREGADO',
     'NO_ENTREGADO',
-    'CANCELADO'
+    'CANCELADO',
+    'No Asignados por Exceso de Capacidad',
+    'NO ASIGNADOS POR EXCESO DE CAPACIDAD'
 )
 
 PRIORIDADES_PEDIDO = (
@@ -131,10 +133,14 @@ class EstadoPedidoUpdate(BaseModel):
 
     @field_validator("estado")
     def validate_estado(cls, v: str) -> str:
-        st = v.strip().upper()
-        if st not in ESTADOS_PEDIDO:
+        st = v.strip()
+        # Accept either exact casing or uppercase
+        valid_upper = [e.upper() for e in ESTADOS_PEDIDO]
+        if st.upper() not in valid_upper:
             raise ValueError(f"Estado de pedido inválido. Permitidos: {', '.join(ESTADOS_PEDIDO)}")
-        return st
+        if st.upper() == "NO ASIGNADOS POR EXCESO DE CAPACIDAD":
+            return "No Asignados por Exceso de Capacidad"
+        return st.upper()
 
 class PedidoResponse(BaseModel):
     """Respuesta serializada con coordenadas geográficas y preferencias completas."""

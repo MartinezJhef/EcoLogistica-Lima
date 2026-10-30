@@ -23,7 +23,7 @@ class Pedido(Base):
     ventana_inicio = Column(Time, nullable=False)
     ventana_fin = Column(Time, nullable=False)
     prioridad = Column(String(20), nullable=False, default="ESTANDAR")
-    estado = Column(String(20), nullable=False, default="PENDIENTE", index=True)
+    estado = Column(String(50), nullable=False, default="PENDIENTE", index=True)
 
     # Campos específicos para US-003 y US-004 (Preferencias y Restricciones del Cliente)
     referencia_ubicacion = Column(Text, nullable=True)

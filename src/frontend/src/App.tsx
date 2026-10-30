@@ -4,12 +4,14 @@ import {
 } from 'react-router-dom';
 import { 
   Truck, Users, PackageCheck, Sparkles, 
-  KeyRound, LogOut, Shield, Briefcase, Store
+  KeyRound, LogOut, Shield, Briefcase, Store,
+  Route as RouteIcon
 } from 'lucide-react';
 import { VehiculosView } from './pages/VehiculosView';
 import { ConductoresView } from './pages/ConductoresView';
 import { ClientesView } from './pages/ClientesView';
 import { PedidosView } from './pages/PedidosView';
+import { RutasView } from './pages/RutasView';
 import { AdminUsersView } from './pages/AdminUsersView';
 import { LoginView } from './pages/LoginView';
 import { AuthService } from './services/auth';
@@ -65,6 +67,7 @@ function AppLayout() {
   const canAccessVehiculos = userRole === 'ADMIN' || userRole === 'OFICINA';
   const canAccessConductores = userRole === 'ADMIN' || userRole === 'OFICINA' || userRole === 'REPARTIDOR';
   const canAccessClientes = userRole === 'ADMIN' || userRole === 'OFICINA';
+  const canAccessRutas = userRole === 'ADMIN' || userRole === 'OFICINA' || userRole === 'REPARTIDOR';
   const canAccessPedidos = true; // Todos los roles tienen acceso o tracking
   const canAccessAdmin = userRole === 'ADMIN';
 
@@ -98,24 +101,37 @@ function AppLayout() {
           padding: '0.85rem',
           borderRadius: '12px',
           background: '#3C4A3F',
-          border: '1px solid rgba(167, 179, 139, 0.35)',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)'
+          border: '1.5px solid #4A5B4E',
+          display: 'flex',
+          flexDirection: 'column'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <span style={{ 
-              fontSize: '0.65rem', 
-              fontWeight: 700, 
-              color: '#F5F4EE',
-              padding: '0.15rem 0.45rem',
-              borderRadius: '6px',
-              background: '#2D3A2E',
-              border: '1px solid rgba(167, 179, 139, 0.35)',
-              display: 'inline-flex',
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '0.5rem'
+          }}>
+            <div style={{
+              display: 'flex',
               alignItems: 'center',
-              gap: '0.3rem'
+              gap: '0.45rem',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: roleConfig.color
             }}>
-              <RoleIcon size={12} color={roleConfig.color} />
-              {userRole} · {roleConfig.badge}
+              <RoleIcon size={14} />
+              <span>{roleConfig.label}</span>
+            </div>
+            <span style={{
+              fontSize: '0.65rem',
+              padding: '2px 6px',
+              borderRadius: '999px',
+              background: '#2D3A2E',
+              color: '#F5F4EE',
+              fontWeight: 600,
+              border: '1px solid #4A5B4E'
+            }}>
+              {roleConfig.badge}
             </span>
           </div>
 
@@ -200,6 +216,16 @@ function AppLayout() {
             </button>
           )}
 
+          {canAccessRutas && (
+            <button
+              className={`nav-item ${currentPath === '/rutas' ? 'active' : ''}`}
+              onClick={() => navigate('/rutas')}
+            >
+              <RouteIcon size={17} />
+              <span>Rutas y Despacho</span>
+            </button>
+          )}
+
           {canAccessPedidos && (
             <button
               className={`nav-item ${currentPath === '/pedidos' ? 'active' : ''}`}
@@ -229,7 +255,7 @@ function AppLayout() {
             path="/" 
             element={
               <Navigate 
-                to={userRole === 'CLIENTE' || userRole === 'REPARTIDOR' ? '/pedidos' : '/vehiculos'} 
+                to={userRole === 'CLIENTE' || userRole === 'REPARTIDOR' ? '/pedidos' : '/rutas'} 
                 replace 
               />
             } 
@@ -245,6 +271,10 @@ function AppLayout() {
           <Route 
             path="/clientes" 
             element={canAccessClientes ? <ClientesView /> : <Navigate to="/pedidos" replace />} 
+          />
+          <Route 
+            path="/rutas" 
+            element={canAccessRutas ? <RutasView /> : <Navigate to="/pedidos" replace />} 
           />
           <Route path="/pedidos" element={<PedidosView />} />
           <Route 
@@ -265,7 +295,7 @@ function AppLayout() {
             path="*" 
             element={
               <Navigate 
-                to={userRole === 'CLIENTE' || userRole === 'REPARTIDOR' ? '/pedidos' : '/vehiculos'} 
+                to={userRole === 'CLIENTE' || userRole === 'REPARTIDOR' ? '/pedidos' : '/rutas'} 
                 replace 
               />
             } 

@@ -989,3 +989,130 @@ export const ClienteService = {
     } catch {}
   }
 };
+
+
+// ============================================================================
+// US-005 / US-006 / US-007: Rutas, Visualización Cartográfica y CodeCarbon
+// ============================================================================
+
+export interface Tramo {
+  tramo_id: string;
+  ruta_id: string;
+  orden_secuencia: number;
+  tipo_parada: string;
+  pedido_id?: string | null;
+  descripcion?: string | null;
+  latitud: number;
+  longitud: number;
+  distancia_tramo_km: number;
+  tiempo_estimado_min: number;
+  co2_tramo_kg: number;
+  alerta_zona_riesgo: boolean;
+  nombre_zona_riesgo?: string | null;
+  geometria_linea_geojson?: string | null;
+}
+
+export interface RutaDetalle {
+  ruta_id: string;
+  deposito_origen_id?: string | null;
+  conductor_id: string;
+  conductor_nombre?: string | null;
+  vehiculo_id: string;
+  vehiculo_placa?: string | null;
+  vehiculo_tipo_combustible?: string | null;
+  fecha_operacion: string;
+  distancia_total_km: number;
+  tiempo_total_min: number;
+  co2_total_kg: number;
+  co2_computacional_kg: number;
+  energia_computacional_kwh: number;
+  tiempo_computo_seg: number;
+  estado: string;
+  creada_en: string;
+  tramos: Tramo[];
+  pedidos_asignados_count: number;
+}
+
+export interface PedidoNoAsignadoInfo {
+  pedido_id: string;
+  codigo_seguimiento: string;
+  cliente_nombre: string;
+  peso_kg: number;
+  volumen_m3: number;
+  motivo: string;
+}
+
+export interface RutaOptimizarRequest {
+  fecha_operacion?: string;
+  vehiculo_id?: string;
+  conductor_id?: string;
+  pedidos_ids?: string[];
+  factor_capacidad_max?: number;
+}
+
+export interface RutaOptimizarResponse {
+  rutas: RutaDetalle[];
+  pedidos_asignados_count: number;
+  pedidos_no_asignados_count: number;
+  pedidos_no_asignados: PedidoNoAsignadoInfo[];
+  mensaje: string;
+  co2_computacional_total_kg: number;
+  energia_computacional_total_kwh: number;
+  tiempo_computo_total_seg: number;
+}
+
+export interface ZonaRiesgo {
+  zona_id: string;
+  nombre: string;
+  motivo: string;
+  nivel_peligro: string;
+  poligono_coordenadas: number[][]; // [ [lng, lat], ... ]
+  activa: boolean;
+}
+
+export interface ReoptimizarRutaRequest {
+  pedido_cancelado_id?: string | null;
+  nuevo_pedido_urgente_id?: string | null;
+  motivo_incidencia?: string;
+  evitar_zona_riesgo?: boolean;
+}
+
+export interface ReoptimizarRutaResponse {
+  ruta_id: string;
+  mensaje: string;
+  distancia_total_km: number;
+  tiempo_total_min: number;
+  co2_total_kg: number;
+  co2_computacional_kg: number;
+  tramos: Tramo[];
+}
+
+export const RutaService = {
+  optimizar: async (payload: RutaOptimizarRequest = {}): Promise<RutaOptimizarResponse> => {
+    const res = await api.post<RutaOptimizarResponse>('/rutas/optimizar', payload);
+    return res.data;
+  },
+
+  list: async (fecha?: string, estado?: string): Promise<RutaDetalle[]> => {
+    const params: Record<string, string> = {};
+    if (fecha) params.fecha = fecha;
+    if (estado) params.estado = estado;
+    const res = await api.get<RutaDetalle[]>('/rutas', { params });
+    return res.data;
+  },
+
+  getById: async (id: string): Promise<RutaDetalle> => {
+    const res = await api.get<RutaDetalle>(`/rutas/${id}`);
+    return res.data;
+  },
+
+  getZonasRiesgo: async (): Promise<ZonaRiesgo[]> => {
+    const res = await api.get<ZonaRiesgo[]>('/rutas/zonas-riesgo');
+    return res.data;
+  },
+
+  reoptimizar: async (rutaId: string, payload: ReoptimizarRutaRequest): Promise<ReoptimizarRutaResponse> => {
+    const res = await api.post<ReoptimizarRutaResponse>(`/rutas/${rutaId}/reoptimizar`, payload);
+    return res.data;
+  }
+};
