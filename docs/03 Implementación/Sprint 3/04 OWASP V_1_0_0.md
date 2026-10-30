@@ -24,49 +24,48 @@
 
 ## 1. Matriz de Cumplimiento OWASP Top 10 2025
 
-| Categoría OWASP 2025 | Estado en Proyecto | Hallazgos de SonarQube |
-| :--- | :--- | :--- |
-| A01:2025-Broken Access Control | Limpio | 0 |
-| A02:2025-Cryptographic Failures | Limpio | 0 |
-| A03:2025-Injection | Limpio | 0 |
-| A04:2025-Insecure Design | Limpio | 0 |
-| A05:2025-Security Misconfiguration | Limpio | 0 |
-| A06:2025-Vulnerable and Outdated Components | Limpio | 0 |
-| A07:2025-Identification and Authentication Failures | Limpio | 0 |
-| A08:2025-Software and Data Integrity Failures | Limpio | 0 |
-| A09:2025-Security Logging and Monitoring Failures | Limpio | 0 |
-| A10:2025-Server-Side Request Forgery (SSRF) | Limpio | 0 |
+| Categoría OWASP 2025 | Equivale a (plantilla de la consigna) | Estado en Proyecto | Hallazgos de SonarQube |
+| :--- | :--- | :--- | :--- |
+| **A01:2025 Broken Access Control (incluye SSRF)** | **A01 Broken Access Control y A10 SSRF** | **Limpio** | 0; no existen incidencias abiertas actuales |
+| **A02:2025 Security Misconfiguration** | **A05 Security Misconfiguration** | **Limpio** | 0; sin hallazgos abiertos en el análisis actual |
+| **A03:2025 Software Supply Chain Failures** | **A06 Vulnerable and Outdated Components** | **Limpio** | 0; sin dependencias críticas reportadas |
+| **A04:2025 Cryptographic Failures** | **A02 Cryptographic Failures** | **Limpio** | 0; sin hallazgos activos en la ejecución actual |
+| **A05:2025 Injection** | **A03 Injection** | **Limpio** | 0; sin inyección SQL, XSS ni comandos detectados |
+| **A06:2025 Insecure Design** | **A04 Insecure Design** | **Bajo revisión** | 0; se mantiene revisión manual conforme a diseño y arquitectura |
+| **A07:2025 Authentication Failures** | **A07 Identification and Authentication Failures** | **Limpio** | 0; sin credenciales abiertas ni fallas activas |
+| **A08:2025 Software or Data Integrity Failures** | **A08 Software and Data Integrity Failures** | **Bajo revisión** | 0; revisión continua de integridad y validación de datos |
+| **A09:2025 Security Logging and Alerting Failures** | **A09 Security Logging and Monitoring Failures** | **Bajo revisión** | 0; sin eventos críticos reportados |
+| **A10:2025 Mishandling of Exceptional Conditions** | **No existe en la plantilla; reemplaza a SSRF** | **Limpio** | 0; sin incidencias relevantes reportadas |
+
+### Observación relevante
+En la última ejecución del análisis, SonarQube reporta **0 vulnerabilidades abiertas, 0 Security Hotspots y 0 bugs de seguridad** para el proyecto. Esto representa una mejora clara respecto a ejecuciones anteriores, en donde sí se documentaron incidencias de seguridad, especialmente en la categoría de autenticación y seguridad criptográfica.
 
 ## 2. Detalles de Security Hotspots y Vulnerabilidades Críticas
 
-### Hotspot #1: Evaluación actual sin hallazgos críticos
-En la última ejecución de SonarQube, la propuesta no reporta vulnerabilidades ni hotspots abiertos en la clasificación de seguridad del proyecto. El análisis refleja un estado de seguridad saludable para la versión actual del sistema.
+### Hotspot #1: Riesgo de seguridad resuelto en la última ejecución
+La revisión actual no reporta hallazgos críticos de seguridad. Los riesgos anteriormente asociados a credenciales hard-coded y generación insegura de valores aleatorios quedaron resueltos en la última revisión, por lo que la recomendación principal actual es mantener la validación automática en cada cambio del proyecto.
 
-**Riesgo:** bajo, según la evidencia del escaneo actual.
+**Riesgo actual:** bajo.
+
+**Mitigación aplicada:**
+- revisión de secretos,
+- control de autenticación,
+- validación de datos y flujo de seguridad,
+- continuidad de análisis automatizado.
+
+### Hotspot #2: Mantenimiento de la calidad de seguridad
+Aunque la versión actual no presenta vulnerabilidades abiertas, el proyecto aún requiere mantener la disciplina de seguridad en nuevas incorporaciones. Las categorías de diseño, integridad y logging deben seguir revisándose manualmente para asegurar que no entren nuevas brechas en futuras iteraciones.
+
+**Riesgo actual:** controlado y preventivo.
 
 **Mitigación recomendada:**
-- mantener la vigilancia en cada análisis,
-- reforzar pruebas de seguridad en nuevas funcionalidades,
-- conservar la política de gestión de secretos en ambientes de desarrollo y producción.
+- ejecutar SonarQube en cada integración o despliegue,
+- revisar dependencias antes de merge,
+- mantener políticas de secretos y acceso,
+- validar que toda nueva funcionalidad pase por revisión de seguridad.
 
-### Hotspot #2: Mantenimiento del nivel de calidad de seguridad
-La revisión demuestra que el proyecto ha superado la etapa de riesgos de seguridad más frecuentes en la clasificación OWASP. El siguiente paso es mantener ese nivel y asegurar que futuras incorporaciones no vuelvan a introducir secretos, fallas de autenticación o riesgos de integridad.
+## 3. Resultado del reanálisis
 
-**Riesgo:** controlado y preventivo.
-
-**Mitigación recomendada:**
-- continuar con escaneos automáticos en la pipeline,
-- revisar cualquier cambio de dependencias o autenticación,
-- validar accesos y secretos antes del despliegue final.
-
-### Otros puntos de revisión
-La seguridad del sistema en la revisión actual se presenta bajo control, con ausencia de hallazgos críticos o abiertos en las categorías principales del OWASP Top 10 2025. La recomendación principal es mantener esta estabilidad mediante análisis continuo y pruebas de regresión.
-
-## 3. Evaluación global del riesgo
-
-La evaluación del proyecto muestra que el riesgo de seguridad es **bajo** en el análisis actual. El Quality Gate ha sido aprobado y los indicadores de SonarQube corroboran que no existen incidencias abiertas relevantes en seguridad para la versión analizada.
-
-### Conclusión
-El proyecto presenta una evaluación de seguridad global sólida, con un Quality Gate aprobado y sin hallazgos relevantes del OWASP Top 10 2025 en la ejecución actual. La estrategia recomendada es mantener las revisiones automáticas y reforzar la validación de seguridad en cada nueva funcionalidad que se incorpore.
+**Resultado del reanálisis (30-10-2026): 0 vulnerabilidades abiertas, 0 Security Hotspots y calificación de seguridad A.** La evolución del proyecto demuestra una mejora significativa en la postura de seguridad y en la calidad del código, reflejada en la reducción de incidencias desde análisis previos hasta la validación actual.
 
 [← Volver al README Principal](../../README.md)
