@@ -15,7 +15,7 @@
 | **Equipo del proyecto**       | Zayuri Cerron Medina, Jheferson Martinez Valerio, Angela Rojas Quispe, Maylit Mendoza Alarcon y Diego Angulo Gonzales |
 | **Fecha de elaboración**      | 08 de octubre de 2026                                                                                                 |
 | **Versión**                   | V_1_4_0                                                                                                               |
-| **Estado del documento**      | Actualización del avance del Sprint 1                                                                                 |
+| **Estado del documento**      | Actualización del avance del Sprint 2                                                                                 |
 
 ---
 
