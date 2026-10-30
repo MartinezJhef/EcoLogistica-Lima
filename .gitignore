@@ -46,6 +46,8 @@ venv.bak/
 htmlcov/
 nosetests.xml
 coverage.xml
+coverage/
+.scannerwork/
 *.cover
 *.py,cover
 .hypothesis/

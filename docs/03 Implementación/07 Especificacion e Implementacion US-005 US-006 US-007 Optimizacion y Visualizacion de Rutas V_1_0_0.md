@@ -154,3 +154,4 @@ src/backend/tests/test_usuarios_rbac.py .....                           [100%]
 
 ======================= 40 passed, 1 warning in 13.81s ========================
 ```
+
