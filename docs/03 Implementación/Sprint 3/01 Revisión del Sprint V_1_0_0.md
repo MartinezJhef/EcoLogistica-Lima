@@ -1,42 +1,48 @@
 [← Volver al README principal](../../README.md)
 
-# Revisión del Sprint
+# 01. Revisión del Sprint V_1_0_0
 
-**Nombre del Proyecto:** EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana
+---
 
-**Fecha de corte:** 30 de octubre de 2026
+## 1. Información del documento
 
-**Estado general:** Sprint completado satisfactoriamente. Las historias de usuario US-005, US-006 y US-007 fueron desarrolladas y cumplen con los objetivos y criterios de aceptación establecidos. Se verificó la integración de las funcionalidades de optimización, visualización y reoptimización de rutas, contribuyendo al cumplimiento de los objetivos del proyecto.
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales |
+| **Responsable del Documento** | Zayuri Cerron Medina |
+| **Fecha de Elaboración** | 30 de octubre de 2026 |
+| **Versión** | 1.0.0 |
 
-## Historias de Usuario completadas en este Sprint
+---
 
-Se completaron satisfactoriamente las tres historias de usuario planificadas (**3 de 3**).
+## 2. Historias de Usuario completadas en este Sprint
 
-| Historia | Estado al corte | Evidencia y evaluación |
-| :--- | :--- | :--- |
-| **US-005 — Generar rutas optimizadas** | **Completada** | Se implementó la funcionalidad de generación y optimización de rutas, considerando la asignación de pedidos a los vehículos disponibles y la organización de las paradas. Asimismo, se contemplan criterios operativos para mejorar la planificación de los recorridos y reducir distancias, tiempos y emisiones. |
-| **US-006 — Visualizar rutas en mapa** | **Completada** | Se implementó la visualización interactiva de rutas mediante mapas, incorporando marcadores de origen, destino, conductores y puntos de entrega. La funcionalidad permite consultar los recorridos y realizar el seguimiento de las fases de entrega, facilitando la supervisión de las operaciones logísticas. |
-| **US-007 — Reoptimizar rutas ante eventos** | **Completada** | Se implementó la funcionalidad de reoptimización de rutas ante eventos que puedan afectar los recorridos planificados. Esta permite actualizar los itinerarios y adaptar la planificación de las entregas frente a situaciones imprevistas, favoreciendo la continuidad de las operaciones. |
+Se completaron satisfactoriamente las tres historias de usuario planificadas para el Sprint 3, alcanzando un cumplimiento del **100 % (3 de 3 historias)**, equivalente a 29 Story Points.
 
-## Demostración del trabajo completado
+| Historia de Usuario | SP | Estado | Descripción del cumplimiento |
+|---|---:|---|---|
+| **US-005: Generar rutas optimizadas** | 13 | Completado | Se implementó el motor de optimización CVRPTW multiobjetivo, considerando distancia, tiempo, emisiones de CO₂, capacidad vehicular, descansos técnicos obligatorios y restricciones de circulación en la Zona de Bajas Emisiones (ZBE). Se integró CodeCarbon para medir las emisiones computacionales. |
+| **US-006: Visualizar rutas en el mapa** | 8 | Completado | Se implementó un mapa interactivo con Leaflet que permite visualizar recorridos, paradas secuenciadas, ubicación del centro de despacho y zonas de riesgo y restricciones ambientales. También se incorporó un mecanismo alternativo de visualización cuando el servicio de mapas no está disponible. |
+| **US-007: Reoptimizar rutas ante eventos** | 8 | Completado | Se implementó la reoptimización dinámica de rutas ante cancelaciones de pedidos, emergencias y desvíos de seguridad, permitiendo actualizar los recorridos, distancias, tiempos y métricas ambientales. |
 
-Durante la revisión del sprint se consideraron las funcionalidades desarrolladas para la generación de rutas optimizadas, la visualización de recorridos en mapas interactivos y la reoptimización de itinerarios ante eventos.
+Como parte de la validación, se ejecutaron las pruebas automatizadas del backend mediante Pytest, obteniendo **40 pruebas aprobadas y 0 pruebas fallidas**, lo que representa un 100 % de éxito en la ejecución de la suite.
 
-Se verificó el funcionamiento general de estas funcionalidades y su correspondencia con los objetivos establecidos para las historias de usuario. Asimismo, se evaluó su contribución a la gestión eficiente de los pedidos, el seguimiento de las entregas y la optimización de los recursos de transporte.
+## 3. Demostración del trabajo completado
 
-Los resultados permiten considerar cumplidos los objetivos planificados para el sprint y evidencian el avance funcional de la plataforma EcoLogistica-Lima.
+Se realizó la demostración de las funcionalidades desarrolladas durante el Sprint 3, presentando los principales resultados de la implementación:
 
-## Resultados del Sprint
+- **Optimización de rutas (US-005):** se demostró la generación de recorridos mediante el algoritmo CVRPTW, considerando la asignación de pedidos a vehículos, límites de capacidad, descansos técnicos por fatiga y restricciones de circulación para vehículos diésel en la ZBE del Centro Histórico de Lima. También se presentó la medición de emisiones computacionales mediante CodeCarbon.
+- **Visualización cartográfica (US-006):** se presentó el mapa interactivo desarrollado con Leaflet, mostrando las rutas optimizadas, paradas numeradas, el centro de despacho y los polígonos correspondientes a las zonas de riesgo y restricciones ambientales. Asimismo, se contempló el funcionamiento alternativo ante la indisponibilidad del servicio de mapas.
+- **Reoptimización dinámica (US-007):** se mostró el proceso de actualización de rutas ante situaciones como cancelaciones de pedidos, emergencias y desvíos preventivos, permitiendo recalcular los recorridos y actualizar sus métricas.
 
-- **US-005:** generación y optimización de rutas completada.
-- **US-006:** visualización interactiva de rutas en mapas completada.
-- **US-007:** reoptimización de rutas ante eventos completada.
-- Se cumplió con las funcionalidades planificadas para el sprint.
-- Se verificó la integración de los componentes relacionados con la gestión y optimización de rutas.
-- Se alcanzaron los objetivos establecidos para esta etapa del proyecto.
+Finalmente, se presentaron los resultados de las pruebas automatizadas ejecutadas en el backend, que registraron 40 casos aprobados, incluyendo pruebas específicas de optimización, restricciones de capacidad, zonas de bajas emisiones, descansos técnicos, consulta de rutas y reoptimización dinámica.
 
-## Conclusión
+## 4. Pendientes
 
-El sprint finalizó satisfactoriamente, alcanzando el cumplimiento del 100 % de las historias de usuario planificadas (3 de 3). Las funcionalidades desarrolladas contribuyen al propósito de EcoLogistica-Lima de optimizar las operaciones de última milla mediante herramientas digitales orientadas a una logística urbana más eficiente y sostenible.
+No se registran historias de usuario pendientes correspondientes al alcance planificado del Sprint 3, debido a que las tres historias (US-005, US-006 y US-007) fueron completadas satisfactoriamente.
+
+Las funcionalidades implementadas y las pruebas ejecutadas respaldan el cumplimiento de los objetivos establecidos para este sprint.
 
 [← Volver al README principal](../../README.md)

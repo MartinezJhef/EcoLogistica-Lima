@@ -1,79 +1,83 @@
 [← Volver al README principal](../../README.md)
 
-# Retrospectiva del Sprint
+# 01. Retrospectiva del Sprint V_1_0_0
 
-**Nombre del Proyecto:** EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana
+---
 
-**Sprint analizado:** Sprint 3
+## 1. Información del documento
 
-**Fecha de corte:** 30 de octubre de 2026
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales |
+| **Responsable del Documento** | Zayuri Cerron Medina |
+| **Fecha de Elaboración** | 30 de octubre de 2026 |
+| **Versión** | 1.0.0 |
 
-**Estado del documento:** Retrospectiva del Sprint 3, considerando los resultados obtenidos, las funcionalidades implementadas y el cumplimiento de los objetivos establecidos por el equipo.
+---
 
-## ¿Qué aprendimos?
 
-- **La planificación es fundamental para optimizar las rutas.** Aprendimos que considerar la cantidad de pedidos, los vehículos disponibles y las restricciones operativas permite generar recorridos más organizados y eficientes.
-- **La visualización facilita el seguimiento de las operaciones.** La incorporación de mapas interactivos permite identificar los recorridos, las ubicaciones y las etapas de entrega, mejorando la supervisión de las actividades logísticas.
-- **La capacidad de adaptación mejora la gestión de entregas.** La reoptimización de rutas permite responder ante eventos imprevistos y actualizar los itinerarios para mantener la continuidad de las operaciones.
-- **La integración de funcionalidades es importante para el proyecto.** El trabajo coordinado entre los componentes de optimización, visualización y seguimiento permite ofrecer una solución más completa.
-- **La validación continua permite mejorar la calidad del producto.** Revisar los criterios de aceptación y realizar pruebas durante el desarrollo ayuda a identificar errores y comprobar el funcionamiento de las funcionalidades implementadas.
+## 2. ¿Qué aprendimos?
 
-## ¿Qué estamos haciendo bien?
+- **La optimización de rutas requiere considerar diferentes restricciones.** Aprendimos que no basta con calcular distancias, sino que también es necesario considerar la capacidad de los vehículos, los tiempos de entrega, las emisiones y las restricciones de circulación para generar recorridos más eficientes.
+- **La integración de herramientas geoespaciales mejora el seguimiento logístico.** El uso de Leaflet permitió representar las rutas, las paradas y las zonas restringidas mediante mapas interactivos, facilitando la interpretación de los recorridos.
+- **La reoptimización permite responder ante situaciones imprevistas.** Incorporar mecanismos para recalcular las rutas ante cancelaciones, emergencias y desvíos permite adaptar la planificación a las condiciones de las operaciones.
+- **La sostenibilidad también debe considerarse en el desarrollo del software.** La integración de CodeCarbon permitió incorporar la medición de las emisiones de CO₂ y el consumo energético generados durante la ejecución del algoritmo.
+- **Las pruebas automatizadas ayudan a verificar la calidad del sistema.** La ejecución de 40 pruebas mediante Pytest permitió comprobar el funcionamiento de los diferentes módulos y detectar posibles errores antes de dar por finalizadas las funcionalidades.
 
-- Se completaron satisfactoriamente las tres historias de usuario planificadas: US-005, US-006 y US-007.
-- Se implementaron funcionalidades orientadas a la generación y optimización de rutas, considerando pedidos y vehículos disponibles.
-- Se desarrolló la visualización interactiva de recorridos mediante mapas, facilitando el seguimiento de las entregas.
-- Se incorporó la capacidad de reoptimizar itinerarios ante eventos que afectan las rutas planificadas.
-- Se mantuvo la coordinación entre los integrantes para integrar los diferentes componentes de la plataforma.
-- Se cumplió con los objetivos establecidos para el Sprint 3, contribuyendo al avance de EcoLogistica-Lima como solución de logística urbana sostenible.
+## 3. ¿Qué estamos haciendo bien?
 
-## ¿Qué podemos hacer mejor?
+- Se logró completar las tres historias de usuario planificadas para el Sprint 3, alcanzando 29 Story Points.
+- Se implementó el motor de optimización CVRPTW, considerando restricciones operativas y ambientales.
+- Se integró Leaflet para la visualización de rutas, paradas y zonas de riesgo mediante mapas interactivos.
+- Se incorporó la reoptimización dinámica para responder ante eventos que afectan los recorridos.
+- Se integró CodeCarbon para medir las emisiones computacionales generadas por el algoritmo.
+- Se mantuvo una organización modular del backend mediante una arquitectura N-Tier y Clean Architecture.
+- Se ejecutaron satisfactoriamente las 40 pruebas automatizadas del proyecto, obteniendo un resultado del 100 % de aprobación.
 
-### Personas
+## 4. ¿Qué podemos hacer mejor?
 
-- Fortalecer la comunicación entre los integrantes para mantener una distribución equilibrada de las actividades.
-- Continuar compartiendo conocimientos técnicos y funcionales para facilitar el desarrollo y mantenimiento de la plataforma.
-- Promover la participación de todos los integrantes durante las revisiones y validaciones del producto.
+### 4.1.Personas
 
-### Relaciones
+- Fortalecer los conocimientos técnicos del equipo sobre algoritmos de optimización, desarrollo web y herramientas geoespaciales.
+- Mantener una distribución equilibrada de las actividades para facilitar el cumplimiento de los objetivos.
+- Promover la participación de todos los integrantes en las pruebas, revisiones y validaciones de las funcionalidades.
 
-- Mantener una comunicación constante entre el equipo de desarrollo y los responsables de validar las funcionalidades.
-- Mejorar la coordinación entre los módulos web y móvil para asegurar una experiencia de uso coherente.
-- Considerar la retroalimentación de despachadores y conductores para identificar nuevas oportunidades de mejora.
+### 4.2. Relaciones
 
-### Procesos
+- Mejorar la comunicación entre los integrantes responsables del backend y frontend para facilitar la integración de los módulos.
+- Mantener una coordinación constante sobre los cambios realizados en las funcionalidades y sus respectivos requerimientos.
+- Considerar las observaciones de los usuarios involucrados en las operaciones logísticas para identificar oportunidades de mejora.
 
-- Continuar utilizando criterios de aceptación claros para cada historia de usuario.
-- Mantener revisiones periódicas del avance de las actividades y del cumplimiento de los objetivos del sprint.
-- Fortalecer las pruebas de integración para comprobar la correcta comunicación entre los módulos de optimización, mapas y seguimiento.
-- Documentar los cambios realizados en las funcionalidades para facilitar futuras actualizaciones.
-- Mantener actualizado el backlog de acuerdo con el avance y los resultados obtenidos.
+### 4.3. Procesos
 
-### Herramientas
+- Mantener criterios de aceptación claros y verificables para cada historia de usuario.
+- Realizar pruebas de integración después de incorporar nuevos cambios en los módulos de optimización, visualización y reoptimización.
+- Continuar verificando las restricciones operativas y ambientales establecidas en las reglas de negocio.
+- Documentar los cambios realizados en cada funcionalidad para facilitar su mantenimiento y futuras actualizaciones.
+- Mantener un seguimiento del cumplimiento de las actividades planificadas en cada sprint.
 
-- Continuar utilizando GitHub para el control de versiones y la gestión del código fuente.
-- Mantener Jira actualizado para organizar las historias de usuario, tareas y actividades del equipo.
-- Mejorar la documentación técnica de los componentes implementados para facilitar su mantenimiento.
-- Utilizar datos de prueba representativos para verificar el comportamiento de las funcionalidades de optimización y reoptimización.
-- Conservar evidencias de las pruebas y validaciones realizadas durante cada sprint.
+### 4.4. Herramientas
 
-## Acciones a realizar
+- Continuar utilizando GitHub para el control de versiones y el seguimiento de los cambios en el código fuente.
+- Mantener el uso de Pytest para ejecutar pruebas automatizadas y verificar el funcionamiento del backend.
+- Aprovechar las funcionalidades de PostgreSQL y PostGIS para gestionar la información y los datos geoespaciales.
+- Continuar utilizando Leaflet para representar los recorridos y las zonas de riesgo en los mapas interactivos.
+- Mantener la integración de CodeCarbon para registrar las métricas de emisiones computacionales y consumo energético.
+- Actualizar la documentación técnica y conservar las evidencias de las pruebas realizadas.
 
-Las siguientes acciones buscan mantener la calidad del producto y fortalecer el trabajo del equipo durante las siguientes etapas del proyecto.
+### 4.5. Acciones a realizar
 
-| # | Acción propuesta | Eje | Responsable | Plazo | Criterio de verificación |
-| :-: | :--- | :--- | :--- | :--- | :--- |
-| A-01 | Mantener actualizados los criterios de aceptación y las tareas de las historias de usuario. | Procesos | Product Owner y equipo de desarrollo | Próximo sprint | Historias de usuario documentadas y actualizadas en Jira. |
-| A-02 | Realizar pruebas periódicas de la generación y optimización de rutas con diferentes escenarios de pedidos y vehículos. | Procesos / Herramientas | Equipo de desarrollo | Próximo sprint | Resultados de pruebas registrados y funcionalidades verificadas. |
-| A-03 | Continuar mejorando la visualización de rutas y el seguimiento de las entregas en los módulos web y móvil. | Relaciones / Herramientas | Equipo de frontend | Próximo sprint | Visualización funcional y correctamente integrada. |
-| A-04 | Verificar el funcionamiento de la reoptimización ante diferentes eventos que puedan afectar los recorridos. | Procesos / Herramientas | Equipo de desarrollo | Próximo sprint | Casos de prueba ejecutados y resultados documentados. |
-| A-05 | Mantener la integración y sincronización de los componentes de la plataforma. | Relaciones | Equipo de desarrollo | Durante el desarrollo | Módulos integrados y funcionamiento comprobado. |
-| A-06 | Continuar documentando los avances, pruebas y mejoras realizadas en cada sprint. | Herramientas / Procesos | Todo el equipo | Durante todo el proyecto | Documentación y evidencias actualizadas en el repositorio. |
+| N.° | Acción de mejora | Área relacionada | Responsable | Criterio de verificación |
+|:---:|---|---|---|---|
+| 1 | Continuar mejorando el algoritmo de optimización de rutas considerando diferentes escenarios de pedidos, vehículos y restricciones operativas. | Procesos | Equipo de backend | Pruebas de optimización ejecutadas con diferentes escenarios. |
+| 2 | Verificar la correcta visualización de rutas, paradas y zonas restringidas en el mapa interactivo. | Herramientas | Equipo de frontend | Elementos geoespaciales visualizados correctamente. |
+| 3 | Realizar pruebas adicionales de reoptimización ante diferentes eventos y situaciones imprevistas. | Procesos | Equipo de desarrollo | Resultados de los escenarios de reoptimización documentados. |
+| 4 | Mantener la ejecución de pruebas automatizadas después de cada actualización del sistema. | Procesos / Herramientas | Equipo de desarrollo | Resultados de pruebas registrados y errores identificados. |
+| 5 | Revisar periódicamente la integración entre los módulos del backend y frontend. | Relaciones | Equipo de desarrollo | Comunicación y funcionamiento de los módulos verificados. |
+| 6 | Actualizar la documentación técnica y las evidencias de implementación conforme se incorporen nuevas funcionalidades. | Herramientas | Equipo de desarrollo | Documentación actualizada en el repositorio del proyecto. |
 
-## Conclusión de la retrospectiva
 
-El Sprint 3 permitió alcanzar satisfactoriamente los objetivos establecidos, completando las tres historias de usuario planificadas (3 de 3). Durante esta etapa se fortalecieron las funcionalidades de optimización de rutas, visualización mediante mapas interactivos y reoptimización ante eventos.
-
-Asimismo, la retrospectiva permitió identificar oportunidades de mejora relacionadas con la comunicación, coordinación, documentación y validación continua. Estas acciones contribuirán a mantener la calidad de la plataforma y asegurar su evolución durante las siguientes etapas del proyecto.
 
 [← Volver al README principal](../../README.md)
