@@ -1,4 +1,4 @@
-[← Volver al README Principal](../../README.md)
+[← Volver al README Principal](../../../README.md)
 
 # 04. OWASP V_1_0_0
 
@@ -19,54 +19,58 @@
 
 # Reporte de Seguridad OWASP Top 10 (2025)
 
-**Nombre del Proyecto:** EcoLogistica-Lima  
-**Herramienta de Escaneo:** SonarQube / SonarCloud
+**Corte:** 30/10/2026 — Sprint 3 cerrado satisfactoriamente.  
+**Método:** revisión estática documental y de código en main, base [4d801b7](https://github.com/MartinezJhef/EcoLogistica-Lima/commit/4d801b741ba2510358f111d0594ec853cb1f88ba). No se ejecutó un nuevo escaneo SonarQube/SonarCloud ni una prueba de penetración.
 
-## 1. Matriz de Cumplimiento OWASP Top 10 2025
+## 1. Matriz de revisión OWASP Top 10 2025
 
-| Categoría OWASP 2025 | Estado en Proyecto | Hallazgos de SonarQube |
+Se corrigen categorías según la [lista oficial OWASP 2025](https://top10.owasp.org/2025/). “Sin conclusión” indica que la revisión no permite acreditar ausencia de vulnerabilidades; reemplaza la calificación “Limpio” basada únicamente en ceros.
+
+| Categoría OWASP 2025 | Estado de revisión | Evidencia y alcance |
 | :--- | :--- | :--- |
-| A01:2025-Broken Access Control | Limpio | 0 |
-| A02:2025-Cryptographic Failures | Vulnerable | 7 |
-| A03:2025-Injection | Limpio | 0 |
-| A04:2025-Insecure Design | Bajo Revisión | 0 |
-| A05:2025-Security Misconfiguration | Limpio | 0 |
-| A06:2025-Vulnerable and Outdated Components | Limpio | 0 |
-| A07:2025-Identification and Authentication Failures | Vulnerable | 2 |
-| A08:2025-Software and Data Integrity Failures | Limpio | 0 |
-| A09:2025-Security Logging and Monitoring Failures | Limpio | 0 |
-| A10:2025-Server-Side Request Forgery (SSRF) | Limpio | 0 |
+| A01 — Broken Access Control | Requiere mejora | Los endpoints de usuarios revisados no declaran autorización por usuario; verificar protección efectiva y permisos del servidor |
+| A02 — Security Misconfiguration | Requiere mejora | Configuración con valores sensibles por defecto; exigir configuración externa para despliegue |
+| A03 — Software Supply Chain Failures | Sin conclusión | No se realizó análisis de dependencias ni de cadena de suministro |
+| A04 — Cryptographic Failures | Requiere mejora | Hash SHA-256 directo para contraseñas en user_service.py |
+| A05 — Injection | Sin conclusión | La inspección parcial no sustituye pruebas de entradas e inyección |
+| A06 — Insecure Design | Revisión parcial | Separar inicialización de cuentas de demostración de la operación real |
+| A07 — Authentication Failures | Requiere mejora | Cuentas con contraseñas definidas en código; revisar ciclo de autenticación y sesión |
+| A08 — Software or Data Integrity Failures | Sin conclusión | No se verificaron integridad de actualizaciones ni despliegue |
+| A09 — Security Logging and Alerting Failures | Sin conclusión | No se validaron registros y alertas de seguridad en ejecución |
+| A10 — Mishandling of Exceptional Conditions | Sin conclusión | Ampliar pruebas de errores, recuperación y estados excepcionales |
 
-## 2. Detalles de Security Hotspots y Vulnerabilidades Críticas
+## 2. Detalles de hallazgos y medidas de mejora
 
-### Hotspot #1: Uso de PRNG en contexto de seguridad
-El primer hallazgo relevante corresponde a la categoría **A02:2025-Cryptographic Failures**. SonarQube reporta el uso de generadores pseudoaleatorios no seguros para contextos que requieren aleatoriedad criptográfica. Esto puede afectar la generación de tokens, validaciones temporales, identificadores o cualquier mecanismo que dependa de valores aleatorios para asegurar la integridad del sistema.
+### 2.1 Autorización de operaciones administrativas
 
-**Riesgo:** pérdida de seguridad en mecanismos de autenticación, validación o control de sesión.
+En [usuarios.py](../../../src/backend/app/api/v1/endpoints/usuarios.py), las funciones de consulta, creación, edición y eliminación revisadas reciben la dependencia de base de datos, sin una dependencia de identidad/permisos en esas funciones. La presencia de roles y restricciones visuales no demuestra autorización efectiva en la API.
 
-**Mitigación recomendada:**
-- reemplazar funciones no seguras por generadores criptográficamente fuertes,
-- revisar cada punto donde se genere un valor confidencial,
-- aplicar pruebas específicas para confirmar que los valores producidos cumplen con seguridad criptográfica.
+**Acción propuesta:** verificar dependencias globales y middleware, exigir identidad y permisos por operación y conservar pruebas 401/403 para usuarios anónimos y roles no autorizados. No se afirma explotación comprobada.
 
-### Hotspot #2: Credenciales hard-coded
-El segundo hallazgo principal corresponde a **A07:2025-Identification and Authentication Failures**. La presencia de credenciales escritas directamente en el código fuente representa un riesgo alto de exposición accidental, especialmente cuando el repositorio se comparte o se despliega sin una Política de secretos adecuada.
+### 2.2 Protección de contraseñas y configuración
 
-**Riesgo:** exposición de datos, escalamiento de privilegios o compromiso del entorno.
+[user_service.py](../../../src/backend/app/services/user_service.py) utiliza SHA-256 directo y contiene inicialización de cuentas de demostración con contraseñas en código. [config.py](../../../src/backend/app/core/config.py) admite variables de entorno, pero también valores predeterminados sensibles.
 
-**Mitigación recomendada:**
-- mover secretos a variables de entorno,
-- usar gestores de secretos en infraestructura,
-- reforzar estándares de configuración y revisión de código antes del despliegue.
+**Acciones propuestas:** adoptar hash adaptativo con sal, separar datos de demostración del despliegue, exigir secretos externos sin valores sensibles de respaldo y rotar credenciales si fueron utilizadas fuera del entorno de prueba. No se reproducen credenciales en este informe.
 
-### Otros puntos de revisión
-Aunque no se encontraron hallazgos de inyección, SSRF ni configuraciones visibles de alto riesgo en esta revisión, el proyecto debe mantener vigilancia continua porque la infraestructura de logística y gestión de flotas puede incorporar nuevos componentes y servicios que agraven la superficie de ataque en futuras versiones.
+### 2.3 Trazabilidad del reporte previo
+
+El antecedente documental consignaba siete incidencias de PRNG y dos de credenciales. No se dispone aquí de identificadores de reglas, ubicaciones y export del análisis que permitan confirmar ese reparto. Se conserva como antecedente, sin presentarlo como nuevo resultado ni denominarlo “hotspot” confirmado.
+
+La aleatoriedad solo se clasifica como fallo criptográfico tras verificar su uso sensible. No corresponde asignar riesgo criptográfico a toda aleatoriedad de simulación o presentación. Tampoco se interpreta “0” hallazgos de una herramienta como prueba de seguridad de una categoría completa.
 
 ## 3. Evaluación global del riesgo
 
-La evaluación del proyecto muestra que el riesgo de seguridad es **moderado y controlable**, no crítico en magnitud, pero sí relevante en el corto plazo. El análisis del Quality Gate no bloquea la entrega, pero los hallazgos actuales indican que la solución aún necesita reforzar la protección de credenciales y la generación segura de valores aleatorios.
+El estado documental **Quality Gate PASSED** se conserva según [03 Calidad de código](03%20Calidad%20de%20c%C3%B3digo%20V_1_0_0.md); no certifica seguridad integral. La autorización administrativa y el almacenamiento de contraseñas requieren atención prioritaria antes de exposición operativa. No se asigna una severidad global cuantificada sin validar alcance y entorno.
+
+| Mejora continua | Responsable propuesto | Verificación de la acción |
+| :--- | :--- | :--- |
+| Autorización efectiva en API | Backend / QA | Pruebas negativas de acceso y de aislamiento por rol |
+| Hash adaptativo y secretos externos | Backend | Pruebas de autenticación y configuración sin secretos de respaldo |
+| Análisis reproducible de seguridad | Equipo / QA | Reporte con commit, herramienta, reglas, ubicaciones y remediaciones verificadas |
 
 ### Conclusión
-El proyecto presenta una evaluación de seguridad global aceptable, con un Quality Gate aprobado, pero con riesgos moderados concretos en la categoría A02 y A07 del OWASP Top 10 2025. La corrección de estos hallazgos es crítica para reforzar la postura de seguridad antes de una entrega operativa y reducir la exposición de la solución en entornos reales.
 
-[← Volver al README Principal](../../README.md)
+El **Sprint 3 permanece cerrado satisfactoriamente al 30/10/2026**, con US-005, US-006 y US-007 completadas. Los hallazgos se registran como deuda técnica y mejora continua posterior al cierre. Esta actualización corrige la clasificación y mejora la trazabilidad; no declara remediaciones implementadas ni certifica el cumplimiento integral de RNF-002.
+
+[← Volver al README Principal](../../../README.md)
