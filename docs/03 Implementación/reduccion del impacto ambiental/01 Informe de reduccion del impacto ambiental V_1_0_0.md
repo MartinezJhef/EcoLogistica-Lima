@@ -1,3 +1,5 @@
+[← Volver al README Principal](../../README.md)
+
 # Informe de reducción del impacto ambiental
 
 ## Optimización de rendimiento y eficiencia energética del frontend web
@@ -1397,3 +1399,5 @@ $env:DIST_DIR="../ecologistica-antes/src/frontend/dist"; $env:PORT="4174"; node 
 | Informe consolidado | Este documento | Cumple |
 | Workflow de CI | `.github/workflows/green-audit.yml` | Cumple |
 | Documento de estándares | `02 Estandares Ingeniería de software V_1_0_0.md` | Cumple |
+
+[← Volver al README Principal](../../README.md)
