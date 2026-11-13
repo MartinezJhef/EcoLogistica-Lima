@@ -1,3 +1,5 @@
+[← Volver al README Principal](../../README.md)
+
 # Estándares de ingeniería de software y guía de desarrollo verde
 
 ## Marco normativo, reglas de clean code y matriz de trazabilidad
@@ -717,3 +719,5 @@ New-Item -ItemType Directory -Force -Path "docs/03 Implementación/reduccion del
 | TBT | Total Blocking Time; tiempo de bloqueo del hilo principal |
 | Tree-shaking | Eliminación de código no utilizado durante el empaquetado |
 | WSG | Web Sustainability Guidelines |
+
+[← Volver al README Principal](../../README.md)
