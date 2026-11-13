@@ -199,3 +199,16 @@ CREATE TABLE IF NOT EXISTS detalle_reporte_ruta (
 );
 
 CREATE INDEX IF NOT EXISTS idx_detalle_reporte_ruta_ruta ON detalle_reporte_ruta(ruta_id);
+
+-- ============================================================================
+-- OPTIMIZACIÓN DE CONSULTAS (auditoría de reducción del impacto ambiental)
+-- Índices compuestos que cubren los listados paginados y sus filtros habituales,
+-- evitando recorridos secuenciales de tabla al ordenar y filtrar.
+-- ============================================================================
+CREATE INDEX IF NOT EXISTS idx_vehiculos_estado_tipo ON vehiculos(estado, tipo_combustible);
+CREATE INDEX IF NOT EXISTS idx_vehiculos_tipo_estado ON vehiculos(tipo_combustible, estado);
+CREATE INDEX IF NOT EXISTS idx_conductores_estado_horas ON conductores(estado, horas_conduccion_hoy DESC);
+CREATE INDEX IF NOT EXISTS idx_pedidos_estado_creado ON pedidos(estado, creado_en DESC);
+CREATE INDEX IF NOT EXISTS idx_pedidos_prioridad_creado ON pedidos(prioridad, creado_en DESC);
+CREATE INDEX IF NOT EXISTS idx_usuarios_rol_creado ON usuarios(rol, creado_en DESC);
+CREATE INDEX IF NOT EXISTS idx_rutas_fecha_conductor ON rutas(fecha_operacion DESC, conductor_id);

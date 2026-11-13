@@ -2,14 +2,125 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <!-- El favicon viaja embebido: evita una petición HTTP adicional en el primer dibujo. -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232D3A2E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2D3A2E" />
+    <meta
+      name="description"
+      content="EcoLogística Lima: plataforma de gestión, optimización heurística y logística verde urbana."
+    />
     <title>EcoLogística — Optimizador de Rutas Sostenibles</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!--
+      Cáscara crítica en línea: el primer dibujo no depende de hojas de estilo externas
+      ni de las fuentes de Google. Evita dos peticiones que bloqueaban el render
+      (fonts.googleapis.com y unpkg.com) y adelanta el FCP/LCP. La tipografía pasa a la
+      pila de fuentes del sistema, ya instalada en el dispositivo.
+    -->
+    <style>
+      :root {
+        --shell-bg: #f5f4ee;
+        --shell-ink: #2d3a2e;
+        --shell-muted: #6b7a63;
+        --shell-accent: #a7b38b;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--shell-bg);
+        color: var(--shell-ink);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+          system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root { min-height: 100vh; }
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .app-shell__card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+      }
+      .app-shell__logo {
+        width: 64px;
+        height: 64px;
+        padding: 12px;
+        border-radius: 18px;
+        background: #2d3a2e;
+        display: block;
+      }
+      .app-shell__title {
+        margin: 0;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .app-shell__subtitle {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--shell-muted);
+      }
+      .app-shell__bar {
+        width: 148px;
+        height: 4px;
+        border-radius: 999px;
+        background: #e3e6db;
+        overflow: hidden;
+      }
+      .app-shell__bar::after {
+        content: "";
+        display: block;
+        width: 46%;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--shell-accent);
+        animation: app-shell-slide 1.1s ease-in-out infinite alternate;
+      }
+      @keyframes app-shell-slide {
+        from { transform: translateX(0); }
+        to { transform: translateX(120%); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .app-shell__bar::after { animation: none; width: 100%; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-shell" role="status" aria-live="polite">
+        <div class="app-shell__card">
+          <svg
+            class="app-shell__logo"
+            viewBox="0 0 24 24"
+            width="64"
+            height="64"
+            fill="none"
+            stroke="#F5F4EE"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <h1 class="app-shell__title">EcoLogística</h1>
+          <p class="app-shell__subtitle">Optimizador de rutas sostenibles</p>
+          <div class="app-shell__bar" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

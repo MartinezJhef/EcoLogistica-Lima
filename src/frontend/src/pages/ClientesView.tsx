@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 import { 
   Building2, Store, Users, Plus, Pencil, Trash2, MapPin, 
   Phone, Mail, Clock, ShieldCheck, RefreshCw, X, Check, 
@@ -625,6 +627,8 @@ export function ClientesView() {
     return true;
   });
 
+  const paginacion = usePagination(clientesFiltrados);
+
   const distritosUnicos = new Set(clientes.map(c => c.distrito)).size;
   const clientesActivos = clientes.filter(c => c.estado === 'ACTIVO').length;
 
@@ -1182,7 +1186,7 @@ export function ClientesView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {clientesFiltrados.map(c => (
+                  {paginacion.pageItems.map(c => (
                     <tr key={c.cliente_id}>
                       <td>
                         <div style={{ fontWeight: 700, color: '#2D3A2E' }}>{c.razon_social}</div>
@@ -1277,6 +1281,15 @@ export function ClientesView() {
                   ))}
                 </tbody>
               </table>
+              <Pagination
+                page={paginacion.page}
+                totalPages={paginacion.totalPages}
+                totalItems={paginacion.totalItems}
+                from={paginacion.from}
+                to={paginacion.to}
+                onChange={paginacion.setPage}
+                label="comercios"
+              />
             </div>
           </div>
         </>

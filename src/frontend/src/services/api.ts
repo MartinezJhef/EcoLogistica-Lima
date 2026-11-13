@@ -1,17 +1,79 @@
-import axios from 'axios';
-
+/**
+ * Cliente HTTP mínimo sobre `fetch` nativo.
+ *
+ * Sustituye a axios (≈ 13 KB comprimidos) por la API del navegador. Mantiene la
+ * misma forma de llamada (`api.get`, `api.post`…) para no tocar los servicios,
+ * pero elimina la dependencia del paquete inicial.
+ */
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
-export const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 3000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+export interface ApiResponse<T> {
+  data: T;
+  status: number;
+}
+
+const JSON_HEADERS = { 'Content-Type': 'application/json' };
+
+async function request<T>(
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+  path: string,
+  body?: unknown,
+  params?: Record<string, string | number | boolean>
+): Promise<ApiResponse<T>> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 3000);
+  const query = params
+    ? `?${new URLSearchParams(
+        Object.entries(params).map(([clave, valor]) => [clave, String(valor)])
+      ).toString()}`
+    : '';
+  try {
+    const res = await fetch(`${API_BASE_URL}${path}${query}`, {
+      method,
+      headers: JSON_HEADERS,
+      body: body === undefined ? undefined : JSON.stringify(body),
+      signal: controller.signal
+    });
+    if (!res.ok) {
+      const detalle = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status} ${res.statusText}${detalle ? `: ${detalle}` : ''}`);
+    }
+    if (res.status === 204) return { data: undefined as T, status: res.status };
+    return { data: (await res.json()) as T, status: res.status };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export const api = {
+  get: <T>(path: string, config?: { params?: Record<string, string | number | boolean> }) =>
+    request<T>('GET', path, undefined, config?.params),
+  post: <T>(path: string, body?: unknown) => request<T>('POST', path, body),
+  put: <T>(path: string, body?: unknown) => request<T>('PUT', path, body),
+  patch: <T>(path: string, body?: unknown) => request<T>('PATCH', path, body),
+  delete: <T>(path: string) => request<T>('DELETE', path)
+};
 
 export const SUPABASE_REST_URL = 'https://mpeonclcibezbdzdurey.supabase.co/rest/v1';
 export const SUPABASE_ANON_KEY = 'sb_publishable_Krx88X8mYMSVdyHPLH7P3Q_iNOSM7oL';
+
+/**
+ * Proyección de columnas (equivalente a `.select()` de Mongoose).
+ *
+ * Solo se piden los campos que consume la interfaz; la geometría y los campos
+ * auxiliares de otras tablas no viajan en el listado.
+ */
+const CAMPOS_VEHICULO = [
+  'vehiculo_id', 'placa', 'marca_modelo', 'anio_fabricacion', 'capacidad_peso_kg',
+  'capacidad_volumen_m3', 'consumo_km_gal', 'tipo_combustible', 'factor_emision_co2',
+  'restriccion_circulacion', 'estado', 'creado_en'
+].join(',');
+
+const CAMPOS_CONDUCTOR = [
+  'conductor_id', 'usuario_id', 'dni', 'nombres', 'apellidos', 'licencia',
+  'categoria_licencia', 'telefono', 'direccion_origen', 'latitud_origen',
+  'longitud_origen', 'estado', 'horas_conduccion_hoy', 'creado_en'
+].join(',');
 
 export const supabaseHeaders = {
   apikey: SUPABASE_ANON_KEY,
@@ -121,11 +183,17 @@ export type ClienteCreatePayload = Omit<Cliente, 'cliente_id' | 'creado_en'>;
 export type ClienteUpdatePayload = Partial<ClienteCreatePayload>;
 
 export const VehiculoService = {
-  getAll: async (combustible?: string): Promise<Vehiculo[]> => {
+  getAll: async (
+    combustible?: string,
+    pagina: { limite?: number; desplazamiento?: number } = {}
+  ): Promise<Vehiculo[]> => {
     try {
+      const limite = pagina.limite ?? 100;
+      const desplazamiento = pagina.desplazamiento ?? 0;
+      const ventana = `limit=${limite}&offset=${desplazamiento}`;
       const url = combustible && combustible !== 'TODOS'
-        ? `${SUPABASE_REST_URL}/vehiculos?tipo_combustible=eq.${combustible}&select=*&order=creado_en.asc`
-        : `${SUPABASE_REST_URL}/vehiculos?select=*&order=creado_en.asc`;
+        ? `${SUPABASE_REST_URL}/vehiculos?tipo_combustible=eq.${combustible}&select=${CAMPOS_VEHICULO}&order=creado_en.asc&${ventana}`
+        : `${SUPABASE_REST_URL}/vehiculos?select=${CAMPOS_VEHICULO}&order=creado_en.asc&${ventana}`;
       const res = await fetch(url, { headers: supabaseHeaders });
       if (res.ok) {
         const data = await res.json();
@@ -190,11 +258,17 @@ export const VehiculoService = {
 };
 
 export const ConductorService = {
-  getAll: async (estado?: string) => {
+  getAll: async (
+    estado?: string,
+    pagina: { limite?: number; desplazamiento?: number } = {}
+  ) => {
     try {
+      const limite = pagina.limite ?? 100;
+      const desplazamiento = pagina.desplazamiento ?? 0;
+      const ventana = `limit=${limite}&offset=${desplazamiento}`;
       const url = estado && estado !== 'TODOS'
-        ? `${SUPABASE_REST_URL}/conductores?estado=eq.${estado}&select=*&order=creado_en.asc`
-        : `${SUPABASE_REST_URL}/conductores?select=*&order=creado_en.asc`;
+        ? `${SUPABASE_REST_URL}/conductores?estado=eq.${estado}&select=${CAMPOS_CONDUCTOR}&order=creado_en.asc&${ventana}`
+        : `${SUPABASE_REST_URL}/conductores?select=${CAMPOS_CONDUCTOR}&order=creado_en.asc&${ventana}`;
       const res = await fetch(url, { headers: supabaseHeaders });
       if (res.ok) {
         const data = await res.json();
@@ -340,11 +414,13 @@ const mapSupabaseToPedido = (r: any): Pedido => ({
 });
 
 export const PedidoService = {
-  getAll: async (params?: { estado?: string; prioridad?: string }) => {
+  getAll: async (params?: { estado?: string; prioridad?: string; limite?: number; desplazamiento?: number }) => {
     try {
       const query = new URLSearchParams({ select: '*', order: 'creado_en.desc' });
       if (params?.estado && params.estado !== 'TODOS') query.append('estado', `eq.${params.estado}`);
       if (params?.prioridad && params.prioridad !== 'TODOS') query.append('prioridad', `eq.${params.prioridad}`);
+      query.append('limit', String(params?.limite ?? 100));
+      query.append('offset', String(params?.desplazamiento ?? 0));
       
       const res = await fetch(`${SUPABASE_REST_URL}/pedidos?${query.toString()}`, {
         headers: supabaseHeaders

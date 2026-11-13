@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, Response
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from uuid import UUID
@@ -19,12 +19,14 @@ router = APIRouter()
     summary="Listar pedidos registrados con coordenadas GPS y preferencias (US-003 / US-004)"
 )
 def read_pedidos(
-    skip: int = Query(0, ge=0), 
-    limit: int = Query(100, ge=1, le=500), 
+    response: Response,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(12, ge=1, le=500, description="Límite por página (12 por defecto)"),
     estado: Optional[str] = Query(None, description="Filtrar por estado (PENDIENTE, EN_TRANSITO, etc.)"),
     prioridad: Optional[str] = Query(None, description="Filtrar por prioridad (BAJA, ESTANDAR, ALTA, URGENTE)"),
     db: Session = Depends(get_db)
 ):
+    response.headers["X-Total-Count"] = str(OrderService.contar_pedidos(db, estado, prioridad))
     return OrderService.get_pedidos(db, skip=skip, limit=limit, estado=estado, prioridad=prioridad)
 
 @router.post(

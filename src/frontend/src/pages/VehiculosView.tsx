@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Truck, Plus, AlertCircle, Zap, Shield, Leaf, Gauge, Fuel, CheckCircle2, Pencil, X, Save, RefreshCw } from 'lucide-react';
 import { Vehiculo, VehiculoService } from '../services/api';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 
 interface DiagnosticoRestriccion {
   codigo: 'LIBRE_CIRCULACION' | 'PICO_Y_PLACA_AMBIENTAL' | 'RESTRINGIDO_CENTRO_HISTORICO';
@@ -262,6 +264,8 @@ export function VehiculosView() {
     ? vehiculos 
     : vehiculos.filter(v => v.tipo_combustible === filtro);
 
+  const paginacion = usePagination(vehiculosFiltrados);
+
   return (
     <div>
       {/* Encabezado con Tipografía Apple */}
@@ -469,7 +473,7 @@ export function VehiculosView() {
             </tr>
           </thead>
           <tbody>
-            {vehiculosFiltrados.map(v => (
+            {paginacion.pageItems.map(v => (
               <tr key={v.vehiculo_id}>
                 <td><strong>{v.placa}</strong></td>
                 <td>
@@ -541,6 +545,15 @@ export function VehiculosView() {
             ))}
           </tbody>
         </table>
+        <Pagination
+          page={paginacion.page}
+          totalPages={paginacion.totalPages}
+          totalItems={paginacion.totalItems}
+          from={paginacion.from}
+          to={paginacion.to}
+          onChange={paginacion.setPage}
+          label="unidades"
+        />
       </div>
 
       {/* Modal Apple Glass para Edición de Vehículo (SUB-001-03) */}

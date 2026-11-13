@@ -86,14 +86,32 @@ class UserService:
         db.commit()
 
     @staticmethod
-    def get_all(db: Session, rol: Optional[str] = None, estado: Optional[str] = None) -> List[Usuario]:
+    def count(db: Session, rol: Optional[str] = None, estado: Optional[str] = None) -> int:
+        """Cuenta el total de usuarios según los filtros dados para paginación Green IT."""
         UserService.seed_initial_users(db)
         query = db.query(Usuario)
         if rol:
             query = query.filter(Usuario.rol == rol.upper())
         if estado:
             query = query.filter(Usuario.estado == estado.upper())
-        return query.order_by(Usuario.creado_en.desc()).all()
+        return query.count()
+
+    @staticmethod
+    def get_all(
+        db: Session,
+        skip: int = 0,
+        limit: int = 12,
+        rol: Optional[str] = None,
+        estado: Optional[str] = None
+    ) -> List[Usuario]:
+        """Obtiene usuarios paginados a 12 registros por página para minimizar transferencia de red."""
+        UserService.seed_initial_users(db)
+        query = db.query(Usuario)
+        if rol:
+            query = query.filter(Usuario.rol == rol.upper())
+        if estado:
+            query = query.filter(Usuario.estado == estado.upper())
+        return query.order_by(Usuario.creado_en.desc()).offset(skip).limit(limit).all()
 
     @staticmethod
     def get_by_id(db: Session, usuario_id: UUID) -> Usuario:

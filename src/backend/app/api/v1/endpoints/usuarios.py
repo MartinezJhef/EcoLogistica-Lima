@@ -1,6 +1,6 @@
 from typing import List, Optional
 from uuid import UUID
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, Query, Response, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -51,12 +51,17 @@ def get_catalogo_permisos():
 
 @router.get("/", response_model=List[UsuarioResponse], tags=["Administración (Usuarios y Roles)"])
 def listar_usuarios(
+    response: Response,
+    skip: int = Query(0, ge=0, description="Número de registros a omitir para paginación"),
+    limit: int = Query(12, ge=1, le=500, description="Límite máximo de resultados por página (12 por defecto para Green IT)"),
     rol: Optional[str] = Query(None, description="Filtrar por rol: ADMIN, OFICINA, REPARTIDOR, CLIENTE"),
     estado: Optional[str] = Query(None, description="Filtrar por estado: ACTIVO, INACTIVO, BLOQUEADO"),
     db: Session = Depends(get_db)
 ):
-    """Lista todos los usuarios del sistema con sus roles y permisos asignados."""
-    return UserService.get_all(db=db, rol=rol, estado=estado)
+    """Lista todos los usuarios del sistema paginados a 12 registros por página para Green IT con encabezado X-Total-Count."""
+    total = UserService.count(db=db, rol=rol, estado=estado)
+    response.headers["X-Total-Count"] = str(total)
+    return UserService.get_all(db=db, skip=skip, limit=limit, rol=rol, estado=estado)
 
 @router.post("/", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED, tags=["Administración (Usuarios y Roles)"])
 def crear_usuario(

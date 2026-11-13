@@ -65,8 +65,10 @@ jspm_packages/
 # Build Outputs
 dist/
 dist-ssr/
+dist-baseline/
 out/
 build/
+.lighthouseci/
 *.tsbuildinfo
 
 # Logs

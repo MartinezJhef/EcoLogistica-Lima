@@ -29,7 +29,7 @@
 6. [📚 Matriz Integral de Artefactos del Proyecto](#-matriz-integral-de-artefactos-del-proyecto)
    - [📍 Fase 01: Inicio (13 Documentos Normativos)](#-fase-01-inicio-13-documentos-normativos)
    - [📍 Fase 02: Planificación (4 Artefactos Ágiles y Jira)](#-fase-02-planificación-4-artefactos-ágiles-y-jira)
-   - [📍 Fase 03: Implementación (4 Entregables Sprint 1)](#-fase-03-implementación-4-entregables-sprint-1)
+   - [📍 Fase 03: Implementación (Entregables Sprint 1 y Green IT)](#-fase-03-implementación-4-entregables-sprint-1)
 7. [💻 Estructura del Código Fuente y Módulos](#-estructura-del-código-fuente-y-módulos)
 8. [👥 Directorio del Equipo de Proyecto](#-directorio-del-equipo-de-proyecto)
 9. [🌳 Estrategia de Ramas y Flujo Git](#-estrategia-de-ramas-y-flujo-git)
@@ -200,6 +200,8 @@ Los entregables de gestión y código fuente del Sprint 1 residen en [`docs/03 I
 | **04 — actualización** | [Retrospectiva del Sprint V_1_2_0.md](docs/03%20Implementaci%C3%B3n/04%20Retrospectiva%20del%20Sprint%20V_1_2_0.md) | Equipo Scrum PFA | Sprint 2, EP-03 y EP-04; corte provisional al 09/10/2026, análisis de cuatro ejes y plan de acción. |
 | **05** | [Especificación e Implementación US-001 Gestión de Vehículos](docs/03%20Implementaci%C3%B3n/05%20Especificacion%20e%20Implementacion%20US-001%20Gestion%20de%20Vehiculos%20V_1_0_0.md) | Equipo de Desarrollo | Especificación técnica, endpoints REST, validaciones ambientales y suite de pruebas unitarias. |
 | **06** | [Especificación e Implementación US-002 Gestión de Conductores](docs/03%20Implementaci%C3%B3n/06%20Especificacion%20e%20Implementacion%20US-002%20Gestion%20de%20Conductores%20V_1_0_0.md) | Equipo de Desarrollo | Control de jornada máxima de 8h (Ley N° 30224), brevete MTC, origen GPS y pruebas automatizadas. |
+| **07** | [Informe de reducción del impacto ambiental](docs/03%20Implementaci%C3%B3n/reduccion%20del%20impacto%20ambiental/01%20Informe%20de%20reduccion%20del%20impacto%20ambiental%20V_1_0_0.md) | Equipo de Desarrollo | Auditoría Lighthouse, ocho optimizaciones, cálculo SWDM v4 y evidencias reproducibles. |
+| **08** | [Estándares de ingeniería de software](docs/03%20Implementaci%C3%B3n/reduccion%20del%20impacto%20ambiental/02%20Estandares%20Ingenier%C3%ADa%20de%20software%20V_1_0_0.md) | Equipo de Desarrollo | ISO/IEC 25010, GSF, WSG 1.0, clean code y matriz de trazabilidad de las ocho optimizaciones. |
 
 ---
 

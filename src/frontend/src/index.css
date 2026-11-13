@@ -804,3 +804,12 @@ input::placeholder, textarea::placeholder {
   100% { transform: scale(0.98); opacity: 0.8; }
 }
 
+
+@keyframes module-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [style*='module-spin'] { animation: none !important; }
+}
+

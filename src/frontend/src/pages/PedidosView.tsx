@@ -6,7 +6,10 @@ import {
   Maximize2, Minimize2, Crosshair, Wand2, Hash, Search,
   Home, Flag
 } from 'lucide-react';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Pedido, PedidoService, PreferenciasClienteUpdate, Conductor, ConductorService } from '../services/api';
 import { 
   crearIconoBanderaLlegada, 
@@ -259,6 +262,8 @@ export function PedidosView() {
       (p.referencia_ubicacion && p.referencia_ubicacion.toLowerCase().includes(term))
     );
   });
+
+  const paginacion = usePagination(pedidosFiltrados);
 
   // Temporizador para toasts
   useEffect(() => {
@@ -1537,7 +1542,7 @@ export function PedidosView() {
                 gap: '1rem',
                 width: '100%'
               }}>
-                {pedidosFiltrados.map(p => (
+                {paginacion.pageItems.map(p => (
                   <div 
                     key={p.pedido_id} 
                     className="apple-card" 
@@ -1658,6 +1663,15 @@ export function PedidosView() {
                 ))}
               </div>
             )}
+            <Pagination
+              page={paginacion.page}
+              totalPages={paginacion.totalPages}
+              totalItems={paginacion.totalItems}
+              from={paginacion.from}
+              to={paginacion.to}
+              onChange={paginacion.setPage}
+              label="órdenes"
+            />
           </div>
         </div>
       )}

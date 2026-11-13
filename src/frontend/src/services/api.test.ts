@@ -2,9 +2,12 @@
  * api.test.ts
  * Suite de pruebas para los servicios de la capa API (VehiculoService, ConductorService,
  * PedidoService, ClienteService, RutaService, UsuarioService).
- * Cubre los paths de Supabase (fetch ok) y fallback (axios).
+ * Cubre la ruta Supabase (fetch ok) y el respaldo contra la API propia (fetch nativo).
+ *
+ * La capa `api` ya no depende de axios: es un cliente mínimo sobre `fetch`, por lo
+ * que ambos caminos se simulan con la misma función global.
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   VehiculoService,
   ConductorService,
@@ -15,35 +18,46 @@ import {
   MOCK_CLIENTES_DEFAULT
 } from './api';
 
-// ─── Mock axios ───────────────────────────────────────────────────────────────
-vi.mock('axios', () => {
-  const mockAxios = {
-    create: vi.fn().mockReturnThis(),
-    get: vi.fn(),
-    post: vi.fn(),
-    put: vi.fn(),
-    patch: vi.fn(),
-    delete: vi.fn(),
-    interceptors: {
-      request: { use: vi.fn() },
-      response: { use: vi.fn() }
-    }
-  };
-  return { default: mockAxios };
-});
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-const makeFetchOk = (data: any) =>
-  vi.fn().mockResolvedValue({
+const respuestaOk = (data: any) =>
+  ({
     ok: true,
-    json: () => Promise.resolve(data)
+    status: 200,
+    json: () => Promise.resolve(data),
+    text: () => Promise.resolve('')
   } as any);
 
-const makeFetchFail = () =>
-  vi.fn().mockRejectedValue(new Error('Network error'));
+const respuestaNoOk = () =>
+  ({
+    ok: false,
+    status: 503,
+    statusText: 'Service Unavailable',
+    json: () => Promise.resolve([]),
+    text: () => Promise.resolve('servicio no disponible')
+  } as any);
 
-const makeFetchNotOk = () =>
-  vi.fn().mockResolvedValue({ ok: false, json: () => Promise.resolve([]) } as any);
+const makeFetchOk = (data: any) => vi.fn().mockResolvedValue(respuestaOk(data));
+
+const makeFetchFail = () => vi.fn().mockRejectedValue(new Error('Network error'));
+
+const makeFetchNotOk = () => vi.fn().mockResolvedValue(respuestaNoOk());
+
+/** Primer intento (Supabase) con el comportamiento indicado; el segundo responde la API propia. */
+const makeFetchFallback = (
+  primerIntento: 'error' | 'vacio' | 'no-ok',
+  data: any
+) => {
+  let llamada = 0;
+  return vi.fn().mockImplementation(() => {
+    llamada += 1;
+    if (llamada === 1) {
+      if (primerIntento === 'error') return Promise.reject(new Error('Network error'));
+      if (primerIntento === 'no-ok') return Promise.resolve(respuestaNoOk());
+      return Promise.resolve(respuestaOk([]));
+    }
+    return Promise.resolve(respuestaOk(data));
+  });
+};
 
 // ─── VehiculoService ──────────────────────────────────────────────────────────
 describe('VehiculoService', () => {
@@ -69,18 +83,25 @@ describe('VehiculoService', () => {
     expect(callUrl).toContain('ELECTRICO');
   });
 
-  it('getAll usa fallback axios cuando fetch lanza error', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [MOCK_VEHICULO] });
-    const result = await VehiculoService.getAll();
-    expect(result).toEqual([MOCK_VEHICULO]);
+  it('getAll pide una ventana paginada y una proyección de columnas', async () => {
+    global.fetch = makeFetchOk([MOCK_VEHICULO]);
+    await VehiculoService.getAll(undefined, { limite: 12, desplazamiento: 24 });
+    const callUrl = (global.fetch as any).mock.calls[0][0] as string;
+    expect(callUrl).toContain('limit=12');
+    expect(callUrl).toContain('offset=24');
+    expect(callUrl).not.toContain('select=*');
+    expect(callUrl).toContain('select=vehiculo_id,placa');
   });
 
-  it('getAll usa fallback axios cuando fetch retorna array vacío', async () => {
-    global.fetch = makeFetchOk([]);
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [MOCK_VEHICULO] });
+  it('getAll usa la API propia cuando fetch lanza error', async () => {
+    global.fetch = makeFetchFallback('error', [MOCK_VEHICULO]);
+    const result = await VehiculoService.getAll();
+    expect(result).toEqual([MOCK_VEHICULO]);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('getAll usa la API propia cuando fetch retorna array vacío', async () => {
+    global.fetch = makeFetchFallback('vacio', [MOCK_VEHICULO]);
     const result = await VehiculoService.getAll();
     expect(result).toEqual([MOCK_VEHICULO]);
   });
@@ -91,10 +112,8 @@ describe('VehiculoService', () => {
     expect(result).toEqual(MOCK_VEHICULO);
   });
 
-  it('getById usa fallback cuando fetch no retorna datos', async () => {
-    global.fetch = makeFetchOk([]);
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: MOCK_VEHICULO });
+  it('getById usa el respaldo cuando fetch no retorna datos', async () => {
+    global.fetch = makeFetchFallback('vacio', MOCK_VEHICULO);
     const result = await VehiculoService.getById('v1');
     expect(result).toEqual(MOCK_VEHICULO);
   });
@@ -106,27 +125,21 @@ describe('VehiculoService', () => {
     expect(result).toEqual(MOCK_VEHICULO);
   });
 
-  it('create usa fallback axios cuando fetch falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.post.mockResolvedValue({ data: MOCK_VEHICULO });
+  it('create usa el respaldo cuando fetch falla', async () => {
+    global.fetch = makeFetchFallback('error', MOCK_VEHICULO);
     const { vehiculo_id, ...payload } = MOCK_VEHICULO;
     const result = await VehiculoService.create(payload);
     expect(result).toEqual(MOCK_VEHICULO);
   });
 
-  it('update usa fallback axios cuando fetch response no es ok', async () => {
-    global.fetch = makeFetchNotOk();
-    const axios = (await import('axios')).default as any;
-    axios.put.mockResolvedValue({ data: MOCK_VEHICULO });
+  it('update usa el respaldo cuando fetch responde no-ok', async () => {
+    global.fetch = makeFetchFallback('no-ok', MOCK_VEHICULO);
     const result = await VehiculoService.update('v1', { estado: 'MANTENIMIENTO' });
     expect(result).toEqual(MOCK_VEHICULO);
   });
 
-  it('delete llama fetch DELETE y usa fallback axios', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.delete.mockResolvedValue({ data: MOCK_VEHICULO });
+  it('delete llama fetch DELETE y usa el respaldo', async () => {
+    global.fetch = makeFetchFallback('error', MOCK_VEHICULO);
     const result = await VehiculoService.delete('v1');
     expect(result).toEqual(MOCK_VEHICULO);
   });
@@ -155,10 +168,8 @@ describe('ConductorService', () => {
     expect(callUrl).toContain('DISPONIBLE');
   });
 
-  it('getAll usa fallback axios cuando fetch falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [MOCK_CONDUCTOR] });
+  it('getAll usa el respaldo cuando fetch falla', async () => {
+    global.fetch = makeFetchFallback('error', [MOCK_CONDUCTOR]);
     const result = await ConductorService.getAll();
     expect(result).toEqual([MOCK_CONDUCTOR]);
   });
@@ -183,10 +194,16 @@ describe('PedidoService', () => {
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it('getAll usa fallback cuando Supabase falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [MOCK_PEDIDO] });
+  it('getAll pide una ventana paginada', async () => {
+    global.fetch = makeFetchOk([MOCK_PEDIDO]);
+    await PedidoService.getAll({ limite: 12, desplazamiento: 0 });
+    const callUrl = (global.fetch as any).mock.calls[0][0] as string;
+    expect(callUrl).toContain('limit=12');
+    expect(callUrl).toContain('offset=0');
+  });
+
+  it('getAll usa el respaldo cuando Supabase falla', async () => {
+    global.fetch = makeFetchFallback('error', [MOCK_PEDIDO]);
     const result = await PedidoService.getAll();
     expect(result).toEqual([MOCK_PEDIDO]);
   });
@@ -212,12 +229,9 @@ describe('ClienteService', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('getAll usa MOCK_CLIENTES_DEFAULT cuando Supabase falla y axios falla', async () => {
+  it('getAll usa MOCK_CLIENTES_DEFAULT cuando Supabase y la API fallan', async () => {
     global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockRejectedValue(new Error('Backend down'));
     const result = await ClienteService.getAll();
-    // Debe retornar los clientes mock por defecto
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBeGreaterThan(0);
   });
@@ -227,12 +241,13 @@ describe('ClienteService', () => {
 describe('RutaService', () => {
   beforeEach(() => { vi.clearAllMocks(); });
 
-  it('list usa fallback axios cuando fetch falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [] });
-    const result = await RutaService.list();
+  it('list consulta la API propia con parámetros de filtro', async () => {
+    global.fetch = makeFetchOk([]);
+    const result = await RutaService.list('2026-01-01', 'OPTIMIZADA');
     expect(Array.isArray(result)).toBe(true);
+    const callUrl = (global.fetch as any).mock.calls[0][0] as string;
+    expect(callUrl).toContain('/rutas?fecha=2026-01-01');
+    expect(callUrl).toContain('estado=OPTIMIZADA');
   });
 
   it('getZonasRiesgo retorna zonas de Supabase', async () => {
@@ -242,14 +257,15 @@ describe('RutaService', () => {
   });
 
   it('optimizar llama al endpoint correcto', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.post.mockResolvedValue({ data: { rutas: [], pedidos_no_asignados: [], resumen: {} } });
+    global.fetch = makeFetchOk({ rutas: [], pedidos_no_asignados: [], resumen: {} });
     const result = await RutaService.optimizar({
       pedido_ids: ['p1'], vehiculo_ids: ['v1'],
       fecha_operacion: '2026-01-01', hora_inicio: '07:00', hora_fin: '18:00'
     });
     expect(result).toBeDefined();
+    const [url, init] = (global.fetch as any).mock.calls[0];
+    expect(url).toContain('/rutas/optimizar');
+    expect(init.method).toBe('POST');
   });
 });
 
@@ -273,22 +289,16 @@ describe('MOCK_CLIENTES_DEFAULT', () => {
 describe('UsuarioService', () => {
   beforeEach(() => { vi.clearAllMocks(); });
 
-  it('getAll usa fallback axios cuando Supabase falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({ data: [] });
+  it('getAll usa el respaldo cuando Supabase falla', async () => {
+    global.fetch = makeFetchFallback('error', []);
     const result = await UsuarioService.getAll();
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it('getCatalogoPermisos usa fallback axios cuando Supabase falla', async () => {
-    global.fetch = makeFetchFail();
-    const axios = (await import('axios')).default as any;
-    axios.get.mockResolvedValue({
-      data: {
-        roles_disponibles: [],
-        catalogo_permisos: []
-      }
+  it('getCatalogoPermisos usa el respaldo cuando Supabase falla', async () => {
+    global.fetch = makeFetchFallback('error', {
+      roles_disponibles: [],
+      catalogo_permisos: []
     });
     const result = await UsuarioService.getCatalogoPermisos();
     expect(result).toBeDefined();

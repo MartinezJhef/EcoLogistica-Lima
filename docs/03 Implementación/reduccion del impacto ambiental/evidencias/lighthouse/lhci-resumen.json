@@ -1,0 +1,90 @@
+{
+  "escritorio": {
+    "runs": [
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100,
+        "fcp": 326,
+        "lcp": 476,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      },
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100,
+        "fcp": 325,
+        "lcp": 475,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      },
+      {
+        "rendimiento": 100,
+        "accesibilidad": 100,
+        "fcp": 324,
+        "lcp": 474,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      }
+    ],
+    "mediana": {
+      "rendimiento": 100,
+      "accesibilidad": 100,
+      "fcp_ms": 325,
+      "lcp_ms": 475,
+      "tbt_ms": 0,
+      "cls": 0,
+      "peso_kb": 65,
+      "peticiones": 7
+    }
+  },
+  "movil": {
+    "runs": [
+      {
+        "rendimiento": 99,
+        "accesibilidad": 100,
+        "fcp": 1208,
+        "lcp": 1988,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      },
+      {
+        "rendimiento": 99,
+        "accesibilidad": 100,
+        "fcp": 1205,
+        "lcp": 1985,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      },
+      {
+        "rendimiento": 99,
+        "accesibilidad": 100,
+        "fcp": 1205,
+        "lcp": 1985,
+        "tbt": 0,
+        "cls": 0,
+        "peso_kb": 65,
+        "peticiones": 7
+      }
+    ],
+    "mediana": {
+      "rendimiento": 99,
+      "accesibilidad": 100,
+      "fcp_ms": 1205,
+      "lcp_ms": 1985,
+      "tbt_ms": 0,
+      "cls": 0,
+      "peso_kb": 65,
+      "peticiones": 7
+    }
+  }
+}

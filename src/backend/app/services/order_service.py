@@ -74,6 +74,20 @@ class OrderService:
         return [OrderService._to_response(p) for p in pedidos]
 
     @staticmethod
+    def contar_pedidos(
+        db: Session,
+        estado: Optional[str] = None,
+        prioridad: Optional[str] = None
+    ) -> int:
+        """Total de pedidos que cumplen los filtros, para X-Total-Count."""
+        query = db.query(Pedido)
+        if estado:
+            query = query.filter(Pedido.estado == estado.upper())
+        if prioridad:
+            query = query.filter(Pedido.prioridad == prioridad.upper())
+        return query.count()
+
+    @staticmethod
     def get_pedido_by_id(db: Session, pedido_id: UUID) -> PedidoResponse:
         """Consulta de pedido por su UUID único."""
         pedido = db.query(Pedido).filter(Pedido.pedido_id == pedido_id).first()

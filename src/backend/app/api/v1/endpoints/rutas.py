@@ -1,7 +1,7 @@
 from typing import List, Optional
 from uuid import UUID
 from datetime import date
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, Query, Response, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -54,15 +54,21 @@ def get_zonas_riesgo(
 @router.get(
     "/",
     response_model=List[RutaDetalleResponse],
-    summary="Listar Rutas Planificadas y Ejecutadas"
+    summary="Listar Rutas Planificadas y Ejecutadas (Paginado a 12 registros)"
 )
 def listar_rutas(
+    response: Response,
+    skip: int = Query(0, ge=0, description="Número de registros a omitir para paginación"),
+    limit: int = Query(12, ge=1, le=500, description="Límite máximo por página (12 por defecto para Green IT)"),
     fecha: Optional[date] = Query(None, description="Filtrar por fecha de operación"),
     estado: Optional[str] = Query(None, description="Filtrar por estado (PLANIFICADA, EN_EJECUCION, COMPLETADA, CANCELADA)"),
     db: Session = Depends(get_db)
 ):
-    """Obtiene la lista de rutas generadas."""
-    return RoutingService.list_rutas(db=db, fecha=fecha, estado=estado)
+    """Obtiene la lista de rutas generadas paginadas a 12 registros con encabezado X-Total-Count."""
+    response.headers["X-Total-Count"] = str(
+        RoutingService.count_rutas(db=db, fecha=fecha, estado=estado)
+    )
+    return RoutingService.list_rutas(db=db, skip=skip, limit=limit, fecha=fecha, estado=estado)
 
 @router.get(
     "/{ruta_id}",

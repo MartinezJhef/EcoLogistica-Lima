@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from app.core.config import settings
+from app.core.middleware import CacheHeadersMiddleware
 from app.api.v1.api import api_router
 
 app = FastAPI(
@@ -12,6 +14,10 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Rendimiento: ETag + Cache-Control (interno) y gzip (externo, comprime la respuesta final)
+app.add_middleware(CacheHeadersMiddleware)
+app.add_middleware(GZipMiddleware, minimum_size=500)
+
 # Configuración de CORS
 app.add_middleware(
     CORSMiddleware,
@@ -19,6 +25,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Total-Count", "ETag"],
 )
 
 # Montar endpoints de la API v1

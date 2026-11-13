@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 import { 
   Users, Plus, ShieldAlert, CheckCircle2, Clock, AlertTriangle, 
   ShieldCheck, X, Pencil, RotateCcw, MapPin, Navigation, 
@@ -654,6 +656,8 @@ export function ConductoresView() {
     if (filtroEstado === 'TODOS') return true;
     return c.estado === filtroEstado;
   });
+
+  const paginacion = usePagination(conductoresFiltrados);
 
   const promedioHoras = conductores.length > 0 
     ? (conductores.reduce((acc, c) => acc + c.horas_conduccion_hoy, 0) / conductores.length).toFixed(1)
@@ -1319,7 +1323,7 @@ export function ConductoresView() {
               </tr>
             </thead>
             <tbody>
-              {conductoresFiltrados.map(c => {
+              {paginacion.pageItems.map(c => {
                 const porcentaje = Math.min((c.horas_conduccion_hoy / 8.0) * 100, 100);
                 const colorBarra = c.horas_conduccion_hoy >= 7.5 
                   ? 'var(--apple-red)' 
@@ -1447,6 +1451,15 @@ export function ConductoresView() {
               })}
             </tbody>
           </table>
+          <Pagination
+            page={paginacion.page}
+            totalPages={paginacion.totalPages}
+            totalItems={paginacion.totalItems}
+            from={paginacion.from}
+            to={paginacion.to}
+            onChange={paginacion.setPage}
+            label="conductores"
+          />
         </div>
       </div>
     </>

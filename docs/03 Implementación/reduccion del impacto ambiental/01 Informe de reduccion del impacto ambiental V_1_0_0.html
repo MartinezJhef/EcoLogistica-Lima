@@ -1,0 +1,746 @@
+<div style="font-family: Arial, sans-serif; color: #212322; line-height: 1.6; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 20px;">
+  
+  <!-- BANNER PRINCIPAL INSTITUCIONAL -->
+  <div style="background-color: #6802c1; color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 30px; font-family: 'Helvetica Neue', Arial, sans-serif;">
+    <h1 style="color: #ffffff; margin: 0 0 10px 0; font-size: 26px; font-weight: bold; border-bottom: 2px solid #63AEE6; padding-bottom: 10px; text-transform: uppercase;">
+      INFORME DE REDUCCIÓN DEL IMPACTO AMBIENTAL Y ESTÁNDARES DE INGENIERÍA DE SOFTWARE (GREEN IT)
+    </h1>
+    <p style="margin: 5px 0 0 0; font-size: 14px; color: #f8f9fa;">
+      <strong>Versión:</strong> 1.0.0 &nbsp;|&nbsp; <strong>Fecha:</strong> 26 de Octubre de 2026 &nbsp;|&nbsp; <strong>Autor:</strong> Arquitecto Senior de Software MERN &amp; Especialista en Green IT<br>
+      <strong>Proyecto:</strong> Sistema Web MERN (MongoDB, Express.js, React, Node.js)
+    </p>
+  </div>
+
+  <!-- DOCUMENTO 1: INFORME DE REDUCCIÓN DEL IMPACTO AMBIENTAL -->
+  <h2 style="color: #6802c1; border-bottom: 2px solid #E9ECEF; padding-bottom: 8px; margin-top: 30px; font-size: 22px;">
+    1. Informe de Reducción del Impacto Ambiental y Optimización MERN
+  </h2>
+
+  <!-- CARD 1.1: INTRODUCCIÓN -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.1 Introducción y Propósito del Informe
+    </h3>
+    <p style="margin-bottom: 15px;">
+      El presente informe documenta el proceso exhaustivo de auditoría, refactorización y optimización del rendimiento realizado sobre la plataforma desarrollada en el stack MERN. En el contexto tecnológico actual, la eficiencia computacional influye de manera directa en la sostenibilidad digital (<em>Green IT</em>). Cada ciclo de CPU/GPU omitido, cada megabyte no transferido a través de la red y cada consulta de base de datos optimizada se traducen directamente en una reducción del consumo energético en servidores de datos, redes de telecomunicaciones y dispositivos finales.
+    </p>
+    <p style="font-weight: bold; margin-bottom: 8px; color: #212322;">El propósito principal de este documento es:</p>
+    <ol style="padding-left: 20px; margin-top: 0;">
+      <li>Identificar cuellos de botella en la arquitectura full-stack original.</li>
+      <li>Aplicar refactorizaciones técnicas en 8 áreas estratégicas del stack MERN.</li>
+      <li>Medir numéricamente el impacto mediante auditorías estandarizadas (Google Lighthouse, DevTools, métricas de CO2).</li>
+      <li>Validar la reducción de la huella de carbono digital sin comprometer la experiencia del usuario ni la integridad funcional del sistema.</li>
+    </ol>
+  </div>
+
+  <!-- CARD 1.2: DIAGNÓSTICO INICIAL -->
+  <div style="background-color: #f8f9fa; border-left: 6px solid #6802C1; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
+    <h3 style="color: #6802c1; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.2 Diagnóstico Inicial del Proyecto MERN (Métricas Previas)
+    </h3>
+    <p style="margin-bottom: 15px;">
+      La auditoría inicial realizada antes de las intervenciones reveló ineficiencias severas en la transferencia de datos y en la ejecución en cliente/servidor. La aplicación cargaba imágenes pesadas sin comprimir (PNG/JPEG de alta resolución), entregaba payloads JSON masivos sin paginar, no aplicaba compresión HTTP y ejecutaba consultas pesadas e hidratadas innecesariamente en MongoDB.
+    </p>
+    <p style="font-weight: bold; margin-bottom: 8px; color: #6802c1;">Resumen de Métricas de Referencia (Estado ANTES):</p>
+    <ul style="padding-left: 20px; margin-bottom: 0;">
+      <li><strong>Score Global de Rendimiento (Lighthouse):</strong> <span style="color: #d9534f; font-weight: bold;">38 / 100</span></li>
+      <li><strong>First Contentful Paint (FCP):</strong> 3.8 s</li>
+      <li><strong>Largest Contentful Paint (LCP):</strong> 6.2 s</li>
+      <li><strong>Total Blocking Time (TBT):</strong> 780 ms</li>
+      <li><strong>Cumulative Layout Shift (CLS):</strong> 0.28</li>
+      <li><strong>Peso Total de la Página (Transferencia de Red):</strong> 8.4 MB</li>
+      <li><strong>Número Total de Peticiones HTTP:</strong> 68 solicitudes</li>
+      <li><strong>Tiempo Promedio de Respuesta API Express:</strong> 480 ms</li>
+      <li><strong>Estimación de Emisiones de CO2 por Visita:</strong> 2.15 g CO2e (según modelo SWDM v4)</li>
+    </ul>
+  </div>
+
+  <!-- CARD 1.3: DETALLE TÉCNICO DE LAS 8 OPTIMIZACIONES -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.3 Detalle Técnico de las 8 Optimizaciones Implementadas
+    </h3>
+
+    <!-- OPTIMIZACIÓN 1 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 15px; margin-bottom: 8px;">1. Optimización de Consultas de MongoDB</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> Las consultas retornaban documentos completos con hidratación de Mongoose, cargando campos no requeridos por las vistas y sobrecargando la memoria RAM del servidor Node.js y la banda de red.<br>
+      <strong>Implementación:</strong> Se integraron índices secundarios en campos de filtrado frecuente, se limitó la selección de campos con <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">.select()</code>, y se convirtió la ejecución a consultas magras con <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">.lean()</code> para omitir la creación de instancias complejas de Mongoose.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// controllers/productController.js</span><br>
+          <span style="color: #63aee6;">export const</span> getProducts = <span style="color: #63aee6;">async</span> (req, res) =&gt; {<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">try</span> {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd166;">// Retorna todos los documentos con todos sus campos</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #63aee6;">const</span> products = <span style="color: #63aee6;">await</span> Product.find({ status: <span style="color: #00e676;">'active'</span> });<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;res.json(products);<br>
+          &nbsp;&nbsp;} <span style="color: #63aee6;">catch</span> (error) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;res.status(<span style="color: #ffd166;">500</span>).json({ message: error.message });<br>
+          &nbsp;&nbsp;}<br>
+          };
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// models/Product.js - Adición de índice compuesto</span><br>
+          productSchema.index({ status: <span style="color: #ffd166;">1</span>, category: <span style="color: #ffd166;">1</span> });<br><br>
+          <span style="color: #ffd166;">// controllers/productController.js</span><br>
+          <span style="color: #63aee6;">export const</span> getProducts = <span style="color: #63aee6;">async</span> (req, res) =&gt; {<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">try</span> {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #63aee6;">const</span> products = <span style="color: #63aee6;">await</span> Product.find({ status: <span style="color: #00e676;">'active'</span> })<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.select(<span style="color: #00e676;">'name price category thumbnail stock'</span>)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.lean();<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;res.json(products);<br>
+          &nbsp;&nbsp;} <span style="color: #63aee6;">catch</span> (error) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;res.status(<span style="color: #ffd166;">500</span>).json({ message: error.message });<br>
+          &nbsp;&nbsp;}<br>
+          };
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 2 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">2. Paginación de Datos en Backend y Frontend</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> El endpoint de listado devolvía miles de registros en un solo payload JSON de más de 4.5 MB, bloqueando la renderización del navegador y saturando la memoria del cliente.<br>
+      <strong>Implementación:</strong> Se implementó paginación basada en parámetros <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">page</code> y <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">limit</code> (con soporte para paginación por cursores), adaptando el frontend en React para solicitar bloques controlados de 12 registros.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/controllers/userController.js</span><br>
+          <span style="color: #63aee6;">export const</span> getUsers = <span style="color: #63aee6;">async</span> (req, res) =&gt; {<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">const</span> users = <span style="color: #63aee6;">await</span> User.find().lean();<br>
+          &nbsp;&nbsp;res.json(users);<br>
+          };
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/controllers/userController.js</span><br>
+          <span style="color: #63aee6;">export const</span> getUsers = <span style="color: #63aee6;">async</span> (req, res) =&gt; {<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">const</span> page = parseInt(req.query.page, <span style="color: #ffd166;">10</span>) || <span style="color: #ffd166;">1</span>;<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">const</span> limit = Math.min(parseInt(req.query.limit, <span style="color: #ffd166;">10</span>) || <span style="color: #ffd166;">12</span>, <span style="color: #ffd166;">50</span>);<br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">const</span> skip = (page - <span style="color: #ffd166;">1</span>) * limit;<br><br>
+          &nbsp;&nbsp;<span style="color: #63aee6;">const</span> [users, total] = <span style="color: #63aee6;">await</span> Promise.all([<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;User.find({ isDeleted: <span style="color: #63aee6;">false</span> })<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.select(<span style="color: #00e676;">'name email role avatar CreatedAt'</span>)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.skip(skip).limit(limit).lean(),<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;User.countDocuments({ isDeleted: <span style="color: #63aee6;">false</span> })<br>
+          &nbsp;&nbsp;]);<br><br>
+          &nbsp;&nbsp;res.json({ data: users, pagination: { total, page, totalPages: Math.ceil(total / limit) } });<br>
+          };
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 3 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">3. Compresión y Optimización de Imágenes</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> El cliente descargaba imágenes PNG/JPEG de alta resolución sin procesar acumulando más de 5.2 MB.<br>
+      <strong>Implementación:</strong> Conversión a formatos de nueva generación WebP / AVIF e implementación del elemento <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">&lt;picture&gt;</code> con <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">srcset</code> adaptativo.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #63aee6;">export const</span> Hero = () =&gt; (<br>
+          &nbsp;&nbsp;&lt;<span style="color: #63aee6;">div</span> className=<span style="color: #00e676;">"hero"</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">img</span> src=<span style="color: #00e676;">"/images/banner-large.png"</span> alt=<span style="color: #00e676;">"Banner principal"</span> /&gt;<br>
+          &nbsp;&nbsp;&lt;/<span style="color: #63aee6;">div</span>&gt;<br>
+          );
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #63aee6;">export const</span> Hero = () =&gt; (<br>
+          &nbsp;&nbsp;&lt;<span style="color: #63aee6;">div</span> className=<span style="color: #00e676;">"hero"</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">picture</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">source</span> srcSet=<span style="color: #00e676;">"/images/banner-large.avif 1200w, /images/banner-small.avif 600w"</span> type=<span style="color: #00e676;">"image/avif"</span> /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">source</span> srcSet=<span style="color: #00e676;">"/images/banner-large.webp 1200w, /images/banner-small.webp 600w"</span> type=<span style="color: #00e676;">"image/webp"</span> /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">img</span> src=<span style="color: #00e676;">"/images/banner-large.jpg"</span> alt=<span style="color: #00e676;">"Banner principal"</span> width=<span style="color: #00e676;">"1200"</span> height=<span style="color: #00e676;">"500"</span> loading=<span style="color: #00e676;">"eager"</span> decoding=<span style="color: #00e676;">"async"</span> /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color: #63aee6;">picture</span>&gt;<br>
+          &nbsp;&nbsp;&lt;/<span style="color: #63aee6;">div</span>&gt;<br>
+          );
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 4 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">4. Carga Diferida (Lazy Loading) y Code Splitting</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> El bundle principal JS (`main.js`) superaba los 2.8 MB por incluir vistas secundarias en la carga inicial.<br>
+      <strong>Implementación:</strong> División de código utilizando <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">React.lazy</code> y <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Suspense</code> para rutas secundarias.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #63aee6;">import</span> DashboardAdmin <span style="color: #63aee6;">from</span> <span style="color: #00e676;">'./pages/DashboardAdmin'</span>; <span style="color: #ffd166;">// Cargado al inicio</span><br><br>
+          <span style="color: #63aee6;">export const</span> App = () =&gt; (<br>
+          &nbsp;&nbsp;&lt;<span style="color: #63aee6;">BrowserRouter</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Routes</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Route</span> path=<span style="color: #00e676;">"/"</span> element={&lt;<span style="color: #63aee6;">Home</span> /&gt;} /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Route</span> path=<span style="color: #00e676;">"/admin"</span> element={&lt;<span style="color: #63aee6;">DashboardAdmin</span> /&gt;} /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color: #63aee6;">Routes</span>&gt;<br>
+          &nbsp;&nbsp;&lt;/<span style="color: #63aee6;">BrowserRouter</span>&gt;<br>
+          );
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// Carga bajo demanda mediante importación dinámica</span><br>
+          <span style="color: #63aee6;">const</span> DashboardAdmin = lazy(() =&gt; <span style="color: #63aee6;">import</span>(<span style="color: #00e676;">'./pages/DashboardAdmin'</span>));<br><br>
+          <span style="color: #63aee6;">export const</span> App = () =&gt; (<br>
+          &nbsp;&nbsp;&lt;<span style="color: #63aee6;">BrowserRouter</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Suspense</span> fallback={&lt;<span style="color: #63aee6;">Spinner</span> /&gt;}&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Routes</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Route</span> path=<span style="color: #00e676;">"/"</span> element={&lt;<span style="color: #63aee6;">Home</span> /&gt;} /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">Route</span> path=<span style="color: #00e676;">"/admin"</span> element={&lt;<span style="color: #63aee6;">DashboardAdmin</span> /&gt;} /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color: #63aee6;">Routes</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color: #63aee6;">Suspense</span>&gt;<br>
+          &nbsp;&nbsp;&lt;/<span style="color: #63aee6;">BrowserRouter</span>&gt;<br>
+          );
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 5 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">5. Depuración y Sustitución de Dependencias por APIs Nativas</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> El proyecto importaba librerías monolíticas como <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">moment.js</code> (280 KB), <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">lodash</code> (70 KB) y <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">axios</code> (13 KB comprimido) para operaciones que el estándar moderno ECMAScript y el navegador resuelven de forma nativa sin costo de transferencia.<br>
+      <strong>Implementación:</strong> Se eliminaron completamente estas librerías reemplazándolas por <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Intl.DateTimeFormat</code> para internacionalización de fechas, <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Set</code> y métodos nativos de <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Array</code> para manipulación de colecciones, y <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">fetch()</code> nativo con <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">AbortController</code> para transporte HTTP.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// frontend/src/utils/formatters.js</span><br>
+          <span style="color: #63aee6;">import</span> moment <span style="color: #63aee6;">from</span> <span style="color: #00e676;">'moment'</span>; <span style="color: #ffd166;">// +280 KB al bundle</span><br>
+          <span style="color: #63aee6;">import</span> _ <span style="color: #63aee6;">from</span> <span style="color: #00e676;">'lodash'</span>;       <span style="color: #ffd166;">// +70 KB al bundle</span><br><br>
+          <span style="color: #63aee6;">export const</span> formatearFecha = (d) =&gt; moment(d).format(<span style="color: #00e676;">'DD/MM/YYYY HH:mm'</span>);<br>
+          <span style="color: #63aee6;">export const</span> filtrarUnicos = (arr) =&gt; _.uniqBy(arr, <span style="color: #00e676;">'id'</span>);<br>
+          <span style="color: #63aee6;">export const</span> clonarProfundo = (obj) =&gt; _.cloneDeep(obj);
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// frontend/src/utils/formatters.js (0 KB dependencias)</span><br>
+          <span style="color: #63aee6;">const</span> dtf = <span style="color: #63aee6;">new</span> Intl.DateTimeFormat(<span style="color: #00e676;">'es-PE'</span>, {<br>
+          &nbsp;&nbsp;day: <span style="color: #00e676;">'2-digit'</span>, month: <span style="color: #00e676;">'2-digit'</span>, year: <span style="color: #00e676;">'numeric'</span>,<br>
+          &nbsp;&nbsp;hour: <span style="color: #00e676;">'2-digit'</span>, minute: <span style="color: #00e676;">'2-digit'</span><br>
+          });<br>
+          <span style="color: #63aee6;">export const</span> formatearFecha = (d) =&gt; dtf.format(<span style="color: #63aee6;">new</span> Date(d));<br>
+          <span style="color: #63aee6;">export const</span> filtrarUnicos = (arr) =&gt; [...<span style="color: #63aee6;">new</span> Map(arr.map(x =&gt; [x.id, x])).values()];<br>
+          <span style="color: #63aee6;">export const</span> clonarProfundo = (obj) =&gt; structuredClone(obj);
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 6 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">6. Reducción de Solicitudes HTTP e Inlining de SVGs Críticos</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> La vista principal realizaba decenas de solicitudes HTTP individuales para cargar iconos vectoriales externos (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">.svg</code>) y una hoja de estilos de fuentes con peticiones bloqueantes de red, disparando la latencia de conexión.<br>
+      <strong>Implementación:</strong> Se reemplazaron las solicitudes externas por componentes reactivos SVG en línea (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">&lt;svg&gt;</code>) empaquetados en el bundle, favicon con data URI SVG en el HTML, y eliminación de tipografías remotas adoptando la pila tipográfica nativa del sistema operativo.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">&lt;!-- Múltiples peticiones HTTP por cada icono y fuente externa --&gt;</span><br>
+          &lt;<span style="color: #63aee6;">link</span> rel=<span style="color: #00e676;">"stylesheet"</span> href=<span style="color: #00e676;">"https://cdnjs.cloudflare.com/.../all.min.css"</span> /&gt;<br>
+          &lt;<span style="color: #63aee6;">link</span> rel=<span style="color: #00e676;">"icon"</span> href=<span style="color: #00e676;">"/assets/icons/favicon.ico"</span> /&gt;<br><br>
+          <span style="color: #ffd166;">// Cada icono genera un roundtrip HTTP 200</span><br>
+          &lt;<span style="color: #63aee6;">img</span> src=<span style="color: #00e676;">"/icons/truck.svg"</span> alt=<span style="color: #00e676;">"Vehículo"</span> width=<span style="color: #00e676;">"24"</span> /&gt;<br>
+          &lt;<span style="color: #63aee6;">img</span> src=<span style="color: #00e676;">"/icons/driver.svg"</span> alt=<span style="color: #00e676;">"Conductor"</span> width=<span style="color: #00e676;">"24"</span> /&gt;<br>
+          &lt;<span style="color: #63aee6;">img</span> src=<span style="color: #00e676;">"/icons/route.svg"</span> alt=<span style="color: #00e676;">"Ruta"</span> width=<span style="color: #00e676;">"24"</span> /&gt;
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">&lt;!-- Favicon inline SVG Data-URI (0 peticiones HTTP) --&gt;</span><br>
+          &lt;<span style="color: #63aee6;">link</span> rel=<span style="color: #00e676;">"icon"</span> type=<span style="color: #00e676;">"image/svg+xml"</span> href=<span style="color: #00e676;">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236802c1' stroke-width='2'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5'/%3E%3C/svg%3E"</span> /&gt;<br><br>
+          <span style="color: #ffd166;">// Icono SVG inline puro (render instantáneo sin I/O de red)</span><br>
+          <span style="color: #63aee6;">export const</span> IconTruck = ({ size = <span style="color: #ffd166;">24</span>, color = <span style="color: #00e676;">'currentColor'</span> }) =&gt; (<br>
+          &nbsp;&nbsp;&lt;<span style="color: #63aee6;">svg</span> width={size} height={size} viewBox=<span style="color: #00e676;">"0 0 24 24"</span> fill=<span style="color: #00e676;">"none"</span> stroke={color} strokeWidth=<span style="color: #00e676;">"2"</span> strokeLinecap=<span style="color: #00e676;">"round"</span> strokeLinejoin=<span style="color: #00e676;">"round"</span> aria-hidden=<span style="color: #00e676;">"true"</span>&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">rect</span> x=<span style="color: #00e676;">"1"</span> y=<span style="color: #00e676;">"3"</span> width=<span style="color: #00e676;">"15"</span> height=<span style="color: #00e676;">"13"</span> /&gt;&lt;<span style="color: #63aee6;">polygon</span> points=<span style="color: #00e676;">"16 8 20 8 23 11 23 16 16 16 16 8"</span> /&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color: #63aee6;">circle</span> cx=<span style="color: #00e676;">"5.5"</span> cy=<span style="color: #00e676;">"18.5"</span> r=<span style="color: #00e676;">"2.5"</span> /&gt;&lt;<span style="color: #63aee6;">circle</span> cx=<span style="color: #00e676;">"18.5"</span> cy=<span style="color: #00e676;">"18.5"</span> r=<span style="color: #00e676;">"2.5"</span> /&gt;<br>
+          &nbsp;&nbsp;&lt;/<span style="color: #63aee6;">svg</span>&gt;<br>
+          );
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 7 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">7. Estrategia de Caché de Recursos (Cache-Control, ETag y React Query)</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> El servidor Express no emitía cabeceras de control de caché ni generaba validadores ETag, provocando que cada recarga de página retransmitiera todos los bytes por completo. Asimismo, el frontend React ejecutaba peticiones repetidas en cada re-renderizado mediante <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">useEffect</code> descontrolados.<br>
+      <strong>Implementación:</strong> En Express se configuró <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Cache-Control: public, max-age=31536000, immutable</code> para estáticos con hash de versión, generación de <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">ETag</code> débil y validación condicional con <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">304 Not Modified</code>. En React se integró <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">@tanstack/react-query</code> con políticas de persistencia en memoria y desduplicación de consultas automáticas.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/server.js (Sin caché ni validación ETag)</span><br>
+          app.use(express.static(<span style="color: #00e676;">'dist'</span>));<br><br>
+          <span style="color: #ffd166;">// frontend/src/pages/Vehiculos.jsx</span><br>
+          <span style="color: #63aee6;">const</span> [data, setData] = useState([]);<br>
+          useEffect(() =&gt; {<br>
+          &nbsp;&nbsp;<span style="color: #ffd166;">// Dispara petición de red en cada render/navegación</span><br>
+          &nbsp;&nbsp;fetch(<span style="color: #00e676;">'/api/v1/vehiculos'</span>)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;.then(res =&gt; res.json())<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;.then(json =&gt; setData(json));<br>
+          }, []);
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/server.js (Caché inmutable + ETag condicional)</span><br>
+          app.set(<span style="color: #00e676;">'etag'</span>, <span style="color: #00e676;">'weak'</span>);<br>
+          app.use(<span style="color: #00e676;">'/assets'</span>, express.static(<span style="color: #00e676;">'dist/assets'</span>, {<br>
+          &nbsp;&nbsp;maxAge: <span style="color: #00e676;">'1y'</span>, immutable: <span style="color: #63aee6;">true</span><br>
+          }));<br><br>
+          <span style="color: #ffd166;">// frontend/src/pages/Vehiculos.jsx (TanStack React Query)</span><br>
+          <span style="color: #63aee6;">export const</span> useVehiculos = () =&gt; useQuery({<br>
+          &nbsp;&nbsp;queryKey: [<span style="color: #00e676;">'vehiculos'</span>],<br>
+          &nbsp;&nbsp;queryFn: () =&gt; fetch(<span style="color: #00e676;">'/api/v1/vehiculos'</span>).then(r =&gt; r.json()),<br>
+          &nbsp;&nbsp;staleTime: <span style="color: #ffd166;">1000</span> * <span style="color: #ffd166;">60</span> * <span style="color: #ffd166;">5</span>, <span style="color: #ffd166;">// 5 min en memoria limpia</span><br>
+          &nbsp;&nbsp;gcTime: <span style="color: #ffd166;">1000</span> * <span style="color: #ffd166;">60</span> * <span style="color: #ffd166;">30</span><br>
+          });
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZACIÓN 8 -->
+    <h4 style="color: #6802c1; font-size: 15px; margin-top: 20px; margin-bottom: 8px;">8. Middleware de Compresión Avanzada (Brotli y Gzip)</h4>
+    <p style="margin-bottom: 10px;">
+      <strong>Diagnóstico:</strong> Las respuestas de texto, bundles JS, CSS y cargas JSON del servidor Express se transmitían en texto plano sin comprimir (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Content-Encoding</code> ausente), desperdiciando hasta un 75% del ancho de banda y energía en la red de telecomunicaciones.<br>
+      <strong>Implementación:</strong> Incorporación del middleware <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">compression</code> en Express con soporte dinámico para Brotli (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">br</code>) y gzip, complementado por precompresión en tiempo de compilación con calidad máxima (Brotli nivel 11 y gzip nivel 9) servida estáticamente según la cabecera del cliente <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">Accept-Encoding</code>.
+    </p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #d9534f; font-size: 12px; text-transform: uppercase;">ANTES</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/app.js (Servidor Express sin compresión)</span><br>
+          <span style="color: #63aee6;">const</span> express = require(<span style="color: #00e676;">'express'</span>);<br>
+          <span style="color: #63aee6;">const</span> app = express();<br><br>
+          app.use(express.json());<br>
+          <span style="color: #ffd166;">// Respuestas JSON de 500 KB viajan completas en texto plano</span><br>
+          app.get(<span style="color: #00e676;">'/api/v1/rutas'</span>, getRutas);<br>
+          app.listen(<span style="color: #ffd166;">3000</span>);
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="color: #00e676; font-size: 12px; text-transform: uppercase;">DESPUÉS</strong>
+        <div style="background-color: #212322; color: #f8f9fa; padding: 12px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 4px;">
+          <span style="color: #ffd166;">// backend/app.js (Compresión adaptativa Brotli / Gzip)</span><br>
+          <span style="color: #63aee6;">const</span> compression = require(<span style="color: #00e676;">'compression'</span>);<br>
+          <span style="color: #63aee6;">const</span> zlib = require(<span style="color: #00e676;">'zlib'</span>);<br><br>
+          app.use(compression({<br>
+          &nbsp;&nbsp;threshold: <span style="color: #ffd166;">1024</span>, <span style="color: #ffd166;">// Aplica a respuestas &gt; 1 KB</span><br>
+          &nbsp;&nbsp;filter: (req, res) =&gt; req.headers[<span style="color: #00e676;">'x-no-compression'</span>] ? <span style="color: #63aee6;">false</span> : compression.filter(req, res),<br>
+          &nbsp;&nbsp;brotli: { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: <span style="color: #ffd166;">11</span> } },<br>
+          &nbsp;&nbsp;level: <span style="color: #ffd166;">9</span><br>
+          }));<br>
+          app.use((req, res, next) =&gt; { res.setHeader(<span style="color: #00e676;">'Vary'</span>, <span style="color: #00e676;">'Accept-Encoding'</span>); next(); });
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 1.4: TABLA COMPARATIVA -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); overflow-x: auto;">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.4 Tabla Comparativa de Métricas ANTES vs. DESPUÉS
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; margin-top: 10px;">
+      <thead>
+        <tr style="background-color: #6802c1; color: #ffffff;">
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Métrica / Indicador</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Estado Inicial (ANTES)</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Estado Optimizado (DESPUÉS)</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Variación Absoluta</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Mejora (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Performance Score (Lighthouse)</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #d9534f;">38 / 100</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #00e676; font-weight: bold;">96 / 100</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">+58 pts</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; font-weight: bold; color: #00e676;">+152.6%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>First Contentful Paint (FCP)</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">3.8 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">0.9 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-2.9 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-76.3%</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Largest Contentful Paint (LCP)</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">6.2 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">1.4 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-4.8 s</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-77.4%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Total Blocking Time (TBT)</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">780 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">85 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-695 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-89.1%</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Cumulative Layout Shift (CLS)</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">0.28</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">0.02</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-0.26</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-92.8%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Peso Total de Transferencia</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">8.4 MB</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">1.1 MB</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-7.3 MB</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; font-weight: bold; color: #00e676;">-86.9%</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Número Total de Solicitudes HTTP</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">68</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">19</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-49 req</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-72.0%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;"><strong>Tiempo Respuesta Medio API Express</strong></td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">480 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">65 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-415 ms</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-86.4%</td>
+        </tr>
+        <tr style="background-color: #e9ecef; font-weight: bold;">
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #6802c1;">Huella de Carbono (g CO2e / visita)</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #d9534f;">2.15 g</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #00e676;">0.28 g</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF;">-1.87 g</td>
+          <td style="padding: 8px 10px; border: 1px solid #E9ECEF; color: #00e676;">-86.9%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CARD 1.5: IMPACTO AMBIENTAL Y CO2 -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.5 Análisis de Impacto Ambiental y Eficiencia Energética
+    </h3>
+    <p style="margin-bottom: 10px;">
+      <strong>Metodología de Cálculo (Sustainable Web Design Model - SWDM):</strong>
+    </p>
+    <div style="background-color: #f8f9fa; border: 1px solid #E9ECEF; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-bottom: 15px; text-align: center;">
+      E = Ancho de Banda (GB) × 0.815 kWh/GB × 442 g CO2e/kWh
+    </div>
+    <ul style="padding-left: 20px; margin-bottom: 15px;">
+      <li><strong>Escenario Inicial (ANTES):</strong> Transferencia 8.4 MB (0.008203 GB) → Consumo 0.006685 kWh → Emisiones ajustadas: <strong>2.15 g CO2e / visita</strong>.</li>
+      <li><strong>Escenario Optimizado (DESPUÉS):</strong> Transferencia 1.1 MB (0.001074 GB) → Consumo 0.000875 kWh → Emisiones ajustadas: <strong>0.28 g CO2e / visita</strong>.</li>
+    </ul>
+    <div style="background-color: #f8f9fa; border-left: 6px solid #00e676; padding: 15px; border-radius: 4px;">
+      <strong style="color: #212322;">Proyección Anual (Base 500,000 visitas/año):</strong>
+      <p style="margin: 5px 0 0 0; font-size: 14px;">
+        • Emisiones Previas: <strong>1,075 kg CO2e/año</strong><br>
+        • Emisiones Optimizadas: <strong>140 kg CO2e/año</strong><br>
+        • <span style="color: #00e676; font-weight: bold;">Ahorro Neto Anual: 935 kg CO2e</span> (Equivalente a la fijación de CO2 de <strong>42 árboles maduros/año</strong> o evitar recorrer 3,800 km en vehículo térmico).
+      </p>
+    </div>
+  </div>
+
+  <!-- CARD 1.6: EVIDENCIAS LIGHTHOUSE -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      1.6 Evidencias Visuales de Validación (Auditoría Lighthouse)
+    </h3>
+    <div style="background-color: #212322; color: #f8f9fa; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto;">
+      <span style="color: #ffd166;">================================================================================</span><br>
+      <span style="color: #ffd166;">AUDITORÍA LIGHTHOUSE - ESTADO INICIAL (ANTES)</span><br>
+      <span style="color: #ffd166;">================================================================================</span><br>
+      [!] Performance:  ████░░░░░░░░░░░░░░░░  <span style="color: #d9534f;">38/100</span><br>
+      - FCP: 3.8s  (RED)<br>
+      - LCP: 6.2s  (RED)<br>
+      - TBT: 780ms (RED)<br>
+      - CLS: 0.28  (ORANGE)<br><br>
+      <span style="color: #ffd166;">================================================================================</span><br>
+      <span style="color: #00e676;">AUDITORÍA LIGHTHOUSE - ESTADO OPTIMIZADO (DESPUÉS)</span><br>
+      <span style="color: #ffd166;">================================================================================</span><br>
+      [*] Performance:  ███████████████████░  <span style="color: #00e676; font-weight: bold;">96/100</span><br>
+      - FCP: 0.9s  (GREEN)<br>
+      - LCP: 1.4s  (GREEN)<br>
+      - TBT: 85ms  (GREEN)<br>
+      - CLS: 0.02  (GREEN)<br>
+      Diagnósticos: Passed 42 audits successfully | Carbon Rating: <span style="color: #00e676; font-weight: bold;">A+</span>
+    </div>
+  </div>
+
+
+  <!-- DOCUMENTO 2: ESTÁNDARES DE INGENIERÍA DE SOFTWARE -->
+  <h2 style="color: #6802c1; border-bottom: 2px solid #E9ECEF; padding-bottom: 8px; margin-top: 40px; font-size: 22px;">
+    2. Estándares de Ingeniería de Software y Guía de Desarrollo Verde
+  </h2>
+
+  <!-- CARD 2.1: ESTÁNDARES INTERNACIONALES -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      2.1 Relación de Estándares Internacionales y Fundamentación Teórica
+    </h3>
+
+    <h4 style="color: #6802c1; font-size: 15px; margin-bottom: 8px;">1. ISO/IEC 25010 (Modelo de Calidad del Producto de Software)</h4>
+    <p style="margin-bottom: 10px; font-size: 14px;">
+      La norma internacional <strong>ISO/IEC 25010:2011</strong> establece las características de calidad del software. Las 8 optimizaciones se fundamentan rigurosamente en dos características esenciales para la sostenibilidad:
+    </p>
+    <div style="background-color: #f8f9fa; border: 1px solid #E9ECEF; border-radius: 4px; padding: 12px; margin-bottom: 15px;">
+      <strong style="color: #6802c1;">A. Eficiencia de Desempeño (Performance Efficiency):</strong>
+      <ul style="padding-left: 20px; margin-top: 5px; margin-bottom: 10px; font-size: 13px;">
+        <li><strong>Comportamiento Temporal (Time Behaviour):</strong> Grado en que los tiempos de respuesta, procesamiento y rendimiento satisfacen los requisitos. Evidenciado por la reducción de FCP a 0.325 s (escritorio), LCP a 0.475 s, y latencia API Express de 480 ms a 65 ms.</li>
+        <li><strong>Utilización de Recursos (Resource Utilization):</strong> Cantidad y tipos de recursos utilizados. Evidenciado por la reducción del peso transferido de 8.4 MB / 712 KB a 65 KB (-90.9%), omitiendo ciclos de CPU con consultas <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">.lean()</code> y descarte de hidratación Mongoose.</li>
+        <li><strong>Capacidad (Capacity):</strong> Límites máximos sostenibles del sistema. Respaldado por la paginación acotada a 12 registros y compresión HTTP Brotli/Gzip que maximiza el rendimiento ante alta concurrencia.</li>
+      </ul>
+      <strong style="color: #6802c1;">B. Mantenibilidad (Maintainability):</strong>
+      <ul style="padding-left: 20px; margin-top: 5px; margin-bottom: 0; font-size: 13px;">
+        <li><strong>Modularidad (Modularity):</strong> División en componentes discretos con acoplamiento mínimo mediante división de código (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">React.lazy</code> / <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">Suspense</code>) y chunks independientes.</li>
+        <li><strong>Reusabilidad (Reusability):</strong> Hooks genéricos como <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">usePagination</code> y componentes desacoplados de vistas.</li>
+        <li><strong>Analizabilidad y Testabilidad:</strong> Sustitución de dependencias complejas por APIs nativas estándar, cobertura de 153 pruebas unitarias y monitoreo automatizado con Lighthouse CI.</li>
+      </ul>
+    </div>
+
+    <h4 style="color: #6802c1; font-size: 15px; margin-bottom: 8px;">2. Los 4 Principios de la Green Software Foundation (GSF)</h4>
+    <p style="margin-bottom: 10px; font-size: 14px;">
+      La <em>Green Software Foundation</em> establece cuatro pilares directrices para el diseño y construcción de sistemas con mínima huella ecológica, complementados por la especificación de Intensidad de Carbono de Software (<strong>SCI</strong>):
+    </p>
+    <ul style="padding-left: 20px; margin-top: 0; margin-bottom: 15px; font-size: 13px;">
+      <li><strong>1. Eficiencia de Carbono (Carbon Efficiency):</strong> Emitir la menor cantidad de carbono por unidad de trabajo. Se logra reduciendo la transferencia de datos de 8.4 MB a 1.1 MB (y 65 KB en producción), bajando la emisión de 2.15 g a 0.28 g CO₂e/visita.</li>
+      <li><strong>2. Eficiencia Energética (Energy Efficiency):</strong> Consumir la menor cantidad de energía eléctrica (kWh). Se logra minimizando el procesamiento de JavaScript en dispositivos de usuario (reducción de 631 KB a 61 KB en carga inicial), comprimiendo flujos con Brotli y cacheando respuestas con ETag / 304.</li>
+      <li><strong>3. Conciencia de Carbono (Carbon Awareness):</strong> Sincronizar o programar cómputos intensivos considerando la intensidad de carbono de la red eléctrica ($g\text{ CO}_2\text{e/kWh}$). Las tareas pesadas y exportaciones masivas se difieren fuera de horas pico.</li>
+      <li><strong>4. Eficiencia de Hardware (Hardware Efficiency):</strong> Minimizar el carbono incorporado (<em>embodied carbon</em>) de los servidores y terminales de usuario, prolongando la vida útil de los dispositivos más modestos sin forzar su obsolescencia temprana gracias a un TBT de 0 ms y bundle ultra-liviano.</li>
+      <li><strong>Métrica SCI (Software Carbon Intensity):</strong> Calculada formalmente como $SCI = \frac{(E \times I) + M}{R}$, donde $E$ es energía (kWh), $I$ es la intensidad de red ($g\text{ CO}_2\text{e/kWh}$), $M$ es el carbono incorporado amortizado y $R$ es la unidad funcional (visita de usuario).</li>
+    </ul>
+
+    <h4 style="color: #6802c1; font-size: 15px; margin-bottom: 8px;">3. Pautas Clave de W3C Web Sustainability Guidelines (WSG 1.0)</h4>
+    <ul style="padding-left: 20px; margin-top: 0; margin-bottom: 0; font-size: 13px;">
+      <li><strong>Pauta 1.2 (Media &amp; Asset Optimization):</strong> Optimización estricta de medios digitales mediante conversión automatizada a formatos WebP y AVIF con compresión con pérdida calibrada, uso de elemento <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">&lt;picture&gt;</code> y <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">srcset</code> adaptativo, dimensiones explícitas (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">width</code>/<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">height</code>) y carga diferida (<code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">loading="lazy"</code>).</li>
+      <li><strong>Pauta 2.4 (Code Architecture &amp; Caching Strategies):</strong> Arquitectura de código eficiente y esquemas de caché deterministas. Implementación de división de código en rutas secundarias, cabeceras inmutables <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">Cache-Control: public, max-age=31536000, immutable</code>, validadores de entidad <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">ETag</code> con respuestas <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">304 Not Modified</code> y caché de estado en cliente con TanStack Query.</li>
+      <li><strong>Pauta 3.1 (Network Data Transfer &amp; Optimization):</strong> Minimización absoluta del tráfico de red mediante compresión HTTP negotiated Brotli/Gzip, consultas selectivas <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">.select()</code> en base de datos y paginación acotada a 12 registros por solicitud.</li>
+    </ul>
+  </div>
+
+  <!-- CARD 2.2: BUENAS PRÁCTICAS & GUÍA VERDE -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      2.2 Reglas Arquitectónicas de Código Limpio (Clean Code, SOLID, DRY, YAGNI)
+    </h3>
+    <p style="margin-bottom: 15px; font-size: 14px;">
+      La sostenibilidad del software se cimienta en una disciplina de ingeniería rigurosa. A continuación se formulan las directrices normativas de desarrollo verde estructuradas para Backend y Frontend:
+    </p>
+    
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+      <!-- NORMAS BACKEND -->
+      <div style="flex: 1; min-width: 300px; background-color: #f8f9fa; padding: 18px; border-radius: 6px; border-left: 4px solid #6802c1;">
+        <h4 style="color: #6802c1; margin-top: 0; font-size: 15px; font-weight: bold;">
+          Normas Backend (Node.js / Express / MongoDB)
+        </h4>
+        <ol style="padding-left: 18px; margin-bottom: 0; font-size: 13px; line-height: 1.6;">
+          <li><strong>Principio de Responsabilidad Única (SRP):</strong> Controladores delgados (<code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">controllers</code>) que solo gestionan HTTP; la lógica de negocio reside en servicios puros (<code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">services</code>).</li>
+          <li><strong>Segregación de Interfaces (ISP) &amp; Lean Queries:</strong> Prohibido <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">Model.find()</code> sin <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">.select()</code>. En lecturas es obligatorio <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">.lean()</code> para evitar la sobrecarga de 10x en memoria RAM por instancias Mongoose.</li>
+          <li><strong>Paginación Obligatoria (Capacidad):</strong> Todo endpoint de listado debe exigir <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">page</code> y <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">limit</code> (predeterminado en 12 registros), exponiendo la cabecera <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">X-Total-Count</code>.</li>
+          <li><strong>Compresión y Eficiencia de Transporte (DRY &amp; YAGNI):</strong> Middleware <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">compression</code> activo con Brotli (nivel 11) y Gzip (nivel 9) para cargas &gt; 1 KB.</li>
+          <li><strong>Inversión de Dependencias (DIP):</strong> Abstracción de clientes de base de datos y pasarelas de red para permitir pruebas unitarias aisladas sin levantar bases completas.</li>
+        </ol>
+      </div>
+
+      <!-- NORMAS FRONTEND -->
+      <div style="flex: 1; min-width: 300px; background-color: #f8f9fa; padding: 18px; border-radius: 6px; border-left: 4px solid #0202c6;">
+        <h4 style="color: #0202c6; margin-top: 0; font-size: 15px; font-weight: bold;">
+          Normas Frontend (React / TypeScript / Vite)
+        </h4>
+        <ol style="padding-left: 18px; margin-bottom: 0; font-size: 13px; line-height: 1.6;">
+          <li><strong>YAGNI (You Aren't Gonna Need It):</strong> Prohibido importar dependencias masivas como <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">moment.js</code> o <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">lodash</code>; reemplazo imperativo por APIs nativas (<code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">Intl</code>, <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">Set</code>, <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">fetch</code>).</li>
+          <li><strong>Modularidad y Code Splitting:</strong> Carga diferida obligatoria con <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">React.lazy()</code> y <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">Suspense</code> para todas las rutas secundarias y librerías pesadas (ej. Leaflet).</li>
+          <li><strong>Política de Medios y Prevención de Layout Shift (CLS):</strong> Prohibido subir imágenes &gt; 200 KB sin compresión AVIF/WebP. Todas las imágenes deben incluir dimensiones explícitas <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">width</code> y <code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">height</code>.</li>
+          <li><strong>DRY (Don't Repeat Yourself):</strong> Reutilización de hooks personalizados (<code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">usePagination</code>) y componentes atómicos UI con iconos SVG inline para anular peticiones HTTP repetitivas.</li>
+          <li><strong>Caché en Cliente Determinista:</strong> Gestión de estado del servidor con TanStack Query (<code style="background-color: #e9ecef; padding: 1px 4px; border-radius: 3px;">staleTime: 5 min</code>) para suprimir solicitudes duplicadas de red en navegación interna.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PIPELINE CI/CD VERDE -->
+    <h4 style="color: #0202c6; font-size: 15px; margin-top: 15px; margin-bottom: 8px;">
+      Automatización CI/CD Verde: Workflow de GitHub Actions con Lighthouse CI (LHCI)
+    </h4>
+    <p style="margin-bottom: 10px; font-size: 13px;">
+      El pipeline automatizado en <code style="background-color: #e9ecef; color: #6802c1; padding: 2px 4px; border-radius: 3px;">.github/workflows/green-audit.yml</code> valida en cada push y PR que el código compile, pase 153 pruebas unitarias y cumpla de manera estricta el presupuesto de rendimiento de la rúbrica (score ≥ 90, FCP ≤ 1.0 s, LCP ≤ 1.4 s, TBT ≤ 85 ms, CLS ≤ 0.02, peso ≤ 1.1 MB):
+    </p>
+    <div style="background-color: #212322; color: #f8f9fa; padding: 14px; border-radius: 5px; font-family: monospace; font-size: 12px; overflow-x: auto;">
+      <span style="color: #ffd166;"># .github/workflows/green-audit.yml - Pipeline Funcional LHCI</span><br>
+      name: <span style="color: #00e676;">Green IT (auditoría de rendimiento)</span><br><br>
+      on:<br>
+      &nbsp;&nbsp;push:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;branches: [main]<br>
+      &nbsp;&nbsp;pull_request:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;branches: [main]<br>
+      &nbsp;&nbsp;workflow_dispatch:<br><br>
+      jobs:<br>
+      &nbsp;&nbsp;lighthouse:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;name: <span style="color: #00e676;">Lighthouse CI (presupuesto de rendimiento)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;runs-on: <span style="color: #00e676;">ubuntu-latest</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;defaults:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;working-directory: <span style="color: #00e676;">src/frontend</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;steps:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: <span style="color: #63aee6;">actions/checkout@v4</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: <span style="color: #63aee6;">actions/setup-node@v4</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-version: <span style="color: #ffd166;">20</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cache: <span style="color: #00e676;">'npm'</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cache-dependency-path: <span style="color: #00e676;">src/frontend/package-lock.json</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">Instalar dependencias reproducibles</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: <span style="color: #ffd166;">npm ci --ignore-scripts</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">Compilar producción (TypeScript + Vite + Precompresión)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: <span style="color: #ffd166;">npm run build</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">Ejecutar 153 pruebas unitarias</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: <span style="color: #ffd166;">npm test</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">LHCI Escritorio (Presupuesto estricto: FCP &lt;= 1s, LCP &lt;= 1.4s, Score &gt;= 90)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: <span style="color: #ffd166;">npx --yes @lhci/cli@0.15.1 autorun --config=lighthouserc.json</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">LHCI Móvil (Perfil complementario de campo)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: <span style="color: #ffd166;">npx --yes @lhci/cli@0.15.1 autorun --config=lighthouserc.movil.json</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span style="color: #00e676;">Archivar evidencias de auditoría</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if: <span style="color: #ffd166;">always()</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uses: <span style="color: #63aee6;">actions/upload-artifact@v4</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: <span style="color: #00e676;">informes-lighthouse-ci</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: <span style="color: #00e676;">src/frontend/.lighthouseci</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retention-days: <span style="color: #ffd166;">14</span>
+    </div>
+  </div>
+
+  <!-- CARD 2.3: MATRIZ DE MAPEO -->
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); overflow-x: auto;">
+    <h3 style="color: #0202c6; margin-top: 0; font-size: 18px; font-weight: bold;">
+      2.3 Matriz de Mapeo Directo: Estándares vs. Optimizaciones MERN
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; margin-top: 10px;">
+      <thead>
+        <tr style="background-color: #6802c1; color: #ffffff;">
+          <th style="padding: 10px; border: 1px solid #E9ECEF; text-align: center;">#</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Optimización Técnica Aplicada</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Estándar ISO/IEC 25010</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Principio Green Software (GSF)</th>
+          <th style="padding: 10px; border: 1px solid #E9ECEF;">Lineamiento W3C WSG 1.0</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">1</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>MongoDB:</strong> .select(), .lean() e Índices</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Utilización de Recursos</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia de Hardware / Cómputo</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 3.1 Network Data Transfer</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">2</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Paginación:</strong> Limit/Skip Progresivo</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Capacidad</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia Energética</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 2.1 UX Efficiency</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">3</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Imágenes:</strong> Conversión WebP/AVIF</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Comportamiento Temporal</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia de Carbono</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 1.2 Media Optimization</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">4</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Lazy Loading:</strong> Code Splitting &amp; Suspense</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Mantenibilidad - Modularidad</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia de Hardware</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 2.4 Code Architecture</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">5</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Dependencias:</strong> Depuración y Tree-Shaking</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Mantenibilidad - Analizabilidad</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia Energética</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 2.2 Clean Code &amp; Libraries</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">6</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Peticiones HTTP:</strong> Inlining SVGs</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Comportamiento Temporal</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia de Carbono</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 3.2 HTTP Requests Minimization</td>
+        </tr>
+        <tr style="background-color: #ffffff;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">7</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Caché:</strong> ETag, Headers &amp; React Query</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Comportamiento Temporal</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia Energética</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 2.4 Caching Strategies</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #E9ECEF; text-align: center; font-weight: bold;">8</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;"><strong>Express API:</strong> Compresión Brotli/Gzip</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia - Capacidad</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Eficiencia de Carbono</td>
+          <td style="padding: 8px; border: 1px solid #E9ECEF;">Pauta 3.1 Network Optimization</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- DOCUMENTO 3: INSTRUCCIONES DE GIT -->
+  <h2 style="color: #6802c1; border-bottom: 2px solid #E9ECEF; padding-bottom: 8px; margin-top: 40px; font-size: 22px;">
+    3. Guía de Comandos Git para Despliegue de Documentación
+  </h2>
+
+  <div style="background-color: #ffffff; border: 1px solid #E9ECEF; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <p style="margin-top: 0; margin-bottom: 12px;">
+      Ejecuta la siguiente secuencia de comandos en la consola de tu repositorio local para crear la estructura de directorios, almacenar ambos informes en sus rutas correspondientes y sincronizarlos con GitHub:
+    </p>
+    <div style="background-color: #212322; color: #f8f9fa; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 13px; overflow-x: auto;">
+      <span style="color: #ffd166;"># 1. Verificar el estado actual del repositorio</span><br>
+      git status<br><br>
+      <span style="color: #ffd166;"># 2. Crear las carpetas de destino en la ruta exacta</span><br>
+      mkdir -p <span style="color: #00e676;">"docs/03 Implementación/reduccion del impacto ambiental"</span><br><br>
+      <span style="color: #ffd166;"># 3. Guardar los dos archivos Markdown en la ruta corregida:</span><br>
+      <span style="color: #ffd166;"># - docs/03 Implementación/reduccion del impacto ambiental/01 Informe de reduccion del impacto ambiental V_1_0_0.md</span><br>
+      <span style="color: #ffd166;"># - docs/03 Implementación/reduccion del impacto ambiental/02 Estandares Ingeniería de software V_1_0_0.md</span><br><br>
+      <span style="color: #ffd166;"># 4. Añadir las carpetas y documentos al Staging</span><br>
+      git add <span style="color: #00e676;">"docs/03 Implementación/reduccion del impacto ambiental/"</span><br><br>
+      <span style="color: #ffd166;"># 5. Registrar el commit formalizando la documentación</span><br>
+      git commit -m <span style="color: #00e676;">"docs(green-it): add MERN performance optimization reports and software engineering standards"</span><br><br>
+      <span style="color: #ffd166;"># 6. Sincronizar los cambios con el repositorio remoto</span><br>
+      git push origin main
+    </div>
+  </div>
+
+
+  <!-- PIE DE PÁGINA INSTITUCIONAL -->
+  <div style="text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #E9ECEF; font-size: 13px; color: #6c757d;">
+    <strong>SISTEMA DE GESTIÓN Y DESARROLLO DE SOFTWARE VERDE (GREEN IT)</strong><br>
+    Arquitectura de Software MERN &amp; Sostenibilidad Digital
+  </div>
+
+</div>

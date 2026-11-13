@@ -87,6 +87,23 @@ class FleetService:
         return query.offset(skip).limit(limit).all()
 
     @staticmethod
+    def contar_vehiculos(
+        db: Session,
+        tipo_combustible: Optional[str] = None,
+        estado: Optional[str] = None,
+        restriccion: Optional[str] = None
+    ) -> int:
+        """Total de filas del listado, para la cabecera X-Total-Count de la paginación."""
+        query = db.query(Vehiculo)
+        if tipo_combustible:
+            query = query.filter(Vehiculo.tipo_combustible == tipo_combustible.upper())
+        if estado:
+            query = query.filter(Vehiculo.estado == estado.upper())
+        if restriccion:
+            query = query.filter(Vehiculo.restriccion_circulacion == restriccion.upper())
+        return query.count()
+
+    @staticmethod
     def get_vehiculo_by_id(db: Session, vehiculo_id: UUID) -> Vehiculo:
         """SUB-001-03: Consulta de vehículo por su identificador único UUID."""
         vehiculo = db.query(Vehiculo).filter(Vehiculo.vehiculo_id == vehiculo_id).first()
@@ -221,6 +238,14 @@ class FleetService:
         if estado:
             query = query.filter(Conductor.estado == estado.upper())
         return query.offset(skip).limit(limit).all()
+
+    @staticmethod
+    def contar_conductores(db: Session, estado: Optional[str] = None) -> int:
+        """Total de conductores para la cabecera X-Total-Count."""
+        query = db.query(Conductor)
+        if estado:
+            query = query.filter(Conductor.estado == estado.upper())
+        return query.count()
 
     @staticmethod
     def get_conductor_by_id(db: Session, conductor_id: UUID) -> Conductor:

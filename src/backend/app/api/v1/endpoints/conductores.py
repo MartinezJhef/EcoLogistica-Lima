@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Query, Body
+from fastapi import APIRouter, Depends, status, Query, Body, Response
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from uuid import UUID
@@ -16,12 +16,14 @@ router = APIRouter()
 
 @router.get("/", response_model=List[ConductorResponse], summary="Listar conductores registrados (SUB-002-02)")
 def read_conductores(
+    response: Response,
     skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=500),
+    limit: int = Query(12, ge=1, le=500, description="Límite por página (12 por defecto)"),
     estado: Optional[str] = Query(None, description="Filtrar por estado: DISPONIBLE, EN_RUTA, DESCANSO, INACTIVO"),
     db: Session = Depends(get_db)
 ):
     """Retorna la lista de conductores registrados con opción de filtrado por estado operativo."""
+    response.headers["X-Total-Count"] = str(FleetService.contar_conductores(db, estado))
     return FleetService.get_conductores(db, skip=skip, limit=limit, estado=estado)
 
 @router.get("/{conductor_id}", response_model=ConductorResponse, summary="Obtener conductor por ID (SUB-002-02)")

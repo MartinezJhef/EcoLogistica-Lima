@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Query, Path
+from fastapi import APIRouter, Depends, status, Query, Path, Response
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from uuid import UUID
@@ -15,13 +15,17 @@ router = APIRouter()
     description="Permite consultar la flota vehicular con paginación y filtros opcionales por propulsión, estado o restricción."
 )
 def read_vehiculos(
+    response: Response,
     skip: int = Query(0, ge=0, description="Número de registros a omitir para paginación"),
-    limit: int = Query(100, ge=1, le=500, description="Límite máximo de resultados por página"),
+    limit: int = Query(12, ge=1, le=500, description="Límite máximo de resultados por página (12 por defecto)"),
     tipo_combustible: Optional[str] = Query(None, description="Filtrar por propulsión: ELECTRICO, GNV, HIBRIDO, DIESEL"),
     estado: Optional[str] = Query(None, description="Filtrar por estado: DISPONIBLE, EN_RUTA, MANTENIMIENTO, INACTIVO"),
     restriccion: Optional[str] = Query(None, description="Filtrar por restricción: LIBRE_CIRCULACION, RESTRINGIDO_CENTRO_HISTORICO, etc."),
     db: Session = Depends(get_db)
 ):
+    response.headers["X-Total-Count"] = str(
+        FleetService.contar_vehiculos(db, tipo_combustible, estado, restriccion)
+    )
     return FleetService.get_vehiculos(
         db,
         skip=skip,

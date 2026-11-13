@@ -25,6 +25,23 @@ class ClienteService:
         return query.order_by(Cliente.razon_social.asc()).offset(skip).limit(limit).all()
 
     @staticmethod
+    def contar_clientes(
+        db: Session,
+        tipo_comercio: Optional[str] = None,
+        estado: Optional[str] = None,
+        distrito: Optional[str] = None
+    ) -> int:
+        """Total de clientes que cumplen los filtros, para X-Total-Count."""
+        query = db.query(Cliente)
+        if tipo_comercio and tipo_comercio != "TODOS":
+            query = query.filter(Cliente.tipo_comercio == tipo_comercio)
+        if estado and estado != "TODOS":
+            query = query.filter(Cliente.estado == estado)
+        if distrito and distrito != "TODOS":
+            query = query.filter(Cliente.distrito.ilike(f"%{distrito}%"))
+        return query.count()
+
+    @staticmethod
     def get_cliente_by_id(db: Session, cliente_id: UUID) -> Cliente:
         cliente = db.query(Cliente).filter(Cliente.cliente_id == cliente_id).first()
         if not cliente:

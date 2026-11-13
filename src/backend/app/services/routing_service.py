@@ -807,21 +807,44 @@ class RoutingService:
         )
 
     @classmethod
-    def list_rutas(
+    def count_rutas(
         cls,
         db: Session,
         fecha: Optional[date] = None,
         estado: Optional[str] = None
+    ) -> int:
+        """Cuenta el total de rutas registradas para paginación Green IT."""
+        query = db.query(Ruta)
+        if fecha:
+            query = query.filter(Ruta.fecha_operacion == fecha)
+        if estado:
+            query = query.filter(Ruta.estado == estado.upper())
+        return query.count()
+
+    @classmethod
+    def list_rutas(
+        cls,
+        db: Session,
+        skip: int = 0,
+        limit: int = 12,
+        fecha: Optional[date] = None,
+        estado: Optional[str] = None
     ) -> List[RutaDetalleResponse]:
-        """Lista todas las rutas registradas con filtros opcionales."""
+        """Lista las rutas registradas con paginación a 12 registros para Green IT."""
         query = db.query(Ruta)
         if fecha:
             query = query.filter(Ruta.fecha_operacion == fecha)
         if estado:
             query = query.filter(Ruta.estado == estado.upper())
         
-        rutas_db = query.order_by(Ruta.fecha_operacion.desc(), Ruta.creada_en.desc()).all()
+        rutas_db = (
+            query.order_by(Ruta.fecha_operacion.desc(), Ruta.creada_en.desc())
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
         result = []
         for r in rutas_db:
             result.append(cls.get_ruta_by_id(db, r.ruta_id))
         return result
+

@@ -1,0 +1,103 @@
+# Auditoría Green IT · presupuesto de rendimiento con Lighthouse CI (LHCI).
+#
+# Compila el frontend, calcula el peso de la aplicación y ejecuta Lighthouse sobre
+# la pantalla pública (el login, que no exige sesión). Si una métrica supera el
+# umbral de la rúbrica, el Pull Request queda en rojo y la regresión no llega a
+# `main`. Los umbrales viven en `src/frontend/lighthouserc.json` (escritorio, perfil
+# de referencia) y `lighthouserc.movil.json` (complemento: FCP y LCP solo avisan).
+#
+# Los informes se guardan como artefacto del workflow; no se publican en servicios
+# externos.
+name: Green IT (auditoría de rendimiento)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/frontend/**"
+      - ".github/workflows/green-audit.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/frontend/**"
+      - ".github/workflows/green-audit.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: green-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI (presupuesto de rendimiento)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: src/frontend/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci --ignore-scripts
+
+      - name: Compilar (TypeScript + Vite + precompresión Brotli/gzip)
+        run: npm run build
+
+      - name: Peso de la aplicación compilada
+        run: |
+          {
+            echo "### Peso de la aplicación compilada"
+            echo
+            echo "| Archivo | Tamaño (KB) |"
+            echo "|---|---|"
+            find dist -type f -not -name '*.br' -not -name '*.gz' -printf '%s %P\n' \
+              | sort -rn | awk '{ printf "| %s | %.1f |\n", $2, $1 / 1024 }'
+            echo
+            echo "### Precompresión"
+            echo
+            cat dist/precompression-report.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f\"Brotli: {d['brotli_kb']} KB (-{d['brotli_ahorro_pct']} %); gzip: {d['gzip_kb']} KB (-{d['gzip_ahorro_pct']} %)\")"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Pruebas unitarias
+        run: npm test
+
+      - name: LHCI en escritorio (falla si se supera el presupuesto)
+        run: npx --yes @lhci/cli@0.15.1 autorun --config=lighthouserc.json
+
+      - name: LHCI en móvil (FCP y LCP solo avisan)
+        run: npx --yes @lhci/cli@0.15.1 autorun --config=lighthouserc.movil.json
+
+      - name: Resumen de métricas
+        if: always()
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const filas = [];
+            for (const perfil of ["escritorio", "movil"]) {
+              const dir = `.lighthouseci/${perfil}`;
+              if (!fs.existsSync(dir)) continue;
+              for (const f of fs.readdirSync(dir).filter((n) => /\.report\.json$/.test(n))) {
+                const { categories: c, audits: a } = JSON.parse(fs.readFileSync(`${dir}/${f}`, "utf8"));
+                filas.push(`| ${perfil} | ${Math.round(c.performance.score * 100)} | ${Math.round(a["first-contentful-paint"].numericValue)} | ${Math.round(a["largest-contentful-paint"].numericValue)} | ${Math.round(a["total-blocking-time"].numericValue)} | ${a["cumulative-layout-shift"].numericValue.toFixed(3)} | ${Math.round(a["total-byte-weight"].numericValue / 1024)} |`);
+              }
+            }
+            const md = ["### Lighthouse CI (cada ejecución)", "", "| Perfil | Rendimiento | FCP (ms) | LCP (ms) | TBT (ms) | CLS | Peso (KB) |", "|---|---|---|---|---|---|---|", ...filas].join("\n");
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md + "\n");
+          '
+
+      - name: Informes de Lighthouse CI
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informes-lighthouse-ci
+          path: src/frontend/.lighthouseci
+          retention-days: 14

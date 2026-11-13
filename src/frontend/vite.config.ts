@@ -6,6 +6,20 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
 
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    // Los módulos pesados se separan para que el paquete inicial solo traiga el login.
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          mapas: ['leaflet']
+        }
+      }
+    }
+  },
+
   server: {
     port: 5173,
     host: true

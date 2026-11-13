@@ -1,0 +1,62 @@
+{
+  "coeficientes": {
+    "rubrica_kwh_por_gb": 0.815,
+    "rubrica_g_por_kwh": 442.0,
+    "swdm_operativa_kwh_por_gb": {
+      "centro_datos": 0.055,
+      "red": 0.059,
+      "dispositivo": 0.08
+    },
+    "swdm_incorporada_kwh_por_gb": {
+      "centro_datos": 0.012,
+      "red": 0.013,
+      "dispositivo": 0.081
+    },
+    "red_mundial_g_por_kwh": 494.0,
+    "factor_promedio_visita": 0.265
+  },
+  "escenarios": [
+    {
+      "clave": "escritorio_antes",
+      "kb": 712,
+      "rubrica_g_visita": 0.06482,
+      "swdm_g_visita": 0.026667
+    },
+    {
+      "clave": "escritorio_despues",
+      "kb": 65,
+      "rubrica_g_visita": 0.005918,
+      "swdm_g_visita": 0.002434
+    },
+    {
+      "clave": "movil_antes",
+      "kb": 244,
+      "rubrica_g_visita": 0.022213,
+      "swdm_g_visita": 0.009139
+    },
+    {
+      "clave": "movil_despues",
+      "kb": 65,
+      "rubrica_g_visita": 0.005918,
+      "swdm_g_visita": 0.002434
+    }
+  ],
+  "ahorro_escritorio_500k": {
+    "antes_g": 0.0648,
+    "despues_g": 0.0059,
+    "ahorro_g": 0.0589,
+    "reduccion_pct": 90.8708,
+    "ahorro_anual_kg": 29.451,
+    "arboles": 1.3528,
+    "km_auto": 153.3907
+  },
+  "ahorro_movil_500k": {
+    "antes_g": 0.0222,
+    "despues_g": 0.0059,
+    "ahorro_g": 0.0163,
+    "reduccion_pct": 73.3607,
+    "ahorro_anual_kg": 8.148,
+    "arboles": 0.3743,
+    "km_auto": 42.4373
+  }
+}

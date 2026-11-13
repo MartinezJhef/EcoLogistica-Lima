@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Sparkles, Lock, Mail, ArrowRight, ShieldCheck, 
+  Lock, Mail, ArrowRight, ShieldCheck,
   CloudLightning, AlertCircle, Eye, EyeOff 
 } from 'lucide-react';
 import { AuthService } from '../services/auth';
@@ -99,7 +99,27 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
               boxShadow: '0 4px 12px rgba(85, 107, 47, 0.3)',
               marginBottom: '1rem'
             }}>
-              <Sparkles size={28} color="#F5F4EE" />
+              {/* Imagen adaptable: AVIF → WebP → PNG, con densidad 1x y 2x.
+                  El navegador descarga solo una variante (~0.5 a 1.1 KB). */}
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet="/brand/isotipo-56.avif 1x, /brand/isotipo-112.avif 2x"
+                />
+                <source
+                  type="image/webp"
+                  srcSet="/brand/isotipo-56.webp 1x, /brand/isotipo-112.webp 2x"
+                />
+                <img
+                  src="/brand/isotipo-56.png"
+                  srcSet="/brand/isotipo-56.png 1x, /brand/isotipo-112.png 2x"
+                  width={32}
+                  height={32}
+                  alt=""
+                  decoding="async"
+                  style={{ display: 'block', width: '32px', height: '32px' }}
+                />
+              </picture>
             </div>
 
             <h1 style={{
@@ -257,6 +277,8 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  title={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                   style={{
                     position: 'absolute',
                     right: '10px',

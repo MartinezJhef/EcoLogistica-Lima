@@ -9,6 +9,8 @@ import {
   PermisoItem, CatalogoPermisosResponse, UsuarioCreatePayload,
   ClienteService
 } from '../services/api';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 
 const ROL_CONFIG: Record<RolUsuario, { label: string; icon: React.ReactNode; color: string; bg: string; border: string }> = {
   ADMIN: {
@@ -262,6 +264,8 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
     return pasaRol && pasaEstado;
   });
 
+  const paginacion = usePagination(usuariosFiltrados);
+
   const totalOficina = usuarios.filter(u => u.rol === 'OFICINA').length;
   const totalRepartidores = usuarios.filter(u => u.rol === 'REPARTIDOR').length;
   const totalClientes = usuarios.filter(u => u.rol === 'CLIENTE').length;
@@ -411,7 +415,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
               </tr>
             </thead>
             <tbody>
-              {usuariosFiltrados.map(u => {
+              {paginacion.pageItems.map(u => {
                 const conf = ROL_CONFIG[u.rol] || ROL_CONFIG.OFICINA;
                 return (
                   <tr key={u.usuario_id}>
@@ -498,6 +502,14 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
             </tbody>
           </table>
         </div>
+        <Pagination
+          page={paginacion.page}
+          totalPages={paginacion.totalPages}
+          totalItems={paginacion.totalItems}
+          from={paginacion.from}
+          to={paginacion.to}
+          onChange={paginacion.setPage}
+        />
       </div>
 
       {/* Modal Apple Obsidian Glass para Alta y Edición de Usuario */}

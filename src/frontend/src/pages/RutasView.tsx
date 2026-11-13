@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import {
   Route as RouteIcon,
   MapPin,
@@ -30,6 +31,8 @@ import {
   ZonaRiesgo,
   PedidoNoAsignadoInfo
 } from '../services/api';
+import { usePagination } from '../hooks/usePagination';
+import { Pagination } from '../components/Pagination';
 
 interface ToastInfo {
   id: string;
@@ -43,6 +46,7 @@ export const RutasView: React.FC = () => {
   const [rutaSeleccionada, setRutaSeleccionada] = useState<RutaDetalle | null>(null);
   const [zonasRiesgo, setZonasRiesgo] = useState<ZonaRiesgo[]>([]);
   const [pedidosExcedentes, setPedidosExcedentes] = useState<PedidoNoAsignadoInfo[]>([]);
+  const tramosPaginacion = usePagination(rutaSeleccionada?.tramos || [], 12);
   
   const [loading, setLoading] = useState<boolean>(false);
   const [optimizing, setOptimizing] = useState<boolean>(false);
@@ -837,49 +841,61 @@ export const RutasView: React.FC = () => {
             </div>
 
             {rutaSeleccionada?.tramos.length ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                {rutaSeleccionada.tramos.map((t, idx) => {
-                  const isDescanso = t.tipo_parada === 'DESCANSO_TECNICO_30MIN';
-                  const isHub = t.tipo_parada === 'DEPOSITO_SALIDA' || t.tipo_parada === 'DEPOSITO_RETORNO';
+              <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                  {tramosPaginacion.pageItems.map((t, idx) => {
+                    const isDescanso = t.tipo_parada === 'DESCANSO_TECNICO_30MIN';
+                    const isHub = t.tipo_parada === 'DEPOSITO_SALIDA' || t.tipo_parada === 'DEPOSITO_RETORNO';
 
-                  return (
-                    <div
-                      key={t.tramo_id || idx}
-                      style={{
-                        padding: '0.65rem 0.85rem',
-                        borderRadius: '9px',
-                        background: isDescanso ? '#EFF6FF' : isHub ? '#F9FAFB' : '#FFFFFF',
-                        border: `1.5px solid ${isDescanso ? '#93C5FD' : isHub ? '#E5E7EB' : t.alerta_zona_riesgo ? '#FCA5A5' : '#D1FAE5'}`,
-                        fontSize: '0.78rem'
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3px' }}>
-                        <span style={{ fontWeight: 700, color: isDescanso ? '#1D4ED8' : isHub ? '#374151' : '#047857' }}>
-                          #{t.orden_secuencia} · {t.tipo_parada}
-                        </span>
-                        <span style={{ fontSize: '0.7rem', color: '#6B7280' }}>
-                          {t.distancia_tramo_km} km | {t.tiempo_estimado_min} min
-                        </span>
-                      </div>
-
-                      <div style={{ color: '#4B5563', fontSize: '0.75rem' }}>
-                        {t.descripcion}
-                      </div>
-
-                      {isDescanso && (
-                        <div style={{ marginTop: '4px', fontSize: '0.72rem', color: '#1E40AF', fontWeight: 600 }}>
-                          Pausa obligatoria de 30 min (Ley N° 30224 / RN-004)
+                    return (
+                      <div
+                        key={t.tramo_id || idx}
+                        style={{
+                          padding: '0.65rem 0.85rem',
+                          borderRadius: '9px',
+                          background: isDescanso ? '#EFF6FF' : isHub ? '#F9FAFB' : '#FFFFFF',
+                          border: `1.5px solid ${isDescanso ? '#93C5FD' : isHub ? '#E5E7EB' : t.alerta_zona_riesgo ? '#FCA5A5' : '#D1FAE5'}`,
+                          fontSize: '0.78rem'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3px' }}>
+                          <span style={{ fontWeight: 700, color: isDescanso ? '#1D4ED8' : isHub ? '#374151' : '#047857' }}>
+                            #{t.orden_secuencia} · {t.tipo_parada}
+                          </span>
+                          <span style={{ fontSize: '0.7rem', color: '#6B7280' }}>
+                            {t.distancia_tramo_km} km | {t.tiempo_estimado_min} min
+                          </span>
                         </div>
-                      )}
 
-                      {t.alerta_zona_riesgo && (
-                        <div style={{ marginTop: '4px', fontSize: '0.72rem', color: '#B91C1C', fontWeight: 600 }}>
-                          Atención: Polígono de Riesgo ({t.nombre_zona_riesgo})
+                        <div style={{ color: '#4B5563', fontSize: '0.75rem' }}>
+                          {t.descripcion}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
+
+                        {isDescanso && (
+                          <div style={{ marginTop: '4px', fontSize: '0.72rem', color: '#1E40AF', fontWeight: 600 }}>
+                            Pausa obligatoria de 30 min (Ley N° 30224 / RN-004)
+                          </div>
+                        )}
+
+                        {t.alerta_zona_riesgo && (
+                          <div style={{ marginTop: '4px', fontSize: '0.72rem', color: '#B91C1C', fontWeight: 600 }}>
+                            Atención: Polígono de Riesgo ({t.nombre_zona_riesgo})
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                {rutaSeleccionada.tramos.length > 12 && (
+                  <Pagination
+                    page={tramosPaginacion.page}
+                    totalPages={tramosPaginacion.totalPages}
+                    totalItems={tramosPaginacion.totalItems}
+                    from={tramosPaginacion.from}
+                    to={tramosPaginacion.to}
+                    onChange={tramosPaginacion.setPage}
+                  />
+                )}
               </div>
             ) : (
               <div style={{ fontSize: '0.78rem', color: '#9CA3AF', fontStyle: 'italic', textAlign: 'center', marginTop: '2rem' }}>

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, Response
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from uuid import UUID
@@ -14,14 +14,18 @@ router = APIRouter()
 
 @router.get("/", response_model=List[ClienteResponse], summary="Listar clientes registrados")
 def read_clientes(
+    response: Response,
     skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=500),
+    limit: int = Query(12, ge=1, le=500, description="Límite por página (12 por defecto)"),
     tipo_comercio: Optional[str] = Query(None, description="Filtrar por tipo: BODEGA, SUPERMERCADO, RESTAURANTE, etc."),
     estado: Optional[str] = Query(None, description="Filtrar por estado: ACTIVO, INACTIVO"),
     distrito: Optional[str] = Query(None, description="Filtrar por distrito de Lima"),
     db: Session = Depends(get_db)
 ):
     """Retorna la lista de clientes B2B con opciones de filtro por comercio, distrito y estado."""
+    response.headers["X-Total-Count"] = str(
+        ClienteService.contar_clientes(db, tipo_comercio, estado, distrito)
+    )
     return ClienteService.get_clientes(
         db, skip=skip, limit=limit,
         tipo_comercio=tipo_comercio, estado=estado, distrito=distrito

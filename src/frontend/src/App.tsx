@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { 
   BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation 
 } from 'react-router-dom';
@@ -7,15 +7,63 @@ import {
   KeyRound, LogOut, Shield, Briefcase, Store,
   Route as RouteIcon
 } from 'lucide-react';
-import { VehiculosView } from './pages/VehiculosView';
-import { ConductoresView } from './pages/ConductoresView';
-import { ClientesView } from './pages/ClientesView';
-import { PedidosView } from './pages/PedidosView';
-import { RutasView } from './pages/RutasView';
-import { AdminUsersView } from './pages/AdminUsersView';
 import { LoginView } from './pages/LoginView';
 import { AuthService } from './services/auth';
 import { Usuario, RolUsuario } from './services/api';
+
+// División de código por ruta: cada módulo se descarga solo cuando el usuario entra
+// a él. El login se mantiene en el paquete inicial porque es la primera pantalla.
+const VehiculosView = lazy(() =>
+  import('./pages/VehiculosView').then(m => ({ default: m.VehiculosView }))
+);
+const ConductoresView = lazy(() =>
+  import('./pages/ConductoresView').then(m => ({ default: m.ConductoresView }))
+);
+const ClientesView = lazy(() =>
+  import('./pages/ClientesView').then(m => ({ default: m.ClientesView }))
+);
+const PedidosView = lazy(() =>
+  import('./pages/PedidosView').then(m => ({ default: m.PedidosView }))
+);
+const RutasView = lazy(() =>
+  import('./pages/RutasView').then(m => ({ default: m.RutasView }))
+);
+const AdminUsersView = lazy(() =>
+  import('./pages/AdminUsersView').then(m => ({ default: m.AdminUsersView }))
+);
+
+/** Reserva de espacio mientras se descarga el módulo: evita saltos de maquetación. */
+function ModuleFallback() {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '0.75rem',
+        minHeight: '40vh',
+        color: 'var(--apple-text-secondary, #556B2F)',
+        fontSize: '0.85rem'
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          width: '28px',
+          height: '28px',
+          borderRadius: '999px',
+          border: '3px solid rgba(167, 179, 139, 0.35)',
+          borderTopColor: '#2D3A2E',
+          animation: 'module-spin 0.8s linear infinite'
+        }}
+      />
+      <span>Cargando módulo…</span>
+    </div>
+  );
+}
 
 function AppLayout() {
   const navigate = useNavigate();
@@ -250,6 +298,7 @@ function AppLayout() {
 
       {/* Área Principal de Contenido con Enrutamiento Dinámico */}
       <main className="main-content">
+        <Suspense fallback={<ModuleFallback />}>
         <Routes>
           <Route 
             path="/" 
@@ -301,6 +350,7 @@ function AppLayout() {
             } 
           />
         </Routes>
+        </Suspense>
       </main>
     </div>
   );
