@@ -4,7 +4,7 @@ import {
   CloudLightning, AlertCircle, Eye, EyeOff 
 } from 'lucide-react';
 import { AuthService } from '../services/auth';
-import { Usuario } from '../services/api';
+import { Usuario, API_BASE_URL } from '../services/api';
 
 interface LoginViewProps {
   onLoginSuccess: (usuario: Usuario) => void;
@@ -17,7 +17,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Verificación de conectividad con Supabase Cloud
+  // Verificación de conectividad con la API
   const [cloudStatus, setCloudStatus] = useState<{ ok: boolean; latencyMs?: number } | null>(null);
 
   useEffect(() => {
@@ -25,18 +25,13 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
     const testCloud = async () => {
       const t0 = performance.now();
       try {
-        const res = await fetch('https://mpeonclcibezbdzdurey.supabase.co/rest/v1/', {
-          method: 'GET',
-          headers: {
-            'apikey': 'sb_publishable_Krx88X8mYMSVdyHPLH7P3Q_iNOSM7oL'
-          }
-        });
+        const res = await fetch(`${API_BASE_URL}/health`);
         const latency = Math.round(performance.now() - t0);
         if (isMounted) {
-          setCloudStatus({ ok: res.status < 500, latencyMs: latency });
+          setCloudStatus({ ok: res.ok, latencyMs: latency });
         }
       } catch (e) {
-        if (isMounted) setCloudStatus({ ok: true, latencyMs: 45 });
+        if (isMounted) setCloudStatus({ ok: false });
       }
     };
     testCloud();
@@ -54,7 +49,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
     } catch (err: any) {
       setError(
         err.response?.data?.detail || 
-        'Credenciales inválidas. Verifica tu correo y contraseña en la base de datos Supabase.'
+        'Credenciales inválidas. Verifica tu correo y contraseña y la conexión al servidor.'
       );
     } finally {
       setLoading(false);
@@ -163,8 +158,8 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
               <CloudLightning size={13} color="#556B2F" />
               <span>
                 {cloudStatus?.ok 
-                  ? `Supabase Conectado (${cloudStatus.latencyMs}ms)`
-                  : 'Conectando a Supabase...'}
+                  ? `Servidor conectado (${cloudStatus.latencyMs}ms)`
+                  : 'Servidor sin conexión'}
               </span>
             </div>
           </div>
@@ -325,7 +320,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
               onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
             >
               {loading ? (
-                <span>Validando con Supabase...</span>
+                <span>Validando credenciales...</span>
               ) : (
                 <>
                   <span>Iniciar Sesión</span>

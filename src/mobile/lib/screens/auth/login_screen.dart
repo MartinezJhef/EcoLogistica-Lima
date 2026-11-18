@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       setState(() {
-        _errorMensaje = 'Error al verificar credenciales con la base de datos.';
+        _errorMensaje = 'No se pudo iniciar sesión. Revisa tus credenciales y la conexión.';
       });
     } finally {
       if (mounted) {
@@ -90,24 +90,24 @@ class _LoginScreenState extends State<LoginScreen> {
     showCupertinoDialog(
       context: context,
       builder: (ctx) => CupertinoAlertDialog(
-        title: const Text('Conexión con Supabase Cloud'),
+        title: const Text('Conexión con EcoLogística'),
         content: Padding(
           padding: const EdgeInsets.only(top: 12.0),
           child: Column(
             children: [
               const Text(
-                'Endpoint de Supabase (PostgreSQL 16 + PostGIS 3.3.7):',
+                'Dirección del servidor EcoLogística:',
                 style: TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 12),
               CupertinoTextField(
                 controller: hostController,
-                placeholder: SyncService.defaultSupabaseUrl,
+                placeholder: SyncService.baseUrl,
                 style: const TextStyle(fontSize: 13),
               ),
               const SizedBox(height: 8),
               const Text(
-                '• Nube: https://mpeonclcibezbdzdurey.supabase.co/rest/v1',
+                'Ejemplo: https://tu-servidor.example/api/v1',
                 style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey),
                 textAlign: TextAlign.left,
               ),
@@ -223,9 +223,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(width: 8),
                         Text(
                           _probandoConexion
-                              ? 'Comprobando Supabase Cloud...'
+                              ? 'Comprobando conexión...'
                               : (SyncService.isOnline
-                                  ? 'Supabase Conectado (PostGIS 3.3.7)'
+                                  ? 'Servidor conectado'
                                   : 'Modo Offline SQL · Toca para conectar'),
                           style: TextStyle(
                             fontSize: 11,
@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 4),
                       const Text(
-                        'Verifica usuarios y roles reales registrados en PostgreSQL.',
+                        'Usa una cuenta registrada por el administrador.',
                         style: TextStyle(
                           fontSize: 12,
                           color: AppleTheme.textSecondary,
@@ -343,7 +343,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 22),
                       AppleButton(
-                        text: 'Ingresar con PostgreSQL',
+                        text: 'Iniciar sesión',
                         icon: CupertinoIcons.arrow_right_circle_fill,
                         isLoading: _cargando,
                         onPressed: _handleLogin,

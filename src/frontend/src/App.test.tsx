@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { App } from './App';
-import { AuthService, CUENTAS_PREDEFINIDAS } from './services/auth';
+import { AuthService } from './services/auth';
+import { CUENTAS_PREDEFINIDAS } from './test/demoFixtures';
 
 describe('Componente Principal de Enrutamiento: App', () => {
   beforeEach(() => {
@@ -23,6 +24,19 @@ describe('Componente Principal de Enrutamiento: App', () => {
     expect(screen.getByText('Acceso al Sistema')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('usuario@ecologistica.pe')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Iniciar Sesión/i })).toBeInTheDocument();
+  });
+
+  it('navega por los módulos autorizados y vuelve a pedidos para el cliente',async()=>{
+    vi.spyOn(AuthService,'getUser').mockReturnValue(CUENTAS_PREDEFINIDAS[0]);
+    render(<App/>);
+    for(const name of ['Vehículos','Conductores','Clientes','Rutas y Despacho','Pedidos y GPS','Administración']){
+      const button=screen.getByRole('button',{name,exact:true});
+      fireEvent.click(button);
+      await waitFor(()=>expect(button).toHaveClass('active'));
+    }
+    const logout=screen.getByRole('button',{name:/Cerrar Sesión/});
+    fireEvent.mouseEnter(logout);fireEvent.mouseLeave(logout);
+    expect(logout).toBeEnabled();
   });
 
   it('renderiza la barra lateral y módulos autorizados cuando el usuario es ADMIN', () => {
@@ -73,7 +87,7 @@ describe('Componente Principal de Enrutamiento: App', () => {
     render(<App />);
 
     // El repartidor tiene acceso a Conductores, Rutas y Tracking, pero NO a Vehículos ni Clientes ni Administración
-    expect(screen.getByRole('button', { name: /Conductores/i })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Conductores/i })).toBeNull();
     expect(screen.getByRole('button', { name: /Rutas y Despacho/i })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /^Vehículos$/i })).toBeNull();
     expect(screen.queryByRole('button', { name: /^Clientes$/i })).toBeNull();

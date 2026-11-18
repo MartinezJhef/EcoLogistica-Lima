@@ -1,5 +1,6 @@
 import uuid
-from sqlalchemy import Column, String, Numeric, Integer, Date, DateTime, ForeignKey, func
+from sqlalchemy import Column, String, Numeric, Integer, Date, DateTime, ForeignKey, func, Boolean, Time
+from datetime import time
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.db.session import Base
@@ -17,14 +18,18 @@ class Ruta(Base):
     conductor_id = Column(UUID(as_uuid=True), ForeignKey("conductores.conductor_id"), nullable=False, index=True)
     vehiculo_id = Column(UUID(as_uuid=True), ForeignKey("vehiculos.vehiculo_id"), nullable=False, index=True)
     fecha_operacion = Column(Date, nullable=False, index=True)
+    hora_salida = Column(Time, nullable=False, default=time(8, 0))
     distancia_total_km = Column(Numeric(10, 2), nullable=False, default=0.00)
     tiempo_total_min = Column(Integer, nullable=False, default=0)
+    minutos_transcurridos = Column(Numeric(8, 2), nullable=False, default=0)
+    jornada_reservada = Column(Boolean, nullable=False, default=False)
     co2_total_kg = Column(Numeric(10, 2), nullable=False, default=0.00)
 
     # Métricas de computación y huella de carbono de ejecución (CodeCarbon)
     co2_computacional_kg = Column(Numeric(12, 8), nullable=False, default=0.0)
     energia_computacional_kwh = Column(Numeric(12, 8), nullable=False, default=0.0)
     tiempo_computo_seg = Column(Numeric(10, 4), nullable=False, default=0.0)
+    medicion_computacional_disponible = Column(Boolean, nullable=False, default=False)
 
     estado = Column(String(20), nullable=False, default="PLANIFICADA", index=True)
     creada_en = Column(DateTime(timezone=True), nullable=False, server_default=func.now())

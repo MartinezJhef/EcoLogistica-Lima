@@ -13,6 +13,7 @@ class Pedido(Base):
     __tablename__ = "pedidos"
 
     pedido_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    usuario_cliente_id = Column(UUID(as_uuid=True), nullable=True, index=True)
     ruta_id = Column(UUID(as_uuid=True), nullable=True, index=True)
     codigo_seguimiento = Column(String(30), unique=True, nullable=False, index=True)
     cliente_nombre = Column(String(200), nullable=False)

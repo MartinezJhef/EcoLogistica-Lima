@@ -88,6 +88,7 @@ PERMISOS_POR_DEFECTO = {
 }
 
 class UsuarioBase(BaseModel):
+    conductor_id: Optional[UUID] = None
     email: str = Field(..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", description="Correo institucional o corporativo del usuario")
     nombre_completo: str = Field(..., min_length=2, max_length=150, description="Nombre y apellidos del usuario")
     telefono: Optional[str] = Field(None, max_length=20, description="Número telefónico de contacto")
@@ -99,6 +100,7 @@ class UsuarioCreate(UsuarioBase):
     password: str = Field(..., min_length=6, description="Contraseña de acceso inicial")
 
 class UsuarioUpdate(BaseModel):
+    conductor_id: Optional[UUID] = None
     nombre_completo: Optional[str] = Field(None, min_length=2, max_length=150)
     telefono: Optional[str] = None
     rol: Optional[RolUsuario] = None
@@ -107,6 +109,7 @@ class UsuarioUpdate(BaseModel):
     password: Optional[str] = Field(None, min_length=6)
 
 class UsuarioResponse(BaseModel):
+    conductor_id: Optional[UUID] = None
     usuario_id: UUID
     email: str
     nombre_completo: str

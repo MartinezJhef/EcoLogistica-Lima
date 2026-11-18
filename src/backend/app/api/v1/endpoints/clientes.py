@@ -12,6 +12,12 @@ from app.services.cliente_service import ClienteService
 
 router = APIRouter()
 
+@router.get('/cuentas', summary='Cuentas de cliente disponibles para vincular un pedido')
+def cuentas_cliente(db: Session = Depends(get_db)):
+    from app.models.usuario import Usuario
+    return [{'usuario_id':str(u.usuario_id),'nombre':u.nombre_completo} for u in db.query(Usuario).filter(
+        Usuario.rol=='CLIENTE',Usuario.estado=='ACTIVO').order_by(Usuario.nombre_completo).limit(500)]
+
 @router.get("/", response_model=List[ClienteResponse], summary="Listar clientes registrados")
 def read_clientes(
     response: Response,

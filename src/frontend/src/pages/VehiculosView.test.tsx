@@ -4,7 +4,7 @@
  * Cubre: CRUD, cálculo CO₂, restricciones zonales, filtros, toasts y validaciones.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   VehiculosView,
@@ -272,10 +272,49 @@ describe('Componente: VehiculosView (US-001)', () => {
     const gnvBtn = screen.queryByRole('button', { name: /GNV/i });
     expect(gnvBtn).toBeTruthy();
   });
+  it('registra un vehículo con confirmación del servidor y permite reintentar sin perder los datos',async()=>{
+    const {VehiculoService}=await import('../services/api');
+    vi.mocked(VehiculoService.create).mockRejectedValueOnce({response:{data:{detail:'Sin conexión'}}}).mockImplementationOnce(async(p:any)=>({...p,vehiculo_id:'new-1'}));
+    await act(async()=>{render(<VehiculosView/>);});
+    fireEvent.change(screen.getByPlaceholderText('Ej. ABC-123'),{target:{value:'NEW-123'}});
+    fireEvent.change(screen.getByPlaceholderText('Ej. Hyundai H-100'),{target:{value:'Van de prueba'}});
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(screen.getByText('Sin conexión')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Ej. ABC-123')).toHaveValue('NEW-123');
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(VehiculoService.create).toHaveBeenLastCalledWith(expect.objectContaining({placa:'NEW-123',marca_modelo:'Van de prueba',tipo_combustible:'GNV'}));
+    expect(screen.getByPlaceholderText('Ej. ABC-123')).toHaveValue('');
+    expect(screen.getByText('NEW-123')).toBeTruthy();
+  });
 
   it('el botón de filtro DIESEL está en el DOM', async () => {
     await act(async () => { render(<VehiculosView />); });
     const dieselBtn = screen.queryByRole('button', { name: /DIESEL/i });
     expect(dieselBtn).toBeTruthy();
+  });
+  it('guarda la altura y clasificación verificadas para aplicar restricciones de acceso', async () => {
+    const {VehiculoService} = await import('../services/api');
+    await act(async () => {render(<VehiculosView />);});
+    await user.click(screen.getAllByRole('button',{name:'Editar',exact:true})[0]);
+    await user.type(screen.getByLabelText('Altura total'),'2.4');
+    await user.selectOptions(screen.getByLabelText('Clasificación de acceso'),'true');
+    const modal=document.querySelector('.apple-modal')!;
+    for(const [label,value] of [['Marca y Modelo:','Van actualizada'],['Carga Útil (kg):','1500'],['Volumen (m³):','12'],['Consumo (km/gal):','40'],['Estado Operativo:','MANTENIMIENTO']]){
+      const node=Array.from(modal.querySelectorAll('label')).find(l=>l.textContent?.trim()===label)!;
+      fireEvent.change(node.parentElement!.querySelector('input,select')!,{target:{value}});
+    }
+    await user.click(screen.getByRole('button',{name:'Guardar Cambios'}));
+    expect(VehiculoService.update).toHaveBeenCalledWith('v1',expect.objectContaining({altura_m:2.4,es_ligero:true}));
+    expect(VehiculoService.update).toHaveBeenCalledWith('v1',expect.objectContaining({marca_modelo:'Van actualizada',capacidad_peso_kg:1500,capacidad_volumen_m3:12,consumo_km_gal:40,estado:'MANTENIMIENTO'}));
+  });
+  it('conserva la edición del vehículo cuando el servidor rechaza guardar',async()=>{
+    const {VehiculoService}=await import('../services/api');
+    vi.mocked(VehiculoService.update).mockRejectedValueOnce({response:{data:{detail:'Vehículo no guardado'}}});
+    await act(async()=>{render(<VehiculosView/>);});
+    await user.click(screen.getAllByRole('button',{name:'Editar',exact:true})[0]);
+    await user.type(screen.getByLabelText('Altura total'),'2.3');
+    await user.click(screen.getByRole('button',{name:'Guardar Cambios'}));
+    expect(screen.getByLabelText('Altura total')).toHaveValue(2.3);
+    expect(screen.getByText('Vehículo no guardado')).toBeTruthy();
   });
 });

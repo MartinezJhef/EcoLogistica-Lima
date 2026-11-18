@@ -5,7 +5,7 @@
  *        zonas de riesgo, fallback de mapa y pedidos no asignados.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RutasView } from './RutasView';
 
@@ -27,7 +27,7 @@ vi.mock('leaflet', () => {
     addLayer: vi.fn().mockReturnThis(),
     removeLayer: vi.fn().mockReturnThis()
   };
-  const mockPolygon = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
+  const mockPolygon = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis(),bindTooltip:vi.fn().mockReturnThis() };
   const mockPolyline = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
   const mockMarker = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
   const mockCircle = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
@@ -67,56 +67,60 @@ vi.mock('../services/api', () => ({
 }));
 
 // ─── Datos de prueba ──────────────────────────────────────────────────────────
-const MOCK_RUTAS = [
-  {
-    ruta_id: 'r1',
-    vehiculo_id: 'v1',
-    conductor_id: 'c1',
-    placa: 'ABC-123',
-    conductor_nombre: 'Carlos Quispe',
-    estado: 'PLANIFICADA',
-    total_paradas: 5,
-    distancia_total_km: 45.3,
-    tiempo_total_min: 120,
-    co2_total_kg: 7.47,
-    carga_total_kg: 1200,
-    porcentaje_capacidad: 80,
-    tramos: [
-      {
-        orden: 1,
-        pedido_id: 'p1',
-        cliente_nombre: 'Bodega San José',
-        direccion_entrega: 'Av. Lima 123',
-        latitud: -12.046,
-        longitud: -77.042,
-        ventana_inicio: '08:00',
-        ventana_fin: '10:00',
-        estado_parada: 'PENDIENTE',
-        distancia_km: 5.2,
-        tiempo_estimado_min: 15,
-        co2_parcial_kg: 0.86
-      }
-    ],
-    pedidos_no_asignados: [],
-    tiene_descanso_tecnico: false,
-    hora_descanso: null
-  }
-];
-
-const MOCK_ZONAS = [
-  {
-    zona_id: 'z1',
-    nombre: 'Centro Histórico ZBE',
-    tipo: 'ZBE',
-    nivel_riesgo: 'ALTO',
-    poligono: [[-12.046, -77.042], [-12.048, -77.040], [-12.044, -77.038]],
-    descripcion: 'Zona de Bajas Emisiones - Damero de Pizarro'
-  }
-];
+const MOCK_RUTAS = [{
+  ruta_id:'r1',vehiculo_id:'v1',conductor_id:'c1',vehiculo_placa:'ABC-123',vehiculo_tipo_combustible:'GNV',
+  conductor_nombre:'Carlos Quispe',estado:'PLANIFICADA',fecha_operacion:'2026-11-17',creada_en:'2026-11-17T08:00:00Z',
+  distancia_total_km:45.3,tiempo_total_min:120,co2_total_kg:7.47,co2_computacional_kg:0,
+  energia_computacional_kwh:0,tiempo_computo_seg:0,medicion_computacional_disponible:false,pedidos_asignados_count:1,
+  tramos:[{tramo_id:'t1',ruta_id:'r1',orden_secuencia:1,tipo_parada:'ENTREGA',pedido_id:'p1',
+    descripcion:'Entrega de prueba',latitud:-12.046,longitud:-77.042,distancia_tramo_km:5.2,
+    tiempo_estimado_min:15,co2_tramo_kg:.86,alerta_zona_riesgo:false,
+    geometria_linea_geojson:JSON.stringify({type:'LineString',coordinates:[[-77.05,-12.05],[-77.042,-12.046]]})}]
+}];
+const MOCK_ZONAS = [{zona_id:'z1',nombre:'Zona de prueba',motivo:'Riesgo reportado',nivel_peligro:'ALTO',
+  poligono_coordenadas:[[-77.1,-12.1],[-77,-12.1],[-77,-12],[-77.1,-12.1]],activa:true}];
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
 describe('Componente: RutasView (US-005/006/007)', () => {
   let user: ReturnType<typeof userEvent.setup>;
+
+  it('dibuja la geometría vial guardada y ajusta el mapa a las paradas',async()=>{
+    const L=(await import('leaflet')).default;
+    await act(async()=>{render(<RutasView/>);});
+    await waitFor(()=>expect(L.polyline).toHaveBeenCalledWith([[-12.05,-77.05],[-12.046,-77.042]],expect.objectContaining({weight:4.5})));
+    expect(vi.mocked(L.map).mock.results.at(-1)!.value.fitBounds).toHaveBeenCalled();
+    expect(vi.mocked(L.polygon).mock.results.at(-1)!.value.bindTooltip).toHaveBeenCalledWith(expect.stringContaining('Zona de prueba'),{sticky:true});
+  });
+
+  it('muestra el itinerario textual si no se puede utilizar el mapa',async()=>{
+    await act(async()=>{render(<RutasView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Simular Fallback Texto'}));
+    expect(screen.getByText('Ruta Segura')).toBeTruthy();
+    expect(screen.getAllByText('Entrega de prueba').length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole('button',{name:'Volver a Mapa'}));
+    expect(screen.queryByText('Ruta Segura')).toBeNull();
+  });
+
+  it('envía posición, progreso y confirmación de carga al redistribuir una avería',async()=>{
+    const {RutaService}=await import('../services/api');
+    const L=(await import('leaflet')).default;
+    await act(async()=>{render(<RutasView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Reoptimizar (US-007)',exact:true}));
+    fireEvent.change(screen.getByLabelText('Hora de recálculo'),{target:{value:'10:00'}});
+    fireEvent.change(screen.getByLabelText('Minutos transcurridos'),{target:{value:'60'}});
+    fireEvent.change(screen.getByLabelText('Conducción continua'),{target:{value:'45'}});
+    fireEvent.click(screen.getByLabelText('El vehículo está averiado: redistribuir las entregas'));
+    fireEvent.click(screen.getByLabelText('Confirmo que la carga está en el depósito para transferirla'));
+    fireEvent.click(screen.getByLabelText('Las incidencias anteriores ya se resolvieron: retirarlas de este recorrido'));
+    fireEvent.click(screen.getByLabelText('Evitar las zonas de riesgo urbano'));
+    fireEvent.click(screen.getByRole('button',{name:'Marcar la posición actual del conductor'}));
+    const map=vi.mocked(L.map).mock.results.at(-1)!.value as any;
+    const handler=map.on.mock.calls.filter((c:any)=>c[0]==='click').at(-1)[1];
+    await act(async()=>{handler({latlng:{lat:-12.05,lng:-77.05}});});
+    expect(screen.getByText('Posición actual seleccionada')).toBeTruthy();
+    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Confirmar Reoptimización'}));});
+    expect(RutaService.reoptimizar).toHaveBeenCalledWith('r1',expect.objectContaining({vehiculo_averiado:true,carga_en_deposito:true,resolver_incidencias_previas:true,latitud_actual:-12.05,longitud_actual:-77.05,minutos_transcurridos:60,conduccion_continua_min:45,hora_salida:'10:00'}));
+  });
 
   beforeEach(async () => {
     user = userEvent.setup({ delay: null });
@@ -132,7 +136,8 @@ describe('Componente: RutasView (US-005/006/007)', () => {
     vi.mocked(RutaService.reoptimizar).mockResolvedValue({
       ruta_id: 'r1',
       mensaje: 'Ruta reoptimizada correctamente',
-      nueva_ruta: MOCK_RUTAS[0]
+      ...MOCK_RUTAS[0],
+      incidencias: []
     } as any);
   });
 
@@ -268,4 +273,41 @@ describe('Componente: RutasView (US-005/006/007)', () => {
       expect(tiempo.length).toBeGreaterThan(0);
     }, { timeout: 3000 });
   });
+  it('marca una demora en el mapa y envía el área seleccionada al servidor', async () => {
+    const {RutaService} = await import('../services/api');
+    const L = (await import('leaflet')).default;
+    await act(async () => {render(<RutasView />);});
+    await user.click(screen.getByRole('button',{name:'Reoptimizar (US-007)',exact:true}));
+    await user.clear(screen.getByLabelText('Demora reportada'));
+    await user.type(screen.getByLabelText('Demora reportada'),'5');
+    await user.click(screen.getByRole('button',{name:'Marcar el área afectada en el mapa'}));
+    const map = vi.mocked(L.map).mock.results.at(-1)!.value;
+    const handler = map.on.mock.calls.filter((c:any[]) => c[0] === 'click').at(-1)[1];
+    await act(async () => {handler({latlng:{lat:-12.05,lng:-77.05}});handler({latlng:{lat:-12.04,lng:-77.04}});});
+    expect(screen.getByText('Área seleccionada.')).toBeTruthy();
+    await user.click(screen.getByRole('button',{name:'Confirmar Reoptimización'}));
+    expect(RutaService.reoptimizar).toHaveBeenCalledWith('r1',expect.objectContaining({
+      incidencias:[expect.objectContaining({cierre:false,demora_minutos:5,poligono:expect.any(Array)})]
+    }));
+    await waitFor(() => expect(screen.queryByRole('heading',{name:/Reoptimizar Ruta ante Evento/})).toBeNull());
+  });
+
+  it('mantiene la ruta y el formulario cuando no existe un desvío seguro', async () => {
+    const {RutaService} = await import('../services/api');
+    vi.mocked(RutaService.reoptimizar).mockRejectedValueOnce(new Error('No hay alternativa fuera del cierre'));
+    await act(async () => {render(<RutasView />);});
+    await user.click(screen.getByRole('button',{name:'Reoptimizar (US-007)',exact:true}));
+    await user.click(screen.getByRole('button',{name:'Confirmar Reoptimización'}));
+    expect(await screen.findByText('No hay alternativa fuera del cierre')).toBeTruthy();
+    expect(screen.getByRole('heading',{name:/Reoptimizar Ruta ante Evento/})).toBeTruthy();
+    expect(screen.getByText('45.3 km')).toBeTruthy();
+  });
+
+  it('muestra un error de conexión al cargar, sin fingir una lista válida', async () => {
+    const {RutaService} = await import('../services/api');
+    vi.mocked(RutaService.list).mockRejectedValueOnce(new Error('offline'));
+    await act(async () => {render(<RutasView />);});
+    expect(await screen.findByText('No se pudieron recuperar las rutas planificadas.')).toBeTruthy();
+  });
+
 });

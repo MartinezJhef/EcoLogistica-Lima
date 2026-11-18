@@ -14,81 +14,26 @@ from app.schemas.usuario import (
 )
 
 def _hash_password(plain_password: str) -> str:
-    """Genera hash seguro SHA-256 para almacenamiento protegido."""
-    return hashlib.sha256(plain_password.encode("utf-8")).hexdigest()
+    from app.core.auth import hash_password
+    return hash_password(plain_password)
 
 class UserService:
     @staticmethod
-    def seed_initial_users(db: Session) -> None:
-        """Inicializa cuentas de prueba representativas si la base está vacía."""
-        count = db.query(Usuario).count()
-        if count > 0:
+    def validate_driver_link(db, driver_id, user_id=None):
+        if not driver_id:
             return
-
-        initial_users = [
-            Usuario(
-                email="admin@ecologistica.pe",
-                nombre_completo="Ing. Martín Valdivia (Administrador General)",
-                telefono="991234567",
-                password_hash=_hash_password("Admin2026*!"),
-                rol=RolUsuario.ADMIN.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.ADMIN],
-                estado=EstadoUsuario.ACTIVO.value
-            ),
-            Usuario(
-                email="seguimiento@ecologistica.pe",
-                nombre_completo="Lic. Carmen Rosales (Oficina y Seguimiento)",
-                telefono="984556677",
-                password_hash=_hash_password("Oficina2026*!"),
-                rol=RolUsuario.OFICINA.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.OFICINA],
-                estado=EstadoUsuario.ACTIVO.value
-            ),
-            Usuario(
-                email="repartidor.juan@ecologistica.pe",
-                nombre_completo="Juan Alberto Morales (Repartidor / Conductor)",
-                telefono="999888777",
-                password_hash=_hash_password("Reparto2026*!"),
-                rol=RolUsuario.REPARTIDOR.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.REPARTIDOR],
-                estado=EstadoUsuario.ACTIVO.value
-            ),
-            Usuario(
-                email="cliente.sanjose@distrirapido.com",
-                nombre_completo="Bodega San José · SJL (Cliente B2B)",
-                telefono="987112233",
-                password_hash=_hash_password("Cliente2026*!"),
-                rol=RolUsuario.CLIENTE.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.CLIENTE],
-                estado=EstadoUsuario.ACTIVO.value
-            ),
-            Usuario(
-                email="repartidor@ecologistica.com",
-                nombre_completo="Repartidor Oficial (EcoLogística)",
-                telefono="987654321",
-                password_hash=_hash_password("12345678"),
-                rol=RolUsuario.REPARTIDOR.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.REPARTIDOR],
-                estado=EstadoUsuario.ACTIVO.value
-            ),
-            Usuario(
-                email="cliente@ecologistica.com",
-                nombre_completo="Cliente Oficial (EcoLogística)",
-                telefono="912345678",
-                password_hash=_hash_password("12345678"),
-                rol=RolUsuario.CLIENTE.value,
-                permisos=PERMISOS_POR_DEFECTO[RolUsuario.CLIENTE],
-                estado=EstadoUsuario.ACTIVO.value
-            )
-        ]
-
-        db.add_all(initial_users)
-        db.commit()
+        from app.models.conductor import Conductor
+        if not db.get(Conductor, driver_id):
+            raise HTTPException(422, "El conductor seleccionado no existe")
+        existing = db.query(Usuario).filter(Usuario.conductor_id == driver_id)
+        if user_id:
+            existing = existing.filter(Usuario.usuario_id != user_id)
+        if existing.first():
+            raise HTTPException(409, "Ese conductor ya está vinculado a otra cuenta")
 
     @staticmethod
     def count(db: Session, rol: Optional[str] = None, estado: Optional[str] = None) -> int:
         """Cuenta el total de usuarios según los filtros dados para paginación Green IT."""
-        UserService.seed_initial_users(db)
         query = db.query(Usuario)
         if rol:
             query = query.filter(Usuario.rol == rol.upper())
@@ -105,7 +50,6 @@ class UserService:
         estado: Optional[str] = None
     ) -> List[Usuario]:
         """Obtiene usuarios paginados a 12 registros por página para minimizar transferencia de red."""
-        UserService.seed_initial_users(db)
         query = db.query(Usuario)
         if rol:
             query = query.filter(Usuario.rol == rol.upper())
@@ -125,6 +69,7 @@ class UserService:
 
     @staticmethod
     def create(db: Session, user_in: UsuarioCreate) -> Usuario:
+        UserService.validate_driver_link(db, user_in.conductor_id)
         # Verificar email duplicado
         existente = db.query(Usuario).filter(Usuario.email == user_in.email.lower()).first()
         if existente:
@@ -139,6 +84,7 @@ class UserService:
             permisos_finales = PERMISOS_POR_DEFECTO.get(user_in.rol, [])
 
         nuevo = Usuario(
+            conductor_id=user_in.conductor_id,
             email=user_in.email.lower(),
             nombre_completo=user_in.nombre_completo.strip(),
             telefono=user_in.telefono.strip() if user_in.telefono else None,
@@ -155,6 +101,10 @@ class UserService:
     @staticmethod
     def update(db: Session, usuario_id: UUID, user_in: UsuarioUpdate) -> Usuario:
         user = UserService.get_by_id(db, usuario_id)
+
+        if "conductor_id" in user_in.model_fields_set:
+            UserService.validate_driver_link(db, user_in.conductor_id, usuario_id)
+            user.conductor_id = user_in.conductor_id
 
         if user_in.nombre_completo is not None:
             user.nombre_completo = user_in.nombre_completo.strip()

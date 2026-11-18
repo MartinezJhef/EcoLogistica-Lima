@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AuthService, CUENTAS_PREDEFINIDAS } from './auth';
+import { AuthService } from './auth';
+import { CUENTAS_PREDEFINIDAS } from '../test/demoFixtures';
 import { Usuario } from './api';
 
 describe('Servicio de Autenticación: AuthService', () => {
@@ -19,7 +20,7 @@ describe('Servicio de Autenticación: AuthService', () => {
 
     const retrieved = AuthService.getUser();
     expect(retrieved).not.toBeNull();
-    expect(retrieved?.email).toBe('admin@ecologistica.pe');
+    expect(retrieved?.email).toBe('admin@example.test');
     expect(retrieved?.rol).toBe('ADMIN');
   });
 
@@ -31,37 +32,23 @@ describe('Servicio de Autenticación: AuthService', () => {
     expect(AuthService.getUser()).toBeNull();
   });
 
-  it('login con cuenta predefinida (fallback offline) autentica exitosamente', async () => {
-    // Simular fallo de fetch a Supabase para evaluar el fallback local
-    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
-
-    const user = await AuthService.login('admin@ecologistica.pe', 'admin123');
-    expect(user).toBeDefined();
-    expect(user.rol).toBe('ADMIN');
-    expect(user.email).toBe('admin@ecologistica.pe');
-    expect(AuthService.getUser()?.email).toBe('admin@ecologistica.pe');
+  it('comprueba contraseña en el servidor y guarda el token recibido', async () => {
+    const user = CUENTAS_PREDEFINIDAS[0];
+    globalThis.fetch = vi.fn().mockResolvedValue({ok:true, json:async()=>({access_token:'signed-token', usuario:user})});
+    expect(await AuthService.login(user.email, 'contraseña')).toEqual(user);
+    expect(localStorage.getItem('ecologistica_access_token')).toBe('signed-token');
+    expect(JSON.parse((globalThis.fetch as any).mock.calls[0][1].body).password).toBe('contraseña');
   });
-
-  it('login con correo nuevo genera perfil de CLIENTE por defecto', async () => {
-    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
-
-    const nuevoEmail = 'nuevo.comercio@lima.pe';
-    const user = await AuthService.login(nuevoEmail, 'password123');
-
-    expect(user).toBeDefined();
-    expect(user.email).toBe(nuevoEmail);
-    expect(user.rol).toBe('CLIENTE');
-    expect(user.permisos).toContain('TRACKING_CLIENTE');
+  it('no crea perfiles ni acepta cuentas predefinidas cuando el servidor falla', async () => {
+    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Sin conexión'));
+    await expect(AuthService.login('admin@example.test', 'incorrecta')).rejects.toThrow();
+    expect(AuthService.getUser()).toBeNull();
   });
-
-  it('loginAsRole autentica según el rol especificado', async () => {
-    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
-
-    const repUser = await AuthService.loginAsRole('REPARTIDOR');
-    expect(repUser.rol).toBe('REPARTIDOR');
-
-    const ofiUser = await AuthService.loginAsRole('OFICINA');
-    expect(ofiUser.rol).toBe('OFICINA');
+  it('rechaza credenciales inválidas y acceso por selección de rol', async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({ok:false});
+    await expect(AuthService.login('no@existe.pe','incorrecta')).rejects.toThrow();
+    await expect(AuthService.loginAsRole('ADMIN')).rejects.toThrow();
+    expect(AuthService.getUser()).toBeNull();
   });
 
   it('pingSupabase mide latencia o maneja desconexión', async () => {

@@ -105,11 +105,17 @@ class OrderService:
         return db.query(Pedido).filter(Pedido.codigo_seguimiento == codigo_clean).first()
 
     @staticmethod
-    def create_pedido(db: Session, pedido_in: PedidoCreate) -> PedidoResponse:
+    def create_pedido(db: Session, pedido_in: PedidoCreate, usuario_cliente_id=None) -> PedidoResponse:
         """
         US-003: Registro de nuevo pedido con geolocalización PostGIS,
         validación de dimensiones y ventanas horarias (RF-002, RN-002, RN-006, RN-007).
         """
+        usuario_cliente_id = usuario_cliente_id or pedido_in.usuario_cliente_id
+        if usuario_cliente_id:
+            from app.models.usuario import Usuario
+            owner = db.get(Usuario, usuario_cliente_id)
+            if not owner or owner.rol != 'CLIENTE' or owner.estado != 'ACTIVO':
+                raise HTTPException(422, "Selecciona una cuenta de cliente activa")
         # Validación Escenario BDD: Código único de seguimiento
         codigo_clean = pedido_in.codigo_seguimiento.strip().upper()
         existing = OrderService.get_pedido_by_codigo(db, codigo_clean)
@@ -130,6 +136,7 @@ class OrderService:
         punto_geom = from_shape(Point(pedido_in.longitud, pedido_in.latitud), srid=4326)
 
         db_pedido = Pedido(
+            usuario_cliente_id=usuario_cliente_id,
             codigo_seguimiento=codigo_clean,
             cliente_nombre=pedido_in.cliente_nombre.strip(),
             direccion_destino=pedido_in.direccion_destino.strip(),
@@ -209,7 +216,12 @@ class OrderService:
         if prefs_in.telefono_contacto is not None:
             pedido.telefono_contacto = prefs_in.telefono_contacto
 
-        db.commit()
+        if pedido.ruta_id and pedido.estado == "ASIGNADO":
+            from app.services.routing_service import RoutingService
+            from app.schemas.ruta import ReoptimizarRutaRequest
+            RoutingService.reoptimizar_ruta(db, pedido.ruta_id, ReoptimizarRutaRequest(motivo_incidencia="PREFERENCIAS_ACTUALIZADAS"))
+        else:
+            db.commit()
         db.refresh(pedido)
         return OrderService._to_response(pedido)
 
@@ -222,10 +234,9 @@ class OrderService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Pedido con ID {pedido_id} no encontrado."
             )
-        pedido.estado = estado_in.estado.upper()
-        db.commit()
-        db.refresh(pedido)
-        return OrderService._to_response(pedido)
+        from app.services.delivery_service import update_delivery
+        updated = update_delivery(db, pedido, estado_in.estado.upper())
+        return OrderService._to_response(updated)
 
     @staticmethod
     def delete_pedido(db: Session, pedido_id: UUID) -> dict:

@@ -4,6 +4,8 @@ from typing import Optional
 from uuid import UUID
 
 class VehiculoBase(BaseModel):
+    altura_m: Optional[float] = Field(None, gt=0, le=6)
+    es_ligero: Optional[bool] = None
     placa: str = Field(..., min_length=6, max_length=10, description="Placa vehicular peruana oficial (ej. ABC-123)")
     marca_modelo: str = Field(..., min_length=2, max_length=100, description="Marca, línea y modelo de la unidad")
     anio_fabricacion: int = Field(2024, ge=1990, le=2030, description="Año de fabricación del vehículo")
@@ -56,6 +58,8 @@ class VehiculoCreate(VehiculoBase):
     pass
 
 class VehiculoUpdate(BaseModel):
+    altura_m: Optional[float] = Field(None, gt=0, le=6)
+    es_ligero: Optional[bool] = None
     marca_modelo: Optional[str] = Field(None, min_length=2, max_length=100)
     anio_fabricacion: Optional[int] = Field(None, ge=1990, le=2030)
     capacidad_peso_kg: Optional[float] = Field(None, gt=0)

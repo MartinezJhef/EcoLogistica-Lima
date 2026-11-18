@@ -1,4 +1,15 @@
 import pytest
+from app.models.usuario import Usuario
+from app.schemas.usuario import PERMISOS_POR_DEFECTO, RolUsuario
+
+@pytest.fixture(autouse=True)
+def explicit_test_users(db_session):
+    for role in RolUsuario:
+        email = f'{role.value.lower()}@example.test'
+        if not db_session.query(Usuario).filter(Usuario.email == email).first():
+            db_session.add(Usuario(email=email,nombre_completo=f'Usuario de prueba {role.value}',
+                password_hash='fixture-not-for-login',rol=role.value,permisos=PERMISOS_POR_DEFECTO[role],estado='ACTIVO'))
+    db_session.commit()
 from fastapi.testclient import TestClient
 from main import app
 

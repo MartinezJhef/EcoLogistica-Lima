@@ -100,7 +100,7 @@ class PedidoBase(BaseModel):
         return self
 
 class PedidoCreate(PedidoBase):
-    pass
+    usuario_cliente_id: Optional[UUID] = None
 
 class PreferenciasClienteUpdate(BaseModel):
     """

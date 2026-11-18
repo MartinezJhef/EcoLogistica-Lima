@@ -14,8 +14,7 @@ import {
   PedidoService,
   ClienteService,
   RutaService,
-  UsuarioService,
-  MOCK_CLIENTES_DEFAULT
+  UsuarioService
 } from './api';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -59,153 +58,50 @@ const makeFetchFallback = (
   });
 };
 
-// ─── VehiculoService ──────────────────────────────────────────────────────────
-describe('VehiculoService', () => {
-  const MOCK_VEHICULO = {
-    vehiculo_id: 'v1', placa: 'ABC-123', tipo_combustible: 'ELECTRICO',
-    capacidad_kg: 1500, capacidad_m3: 8, estado: 'DISPONIBLE',
-    anio_fabricacion: 2022, marca: 'BYD', modelo: 'T3', factor_emision_co2: 0
-  };
-
-  beforeEach(() => { vi.clearAllMocks(); });
-
-  it('getAll retorna datos de Supabase cuando fetch es exitoso', async () => {
-    global.fetch = makeFetchOk([MOCK_VEHICULO]);
-    const result = await VehiculoService.getAll();
-    expect(result).toEqual([MOCK_VEHICULO]);
+describe('Servicios integrados con FastAPI', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); });
+  it.each([
+    ['vehículos', () => VehiculoService.getAll(), '/vehiculos'],
+    ['conductores', () => ConductorService.getAll(), '/conductores'],
+    ['pedidos', () => PedidoService.getAll(), '/pedidos'],
+    ['usuarios', () => UsuarioService.getAll(), '/usuarios'],
+  ])('consulta %s en la misma API que genera rutas', async (_name, call, path) => {
+    global.fetch = makeFetchOk([]);
+    expect(await (call as Function)()).toEqual([]);
+    expect((global.fetch as any).mock.calls[0][0]).toContain(path);
+    expect((global.fetch as any).mock.calls[0][0]).not.toContain('supabase');
+  });
+  it('envía el token de sesión y mantiene los filtros', async () => {
+    localStorage.setItem('ecologistica_access_token', 'token-test');
+    global.fetch = makeFetchOk([]);
+    await PedidoService.getAll({estado: 'PENDIENTE', prioridad: 'ALTA', limite: 12, desplazamiento: 24});
+    const [url, init] = (global.fetch as any).mock.calls[0];
+    expect(url).toContain('skip=24'); expect(url).toContain('limit=12');
+    expect(url).toContain('prioridad=ALTA');
+    expect(init.headers.Authorization).toBe('Bearer token-test');
+  });
+  it.each([
+    ['crear pedido', () => PedidoService.create({} as any)],
+    ['guardar preferencias', () => PedidoService.updatePreferencias('p1', {ventana_inicio:'09:00'})],
+    ['crear vehículo', () => VehiculoService.create({} as any)],
+    ['actualizar conductor', () => ConductorService.update('c1', {estado:'DESCANSO'})],
+  ])('propaga el fallo al %s, sin fabricar un guardado local', async (_name, call) => {
+    global.fetch = makeFetchNotOk();
+    await expect((call as Function)()).rejects.toThrow('servicio no disponible');
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
-
-  it('getAll con filtro de combustible llama al endpoint correcto', async () => {
-    global.fetch = makeFetchOk([MOCK_VEHICULO]);
-    await VehiculoService.getAll('ELECTRICO');
-    const callUrl = (global.fetch as any).mock.calls[0][0];
-    expect(callUrl).toContain('ELECTRICO');
+  it('conserva el detalle de una validación rechazada por el servidor', async () => {
+    global.fetch = vi.fn().mockResolvedValue({ok:false, status:400, text:async () => JSON.stringify({detail:'Pedido en tránsito'})});
+    await expect(PedidoService.updatePreferencias('p1', {ventana_inicio:'09:00'})).rejects.toMatchObject({response:{status:400,data:{detail:'Pedido en tránsito'}}});
   });
-
-  it('getAll pide una ventana paginada y una proyección de columnas', async () => {
-    global.fetch = makeFetchOk([MOCK_VEHICULO]);
-    await VehiculoService.getAll(undefined, { limite: 12, desplazamiento: 24 });
-    const callUrl = (global.fetch as any).mock.calls[0][0] as string;
-    expect(callUrl).toContain('limit=12');
-    expect(callUrl).toContain('offset=24');
-    expect(callUrl).not.toContain('select=*');
-    expect(callUrl).toContain('select=vehiculo_id,placa');
-  });
-
-  it('getAll usa la API propia cuando fetch lanza error', async () => {
-    global.fetch = makeFetchFallback('error', [MOCK_VEHICULO]);
-    const result = await VehiculoService.getAll();
-    expect(result).toEqual([MOCK_VEHICULO]);
-    expect(global.fetch).toHaveBeenCalledTimes(2);
-  });
-
-  it('getAll usa la API propia cuando fetch retorna array vacío', async () => {
-    global.fetch = makeFetchFallback('vacio', [MOCK_VEHICULO]);
-    const result = await VehiculoService.getAll();
-    expect(result).toEqual([MOCK_VEHICULO]);
-  });
-
-  it('getById retorna vehículo de Supabase', async () => {
-    global.fetch = makeFetchOk([MOCK_VEHICULO]);
-    const result = await VehiculoService.getById('v1');
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-
-  it('getById usa el respaldo cuando fetch no retorna datos', async () => {
-    global.fetch = makeFetchFallback('vacio', MOCK_VEHICULO);
-    const result = await VehiculoService.getById('v1');
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-
-  it('create retorna vehículo creado de Supabase', async () => {
-    global.fetch = makeFetchOk([MOCK_VEHICULO]);
-    const { vehiculo_id, ...payload } = MOCK_VEHICULO;
-    const result = await VehiculoService.create(payload);
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-
-  it('create usa el respaldo cuando fetch falla', async () => {
-    global.fetch = makeFetchFallback('error', MOCK_VEHICULO);
-    const { vehiculo_id, ...payload } = MOCK_VEHICULO;
-    const result = await VehiculoService.create(payload);
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-
-  it('update usa el respaldo cuando fetch responde no-ok', async () => {
-    global.fetch = makeFetchFallback('no-ok', MOCK_VEHICULO);
-    const result = await VehiculoService.update('v1', { estado: 'MANTENIMIENTO' });
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-
-  it('delete llama fetch DELETE y usa el respaldo', async () => {
-    global.fetch = makeFetchFallback('error', MOCK_VEHICULO);
-    const result = await VehiculoService.delete('v1');
-    expect(result).toEqual(MOCK_VEHICULO);
-  });
-});
-
-// ─── ConductorService ─────────────────────────────────────────────────────────
-describe('ConductorService', () => {
-  const MOCK_CONDUCTOR = {
-    conductor_id: 'c1', nombre_completo: 'Carlos Quispe', dni: '12345678',
-    licencia: 'A-III', estado: 'DISPONIBLE', vehiculo_placa: 'ABC-123',
-    tipo_vehiculo: 'ELECTRICO'
-  };
-
-  beforeEach(() => { vi.clearAllMocks(); });
-
-  it('getAll retorna conductores de Supabase', async () => {
-    global.fetch = makeFetchOk([MOCK_CONDUCTOR]);
-    const result = await ConductorService.getAll();
-    expect(result).toEqual([MOCK_CONDUCTOR]);
-  });
-
-  it('getAll con filtro de estado construye URL correcta', async () => {
-    global.fetch = makeFetchOk([MOCK_CONDUCTOR]);
-    await ConductorService.getAll('DISPONIBLE');
-    const callUrl = (global.fetch as any).mock.calls[0][0];
-    expect(callUrl).toContain('DISPONIBLE');
-  });
-
-  it('getAll usa el respaldo cuando fetch falla', async () => {
-    global.fetch = makeFetchFallback('error', [MOCK_CONDUCTOR]);
-    const result = await ConductorService.getAll();
-    expect(result).toEqual([MOCK_CONDUCTOR]);
-  });
-});
-
-// ─── PedidoService ────────────────────────────────────────────────────────────
-describe('PedidoService', () => {
-  const MOCK_PEDIDO = {
-    pedido_id: 'p1', codigo_seguimiento: 'PED-001', cliente_nombre: 'Bodega A',
-    origen_direccion: 'Av. Lima 1', direccion_destino: 'Av. Arequipa 100',
-    latitud: -12.046, longitud: -77.042, peso_kg: 50, volumen_m3: 0.5,
-    ventana_inicio: '09:00', ventana_fin: '12:00', prioridad: 'ESTANDAR',
-    estado: 'PENDIENTE', referencia_ubicacion: 'Puerta trasera',
-    restriccion_acceso: 'LIBRE_ACCESO', foto_referencia_url: '', telefono_contacto: '999'
-  };
-
-  beforeEach(() => { vi.clearAllMocks(); });
-
-  it('getAll retorna pedidos de Supabase cuando fetch es exitoso', async () => {
-    global.fetch = makeFetchOk([MOCK_PEDIDO]);
-    const result = await PedidoService.getAll();
-    expect(Array.isArray(result)).toBe(true);
-  });
-
-  it('getAll pide una ventana paginada', async () => {
-    global.fetch = makeFetchOk([MOCK_PEDIDO]);
-    await PedidoService.getAll({ limite: 12, desplazamiento: 0 });
-    const callUrl = (global.fetch as any).mock.calls[0][0] as string;
-    expect(callUrl).toContain('limit=12');
-    expect(callUrl).toContain('offset=0');
-  });
-
-  it('getAll usa el respaldo cuando Supabase falla', async () => {
-    global.fetch = makeFetchFallback('error', [MOCK_PEDIDO]);
-    const result = await PedidoService.getAll();
-    expect(result).toEqual([MOCK_PEDIDO]);
+  it('lee y modifica un vehículo con la respuesta persistida', async () => {
+    const vehicle = {vehiculo_id:'v1', altura_m:2.2, es_ligero:true};
+    global.fetch = makeFetchOk(vehicle);
+    expect(await VehiculoService.getById('v1')).toEqual(vehicle);
+    expect(await VehiculoService.create(vehicle as any)).toEqual(vehicle);
+    expect(await VehiculoService.update('v1', {altura_m:2.2})).toEqual(vehicle);
+    await VehiculoService.delete('v1');
+    expect((global.fetch as any).mock.calls.at(-1)[1].method).toBe('DELETE');
   });
 });
 
@@ -229,11 +125,9 @@ describe('ClienteService', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('getAll usa MOCK_CLIENTES_DEFAULT cuando Supabase y la API fallan', async () => {
+  it('rechaza la lectura fallida de clientes sin fabricar datos de demostración', async () => {
     global.fetch = makeFetchFail();
-    const result = await ClienteService.getAll();
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
+    await expect(ClienteService.getAll()).rejects.toThrow();
   });
 });
 
@@ -269,38 +163,48 @@ describe('RutaService', () => {
   });
 });
 
-// ─── MOCK_CLIENTES_DEFAULT ────────────────────────────────────────────────────
-describe('MOCK_CLIENTES_DEFAULT', () => {
-  it('es un array no vacío', () => {
-    expect(Array.isArray(MOCK_CLIENTES_DEFAULT)).toBe(true);
-    expect(MOCK_CLIENTES_DEFAULT.length).toBeGreaterThan(0);
-  });
-
-  it('cada cliente tiene los campos requeridos', () => {
-    for (const c of MOCK_CLIENTES_DEFAULT) {
-      expect(c.cliente_id).toBeTruthy();
-      expect(c.latitud).toBeDefined();
-      expect(c.longitud).toBeDefined();
-    }
+describe('Usuarios', () => {
+  it('recupera el catálogo desde el servidor', async () => {
+    global.fetch = makeFetchOk({roles_disponibles:[],catalogo_permisos:[]});
+    expect(await UsuarioService.getCatalogoPermisos()).toEqual({roles_disponibles:[],catalogo_permisos:[]});
   });
 });
 
-// ─── UsuarioService ───────────────────────────────────────────────────────────
-describe('UsuarioService', () => {
-  beforeEach(() => { vi.clearAllMocks(); });
-
-  it('getAll usa el respaldo cuando Supabase falla', async () => {
-    global.fetch = makeFetchFallback('error', []);
-    const result = await UsuarioService.getAll();
-    expect(Array.isArray(result)).toBe(true);
-  });
-
-  it('getCatalogoPermisos usa el respaldo cuando Supabase falla', async () => {
-    global.fetch = makeFetchFallback('error', {
-      roles_disponibles: [],
-      catalogo_permisos: []
-    });
-    const result = await UsuarioService.getCatalogoPermisos();
-    expect(result).toBeDefined();
+describe('Contratos HTTP de los recursos del Sprint 3',()=>{
+  it.each([
+    ['VehiculoService','getById',['id-1'],'GET','/vehiculos/id-1'],
+    ['VehiculoService','update',['id-1',{estado:'DISPONIBLE'}],'PUT','/vehiculos/id-1'],
+    ['VehiculoService','delete',['id-1'],'DELETE','/vehiculos/id-1'],
+    ['ConductorService','getById',['id-1'],'GET','/conductores/id-1'],
+    ['ConductorService','create',[{dni:'12345678'}],'POST','/conductores'],
+    ['ConductorService','update',['id-1',{telefono:'999888777'}],'PUT','/conductores/id-1'],
+    ['ConductorService','delete',['id-1'],'DELETE','/conductores/id-1'],
+    ['ConductorService','validarJornada',['id-1',1.5],'POST','/conductores/id-1/validar-jornada?horas_ruta=1.5'],
+    ['ConductorService','acumularHoras',['id-1',1.5],'POST','/conductores/id-1/acumular-horas?horas=1.5'],
+    ['ConductorService','reiniciarJornada',['id-1'],'POST','/conductores/id-1/reiniciar-jornada'],
+    ['PedidoService','getCuentasClientes',[],'GET','/clientes/cuentas'],
+    ['PedidoService','getById',['id-1'],'GET','/pedidos/id-1'],
+    ['PedidoService','getByCodigo',['PED A/1'],'GET','/pedidos/codigo/PED%20A%2F1'],
+    ['PedidoService','updateEstado',['id-1','EN_TRANSITO'],'PATCH','/pedidos/id-1/estado'],
+    ['PedidoService','delete',['id-1'],'DELETE','/pedidos/id-1'],
+    ['UsuarioService','getById',['id-1'],'GET','/usuarios/id-1'],
+    ['UsuarioService','create',[{email:'test@example.test'}],'POST','/usuarios'],
+    ['UsuarioService','update',['id-1',{estado:'BLOQUEADO'}],'PUT','/usuarios/id-1'],
+    ['UsuarioService','delete',['id-1'],'DELETE','/usuarios/id-1'],
+    ['ClienteService','getById',['id-1'],'GET','/clientes/id-1'],
+    ['ClienteService','create',[{razon_social:'Prueba'}],'POST','/clientes'],
+    ['ClienteService','update',['id-1',{estado:'ACTIVO'}],'PUT','/clientes/id-1'],
+    ['ClienteService','delete',['id-1'],'DELETE','/clientes/id-1'],
+    ['RutaService','getById',['id-1'],'GET','/rutas/id-1'],
+    ['RutaService','reoptimizar',['id-1',{evitar_zona_riesgo:true}],'POST','/rutas/id-1/reoptimizar'],
+  ])('%s.%s usa el método, recurso y autenticación correctos',async(service,method,args,httpMethod,path)=>{
+    const services=await import('./api');
+    global.fetch=makeFetchOk({ok:true});
+    localStorage.setItem('ecologistica_access_token','test-only-token');
+    await (services as any)[service as string][method as string](...(args as any[]));
+    const [url,init]=(global.fetch as any).mock.calls[0];
+    expect(url).toContain(path);expect(init.method).toBe(httpMethod);
+    expect(init.headers.Authorization).toBe('Bearer test-only-token');
+    localStorage.removeItem('ecologistica_access_token');
   });
 });

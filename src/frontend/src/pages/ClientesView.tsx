@@ -18,7 +18,7 @@ import {
   ClienteUpdatePayload, 
   TipoComercio,
   UsuarioService,
-  MOCK_CLIENTES_DEFAULT
+
 } from '../services/api';
 import { SVG_MINI_PIN, crearIconoNegocioCasa } from '../utils/mapIcons';
 
@@ -39,25 +39,7 @@ const DISTRITOS_LIMA = [
 
 export function ClientesView() {
   const navigate = useNavigate();
-  const [clientes, setClientes] = useState<Cliente[]>(() => {
-    try {
-      const local = localStorage.getItem('ecologistica_clientes_v1');
-      if (local) {
-        const parsed = JSON.parse(local);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const tieneSanJose = parsed.some(c => 
-            (c.razon_social && c.razon_social.toLowerCase().includes('bodega san jos')) ||
-            (c.email && c.email.toLowerCase().includes('sanjose'))
-          );
-          if (!tieneSanJose && MOCK_CLIENTES_DEFAULT.length > 0) {
-            return [MOCK_CLIENTES_DEFAULT[0], ...parsed];
-          }
-          return parsed;
-        }
-      }
-    } catch {}
-    return MOCK_CLIENTES_DEFAULT;
-  });
+  const [clientes, setClientes] = useState<Cliente[]>([]);
   const [cargando, setCargando] = useState(false);
   const [vistaSubTab, setVistaSubTab] = useState<'lista' | 'mapa'>('lista');
 
@@ -289,14 +271,9 @@ export function ClientesView() {
     setCargando(true);
     try {
       const data = await ClienteService.getAll();
-      if (data && data.length > 0) {
-        setClientes(data);
-      } else {
-        setClientes(MOCK_CLIENTES_DEFAULT);
-      }
-    } catch (e) {
-      console.warn('Error al cargar clientes:', e);
-      setClientes(prev => prev.length > 0 ? prev : MOCK_CLIENTES_DEFAULT);
+      setClientes(data);
+    } catch {
+      setAlerta('No se pudieron cargar los clientes. Revisa la conexión y reintenta.');
     } finally {
       setCargando(false);
     }
@@ -478,23 +455,6 @@ export function ClientesView() {
       const creado = await ClienteService.create(payload);
       setClientes(prev => [creado, ...prev]);
       setMensajeExito(`Cliente '${payload.razon_social}' registrado exitosamente con geolocalización.`);
-
-      // Sincronizar creación de cuenta institucional en Administración (Rol: CLIENTE)
-      if (payload.email) {
-        try {
-          await UsuarioService.create({
-            email: payload.email.toLowerCase().trim(),
-            nombre_completo: `${payload.razon_social.trim()} (Cliente B2B)`,
-            telefono: payload.telefono.trim(),
-            rol: 'CLIENTE',
-            password: 'ecologistica2026',
-            permisos: ['TRACKING_CLIENTE'],
-            estado: 'ACTIVO'
-          });
-        } catch (syncUserErr) {
-          console.warn('Sync usuario para cliente:', syncUserErr);
-        }
-      }
 
       // Limpiar formulario
       setNumeroDocumento('');

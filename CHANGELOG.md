@@ -56,3 +56,9 @@ Todas las modificaciones relevantes de EcoLogística Lima se documentan en este 
 - Línea base del Sprint 1: gestión de vehículos, conductores, clientes, pedidos y rutas.
 - Especificaciones US-001 y US-002.
 - Pruebas unitarias y de componentes del frontend.
+# Integración hasta Sprint 3 (rama de revisión)
+
+- Unificación de web y móvil mediante FastAPI, comprobación de contraseña y permisos, y eliminación de confirmaciones de guardado ficticias.
+- Planificación con horarios, acceso, capacidad y jornada; geometría vial, incidencias reportadas y revalidación de preferencias.
+- Cola persistente de itinerarios, conservación sin internet, reintentos ordenados, redistribución por avería y confirmación de regreso al depósito.
+- Migración aditiva, pruebas de regresión y validación automatizada con PostGIS desechable. Instalación y límites documentados en `docs/SPRINT_3_INSTALACION_Y_VALIDACION.md`.

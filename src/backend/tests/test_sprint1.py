@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import unittest
 from datetime import time
 from pydantic import ValidationError
@@ -36,7 +37,7 @@ class TestSprint1(unittest.TestCase):
 
     def test_us002_escenario1_conductor_valido(self):
         """US-002 Escenario 1: Registro de conductor con licencia válida"""
-        conductor = ConductorCreate(
+        conductor = ConductorCreate(licencia_vencimiento=date.today()+timedelta(days=365),
             dni="71234567",
             nombres="Carlos Eduardo",
             apellidos="Quispe Huamán",
