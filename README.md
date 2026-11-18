@@ -399,12 +399,21 @@ flutter run -d windows    # Opción de escritorio Windows
 
 * **Características implementadas:**
   * 🔐 **Autenticación con Detección Automática de Rol:** Deriva a la interfaz de Repartidor o Cliente.
-  * 🚚 **Modo Repartidor:** Selección de pedido, visualización de ruta (A ➔ B), cálculo de tiempo de llegada (ETA), consumo de combustible, emisiones de $CO_2$ y captura de foto de entrega (POD).
-  * 🏪 **Modo Cliente / Recepción:** Emisión de nuevos pedidos (Punto A a B), especificación de precio del producto y modalidad de pago ("Pago inmediato" o "Contraentrega").
-  * 🔄 **Arquitectura Offline-First:** Persistencia en base de datos local SQL en caso de pérdida de conexión; al reconectar con PostgreSQL, las transacciones pendientes se sincronizan automáticamente.
-  * 🍎 **Apple Design System:** Interfaz en modo oscuro *Obsidian Glass*, física táctil con resortes y componentes Cupertino fluidos.
+  * 🚚 **Modo Repartidor:** Entregas asignadas, itinerario con geometría vial guardada, actualización de estados y confirmación del regreso al depósito.
+  * 🏪 **Modo Cliente:** Registro con dirección geocodificada o coordenadas verificadas, carga y horarios; consulta de pedidos propios y edición de preferencias de entrega.
+  * 🔄 **Arquitectura Offline-First:** Persistencia del itinerario y de operaciones pendientes en el dispositivo. Los cambios se confirman únicamente cuando la API los acepta y se reintentan al recuperar conexión.
+  * 🍎 **Interfaz móvil:** Tema claro, tarjetas y componentes Material/Cupertino; vistas comprobadas a 414 px.
 
 ---
+
+### Preparación del Sprint 4
+
+La implementación hasta Sprint 3 se revisa en el [PR #12](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/12). La rama `prep/sprint-4` prepara el siguiente incremento sobre esa base.
+
+- [Alcance, secuencia de implementación, contratos y pruebas del Sprint 4](docs/03%20Inplementaci%C3%B3n/Sprint%204/00%20Preparaci%C3%B3n%20del%20Sprint%204%20V_1_0_0.md).
+- [Qué debe revisar y hacer el compañero para aprobar e integrar el PR](docs/03%20Inplementaci%C3%B3n/Sprint%204/05%20Gu%C3%ADa%20de%20revisi%C3%B3n%20e%20integraci%C3%B3n%20V_1_0_0.md).
+
+La ruta `03 Inplementación` reproduce la indicada en la consigna del Sprint 4. Los documentos de cierre se redactarán con resultados reales de implementación, demostración, Playwright, usabilidad y retrospectiva.
 
 ### 📚 Visualización de Documentación en VS Code
 Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), tablas y diagramas Mermaid:
