@@ -34,7 +34,10 @@ def update_delivery(db, order, state, photo=None):
     order.estado = state
     if photo: order.foto_entrega_url = photo
     if route:
-        if state == 'EN_TRANSITO': route.estado = 'EN_EJECUCION'
+        if state == 'EN_TRANSITO':
+            from app.services.analytics_service import capture_snapshot
+            capture_snapshot(db, route)
+            route.estado = 'EN_EJECUCION'
         db.flush()
         if not db.query(Pedido).filter(Pedido.ruta_id == route_id,
                 Pedido.estado.notin_(['ENTREGADO', 'NO_ENTREGADO', 'CANCELADO'])).first():

@@ -337,6 +337,8 @@ def reoptimize(db, route_id, request):
             if route.fecha_operacion == date.today() else 0) + request.minutos_transcurridos / 60
         rows = schedule(orders, route.vehiculo, route.conductor, origin, minutes(departure), RoadService(),
             blocked, [i for i in incidents if not i.cierre], [float(last.longitud), float(last.latitud)], base_hours, request.conduccion_continua_min) if orders or route.estado == "EN_EJECUCION" else []
+        from app.services.analytics_service import preserve_completed_legs
+        preserve_completed_legs(db, route, previous)
         db.query(Tramo).filter(Tramo.ruta_id == route_id).delete(synchronize_session=False)
         persist(db, route, rows)
         if not orders and route.estado == "PLANIFICADA":

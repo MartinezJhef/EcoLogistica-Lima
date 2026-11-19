@@ -399,12 +399,31 @@ flutter run -d windows    # Opción de escritorio Windows
 
 * **Características implementadas:**
   * 🔐 **Autenticación con Detección Automática de Rol:** Deriva a la interfaz de Repartidor o Cliente.
-  * 🚚 **Modo Repartidor:** Selección de pedido, visualización de ruta (A ➔ B), cálculo de tiempo de llegada (ETA), consumo de combustible, emisiones de $CO_2$ y captura de foto de entrega (POD).
-  * 🏪 **Modo Cliente / Recepción:** Emisión de nuevos pedidos (Punto A a B), especificación de precio del producto y modalidad de pago ("Pago inmediato" o "Contraentrega").
-  * 🔄 **Arquitectura Offline-First:** Persistencia en base de datos local SQL en caso de pérdida de conexión; al reconectar con PostgreSQL, las transacciones pendientes se sincronizan automáticamente.
-  * 🍎 **Apple Design System:** Interfaz en modo oscuro *Obsidian Glass*, física táctil con resortes y componentes Cupertino fluidos.
+  * 🚚 **Modo Repartidor:** Entregas asignadas, itinerario con geometría vial guardada, actualización de estados y confirmación del regreso al depósito.
+  * 🏪 **Modo Cliente:** Registro con dirección geocodificada o coordenadas verificadas, carga y horarios; consulta de pedidos propios y edición de preferencias de entrega.
+  * 🔄 **Arquitectura Offline-First:** Persistencia del itinerario y de operaciones pendientes en el dispositivo. Los cambios se confirman únicamente cuando la API los acepta y se reintentan al recuperar conexión.
+  * 🍎 **Interfaz móvil:** Tema claro, tarjetas y componentes Material/Cupertino; vistas comprobadas a 414 px.
 
 ---
+
+### Sprint 4: sostenibilidad, reportes y compensación
+
+La implementación hasta Sprint 3 se revisa en el [PR #12](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/12). La rama `prep/sprint-4` implementa el siguiente incremento sobre esa base: pantalla Sostenibilidad, reportes PDF persistidos y compensación configurable. Producción, revisión por pares y evaluación SUS real siguen pendientes.
+
+[![CI](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/ci.yml/badge.svg?branch=prep/sprint-4)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/ci.yml)
+[![Tests](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/tests.yml/badge.svg?branch=prep/sprint-4)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/tests.yml)
+[![Deploy](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/deploy-production.yml)
+
+- [Revisión del Sprint](docs/03%20Inplementaci%C3%B3n/Sprint%204/01%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md).
+- [Retrospectiva: observaciones y acciones propuestas](docs/03%20Inplementaci%C3%B3n/Sprint%204/02%20Retrospectiva%20del%20Sprint%20V_1_0_0.md).
+- [Análisis Playwright y rendimiento](docs/03%20Inplementaci%C3%B3n/Sprint%204/03%20Analisis%20PlayWrigth%20V_1_0_0.md).
+- [Usabilidad: pruebas por roles y evaluación SUS pendiente](docs/03%20Inplementaci%C3%B3n/Sprint%204/04%20Usabilidad%20V_1_0_0.md).
+- [Instalación, despliegue gratuito y protocolo SUS](docs/03%20Inplementaci%C3%B3n/Sprint%204/06%20Despliegue%20y%20evaluaci%C3%B3n%20V_1_0_0.md).
+
+- [Alcance, secuencia de implementación, contratos y pruebas del Sprint 4](docs/03%20Inplementaci%C3%B3n/Sprint%204/00%20Preparaci%C3%B3n%20del%20Sprint%204%20V_1_0_0.md).
+- [Qué debe revisar y hacer el compañero para aprobar e integrar el PR](docs/03%20Inplementaci%C3%B3n/Sprint%204/05%20Gu%C3%ADa%20de%20revisi%C3%B3n%20e%20integraci%C3%B3n%20V_1_0_0.md).
+
+La ruta `03 Inplementación` reproduce la indicada en la consigna. Los informes distinguen pruebas realizadas de las sesiones humanas todavía pendientes.
 
 ### 📚 Visualización de Documentación en VS Code
 Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), tablas y diagramas Mermaid:

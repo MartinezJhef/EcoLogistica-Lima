@@ -1,0 +1,76 @@
+name: Sprint 4 Tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: sprint4_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: isolated-test-only
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgresql+psycopg://postgres:isolated-test-only@localhost:5432/sprint4_test
+      CODECARBON_ENABLED: '0'
+      E2E_DISPOSABLE_DATABASE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: pip install -r src/backend/requirements.txt playwright
+      - run: python -m playwright install --with-deps chromium firefox webkit
+      - name: Migrate disposable PostGIS twice
+        env:
+          PGPASSWORD: isolated-test-only
+        run: |
+          psql -h localhost -U postgres -d sprint4_test -v ON_ERROR_STOP=1 -f src/database/init.sql
+          psql -h localhost -U postgres -d sprint4_test -v ON_ERROR_STOP=1 -f scripts/006_sprint3_route_updates.sql
+          psql -h localhost -U postgres -d sprint4_test -v ON_ERROR_STOP=1 -f scripts/007_sprint4_analytics.sql
+          psql -h localhost -U postgres -d sprint4_test -v ON_ERROR_STOP=1 -f scripts/007_sprint4_analytics.sql
+      - run: pytest --cov-fail-under=80
+        working-directory: src/backend
+      - run: npm ci --ignore-scripts && npm run test:coverage && npm run build
+        working-directory: src/frontend
+      - name: Prepare isolated role accounts
+        run: |
+          python - <<'PY'
+          import os,secrets
+          with open(os.environ['GITHUB_ENV'],'a') as stream:
+              password=secrets.token_urlsafe(32)
+              print('::add-mask::'+password)
+              stream.write('E2E_PASSWORD='+password+'\nSECRET_KEY='+secrets.token_urlsafe(40)+'\n')
+          PY
+      - run: python scripts/seed_sprint4_e2e.py
+      - name: Start disposable application
+        run: |
+          (cd src/backend && uvicorn main:app --host 127.0.0.1 --port 8000 > /tmp/api.log 2>&1) &
+          (cd src/backend && python report_worker.py > /tmp/worker.log 2>&1) &
+          (cd src/frontend && PORT=5173 node server.mjs > /tmp/web.log 2>&1) &
+          for i in $(seq 1 30); do
+            if curl --fail http://127.0.0.1:8000/api/v1/health && curl --fail http://127.0.0.1:5173/ >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          exit 1
+      - run: python scripts/sprint4_e2e.py
+      - run: npx playwright install --with-deps && npx playwright test
+        working-directory: src/frontend
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sprint4-validation
+          path: |
+            playwright-report/
+            src/backend/coverage.xml
+            src/frontend/coverage/
+            src/frontend/playwright-report/
+          retention-days: 14

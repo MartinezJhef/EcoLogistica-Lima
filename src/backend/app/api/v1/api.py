@@ -12,6 +12,8 @@ from app.api.v1.endpoints import (
 )
 
 api_router = APIRouter()
+from app.api.v1.endpoints import sustainability
+api_router.include_router(sustainability.router, tags=['Sostenibilidad (Sprint 4)'])
 api_router.include_router(auth.router, prefix="/auth", tags=["Autenticación"])
 api_router.include_router(mobile.router, prefix="/mobile", tags=["Aplicación móvil"])
 

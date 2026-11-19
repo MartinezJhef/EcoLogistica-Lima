@@ -17,6 +17,7 @@ class EstadoUsuario(str, Enum):
 
 # Catálogo oficial de permisos RBAC
 PERMISOS_CATALOGO = [
+    {"codigo": "ANALITICA", "modulo": "Sostenibilidad", "nombre": "Dashboard, reportes y compensación", "descripcion": "Consultar indicadores y generar propuestas y reportes privados."},
     {
         "codigo": "ADMIN_USUARIOS",
         "modulo": "Administración",
@@ -64,6 +65,7 @@ PERMISOS_CATALOGO = [
 # Permisos por defecto asociados a cada Rol
 PERMISOS_POR_DEFECTO = {
     RolUsuario.ADMIN: [
+        "ANALITICA",
         "ADMIN_USUARIOS",
         "GESTION_FLOTA",
         "GESTION_CONDUCTORES",
@@ -73,6 +75,7 @@ PERMISOS_POR_DEFECTO = {
         "TRACKING_CLIENTE"
     ],
     RolUsuario.OFICINA: [
+        "ANALITICA",
         "GESTION_FLOTA",
         "GESTION_CONDUCTORES",
         "REGISTRO_PEDIDOS",

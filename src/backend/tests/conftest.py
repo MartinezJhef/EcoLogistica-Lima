@@ -72,6 +72,9 @@ Ruta.__table__.create(bind=engine_test, checkfirst=True)
 Tramo.__table__.create(bind=engine_test, checkfirst=True)
 ZonaRestringida.__table__.create(bind=engine_test, checkfirst=True)
 RouteUpdate.__table__.create(bind=engine_test, checkfirst=True)
+from app.models.sustainability import SustainabilitySettings, RouteSnapshot, SustainabilityExport
+for model in (SustainabilitySettings, RouteSnapshot, SustainabilityExport):
+    model.__table__.create(bind=engine_test, checkfirst=True)
 
 
 @pytest.fixture(autouse=True)

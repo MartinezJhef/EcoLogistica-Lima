@@ -32,6 +32,7 @@ const AdminUsersView = lazy(() =>
   import('./pages/AdminUsersView').then(m => ({ default: m.AdminUsersView }))
 );
 const ClientePedidosView = lazy(() => import('./pages/ClientePedidosView').then(m=>({default:m.ClientePedidosView})));
+const SostenibilidadView = lazy(() => import('./pages/SostenibilidadView').then(m => ({default: m.SostenibilidadView})));
 
 /** Reserva de espacio mientras se descarga el módulo: evita saltos de maquetación. */
 function ModuleFallback() {
@@ -119,6 +120,7 @@ function AppLayout() {
   const canAccessRutas = userRole === 'ADMIN' || userRole === 'OFICINA' || userRole === 'REPARTIDOR';
   const canAccessPedidos = true; // Todos los roles tienen acceso o tracking
   const canAccessAdmin = userRole === 'ADMIN';
+  const canAccessAnalytics = userRole === 'ADMIN' || (userRole === 'OFICINA' && currentUser.permisos.includes('ANALITICA'));
 
   const roleMeta: Record<RolUsuario, { label: string; badge: string; color: string; icon: any }> = {
     ADMIN: { label: 'Administrador', badge: 'Acceso Total', color: '#A7B38B', icon: Shield },
@@ -235,6 +237,7 @@ function AppLayout() {
 
         {/* Enlaces de Navegación Dinámica */}
         <nav className="nav-links">
+          {canAccessAnalytics && <button className={`nav-item ${currentPath === '/sostenibilidad' ? 'active' : ''}`} onClick={() => navigate('/sostenibilidad')}><Sparkles size={17} /><span>Sostenibilidad</span></button>}
           {canAccessVehiculos && (
             <button
               className={`nav-item ${currentPath === '/vehiculos' ? 'active' : ''}`}
@@ -301,6 +304,7 @@ function AppLayout() {
       <main className="main-content">
         <Suspense fallback={<ModuleFallback />}>
         <Routes>
+          <Route path="/sostenibilidad" element={canAccessAnalytics ? <SostenibilidadView /> : <Navigate to="/pedidos" replace />} />
           <Route 
             path="/" 
             element={

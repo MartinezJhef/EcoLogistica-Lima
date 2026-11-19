@@ -1,0 +1,36 @@
+# Free preview deployment. Database must be provisioned with PostGIS first.
+# Public service sleeps when idle; this is not a production SLA.
+services:
+  - type: web
+    name: ecologistica-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./src/backend/Dockerfile
+    dockerContext: ./src/backend
+    dockerCommand: python hosted_start.py
+    healthCheckPath: /api/v1/health
+    autoDeployTrigger: off
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: CODECARBON_ENABLED
+        value: '0'
+  - type: web
+    name: ecologistica-web
+    runtime: static
+    buildCommand: cd src/frontend && npm ci --ignore-scripts && npm run build
+    staticPublishPath: ./src/frontend/dist
+    autoDeployTrigger: off
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+      - key: NODE_VERSION
+        value: '24'
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

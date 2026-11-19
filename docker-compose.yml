@@ -13,6 +13,7 @@ services:
     volumes:
       - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./scripts/006_sprint3_route_updates.sql:/docker-entrypoint-initdb.d/zz_sprint3.sql:ro
+      - ./scripts/007_sprint4_analytics.sql:/docker-entrypoint-initdb.d/zzz_sprint4.sql:ro
       - pgdata:/var/lib/postgresql/data
 
   backend:
@@ -47,6 +48,19 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+
+  report-worker:
+    build: ./src/backend
+    command: python report_worker.py
+    restart: unless-stopped
+    environment:
+      POSTGRES_SERVER: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD}
+      POSTGRES_DB: ecologistica_db
+    depends_on:
+      - db
 
 volumes:
   pgdata:
