@@ -406,14 +406,24 @@ flutter run -d windows    # Opción de escritorio Windows
 
 ---
 
-### Preparación del Sprint 4
+### Sprint 4: sostenibilidad, reportes y compensación
 
-La implementación hasta Sprint 3 se revisa en el [PR #12](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/12). La rama `prep/sprint-4` prepara el siguiente incremento sobre esa base.
+La implementación hasta Sprint 3 se revisa en el [PR #12](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/12). La rama `prep/sprint-4` implementa el siguiente incremento sobre esa base: pantalla Sostenibilidad, reportes PDF persistidos y compensación configurable. Producción, revisión por pares y evaluación SUS real siguen pendientes.
+
+[![CI](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/ci.yml/badge.svg?branch=prep/sprint-4)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/ci.yml)
+[![Tests](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/tests.yml/badge.svg?branch=prep/sprint-4)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/tests.yml)
+[![Deploy](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/workflows/deploy-production.yml)
+
+- [Revisión del Sprint](docs/03%20Inplementaci%C3%B3n/Sprint%204/01%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md).
+- [Retrospectiva: observaciones y acciones propuestas](docs/03%20Inplementaci%C3%B3n/Sprint%204/02%20Retrospectiva%20del%20Sprint%20V_1_0_0.md).
+- [Análisis Playwright y rendimiento](docs/03%20Inplementaci%C3%B3n/Sprint%204/03%20Analisis%20PlayWrigth%20V_1_0_0.md).
+- [Usabilidad: pruebas por roles y evaluación SUS pendiente](docs/03%20Inplementaci%C3%B3n/Sprint%204/04%20Usabilidad%20V_1_0_0.md).
+- [Instalación, despliegue gratuito y protocolo SUS](docs/03%20Inplementaci%C3%B3n/Sprint%204/06%20Despliegue%20y%20evaluaci%C3%B3n%20V_1_0_0.md).
 
 - [Alcance, secuencia de implementación, contratos y pruebas del Sprint 4](docs/03%20Inplementaci%C3%B3n/Sprint%204/00%20Preparaci%C3%B3n%20del%20Sprint%204%20V_1_0_0.md).
 - [Qué debe revisar y hacer el compañero para aprobar e integrar el PR](docs/03%20Inplementaci%C3%B3n/Sprint%204/05%20Gu%C3%ADa%20de%20revisi%C3%B3n%20e%20integraci%C3%B3n%20V_1_0_0.md).
 
-La ruta `03 Inplementación` reproduce la indicada en la consigna del Sprint 4. Los documentos de cierre se redactarán con resultados reales de implementación, demostración, Playwright, usabilidad y retrospectiva.
+La ruta `03 Inplementación` reproduce la indicada en la consigna. Los informes distinguen pruebas realizadas de las sesiones humanas todavía pendientes.
 
 ### 📚 Visualización de Documentación en VS Code
 Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), tablas y diagramas Mermaid:

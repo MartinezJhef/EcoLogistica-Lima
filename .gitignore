@@ -126,3 +126,5 @@ temp/
 scratch/
 .vite/
 
+playwright-report/
+test-results/

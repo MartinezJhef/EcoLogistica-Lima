@@ -1,5 +1,7 @@
 # Preparación del Sprint 4
 
+> Registro histórico de preparación. La implementación y resultados posteriores se documentan en [Revisión del Sprint](01%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md) y [Análisis Playwright](03%20Analisis%20PlayWrigth%20V_1_0_0.md).
+
 **Proyecto:** EcoLogística Lima.  
 **Fecha de preparación:** 18 de noviembre de 2026.  
 **Estado:** preparación técnica; las historias del Sprint 4 no se declaran implementadas ni cerradas.  
