@@ -7,6 +7,7 @@ enum RolUsuarioApp {
 
 class UsuarioAppModel {
   final String usuarioId;
+  final String? conductorId;
   final String email;
   final String nombreCompleto;
   final String? telefono;
@@ -16,6 +17,7 @@ class UsuarioAppModel {
 
   UsuarioAppModel({
     required this.usuarioId,
+    this.conductorId,
     required this.email,
     required this.nombreCompleto,
     this.telefono,
@@ -38,6 +40,7 @@ class UsuarioAppModel {
     }
 
     return UsuarioAppModel(
+      conductorId: json['conductor_id'],
       usuarioId: json['usuario_id'] ?? json['id'] ?? 'usr-001',
       email: json['email'] ?? '',
       nombreCompleto: json['nombre_completo'] ?? json['nombre'] ?? 'Usuario',
@@ -54,6 +57,7 @@ class UsuarioAppModel {
   Map<String, dynamic> toJson() {
     return {
       'usuario_id': usuarioId,
+      'conductor_id': conductorId,
       'email': email,
       'nombre_completo': nombreCompleto,
       'telefono': telefono,

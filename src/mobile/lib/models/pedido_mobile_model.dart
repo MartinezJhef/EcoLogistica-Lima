@@ -1,4 +1,10 @@
 class PedidoMobileModel {
+  final double pesoKg;
+  final double volumenM3;
+  final String ventanaInicio;
+  final String ventanaFin;
+  final String restriccionAcceso;
+  final String referenciaUbicacion;
   final String id;
   final String codigoSeguimiento;
   final String clienteNombre;
@@ -27,16 +33,25 @@ class PedidoMobileModel {
   String faseEntrega; // 'OFERTA_DISPONIBLE' | 'FLETE_ACORDADO' | 'RUMBO_A_RECOJO' | 'LLEGADA_A_ORIGEN' | 'EN_TRANSITO_A_DESTINO' | 'ENTREGADO'
   double conductorLat; // Ubicación en tiempo real del conductor
   double conductorLng;
-  double distanciaHaciaOrigenKm; // Distancia desde conductor actual hasta Punto A
+  double
+  distanciaHaciaOrigenKm; // Distancia desde conductor actual hasta Punto A
   int tiempoHaciaOrigenMin; // ETA para llegar a recoger el paquete
   final double consumoKmGal; // Eficiencia promedio km/gal
   final String restriccionZonal; // 'LIBRE_CIRCULACION' | 'RESTRICCION_HORARIA' | 'ZONA_RESTRINGIDA'
-  final double ahorroCo2Porcentaje; // % de mitigación ambiental frente a diésel convencional
+  final double
+  ahorroCo2Porcentaje; // % de mitigación ambiental frente a diésel convencional
   final double co2AhorradoKg; // kg de CO2 evitados
-  String? fotoRecepcionOrigen; // Foto capturada al recibir el paquete en el Punto A
+  String?
+  fotoRecepcionOrigen; // Foto capturada al recibir el paquete en el Punto A
   bool avisoClienteLlegadaOrigen; // Notificación enviada al cliente de llegada a Punto A
 
   PedidoMobileModel({
+    this.pesoKg = 25,
+    this.volumenM3 = .35,
+    this.ventanaInicio = '08:00',
+    this.ventanaFin = '18:00',
+    this.restriccionAcceso = 'LIBRE_ACCESO',
+    this.referenciaUbicacion = '',
     required this.id,
     required this.codigoSeguimiento,
     required this.clienteNombre,
@@ -61,7 +76,8 @@ class PedidoMobileModel {
     this.fleteContraoferta,
     this.fleteAcordado,
     this.faseEntrega = 'OFERTA_DISPONIBLE',
-    this.conductorLat = -12.052800, // Coordenada conductor de prueba (Breña/Lima Centro)
+    this.conductorLat =
+        -12.052800, // Coordenada conductor de prueba (Breña/Lima Centro)
     this.conductorLng = -77.051200,
     this.distanciaHaciaOrigenKm = 2.4,
     this.tiempoHaciaOrigenMin = 8,
@@ -74,55 +90,106 @@ class PedidoMobileModel {
   });
 
   factory PedidoMobileModel.fromJson(Map<String, dynamic> json) {
-    final double dist = (json['distancia_km'] as num?)?.toDouble() ?? 8.5;
-    final double co2 = (json['emision_co2_kg'] as num?)?.toDouble() ?? 0.54;
-    final double gal = (json['consumo_combustible_gal'] as num?)?.toDouble() ?? 0.22;
+    final double dist = (json['distancia_km'] as num?)?.toDouble() ?? 0;
+    final double co2 = (json['emision_co2_kg'] as num?)?.toDouble() ?? 0;
+    final double gal =
+        (json['consumo_combustible_gal'] as num?)?.toDouble() ?? 0;
     final double fleteOf = (json['flete_ofrecido'] as num?)?.toDouble() ?? 18.0;
 
     return PedidoMobileModel(
-      id: json['pedido_id'] ?? json['id'] ?? 'ped-${DateTime.now().millisecondsSinceEpoch}',
+      pesoKg: (json['peso_kg'] as num?)?.toDouble() ?? 25,
+      volumenM3: (json['volumen_m3'] as num?)?.toDouble() ?? .35,
+      ventanaInicio: json['ventana_inicio'] ?? '08:00',
+      ventanaFin: json['ventana_fin'] ?? '18:00',
+      restriccionAcceso: json['restriccion_acceso'] ?? 'LIBRE_ACCESO',
+      referenciaUbicacion: json['referencia_ubicacion'] ?? '',
+      id:
+          json['pedido_id'] ??
+          json['id'] ??
+          'ped-${DateTime.now().millisecondsSinceEpoch}',
       codigoSeguimiento: json['codigo_seguimiento'] ?? 'PED-LIMA-000',
       clienteNombre: json['cliente_nombre'] ?? 'Cliente Lima',
-      telefonoContacto: json['telefono_contacto'] ?? '999888777',
-      origenDireccion: json['origen_direccion'] ?? 'Centro de Distribución EcoLogística · Av. Argentina 2050, Lima',
+      telefonoContacto: json['telefono_contacto'] ?? '',
+      origenDireccion:
+          json['origen_direccion'] ??
+          'Centro de Distribución EcoLogística · Av. Argentina 2050, Lima',
       origenLat: (json['origen_lat'] as num?)?.toDouble() ?? -12.046374,
       origenLng: (json['origen_lng'] as num?)?.toDouble() ?? -77.042793,
-      destinoDireccion: json['direccion_destino'] ?? json['destino_direccion'] ?? 'Av. Próceres de la Independencia 1420, SJL',
-      destinoLat: (json['ubicacion_destino'] is Map && (json['ubicacion_destino']['coordinates'] as List?)?.length == 2)
-          ? ((json['ubicacion_destino']['coordinates'] as List)[1] as num).toDouble()
-          : ((json['latitud'] as num?)?.toDouble() ?? (json['destino_lat'] as num?)?.toDouble() ?? -12.001200),
-      destinoLng: (json['ubicacion_destino'] is Map && (json['ubicacion_destino']['coordinates'] as List?)?.length == 2)
-          ? ((json['ubicacion_destino']['coordinates'] as List)[0] as num).toDouble()
-          : ((json['longitud'] as num?)?.toDouble() ?? (json['destino_lng'] as num?)?.toDouble() ?? -77.012300),
+      destinoDireccion:
+          json['direccion_destino'] ??
+          json['destino_direccion'] ??
+          'Av. Próceres de la Independencia 1420, SJL',
+      destinoLat:
+          (json['ubicacion_destino'] is Map &&
+              (json['ubicacion_destino']['coordinates'] as List?)?.length == 2)
+          ? ((json['ubicacion_destino']['coordinates'] as List)[1] as num)
+                .toDouble()
+          : ((json['latitud'] as num?)?.toDouble() ??
+                (json['destino_lat'] as num?)?.toDouble() ??
+                -12.001200),
+      destinoLng:
+          (json['ubicacion_destino'] is Map &&
+              (json['ubicacion_destino']['coordinates'] as List?)?.length == 2)
+          ? ((json['ubicacion_destino']['coordinates'] as List)[0] as num)
+                .toDouble()
+          : ((json['longitud'] as num?)?.toDouble() ??
+                (json['destino_lng'] as num?)?.toDouble() ??
+                -77.012300),
       precioProducto: (json['precio_producto'] as num?)?.toDouble() ?? 45.0,
       metodoPago: json['metodo_pago'] ?? 'CONTRAENTREGA',
       estado: json['estado'] ?? 'PENDIENTE',
       distanciaKm: dist,
-      tiempoEstimadoMinutos: (json['tiempo_estimado_min'] as num?)?.toInt() ?? (json['tiempo_estimado_minutos'] as num?)?.toInt() ?? 28,
+      tiempoEstimadoMinutos:
+          (json['tiempo_estimado_min'] as num?)?.toInt() ??
+          (json['tiempo_estimado_minutos'] as num?)?.toInt() ??
+          0,
       consumoCombustibleGal: gal,
       emisionCo2Kg: co2,
       fotoPodBase64: json['foto_pod'],
       fechaEntrega: json['fecha_entrega'],
-      isSynced: json['is_synced'] == null ? true : (json['is_synced'] == true || json['is_synced'] == 1),
+      isSynced: json['is_synced'] == null
+          ? true
+          : (json['is_synced'] == true || json['is_synced'] == 1),
       fleteOfrecido: fleteOf,
       fleteContraoferta: (json['flete_contraoferta'] as num?)?.toDouble(),
-      fleteAcordado: (json['flete_acordado'] as num?)?.toDouble() ?? (json['estado'] == 'EN_TRANSITO' || json['estado'] == 'ENTREGADO' ? fleteOf : null),
-      faseEntrega: json['fase_entrega'] ?? (json['estado'] == 'ENTREGADO' ? 'ENTREGADO' : (json['estado'] == 'EN_TRANSITO' ? 'EN_TRANSITO_A_DESTINO' : 'OFERTA_DISPONIBLE')),
+      fleteAcordado:
+          (json['flete_acordado'] as num?)?.toDouble() ??
+          (json['estado'] == 'EN_TRANSITO' || json['estado'] == 'ENTREGADO'
+              ? fleteOf
+              : null),
+      faseEntrega:
+          json['fase_entrega'] ??
+          (json['estado'] == 'ENTREGADO'
+              ? 'ENTREGADO'
+              : (json['estado'] == 'EN_TRANSITO'
+                    ? 'EN_TRANSITO_A_DESTINO'
+                    : 'OFERTA_DISPONIBLE')),
       conductorLat: (json['conductor_lat'] as num?)?.toDouble() ?? -12.052800,
       conductorLng: (json['conductor_lng'] as num?)?.toDouble() ?? -77.051200,
-      distanciaHaciaOrigenKm: (json['distancia_hacia_origen_km'] as num?)?.toDouble() ?? 2.4,
-      tiempoHaciaOrigenMin: (json['tiempo_hacia_origen_min'] as num?)?.toInt() ?? 8,
+      distanciaHaciaOrigenKm:
+          (json['distancia_hacia_origen_km'] as num?)?.toDouble() ?? 2.4,
+      tiempoHaciaOrigenMin:
+          (json['tiempo_hacia_origen_min'] as num?)?.toInt() ?? 8,
       consumoKmGal: (json['consumo_km_gal'] as num?)?.toDouble() ?? 38.0,
       restriccionZonal: json['restriccion_zonal'] ?? 'LIBRE_CIRCULACION',
-      ahorroCo2Porcentaje: (json['ahorro_co2_porcentaje'] as num?)?.toDouble() ?? 38.0,
+      ahorroCo2Porcentaje:
+          (json['ahorro_co2_porcentaje'] as num?)?.toDouble() ?? 38.0,
       co2AhorradoKg: (json['co2_ahorrado_kg'] as num?)?.toDouble() ?? 0.42,
       fotoRecepcionOrigen: json['foto_recepcion_origen'],
-      avisoClienteLlegadaOrigen: json['aviso_cliente_llegada_origen'] == true || json['aviso_cliente_llegada_origen'] == 1,
+      avisoClienteLlegadaOrigen:
+          json['aviso_cliente_llegada_origen'] == true ||
+          json['aviso_cliente_llegada_origen'] == 1,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'peso_kg': pesoKg,
+      'volumen_m3': volumenM3,
+      'ventana_inicio': ventanaInicio,
+      'ventana_fin': ventanaFin,
+      'restriccion_acceso': restriccionAcceso,
+      'referencia_ubicacion': referenciaUbicacion,
       'id': id,
       'pedido_id': id,
       'codigo_seguimiento': codigoSeguimiento,
@@ -183,6 +250,12 @@ class PedidoMobileModel {
     bool? avisoClienteLlegadaOrigen,
   }) {
     return PedidoMobileModel(
+      pesoKg: pesoKg,
+      volumenM3: volumenM3,
+      ventanaInicio: ventanaInicio,
+      ventanaFin: ventanaFin,
+      restriccionAcceso: restriccionAcceso,
+      referenciaUbicacion: referenciaUbicacion,
       id: id,
       codigoSeguimiento: codigoSeguimiento,
       clienteNombre: clienteNombre,
@@ -209,14 +282,16 @@ class PedidoMobileModel {
       faseEntrega: faseEntrega ?? this.faseEntrega,
       conductorLat: conductorLat ?? this.conductorLat,
       conductorLng: conductorLng ?? this.conductorLng,
-      distanciaHaciaOrigenKm: distanciaHaciaOrigenKm ?? this.distanciaHaciaOrigenKm,
+      distanciaHaciaOrigenKm:
+          distanciaHaciaOrigenKm ?? this.distanciaHaciaOrigenKm,
       tiempoHaciaOrigenMin: tiempoHaciaOrigenMin ?? this.tiempoHaciaOrigenMin,
       consumoKmGal: consumoKmGal ?? this.consumoKmGal,
       restriccionZonal: restriccionZonal ?? this.restriccionZonal,
       ahorroCo2Porcentaje: ahorroCo2Porcentaje ?? this.ahorroCo2Porcentaje,
       co2AhorradoKg: co2AhorradoKg ?? this.co2AhorradoKg,
       fotoRecepcionOrigen: fotoRecepcionOrigen ?? this.fotoRecepcionOrigen,
-      avisoClienteLlegadaOrigen: avisoClienteLlegadaOrigen ?? this.avisoClienteLlegadaOrigen,
+      avisoClienteLlegadaOrigen:
+          avisoClienteLlegadaOrigen ?? this.avisoClienteLlegadaOrigen,
     );
   }
 }

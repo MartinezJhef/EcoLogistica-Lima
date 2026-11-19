@@ -5,7 +5,8 @@
  *        estados de jornada, filtros, tabs mapa/padrón y toast notifications.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react';
+import L from 'leaflet';
 import userEvent from '@testing-library/user-event';
 import { ConductoresView } from './ConductoresView';
 
@@ -71,7 +72,10 @@ vi.mock('../services/api', () => ({
     getAll: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
-    delete: vi.fn()
+    delete: vi.fn(),
+    validarJornada: vi.fn(),
+    acumularHoras: vi.fn(),
+    reiniciarJornada: vi.fn()
   },
   UsuarioService: {
     create: vi.fn()
@@ -165,6 +169,79 @@ describe('Componente: ConductoresView (US-002)', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('registra una licencia con vencimiento y conserva el formulario ante un fallo',async()=>{
+    const {ConductorService}=await import('../services/api');
+    await act(async()=>{render(<ConductoresView/>);});await irAPadron(user);
+    for(const [placeholder,value] of [['Ej. 71234567','12345678'],['Ej. Carlos Eduardo','Ana'],['Ej. Quispe Huamán','Perez'],['Ej. Q71234567','Z12345678'],['Ej. 987654321','999888777'],['Ej. Av. Elmer Faucett 2100, Callao','Av. Lima 100']]) {
+      fireEvent.change(screen.getByPlaceholderText(placeholder),{target:{value}});
+    }
+    fireEvent.change(screen.getByLabelText('Vencimiento del brevete'),{target:{value:'2035-12-31'}});
+    vi.mocked(ConductorService.create).mockRejectedValueOnce(new Error('Error al guardar'));
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(screen.getByPlaceholderText('Ej. Carlos Eduardo')).toHaveValue('Ana');
+    expect(screen.getByText('Error al guardar')).toBeTruthy();
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(ConductorService.create).toHaveBeenLastCalledWith(expect.objectContaining({licencia_vencimiento:'2035-12-31',licencia:'Z12345678',dni:'12345678'}));
+    expect(screen.getByPlaceholderText('Ej. Carlos Eduardo')).toHaveValue('');
+  });
+
+  it('rechaza DNI repetido antes de enviarlo al servidor',async()=>{
+    const {ConductorService}=await import('../services/api');
+    await act(async()=>{render(<ConductoresView/>);});await irAPadron(user);
+    fireEvent.change(screen.getByPlaceholderText('Ej. 71234567'),{target:{value:MOCK_CONDUCTORES[0].dni}});
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(ConductorService.create).not.toHaveBeenCalled();
+    expect(screen.getByText(/DNI.*ya se encuentra registrado/)).toBeTruthy();
+  });
+  it('rechaza un DNI incompleto sin guardar un conductor inválido',async()=>{
+    const {ConductorService}=await import('../services/api');
+    await act(async()=>{render(<ConductoresView/>);});await irAPadron(user);
+    fireEvent.change(screen.getByPlaceholderText('Ej. 71234567'),{target:{value:'123'}});
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(ConductorService.create).not.toHaveBeenCalled();
+    expect(screen.getByText('El DNI debe contener exactamente 8 dígitos numéricos.')).toBeTruthy();
+  });
+
+  it('valida la jornada sin reservar horas y rechaza superar ocho horas',async()=>{
+    const {ConductorService}=await import('../services/api');
+    vi.mocked(ConductorService.validarJornada).mockResolvedValue({aprobado:true} as any);
+    await act(async()=>{render(<ConductoresView/>);});await irAPadron(user);
+    fireEvent.click(screen.getAllByTitle('Simular Asignación de Ruta (US-002 Escenario 2)')[0]);
+    await act(async()=>{fireEvent.submit(document.querySelector('.modal-content form')!);});
+    expect(screen.getByText(/Supera el límite legal/)).toBeTruthy();
+    fireEvent.click(screen.getAllByTitle('Simular Asignación de Ruta (US-002 Escenario 2)')[1]);
+    await act(async()=>{fireEvent.submit(document.querySelector('.modal-content form')!);});
+    expect(ConductorService.validarJornada).toHaveBeenCalled();
+    expect(ConductorService.acumularHoras).not.toHaveBeenCalled();
+    expect(screen.getByText(/La asignación se confirma al generar la ruta/)).toBeTruthy();
+  });
+
+  it('confirma reinicio y baja con el servidor',async()=>{
+    const {ConductorService}=await import('../services/api');
+    vi.mocked(ConductorService.reiniciarJornada).mockResolvedValue({} as any);
+    const confirm=vi.spyOn(window,'confirm').mockReturnValue(true);
+    await act(async()=>{render(<ConductoresView/>);});await irAPadron(user);
+    await act(async()=>{fireEvent.click(screen.getAllByTitle('Reiniciar jornada diaria a 0.0h')[0]);});
+    expect(ConductorService.reiniciarJornada).toHaveBeenCalledWith('c1');
+    await act(async()=>{fireEvent.click(screen.getAllByTitle('Dar de baja lógica')[0]);});
+    expect(ConductorService.delete).toHaveBeenCalledWith('c1');
+    expect(screen.getByText(/marcado como INACTIVO/)).toBeTruthy();confirm.mockRestore();
+  });
+
+  it('marca un destino y permite centrar y limpiar la simulación en mapa',async()=>{
+    await act(async()=>{render(<ConductoresView/>);});
+    await waitFor(()=>expect(L.map).toHaveBeenCalled());
+    const map=vi.mocked(L.map).mock.results[0].value as any;
+    await waitFor(()=>expect(map.on).toHaveBeenCalledWith('click',expect.any(Function)));
+    const click=map.on.mock.calls.find((c:any)=>c[0]==='click')[1];
+    await act(async()=>{click({latlng:{lat:-12.12,lng:-77.03}});});
+    expect(L.polyline).toHaveBeenCalled();
+    for(const title of ['Centrar vista en el vehículo del conductor seleccionado','Centrar vista en la bandera de llegada','Ajustar zoom para ver toda la flota y puntos'])fireEvent.click(screen.getByTitle(title));
+    fireEvent.click(screen.getByTitle('Eliminar la bandera y limpiar la ruta'));
+    expect(map.removeLayer).toHaveBeenCalled();
+    expect(screen.getByText('Punto de llegada y ruta restablecidos.')).toBeTruthy();
   });
 
   // SUB-002-01: El título del módulo existe en el h1
@@ -362,4 +439,42 @@ describe('Componente: ConductoresView (US-002)', () => {
       expect(catMatches.length > 0 || catOptions.length > 0).toBeTruthy();
     }, { timeout: 4000 });
   });
+  it.each([true,false])('confirma o conserva la edición de conductor según el servidor (éxito=%s)', async (success) => {
+    const {ConductorService} = await import('../services/api');
+    if (!success) vi.mocked(ConductorService.update).mockRejectedValueOnce(new Error('Conductor no guardado'));
+    await act(async () => {render(<ConductoresView />);});
+    await act(async () => {await irAPadron(user);});
+    await user.click(screen.getAllByTitle('Editar Conductor')[0]);
+    const phone = screen.getByDisplayValue('987654321');
+    const modal=document.querySelector('.modal-content')!;
+    const setField=(label:string,value:string)=>{
+      const node=Array.from(modal.querySelectorAll('label')).find(l=>l.textContent?.trim()===label)!;
+      fireEvent.change(node.parentElement!.querySelector('input,select')!,{target:{value}});
+    };
+    setField('Nombres:','Carlos actualizado');setField('Apellidos:','Perez actualizado');
+    setField('Categoría MTC:','A-IIIb');setField('Dirección Base / Origen:','Av. Nueva 100');
+    setField('Latitud GPS:','-12.1');setField('Longitud GPS:','-77.03');setField('Estado Operativo:','DISPONIBLE');
+    fireEvent.change(screen.getByLabelText('Editar vencimiento del brevete'),{target:{value:'2035-12-31'}});
+    await user.clear(phone); await user.type(phone,'999000111');
+    await user.click(screen.getByRole('button',{name:'Guardar Cambios'}));
+    expect(ConductorService.update).toHaveBeenCalledWith('c1',expect.objectContaining({telefono:'999000111'}));
+    expect(ConductorService.update).toHaveBeenCalledWith('c1',expect.objectContaining({licencia_vencimiento:'2035-12-31',latitud_origen:-12.1,longitud_origen:-77.03,nombres:'Carlos actualizado'}));
+    if (!success) {
+      expect(await screen.findByText('Conductor no guardado')).toBeTruthy();
+      expect(document.querySelector('.modal-overlay')).toBeTruthy();
+    } else await waitFor(() => expect(document.querySelector('.modal-overlay')).toBeNull());
+  });
+
+  it('un fallo al validar jornada no se convierte en una asignación local', async () => {
+    const {ConductorService} = await import('../services/api');
+    vi.mocked(ConductorService.validarJornada).mockRejectedValueOnce(new Error('No se pudo validar la jornada'));
+    await act(async () => {render(<ConductoresView />);});
+    await act(async () => {await irAPadron(user);});
+    await user.click(screen.getAllByRole('button',{name:'Asignar',exact:true})[1]);
+    await user.click(screen.getByRole('button',{name:'Validar y Confirmar'}));
+    expect(ConductorService.validarJornada).toHaveBeenCalledWith('c2',1.5);
+    expect(await screen.findByText('No se pudo validar la jornada')).toBeTruthy();
+    expect(ConductorService.acumularHoras).not.toHaveBeenCalled();
+  });
+
 });

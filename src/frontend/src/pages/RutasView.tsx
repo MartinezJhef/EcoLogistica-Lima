@@ -34,6 +34,8 @@ import {
 import { usePagination } from '../hooks/usePagination';
 import { Pagination } from '../components/Pagination';
 
+const escapeHtml = (text: unknown) => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] || c));
+
 interface ToastInfo {
   id: string;
   type: 'success' | 'warning' | 'error' | 'info';
@@ -58,6 +60,17 @@ export const RutasView: React.FC = () => {
   const [pedidoACancelarId, setPedidoACancelarId] = useState<string>('');
   const [motivoReopt, setMotivoReopt] = useState<string>('CANCELACION_CLIENTE_VENTANA_CERRADA');
   const [evitarRiesgoActivo, setEvitarRiesgoActivo] = useState<boolean>(false);
+  const [modoMarcado, setModoMarcado] = useState<'incidencia' | 'posicion' | null>(null);
+  const primerPunto = useRef<L.LatLng | null>(null);
+  const [minutosTranscurridos, setMinutosTranscurridos] = useState(0);
+  const [conduccionContinua, setConduccionContinua] = useState(0);
+  const [resolverIncidencias, setResolverIncidencias] = useState(false);
+  const [averia, setAveria] = useState(false);
+  const [cargaEnDeposito, setCargaEnDeposito] = useState(false);
+  const [areaIncidencia, setAreaIncidencia] = useState('');
+  const [demora, setDemora] = useState(0);
+  const [horaSalida, setHoraSalida] = useState('08:00');
+  const [posicionActual, setPosicionActual] = useState('');
   const [reoptimizing, setReoptimizing] = useState<boolean>(false);
 
   // Toasts
@@ -89,8 +102,8 @@ export const RutasView: React.FC = () => {
     setLoading(true);
     try {
       const [zonasRes, rutasRes] = await Promise.all([
-        RutaService.getZonasRiesgo().catch(() => []),
-        RutaService.list().catch(() => [])
+        RutaService.getZonasRiesgo(),
+        RutaService.list()
       ]);
       setZonasRiesgo(zonasRes);
       setRutas(rutasRes);
@@ -141,6 +154,23 @@ export const RutasView: React.FC = () => {
     };
   }, [rutaSeleccionada, zonasRiesgo, mostrarZonasRiesgo, mapFallback]);
 
+  useEffect(() => {
+    const map = leafletMapRef.current;
+    if (!map || !modoMarcado) return;
+    const select = (event: L.LeafletMouseEvent) => {
+      if (modoMarcado === 'posicion') {
+        setPosicionActual(`${event.latlng.lat},${event.latlng.lng}`);
+        setModoMarcado(null); setShowReoptModal(true); return;
+      }
+      if (!primerPunto.current) { primerPunto.current = event.latlng; return; }
+      const a = primerPunto.current, b = event.latlng;
+      setAreaIncidencia(JSON.stringify([[a.lng,a.lat],[b.lng,a.lat],[b.lng,b.lat],[a.lng,b.lat],[a.lng,a.lat]]));
+      primerPunto.current = null; setModoMarcado(null); setShowReoptModal(true);
+    };
+    map.on('click', select);
+    return () => { map.off('click', select); };
+  }, [modoMarcado]);
+
   const renderizarElementosMapa = () => {
     const map = leafletMapRef.current;
     const group = layersGroupRef.current;
@@ -165,7 +195,7 @@ export const RutasView: React.FC = () => {
         });
 
         polygon.bindTooltip(
-          `<strong>${z.nombre}</strong><br/><em>${z.motivo}</em><br/>Nivel: ${z.nivel_peligro}`,
+          `<strong>${escapeHtml(z.nombre)}</strong><br/><em>${escapeHtml(z.motivo)}</em><br/>Nivel: ${z.nivel_peligro}`,
           { sticky: true }
         );
         group.addLayer(polygon);
@@ -245,7 +275,7 @@ export const RutasView: React.FC = () => {
             </div>
             ${tramo.alerta_zona_riesgo ? `
               <div style="margin-top: 6px; padding: 4px 8px; border-radius: 6px; background: #FEE2E2; color: #991B1B; font-size: 11px; font-weight: 600;">
-                Zona de Riesgo: ${tramo.nombre_zona_riesgo}
+                Zona de Riesgo: ${escapeHtml(tramo.nombre_zona_riesgo)}
               </div>
             ` : ''}
           </div>
@@ -253,21 +283,21 @@ export const RutasView: React.FC = () => {
         group.addLayer(marker);
       });
 
-      // Trazado de la Polyline de la Ruta
-      if (latlngs.length >= 2) {
-        const polyline = L.polyline(latlngs, {
-          color: '#0D9417',
-          weight: 4.5,
-          opacity: 0.85,
-          dashArray: undefined,
-          lineJoin: 'round'
-        });
-        group.addLayer(polyline);
-
-        if (bounds.isValid()) {
-          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
-        }
-      }
+      // Render only geometry returned by the road engine, never straight stop-to-stop lines.
+      rutaSeleccionada.tramos.forEach(t => {
+        if (!t.geometria_linea_geojson) return;
+        try {
+          const geometry = JSON.parse(t.geometria_linea_geojson);
+          const roadPoints = geometry.coordinates.map(([lng, lat]: number[]) => [lat, lng] as L.LatLngTuple);
+          group.addLayer(L.polyline(roadPoints, { color: '#0D9417', weight: 4.5 }));
+        } catch { /* Legacy routes without verified road geometry retain their stop markers. */ }
+      });
+      (rutaSeleccionada.incidencias || []).forEach(i => {
+        group.addLayer(L.polygon(i.poligono.map(([lng, lat]) => [lat, lng] as L.LatLngTuple),
+          { color: i.cierre ? '#dc2626' : '#d97706', fillOpacity: 0.25 })
+          .bindTooltip(`${i.descripcion}: ${i.cierre ? 'vía cerrada' : `demora reportada ${i.demora_minutos} min`}`));
+      });
+      if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
     }
   };
 
@@ -289,7 +319,7 @@ export const RutasView: React.FC = () => {
       showToast(
         'success',
         'Optimización CVRPTW Exitosa',
-        `Generadas ${response.rutas.length} rutas. Huella computacional: ${response.co2_computacional_total_kg.toFixed(8)} kg CO2 (CodeCarbon).`
+        `Generadas ${response.rutas.length} rutas. ${response.medicion_computacional_disponible ? `Huella computacional: ${response.co2_computacional_total_kg.toFixed(8)} kg CO2 (CodeCarbon).` : 'Medición computacional no disponible en este entorno.'}`
       );
     } catch (err: any) {
       console.error(err);
@@ -305,10 +335,29 @@ export const RutasView: React.FC = () => {
     if (!rutaSeleccionada) return;
     setReoptimizing(true);
     try {
+      if (posicionActual && (posicionActual.split(',').length !== 2 || posicionActual.split(',').some(v => !v.trim() || !Number.isFinite(Number(v))))) {
+        throw new Error('Indica la posición como latitud, longitud.');
+      }
       const response = await RutaService.reoptimizar(rutaSeleccionada.ruta_id, {
         pedido_cancelado_id: pedidoACancelarId || undefined,
         motivo_incidencia: motivoReopt,
-        evitar_zona_riesgo: evitarRiesgoActivo
+        evitar_zona_riesgo: evitarRiesgoActivo,
+        hora_salida: horaSalida,
+        minutos_transcurridos: minutosTranscurridos,
+        conduccion_continua_min: conduccionContinua,
+        vehiculo_averiado: averia,
+        carga_en_deposito: cargaEnDeposito,
+        resolver_incidencias_previas: resolverIncidencias,
+        ...(posicionActual.trim() ? {
+          latitud_actual: Number(posicionActual.split(',')[0]),
+          longitud_actual: Number(posicionActual.split(',')[1])
+        } : {}),
+        incidencias: areaIncidencia.trim() ? [{
+          descripcion: motivoReopt,
+          poligono: JSON.parse(areaIncidencia),
+          cierre: demora === 0,
+          demora_minutos: demora
+        }] : []
       });
 
       // Actualizar la ruta en el estado
@@ -316,26 +365,33 @@ export const RutasView: React.FC = () => {
         if (r.ruta_id === rutaSeleccionada.ruta_id) {
           return {
             ...r,
+            estado: response.estado || r.estado,
             distancia_total_km: response.distancia_total_km,
             tiempo_total_min: response.tiempo_total_min,
             co2_total_kg: response.co2_total_kg,
             co2_computacional_kg: response.co2_computacional_kg,
-            tramos: response.tramos
+            tramos: response.tramos,
+            incidencias: response.incidencias || []
           };
         }
         return r;
       });
 
-      setRutas(actualizadas);
+      if (averia) {
+        const nuevas = await RutaService.list();
+        setRutas(nuevas);
+        setRutaSeleccionada(nuevas.find(r => r.ruta_id === rutaSeleccionada.ruta_id) || null);
+        setPedidosExcedentes(response.pedidos_pendientes || []);
+      } else setRutas(actualizadas);
       const nuevaSel = actualizadas.find(r => r.ruta_id === rutaSeleccionada.ruta_id) || null;
-      setRutaSeleccionada(nuevaSel);
+      if (!averia) setRutaSeleccionada(nuevaSel);
 
       setShowReoptModal(false);
       setPedidoACancelarId('');
       showToast('success', 'Recálculo Dinámico Completado', response.mensaje);
     } catch (err: any) {
       console.error(err);
-      const msg = err.response?.data?.detail || 'Error al reoptimizar la ruta en tiempo real.';
+      const msg = err.response?.data?.detail || err.message || 'Error al reoptimizar la ruta en tiempo real.';
       showToast('error', 'Error en Recálculo', msg);
     } finally {
       setReoptimizing(false);
@@ -349,6 +405,16 @@ export const RutasView: React.FC = () => {
 
   return (
     <div style={{ padding: '1.5rem', maxWidth: '1440px', margin: '0 auto', color: '#1F2937' }}>
+      <style>{`
+        .sprint3-controls {display:grid;gap:12px;padding:14px;border:1px solid #d1d5db;border-radius:10px;font-size:13px}
+        .sprint3-controls label {display:grid;gap:6px;color:#374151}
+        .sprint3-controls label:has(input[type=checkbox]) {display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+        .sprint3-controls input[type=number], .sprint3-controls input[type=time] {width:100%;padding:9px;border:1px solid #d1d5db;border-radius:7px;box-sizing:border-box}
+        .sprint3-controls button {padding:9px 12px;border:1px solid #c7d2fe;border-radius:7px;background:#eef2ff;color:#3730a3;text-align:left;cursor:pointer}
+        .sprint3-controls p {margin:0;line-height:1.5;color:#6b7280}
+      `}</style>
+      <p>Tráfico: cierres y demoras reportados por oficina. Sin conexión a tráfico en vivo.</p>
+      {modoMarcado && <p role="status">{modoMarcado === 'incidencia' ? 'Haz clic en dos esquinas opuestas del área afectada.' : 'Haz clic en la posición actual del conductor.'}</p>}
       
       {/* Toast Notifications a la derecha superior */}
       <div style={{
@@ -554,12 +620,12 @@ export const RutasView: React.FC = () => {
             <Cpu size={18} color="#047857" />
           </div>
           <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#065F46', marginTop: '0.35rem' }}>
-            {rutaSeleccionada ? `${Number(rutaSeleccionada.co2_computacional_kg).toExponential(4)} kg CO₂` : '0.0000 kg'}
+            {rutaSeleccionada?.medicion_computacional_disponible ? `${Number(rutaSeleccionada.co2_computacional_kg).toExponential(4)} kg CO₂` : 'No medido'}
           </div>
           <div style={{ fontSize: '0.73rem', color: '#047857', marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             <Zap size={12} />
             <span>
-              {rutaSeleccionada ? `${Number(rutaSeleccionada.energia_computacional_kwh).toExponential(3)} kWh` : '0.000 kWh'}
+              {rutaSeleccionada?.medicion_computacional_disponible ? `${Number(rutaSeleccionada.energia_computacional_kwh).toExponential(3)} kWh` : 'No medido'}
               {rutaSeleccionada ? ` (${rutaSeleccionada.tiempo_computo_seg}s)` : ''}
             </span>
           </div>
@@ -926,6 +992,8 @@ export const RutasView: React.FC = () => {
             background: '#FFFFFF',
             borderRadius: '16px',
             maxWidth: '480px',
+            maxHeight: 'calc(100vh - 48px)',
+            overflowY: 'auto',
             width: '100%',
             padding: '1.5rem',
             boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'
@@ -983,6 +1051,33 @@ export const RutasView: React.FC = () => {
               </select>
             </div>
 
+            <fieldset className="sprint3-controls" style={{ marginBottom: '1rem' }}>
+              <legend>Cierre de vía o demora reportada</legend>
+              <button onClick={() => { primerPunto.current = null; setModoMarcado('incidencia'); setShowReoptModal(false); }}>
+                Marcar el área afectada en el mapa
+              </button>
+              {areaIncidencia && <p>Área seleccionada. <button onClick={() => setAreaIncidencia('')}>Quitar selección</button></p>}
+              <label>Demora en minutos (0 = vía cerrada)
+                <input aria-label="Demora reportada" type="number" min="0" max="240" value={demora} onChange={e => setDemora(Number(e.target.value))} />
+              </label>
+              <label>Hora de salida o recálculo
+                <input aria-label="Hora de recálculo" type="time" value={horaSalida} onChange={e => setHoraSalida(e.target.value)} />
+              </label>
+              <button onClick={() => { setModoMarcado('posicion'); setShowReoptModal(false); }}>
+                Marcar la posición actual del conductor
+              </button>
+              {posicionActual && <p>Posición actual seleccionada</p>}
+              <label>Minutos transcurridos desde que comenzó esta ruta
+                <input aria-label="Minutos transcurridos" type="number" min="0" max="480" value={minutosTranscurridos} onChange={e => setMinutosTranscurridos(Number(e.target.value))} />
+              </label>
+              <label>Minutos conduciendo desde el último descanso
+                <input aria-label="Conducción continua" type="number" min="0" max="270" value={conduccionContinua} onChange={e => setConduccionContinua(Number(e.target.value))} />
+              </label>
+              <label><input type="checkbox" checked={averia} onChange={e => setAveria(e.target.checked)} />El vehículo está averiado: redistribuir las entregas</label>
+              {averia && <label><input type="checkbox" checked={cargaEnDeposito} onChange={e => setCargaEnDeposito(e.target.checked)} />Confirmo que la carga está en el depósito para transferirla</label>}
+              <label><input type="checkbox" checked={resolverIncidencias} onChange={e => setResolverIncidencias(e.target.checked)} />Las incidencias anteriores ya se resolvieron: retirarlas de este recorrido</label>
+              <p>Se conserva la ruta anterior si no existe un desvío que respete las restricciones.</p>
+            </fieldset>
             <div style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <input
                 type="checkbox"
@@ -992,7 +1087,7 @@ export const RutasView: React.FC = () => {
                 style={{ width: '16px', height: '16px', cursor: 'pointer' }}
               />
               <label htmlFor="evitar_riesgo" style={{ fontSize: '0.8rem', color: '#374151', cursor: 'pointer' }}>
-                Priorizar desvío para evitar zonas de riesgo urbano
+                Evitar las zonas de riesgo urbano
               </label>
             </div>
 

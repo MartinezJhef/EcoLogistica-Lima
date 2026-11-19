@@ -31,6 +31,7 @@ const RutasView = lazy(() =>
 const AdminUsersView = lazy(() =>
   import('./pages/AdminUsersView').then(m => ({ default: m.AdminUsersView }))
 );
+const ClientePedidosView = lazy(() => import('./pages/ClientePedidosView').then(m=>({default:m.ClientePedidosView})));
 
 /** Reserva de espacio mientras se descarga el módulo: evita saltos de maquetación. */
 function ModuleFallback() {
@@ -113,7 +114,7 @@ function AppLayout() {
 
   // Permisos de visibilidad en el menú lateral según el rol del usuario autenticado
   const canAccessVehiculos = userRole === 'ADMIN' || userRole === 'OFICINA';
-  const canAccessConductores = userRole === 'ADMIN' || userRole === 'OFICINA' || userRole === 'REPARTIDOR';
+  const canAccessConductores = userRole === 'ADMIN' || userRole === 'OFICINA';
   const canAccessClientes = userRole === 'ADMIN' || userRole === 'OFICINA';
   const canAccessRutas = userRole === 'ADMIN' || userRole === 'OFICINA' || userRole === 'REPARTIDOR';
   const canAccessPedidos = true; // Todos los roles tienen acceso o tracking
@@ -325,7 +326,7 @@ function AppLayout() {
             path="/rutas" 
             element={canAccessRutas ? <RutasView /> : <Navigate to="/pedidos" replace />} 
           />
-          <Route path="/pedidos" element={<PedidosView />} />
+          <Route path="/pedidos" element={userRole === 'CLIENTE' || userRole === 'REPARTIDOR' ? <ClientePedidosView readOnly={userRole === 'REPARTIDOR'} /> : <PedidosView />} />
           <Route 
             path="/admin" 
             element={

@@ -21,81 +21,10 @@ import {
   SVG_MINI_PIN
 } from '../utils/mapIcons';
 
-const MOCK_CONDUCTORES: Conductor[] = [
-  {
-    conductor_id: 'c1111111-1111-1111-1111-111111111111',
-    dni: '71234567',
-    nombres: 'Carlos Eduardo',
-    apellidos: 'Quispe Huamán',
-    licencia: 'Q71234567',
-    categoria_licencia: 'A-IIIc',
-    telefono: '987654321',
-    direccion_origen: 'Av. Elmer Faucett 2100, Callao',
-    latitud_origen: -12.034500,
-    longitud_origen: -77.112300,
-    estado: 'DISPONIBLE',
-    horas_conduccion_hoy: 7.5
-  },
-  {
-    conductor_id: 'c2222222-2222-2222-2222-222222222222',
-    dni: '48765432',
-    nombres: 'Jorge Luis',
-    apellidos: 'Mendoza Ramos',
-    licencia: 'M48765432',
-    categoria_licencia: 'A-IIIb',
-    telefono: '912345678',
-    direccion_origen: 'Av. Nicolás Ayllón 1540, Ate Vitarte',
-    latitud_origen: -12.056700,
-    longitud_origen: -76.978900,
-    estado: 'DISPONIBLE',
-    horas_conduccion_hoy: 3.5
-  },
-  {
-    conductor_id: 'c3333333-3333-3333-3333-333333333333',
-    dni: '74567812',
-    nombres: 'María Elena',
-    apellidos: 'Torres Valdivia',
-    licencia: 'T74567812',
-    categoria_licencia: 'A-IIIc',
-    telefono: '945678123',
-    direccion_origen: 'Av. Pachacútec 3200, Villa El Salvador',
-    latitud_origen: -12.214500,
-    longitud_origen: -76.934100,
-    estado: 'DISPONIBLE',
-    horas_conduccion_hoy: 1.0
-  },
-  {
-    conductor_id: 'c4444444-4444-4444-4444-444444444444',
-    dni: '45678901',
-    nombres: 'Ricardo Antonio',
-    apellidos: 'Gómez Salazar',
-    licencia: 'G45678901',
-    categoria_licencia: 'A-IIb',
-    telefono: '965432198',
-    direccion_origen: 'Av. Colonial 1450, Cercado de Lima',
-    latitud_origen: -12.046374,
-    longitud_origen: -77.042793,
-    estado: 'EN_RUTA',
-    horas_conduccion_hoy: 5.0
-  },
-  {
-    conductor_id: 'c5555555-5555-5555-5555-555555555555',
-    dni: '45892176',
-    nombres: 'Juan Alberto',
-    apellidos: 'Morales Paredes',
-    licencia: 'M45892176',
-    categoria_licencia: 'A-IIIc',
-    telefono: '978123456',
-    direccion_origen: 'Av. Argentina 2050, Cercado de Lima',
-    latitud_origen: -12.046374,
-    longitud_origen: -77.042793,
-    estado: 'DISPONIBLE',
-    horas_conduccion_hoy: 2.0
-  }
-];
+
 
 export function ConductoresView() {
-  const [conductores, setConductores] = useState<Conductor[]>(MOCK_CONDUCTORES);
+  const [conductores, setConductores] = useState<Conductor[]>([]);
   const [filtroEstado, setFiltroEstado] = useState<string>('TODOS');
   const [cargando, setCargando] = useState(false);
 
@@ -104,6 +33,7 @@ export function ConductoresView() {
   const [nombres, setNombres] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [licencia, setLicencia] = useState('');
+  const [licenciaVencimiento, setLicenciaVencimiento] = useState('');
   const [categoria, setCategoria] = useState('A-IIIc');
   const [telefono, setTelefono] = useState('');
   const [direccionOrigen, setDireccionOrigen] = useState('');
@@ -115,6 +45,7 @@ export function ConductoresView() {
   const [editNombres, setEditNombres] = useState('');
   const [editApellidos, setEditApellidos] = useState('');
   const [editTelefono, setEditTelefono] = useState('');
+  const [editVencimiento, setEditVencimiento] = useState('');
   const [editCategoria, setEditCategoria] = useState('A-IIIc');
   const [editDireccion, setEditDireccion] = useState('');
   const [editLatitud, setEditLatitud] = useState<number | ''>('');
@@ -172,20 +103,6 @@ export function ConductoresView() {
       return () => clearTimeout(timer);
     }
   }, [alerta]);
-
-  const getEmailConductor = (c: Conductor) => {
-    const mapaEmails: Record<string, string> = {
-      '71234567': 'carlos.quispe@ecologistica.pe',
-      '48765432': 'jorge.mendoza@ecologistica.pe',
-      '74567812': 'maria.torres@ecologistica.pe',
-      '45678901': 'ricardo.gomez@ecologistica.pe',
-      '45892176': 'repartidor.juan@ecologistica.pe'
-    };
-    if (mapaEmails[c.dni]) return mapaEmails[c.dni];
-    const primerNombre = (c.nombres || '').split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const primerApellido = (c.apellidos || '').split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    return `${primerNombre}.${primerApellido}@ecologistica.pe`;
-  };
 
   const cargarConductores = async () => {
     setCargando(true);
@@ -470,6 +387,7 @@ export function ConductoresView() {
       nombres: nombres.trim(),
       apellidos: apellidos.trim(),
       licencia: cleanLic,
+      licencia_vencimiento: licenciaVencimiento,
       categoria_licencia: categoria,
       telefono: telefono.trim(),
       direccion_origen: direccionOrigen.trim() || undefined,
@@ -483,36 +401,10 @@ export function ConductoresView() {
       const res = await ConductorService.create(payload as any);
       setConductores(prev => [res, ...prev]);
 
-      // Creación automática de la cuenta de usuario para la App Móvil (Rol: REPARTIDOR)
-      const pNombre = nombres.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const pApellido = apellidos.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const emailGenerado = `${pNombre}.${pApellido}@ecologistica.pe`;
-      try {
-        await UsuarioService.create({
-          email: emailGenerado,
-          nombre_completo: `${nombres.trim()} ${apellidos.trim()} (Conductor / Repartidor)`,
-          telefono: telefono.trim(),
-          rol: 'REPARTIDOR',
-          password: 'ecologistica2026',
-          permisos: ['REPARTO_POD', 'SEGUIMIENTO_RUTAS'],
-          estado: 'ACTIVO'
-        });
-      } catch {}
-
-      setMensajeExito(`Conductor ${payload.nombres} registrado. Cuenta para app móvil habilitada: ${emailGenerado} (Clave: ecologistica2026).`);
+      setMensajeExito(`Conductor ${payload.nombres} registrado. Vincula su cuenta móvil desde Administración.`);
     } catch (err: any) {
-      const errorMsg = err.response?.data?.detail || 'Error al conectar con el backend.';
-      if (err.response?.status === 409) {
-        setAlerta(errorMsg);
-        return;
-      }
-      // Fallback local garantizado
-      const localConductor: Conductor = {
-        conductor_id: `loc-${Date.now()}`,
-        ...payload
-      };
-      setConductores(prev => [localConductor, ...prev]);
-      setMensajeExito(`Conductor ${payload.nombres} registrado localmente con acceso móvil.`);
+      setAlerta(err.response?.data?.detail || err.message || 'No se pudo guardar el conductor.');
+      return;
     }
 
     // Limpiar formulario
@@ -520,6 +412,7 @@ export function ConductoresView() {
     setNombres('');
     setApellidos('');
     setLicencia('');
+    setLicenciaVencimiento('');
     setTelefono('');
     setDireccionOrigen('');
   };
@@ -529,6 +422,7 @@ export function ConductoresView() {
     setEditNombres(c.nombres);
     setEditApellidos(c.apellidos);
     setEditTelefono(c.telefono);
+    setEditVencimiento(c.licencia_vencimiento || '');
     setEditCategoria(c.categoria_licencia || 'A-IIIc');
     setEditDireccion(c.direccion_origen || '');
     setEditLatitud(c.latitud_origen ?? '');
@@ -545,6 +439,7 @@ export function ConductoresView() {
       apellidos: editApellidos.trim(),
       telefono: editTelefono.trim(),
       categoria_licencia: editCategoria,
+      ...(editVencimiento ? {licencia_vencimiento: editVencimiento} : {}),
       direccion_origen: editDireccion.trim() || undefined,
       latitud_origen: typeof editLatitud === 'number' ? editLatitud : undefined,
       longitud_origen: typeof editLongitud === 'number' ? editLongitud : undefined,
@@ -553,10 +448,10 @@ export function ConductoresView() {
 
     try {
       await ConductorService.update(editingConductor.conductor_id, updatePayload);
-    } catch {
-      // Fallback local
+    } catch (err: any) {
+      setAlerta(err.response?.data?.detail || err.message || 'No se guardaron los cambios.');
+      return;
     }
-
     setConductores(prev => prev.map(c => 
       c.conductor_id === editingConductor.conductor_id 
         ? { ...c, ...updatePayload }
@@ -569,8 +464,9 @@ export function ConductoresView() {
   const handleReiniciarJornada = async (c: Conductor) => {
     try {
       await ConductorService.reiniciarJornada(c.conductor_id);
-    } catch {
-      // Fallback local
+    } catch (err: any) {
+      setAlerta(err.response?.data?.detail || err.message || 'No se pudo confirmar el cambio.');
+      return;
     }
     setConductores(prev => prev.map(item => 
       item.conductor_id === c.conductor_id
@@ -584,8 +480,9 @@ export function ConductoresView() {
     if (!window.confirm(`¿Seguro que deseas pasar a INACTIVO a ${c.nombres} ${c.apellidos}?`)) return;
     try {
       await ConductorService.delete(c.conductor_id);
-    } catch {
-      // Fallback local
+    } catch (err: any) {
+      setAlerta(err.response?.data?.detail || err.message || 'No se pudo confirmar el cambio.');
+      return;
     }
     setConductores(prev => prev.map(item => 
       item.conductor_id === c.conductor_id ? { ...item, estado: 'INACTIVO' } : item
@@ -625,29 +522,16 @@ export function ConductoresView() {
     }
 
     try {
-      await ConductorService.validarJornada(assigningConductor.conductor_id, horasRuta);
-      await ConductorService.acumularHoras(assigningConductor.conductor_id, horasRuta);
+      const validacion = await ConductorService.validarJornada(assigningConductor.conductor_id, horasRuta);
+      if (!validacion.aprobado) throw new Error(validacion.mensaje || 'Jornada rechazada');
+
     } catch (err: any) {
-      if (err.response?.status === 400) {
-        setAlerta(err.response?.data?.detail || 'Asignación rechazada por normativa legal.');
-        setValidandoRuta(false);
-        setAssigningConductor(null);
-        return;
-      }
+      setAlerta(err.response?.data?.detail || err.message || 'No se pudo confirmar la asignación.');
+      setValidandoRuta(false);
+      return;
     }
 
-    // Actualizar estado local
-    setConductores(prev => prev.map(c => 
-      c.conductor_id === assigningConductor.conductor_id
-        ? { 
-            ...c, 
-            horas_conduccion_hoy: Math.round(horasProyectadas * 100) / 100,
-            estado: horasProyectadas >= 8.0 ? 'DESCANSO' : c.estado 
-          }
-        : c
-    ));
-
-    setMensajeExito(`Ruta de ${horasRuta}h aprobada y asignada a ${assigningConductor.nombres} ${assigningConductor.apellidos}. Horas acumuladas: ${horasProyectadas.toFixed(1)} / 8.0 h.`);
+    setMensajeExito(`Jornada compatible para ${assigningConductor.nombres}. La asignación se confirma al generar la ruta en Rutas y Despacho.`);
     setValidandoRuta(false);
     setAssigningConductor(null);
   };
@@ -994,7 +878,7 @@ export function ConductoresView() {
                   }}
                   style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.45rem 1rem', fontSize: '0.8rem' }}
                 >
-                  <Send size={14} /> Asignar Esta Ruta ({infoRuta.horasEst} h)
+                  <Send size={14} /> Comprobar jornada ({infoRuta.horasEst} h)
                 </button>
               )}
             </div>
@@ -1194,6 +1078,7 @@ export function ConductoresView() {
               />
             </div>
 
+            <label>Vencimiento del brevete<input aria-label="Vencimiento del brevete" type="date" required value={licenciaVencimiento} onChange={e => setLicenciaVencimiento(e.target.value)} /></label>
             <div>
               <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Categoría MTC:
@@ -1347,9 +1232,9 @@ export function ConductoresView() {
                         padding: '0.15rem 0.45rem',
                         borderRadius: '6px',
                         border: '1px solid #CAD3BD'
-                      }} title="Cuenta de acceso a la App Móvil (Rol: REPARTIDOR · Clave: ecologistica2026)">
+                      }} title="El administrador crea y vincula la cuenta móvil">
                         <Smartphone size={11} color="#556B2F" />
-                        <span>{getEmailConductor(c)}</span>
+                        <span>Cuenta móvil: consultar Administración</span>
                       </div>
                       <div style={{ fontSize: '0.68rem', color: 'var(--apple-text-tertiary)', marginTop: '0.15rem' }}>
                         ID: {c.conductor_id.substring(0, 8)}... · Rol: REPARTIDOR
@@ -1620,6 +1505,7 @@ export function ConductoresView() {
                   />
                 </div>
 
+                <label>Vencimiento del brevete<input aria-label="Editar vencimiento del brevete" type="date" value={editVencimiento} onChange={e => setEditVencimiento(e.target.value)} /></label>
                 <div>
                   <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Categoría MTC:

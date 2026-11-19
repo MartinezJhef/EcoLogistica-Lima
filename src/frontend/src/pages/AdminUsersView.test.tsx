@@ -4,12 +4,13 @@
  * Cubre: listado, CRUD, filtros por rol, cambio de rol simulado y permisos.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AdminUsersView } from './AdminUsersView';
 
 // ─── vi.mock hoisted: datos inline ───────────────────────────────────────────
 vi.mock('../services/api', () => ({
+  ConductorService:{getAll:vi.fn().mockResolvedValue([{conductor_id:'driver-1',dni:'12345678',nombres:'Ana',apellidos:'Perez'}])},
   UsuarioService: {
     getAll: vi.fn(),
     create: vi.fn(),
@@ -108,6 +109,55 @@ describe('Componente: AdminUsersView', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('crea una cuenta con contraseña elegida y vínculo explícito al conductor',async()=>{
+    const {UsuarioService}=await import('../services/api');
+    await act(async()=>{render(<AdminUsersView/>);});
+    fireEvent.click(screen.getByRole('button',{name:/Nuevo Usuario/}));
+    expect((document.querySelector('input[type=password]') as HTMLInputElement).value).toBe('');
+    fireEvent.change(screen.getByPlaceholderText(/Ing. Carlos/),{target:{value:'Ana de prueba'}});
+    fireEvent.change(screen.getByPlaceholderText('correo@ecologistica.pe'),{target:{value:'ana@example.test'}});
+    fireEvent.change(screen.getByPlaceholderText('Ej. 998877665'),{target:{value:'999888777'}});
+    fireEvent.change(document.querySelector('input[type=password]')!,{target:{value:'Test-only-unique-123!'}});
+    const form=document.querySelector('form')!;
+    const selects=form.querySelectorAll('select');
+    fireEvent.change(selects[1],{target:{value:'REPARTIDOR'}});
+    fireEvent.change(screen.getByLabelText('Conductor vinculado'),{target:{value:'driver-1'}});
+    fireEvent.change(selects[2],{target:{value:'ACTIVO'}});
+    await act(async()=>{fireEvent.submit(form);});
+    expect(UsuarioService.create).toHaveBeenCalledWith(expect.objectContaining({email:'ana@example.test',rol:'REPARTIDOR',conductor_id:'driver-1',password:'Test-only-unique-123!'}));
+    expect(screen.queryByText('Registrar Nuevo Usuario')).toBeNull();
+  });
+
+  it('edita rol y estado sin cambiar contraseña vacía y conserva el modal ante fallo',async()=>{
+    const {UsuarioService}=await import('../services/api');
+    await act(async()=>{render(<AdminUsersView/>);});
+    fireEvent.click(screen.getAllByTitle('Editar usuario y permisos')[0]);
+    fireEvent.change(screen.getByPlaceholderText(/Ing. Carlos/),{target:{value:'Nombre cambiado'}});
+    const form=document.querySelector('form')!;
+    vi.mocked(UsuarioService.update).mockRejectedValueOnce(new Error('Error de prueba'));
+    await act(async()=>{fireEvent.submit(form);});
+    expect(screen.getByText(/No se pudo guardar el usuario/)).toBeTruthy();
+    expect(screen.getByPlaceholderText(/Ing. Carlos/)).toHaveValue('Nombre cambiado');
+    await act(async()=>{fireEvent.submit(form);});
+    expect(UsuarioService.update).toHaveBeenLastCalledWith('u1',expect.objectContaining({nombre_completo:'Nombre cambiado'}));
+    expect(vi.mocked(UsuarioService.update).mock.calls.at(-1)?.[1]).not.toHaveProperty('password');
+  });
+
+  it('solo elimina después de confirmar y presenta los errores del servidor',async()=>{
+    const {UsuarioService}=await import('../services/api');
+    const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);
+    await act(async()=>{render(<AdminUsersView/>);});
+    fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);
+    expect(UsuarioService.delete).not.toHaveBeenCalled();
+    confirm.mockReturnValue(true);
+    vi.mocked(UsuarioService.delete).mockRejectedValueOnce(new Error('Error'));
+    await act(async()=>{fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);});
+    expect(screen.getByText('Error al eliminar el usuario.')).toBeTruthy();
+    await act(async()=>{fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);});
+    expect(screen.queryByText('Super Admin')).toBeNull();
+    confirm.mockRestore();
   });
 
   // Renderizado básico

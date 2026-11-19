@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Numeric, Integer
+from sqlalchemy import Column, String, Numeric, Integer, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.session import Base
 
@@ -7,6 +7,8 @@ class Vehiculo(Base):
     __tablename__ = "vehiculos"
 
     vehiculo_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    altura_m = Column(Numeric(5, 2), nullable=True)
+    es_ligero = Column(Boolean, nullable=True)
     placa = Column(String(10), unique=True, nullable=False, index=True)
     marca_modelo = Column(String(100), nullable=False)
     anio_fabricacion = Column(Integer, nullable=False, default=2024)

@@ -129,6 +129,8 @@ export function VehiculosView() {
 
   // Estado para Edición Modal
   const [editingVehiculo, setEditingVehiculo] = useState<Vehiculo | null>(null);
+  const [editAltura, setEditAltura] = useState('');
+  const [editLigero, setEditLigero] = useState('');
   const [editMarca, setEditMarca] = useState('');
   const [editAnio, setEditAnio] = useState(2024);
   const [editCombustible, setEditCombustible] = useState<'ELECTRICO' | 'GNV' | 'DIESEL' | 'HIBRIDO'>('GNV');
@@ -217,6 +219,8 @@ export function VehiculosView() {
   const handleAbrirEditar = (v: Vehiculo) => {
     setEditingVehiculo(v);
     setEditMarca(v.marca_modelo);
+    setEditAltura(v.altura_m == null ? '' : String(v.altura_m));
+    setEditLigero(v.es_ligero == null ? '' : String(v.es_ligero));
     setEditAnio(v.anio_fabricacion || 2024);
     setEditCombustible(v.tipo_combustible as any);
     setEditPeso(Number(v.capacidad_peso_kg));
@@ -235,6 +239,8 @@ export function VehiculosView() {
 
     const payload = {
       marca_modelo: editMarca,
+      altura_m: editAltura ? Number(editAltura) : null,
+      es_ligero: editLigero === '' ? null : editLigero === 'true',
       anio_fabricacion: editAnio,
       tipo_combustible: editCombustible,
       capacidad_peso_kg: editPeso,
@@ -619,6 +625,14 @@ export function VehiculosView() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.85rem' }}>
+                <div>
+                  <label>Altura total (m)</label>
+                  <input aria-label="Altura total" type="number" min="0.1" max="6" step="0.01" value={editAltura} onChange={e => setEditAltura(e.target.value)} />
+                  <label>Clasificación de acceso</label>
+                  <select aria-label="Clasificación de acceso" value={editLigero} onChange={e => setEditLigero(e.target.value)}>
+                    <option value="">Sin verificar</option><option value="true">Vehículo ligero</option><option value="false">Vehículo pesado</option>
+                  </select>
+                </div>
                 <div>
                   <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Carga Útil (kg):

@@ -5,6 +5,7 @@ from app.models.conductor import Conductor
 from app.schemas.vehiculo import VehiculoCreate, VehiculoUpdate
 from app.schemas.conductor import ConductorCreate, ConductorUpdate
 from uuid import UUID
+from datetime import date
 from typing import List, Optional
 
 class FleetService:
@@ -154,6 +155,8 @@ class FleetService:
             )
 
         db_vehiculo = Vehiculo(
+            altura_m=vehiculo_in.altura_m,
+            es_ligero=vehiculo_in.es_ligero,
             placa=placa_normalizada,
             marca_modelo=vehiculo_in.marca_modelo,
             anio_fabricacion=vehiculo_in.anio_fabricacion,
@@ -298,6 +301,7 @@ class FleetService:
             nombres=conductor_in.nombres.strip(),
             apellidos=conductor_in.apellidos.strip(),
             licencia=licencia_limpia,
+            licencia_vencimiento=conductor_in.licencia_vencimiento,
             categoria_licencia=conductor_in.categoria_licencia or "A-IIIc",
             telefono=conductor_in.telefono.strip(),
             direccion_origen=conductor_in.direccion_origen,
@@ -354,6 +358,9 @@ class FleetService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Conductor no disponible para asignación. Estado actual: '{conductor.estado}'. Solo se pueden asignar rutas a conductores en estado 'DISPONIBLE'."
             )
+
+        if conductor.licencia_vencimiento is None or conductor.licencia_vencimiento < date.today():
+            raise HTTPException(400, "Debe verificar una licencia vigente antes de asignar una ruta.")
 
         # SUB-002-07 & Escenario 2: Límite legal 8 horas
         horas_acumuladas = float(conductor.horas_conduccion_hoy)

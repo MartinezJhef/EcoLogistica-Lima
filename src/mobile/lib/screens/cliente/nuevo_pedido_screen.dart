@@ -1,430 +1,281 @@
-import 'dart:math';
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import '../../theme/apple_theme.dart';
+
 import '../../models/usuario_model.dart';
 import '../../models/pedido_mobile_model.dart';
+import '../../services/itinerary_service.dart';
 import '../../services/local_db_service.dart';
 import '../../services/sync_service.dart';
-import '../../services/routing_calculator.dart';
-import '../../widgets/apple_button.dart';
-import '../../widgets/apple_glass_card.dart';
-
-class DestinoOpcion {
-  final String nombre;
-  final String direccion;
-  final double lat;
-  final double lng;
-
-  DestinoOpcion(this.nombre, this.direccion, this.lat, this.lng);
-}
 
 class NuevoPedidoScreen extends StatefulWidget {
   final UsuarioAppModel usuario;
-
   const NuevoPedidoScreen({super.key, required this.usuario});
-
   @override
   State<NuevoPedidoScreen> createState() => _NuevoPedidoScreenState();
 }
 
 class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
-  final List<DestinoOpcion> _puntosDisponibles = [
-    DestinoOpcion('Centro de Distribución EcoLogística', 'Av. Argentina 2050, Cercado de Lima', -12.046374, -77.042793),
-    DestinoOpcion('Almacén Central SJL', 'Av. Próceres de la Independencia 1420, SJL', -12.001200, -77.012300),
-    DestinoOpcion('Bodega San José · Canto Grande', 'Av. Canto Grande 2450, SJL', -11.995000, -77.008000),
-    DestinoOpcion('Minimarket Los Laureles · Ate', 'Av. Los Frutales 120, Ate', -12.045000, -76.965000),
-    DestinoOpcion('Tienda Orgánica Miraflores', 'Av. Larco 880, Miraflores', -12.125000, -77.029000),
-    DestinoOpcion('Comercial Los Olivos', 'Av. Antúnez de Mayolo 1120, Los Olivos', -11.989000, -77.072000),
-  ];
-
-  late DestinoOpcion _puntoA;
-  late DestinoOpcion _puntoB;
-
-  final TextEditingController _clienteNombreController = TextEditingController();
-  final TextEditingController _telefonoController = TextEditingController(text: '998877665');
-  final TextEditingController _precioController = TextEditingController(text: '55.00');
-
-  String _metodoPago = 'CONTRAENTREGA'; // 'PAGADO' | 'CONTRAENTREGA'
-  bool _guardando = false;
-
-  // Métricas calculadas dinámicamente
-  double _distanciaKm = 0.0;
-  int _tiempoMin = 0;
-  double _co2Kg = 0.0;
-  double _combustibleGal = 0.0;
-  double _fleteCalculado = 18.0;
-
+  final _name = TextEditingController(),
+      _phone = TextEditingController(),
+      _address = TextEditingController();
+  final _lat = TextEditingController(),
+      _lng = TextEditingController(),
+      _weight = TextEditingController(),
+      _volume = TextEditingController();
+  final _start = TextEditingController(text: '08:00'),
+      _end = TextEditingController(text: '18:00'),
+      _reference = TextEditingController();
+  String _access = 'LIBRE_ACCESO', _message = '';
+  bool _busy = false;
   @override
   void initState() {
     super.initState();
-    _puntoA = _puntosDisponibles[0];
-    _puntoB = _puntosDisponibles[2];
-    _clienteNombreController.text = widget.usuario.nombreCompleto;
-    _recalcularMetricas();
+    _name.text = widget.usuario.nombreCompleto;
+    _phone.text = widget.usuario.telefono ?? '';
   }
 
-  void _recalcularMetricas() {
-    final dist = RoutingCalculatorService.calcularDistanciaKm(
-      lat1: _puntoA.lat,
-      lon1: _puntoA.lng,
-      lat2: _puntoB.lat,
-      lon2: _puntoB.lng,
-    );
-    final tiempo = RoutingCalculatorService.calcularTiempoEstimadoMinutos(dist);
-    final co2 = RoutingCalculatorService.calcularEmisionesCo2Kg(dist);
-    final combustible = RoutingCalculatorService.calcularConsumoGalones(dist);
-    final flete = double.parse((12.0 + (dist * 0.95)).toStringAsFixed(2));
+  @override
+  void dispose() {
+    for (final c in [
+      _name,
+      _phone,
+      _address,
+      _lat,
+      _lng,
+      _weight,
+      _volume,
+      _start,
+      _end,
+      _reference,
+    ]) {
+      c.dispose();
+    }
+    super.dispose();
+  }
 
-    setState(() {
-      _distanciaKm = dist;
-      _tiempoMin = tiempo;
-      _co2Kg = co2;
-      _combustibleGal = combustible;
-      _fleteCalculado = flete;
+  Future<void> _locate() async {
+    if (_address.text.trim().isEmpty)
+      throw Exception('Introduce una dirección de entrega.');
+    final uri = Uri.https('nominatim.openstreetmap.org', '/search', {
+      'format': 'jsonv2',
+      'q': _address.text.trim(),
+      'countrycodes': 'pe',
+      'bounded': '1',
+      'viewbox': '-77.5,-11.5,-76.5,-12.5',
+      'limit': '1',
     });
+    final response = await ItineraryService.client
+        .get(
+          uri,
+          headers: {
+            'Accept-Language': 'es',
+            'User-Agent': 'EcoLogistica-Lima/1.0',
+          },
+        )
+        .timeout(const Duration(seconds: 8));
+    if (response.statusCode != 200)
+      throw Exception(
+        'No se pudo localizar la dirección. Introduce coordenadas verificadas o reintenta.',
+      );
+    final results = jsonDecode(response.body) as List;
+    if (results.isEmpty)
+      throw Exception(
+        'Dirección no encontrada en Lima. Introduce coordenadas verificadas.',
+      );
+    _lat.text = results.first['lat'].toString();
+    _lng.text = results.first['lon'].toString();
   }
 
-  Future<void> _handleCrearPedido() async {
-    final precio = double.tryParse(_precioController.text.trim()) ?? 0.0;
-    if (precio <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Por favor ingresa un precio válido para el producto.'),
-          backgroundColor: AppleTheme.accentRed,
-        ),
+  Future<void> _locateFromButton() async {
+    setState(() => _busy = true);
+    try {
+      await _locate();
+      if (mounted)
+        setState(
+          () => _message =
+              'Coordenadas encontradas. Verifica el punto antes de guardar.',
+        );
+    } catch (error) {
+      if (mounted) setState(() => _message = error.toString());
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _save() async {
+    setState(() {
+      _busy = true;
+      _message = '';
+    });
+    try {
+      final weight = double.tryParse(_weight.text),
+          volume = double.tryParse(_volume.text);
+      if (_name.text.trim().isEmpty || _address.text.trim().isEmpty)
+        throw Exception('Completa el cliente y la dirección.');
+      if (weight == null ||
+          !weight.isFinite ||
+          weight <= 0 ||
+          volume == null ||
+          !volume.isFinite ||
+          volume <= 0)
+        throw Exception('El peso y volumen deben ser mayores que cero.');
+      final time = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
+      if (!time.hasMatch(_start.text) ||
+          !time.hasMatch(_end.text) ||
+          _end.text.compareTo(_start.text) <= 0)
+        throw Exception(
+          'La hora de cierre debe ser posterior a la apertura, en formato HH:MM.',
+        );
+      if (_lat.text.isEmpty && _lng.text.isEmpty) await _locate();
+      final lat = double.tryParse(_lat.text), lng = double.tryParse(_lng.text);
+      if (lat == null ||
+          lng == null ||
+          !lat.isFinite ||
+          !lng.isFinite ||
+          lat < -12.5 ||
+          lat > -11.5 ||
+          lng < -77.5 ||
+          lng > -76.5)
+        throw Exception('Introduce coordenadas válidas de Lima.');
+      final id = DateTime.now().microsecondsSinceEpoch.toRadixString(36);
+      final order = PedidoMobileModel(
+        id: 'local-$id',
+        codigoSeguimiento: 'PED-$id',
+        clienteNombre: _name.text.trim(),
+        telefonoContacto: _phone.text.trim(),
+        origenDireccion: '',
+        origenLat: 0,
+        origenLng: 0,
+        destinoDireccion: _address.text.trim(),
+        destinoLat: lat,
+        destinoLng: lng,
+        pesoKg: weight,
+        volumenM3: volume,
+        ventanaInicio: _start.text,
+        ventanaFin: _end.text,
+        restriccionAcceso: _access,
+        referenciaUbicacion: _reference.text.trim(),
+        precioProducto: 0,
+        metodoPago: 'PAGADO',
+        estado: 'PENDIENTE',
+        distanciaKm: 0,
+        tiempoEstimadoMinutos: 0,
+        consumoCombustibleGal: 0,
+        emisionCo2Kg: 0,
+        isSynced: false,
       );
-      return;
-    }
-
-    setState(() => _guardando = true);
-    final online = await SyncService.verificarConexion();
-
-    final nuevoCodigo = 'PED-LIMA-${Random().nextInt(900) + 100}';
-    final nuevoPedido = PedidoMobileModel(
-      id: 'ped-mob-${DateTime.now().millisecondsSinceEpoch}',
-      codigoSeguimiento: nuevoCodigo,
-      clienteNombre: _clienteNombreController.text.trim(),
-      telefonoContacto: _telefonoController.text.trim(),
-      origenDireccion: _puntoA.direccion,
-      origenLat: _puntoA.lat,
-      origenLng: _puntoA.lng,
-      destinoDireccion: _puntoB.direccion,
-      destinoLat: _puntoB.lat,
-      destinoLng: _puntoB.lng,
-      precioProducto: precio,
-      metodoPago: _metodoPago,
-      estado: 'PENDIENTE',
-      distanciaKm: _distanciaKm,
-      tiempoEstimadoMinutos: _tiempoMin,
-      consumoCombustibleGal: _combustibleGal,
-      emisionCo2Kg: _co2Kg,
-      fleteOfrecido: _fleteCalculado,
-      faseEntrega: 'OFERTA_DISPONIBLE',
-      tiempoHaciaOrigenMin: 8,
-      distanciaHaciaOrigenKm: 2.4,
-      consumoKmGal: 38.0,
-      restriccionZonal: 'LIBRE_CIRCULACION',
-      ahorroCo2Porcentaje: 38.0,
-      co2AhorradoKg: RoutingCalculatorService.calcularAhorroCo2Kg(_distanciaKm),
-      isSynced: false,
-    );
-
-    // Guardar en SQL Local (se encola automáticamente en Outbox)
-    await LocalDbService.agregarPedidoLocal(nuevoPedido);
-
-    if (online) {
-      await SyncService.sincronizarSqlHaciaPostgres();
-    }
-
-    if (mounted) {
-      setState(() => _guardando = false);
-
-      showCupertinoDialog(
+      await LocalDbService.agregarPedidoLocal(order);
+      final result = await SyncService.sincronizarSqlHaciaPostgres();
+      if (!mounted) return;
+      setState(() => _busy = false);
+      await showDialog<void>(
         context: context,
-        builder: (_) => CupertinoAlertDialog(
-          title: const Text('Orden Generada'),
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            result['exito'] == true
+                ? 'Pedido confirmado'
+                : 'Pedido guardado en el dispositivo',
+          ),
           content: Text(
-            online
-                ? 'El pedido $nuevoCodigo ha sido registrado y enviado directamente a PostgreSQL con flete ofrecido de S/. ${_fleteCalculado.toStringAsFixed(2)}.'
-                : 'El pedido $nuevoCodigo fue almacenado en la base de datos SQL local. Al reconectar con PostgreSQL se sincronizará automáticamente.',
+            result['exito'] == true
+                ? 'El servidor confirmó el pedido ${order.codigoSeguimiento}. Oficina podrá incluirlo en una ruta.'
+                : 'El pedido ${order.codigoSeguimiento} está pendiente de envío. Se reintentará al recuperar la conexión.',
           ),
           actions: [
-            CupertinoDialogAction(
-              child: const Text('Ver Mis Pedidos'),
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Ver mis pedidos'),
             ),
           ],
         ),
       );
+      if (mounted) Navigator.pop(context);
+    } catch (error) {
+      if (mounted) setState(() => _message = error.toString());
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 
+  Widget _field(
+    String label,
+    TextEditingController controller, {
+    bool numeric = false,
+  }) => TextField(
+    controller: controller,
+    enabled: !_busy,
+    keyboardType: numeric
+        ? const TextInputType.numberWithOptions(decimal: true, signed: true)
+        : TextInputType.text,
+    decoration: InputDecoration(labelText: label),
+  );
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Generar Nuevo Pedido'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        children: [
-          // Selección de Ruta Punto A -> Punto B
-          AppleGlassCard(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'DEFINICIÓN DEL TRAYECTO (A ➔ B)',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: AppleTheme.accentCyan,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                // Selector Punto A
-                const Text('Punto A · Lugar de Recojo / Origen:', style: TextStyle(fontSize: 12, color: AppleTheme.textSecondary)),
-                const SizedBox(height: 4),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.06),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<DestinoOpcion>(
-                      value: _puntoA,
-                      isExpanded: true,
-                      dropdownColor: AppleTheme.bgSecondary,
-                      items: _puntosDisponibles.map((op) {
-                        return DropdownMenuItem(
-                          value: op,
-                          child: Text(op.nombre, style: const TextStyle(fontSize: 13, color: AppleTheme.textPrimary)),
-                        );
-                      }).toList(),
-                      onChanged: (nueva) {
-                        if (nueva != null) {
-                          setState(() => _puntoA = nueva);
-                          _recalcularMetricas();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 14),
-
-                // Selector Punto B
-                const Text('Punto B · Lugar de Entrega / Destino:', style: TextStyle(fontSize: 12, color: AppleTheme.textSecondary)),
-                const SizedBox(height: 4),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.06),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<DestinoOpcion>(
-                      value: _puntoB,
-                      isExpanded: true,
-                      dropdownColor: AppleTheme.bgSecondary,
-                      items: _puntosDisponibles.map((op) {
-                        return DropdownMenuItem(
-                          value: op,
-                          child: Text(op.nombre, style: const TextStyle(fontSize: 13, color: AppleTheme.textPrimary)),
-                        );
-                      }).toList(),
-                      onChanged: (nueva) {
-                        if (nueva != null) {
-                          setState(() => _puntoB = nueva);
-                          _recalcularMetricas();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Estimación Automática
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF243025),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppleTheme.borderSubtle),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          const Text('Distancia', style: TextStyle(fontSize: 10, color: AppleTheme.textSecondary)),
-                          const SizedBox(height: 2),
-                          Text('$_distanciaKm km', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppleTheme.accentCyan)),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text('Tiempo ETA', style: TextStyle(fontSize: 10, color: AppleTheme.textSecondary)),
-                          const SizedBox(height: 2),
-                          Text('$_tiempoMin min', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppleTheme.textPrimary)),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text('Emisión CO₂', style: TextStyle(fontSize: 10, color: AppleTheme.textSecondary)),
-                          const SizedBox(height: 2),
-                          Text('$_co2Kg kg', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppleTheme.accentGreen)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Nuevo pedido')),
+    body: ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        if (_message.isNotEmpty) Text(_message),
+        if (_busy) const LinearProgressIndicator(),
+        _field('Nombre del cliente', _name),
+        _field('Teléfono de contacto', _phone),
+        TextField(
+          controller: _address,
+          enabled: !_busy,
+          decoration: const InputDecoration(labelText: 'Dirección de entrega'),
+          onChanged: (_) {
+            _lat.clear();
+            _lng.clear();
+          },
+        ),
+        TextButton(
+          onPressed: _busy ? null : _locateFromButton,
+          child: const Text('Localizar dirección'),
+        ),
+        const Text(
+          'Puedes introducir coordenadas verificadas manualmente si la dirección no se encuentra.',
+        ),
+        _field('Latitud', _lat, numeric: true),
+        _field('Longitud', _lng, numeric: true),
+        _field('Peso (kg)', _weight, numeric: true),
+        _field('Volumen (m³)', _volume, numeric: true),
+        _field('Apertura (HH:MM)', _start),
+        _field('Cierre (HH:MM)', _end),
+        _field('Referencia de entrega', _reference),
+        DropdownButtonFormField<String>(
+          initialValue: _access,
+          decoration: const InputDecoration(labelText: 'Restricción de acceso'),
+          onChanged: _busy ? null : (v) => setState(() => _access = v!),
+          items: const [
+            DropdownMenuItem(
+              value: 'LIBRE_ACCESO',
+              child: Text('Libre acceso'),
             ),
-          ),
-          const SizedBox(height: 16),
-
-          // Precio, Flete y Modalidad de Pago
-          AppleGlassCard(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'PRECIO Y CONDICIONES DE PAGO',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: AppleTheme.textSecondary,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                // Flete Propuesto
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Flete de Transporte Ofrecido:', style: TextStyle(fontSize: 12, color: AppleTheme.textSecondary)),
-                    Text('S/. ${_fleteCalculado.toStringAsFixed(2)}', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppleTheme.accentGreen)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-
-                // Precio del Producto
-                const Text('Precio del Paquete / Mercadería (S/.):', style: TextStyle(fontSize: 12, color: AppleTheme.textSecondary)),
-                const SizedBox(height: 4),
-                CupertinoTextField(
-                  controller: _precioController,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  prefix: const Padding(
-                    padding: EdgeInsets.only(left: 12),
-                    child: Text('S/. ', style: TextStyle(color: AppleTheme.accentCyan, fontWeight: FontWeight.w700)),
-                  ),
-                  style: const TextStyle(color: AppleTheme.textPrimary, fontSize: 16, fontWeight: FontWeight.w700),
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.06),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Selector de Método de Pago: Pagado vs Contraentrega
-                const Text('Modalidad de Pago:', style: TextStyle(fontSize: 12, color: AppleTheme.textSecondary)),
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => _metodoPago = 'PAGADO'),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: BoxDecoration(
-                            color: _metodoPago == 'PAGADO' ? AppleTheme.accentGreen.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.04),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: _metodoPago == 'PAGADO' ? AppleTheme.accentGreen : Colors.white.withValues(alpha: 0.1),
-                              width: _metodoPago == 'PAGADO' ? 1.5 : 1.0,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(CupertinoIcons.creditcard, size: 20, color: _metodoPago == 'PAGADO' ? AppleTheme.accentGreen : AppleTheme.textSecondary),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Pago Inmediato',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _metodoPago == 'PAGADO' ? AppleTheme.accentGreen : AppleTheme.textSecondary,
-                                ),
-                              ),
-                              const Text('Ya cancelado', style: TextStyle(fontSize: 10, color: AppleTheme.textTertiary)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => _metodoPago = 'CONTRAENTREGA'),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: BoxDecoration(
-                            color: _metodoPago == 'CONTRAENTREGA' ? AppleTheme.accentOrange.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.04),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: _metodoPago == 'CONTRAENTREGA' ? AppleTheme.accentOrange : Colors.white.withValues(alpha: 0.1),
-                              width: _metodoPago == 'CONTRAENTREGA' ? 1.5 : 1.0,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(CupertinoIcons.money_dollar_circle, size: 20, color: _metodoPago == 'CONTRAENTREGA' ? AppleTheme.accentOrange : AppleTheme.textSecondary),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Contraentrega',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: _metodoPago == 'CONTRAENTREGA' ? AppleTheme.accentOrange : AppleTheme.textSecondary,
-                                ),
-                              ),
-                              const Text('Cobrar en destino', style: TextStyle(fontSize: 10, color: AppleTheme.textTertiary)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            DropdownMenuItem(
+              value: 'ALTURA_MAXIMA_2_5M',
+              child: Text('Altura máxima 2,5 m'),
             ),
-          ),
-          const SizedBox(height: 24),
-
-          // Botón de Envío
-          AppleButton(
-            text: 'Emitir y Guardar Orden',
-            icon: CupertinoIcons.paperplane_fill,
-            isLoading: _guardando,
-            onPressed: _handleCrearPedido,
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
+            DropdownMenuItem(
+              value: 'SOLO_VEHICULOS_LIGEROS',
+              child: Text('Solo vehículos ligeros'),
+            ),
+            DropdownMenuItem(
+              value: 'NO_CAMIONES_PESADOS',
+              child: Text('Sin camiones pesados'),
+            ),
+            DropdownMenuItem(
+              value: 'ZONA_PEATONAL',
+              child: Text('Zona peatonal'),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: _busy ? null : _save,
+          child: const Text('Guardar pedido'),
+        ),
+      ],
+    ),
+  );
 }

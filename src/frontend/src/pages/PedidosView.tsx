@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  PackageCheck, Plus, MapPin, AlertCircle, Clock, Weight, 
-  CheckCircle2, X, Sliders, ShieldAlert, Store, Phone, 
+import {
+  PackageCheck, Plus, MapPin, AlertCircle, Clock, Weight,
+  CheckCircle2, X, Sliders, ShieldAlert, Store, Phone,
   Eye, RefreshCw, Navigation, Truck, Ban, Check, Sparkles,
   Maximize2, Minimize2, Crosshair, Wand2, Hash, Search,
   Home, Flag
@@ -11,11 +11,11 @@ import { Pagination } from '../components/Pagination';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Pedido, PedidoService, PreferenciasClienteUpdate, Conductor, ConductorService } from '../services/api';
-import { 
-  crearIconoBanderaLlegada, 
+import {
+  crearIconoBanderaLlegada,
   crearIconoCasaOrigen,
-  crearIconoVehiculoConductor, 
-  calcularDistanciaKm, 
+  crearIconoVehiculoConductor,
+  calcularDistanciaKm,
   estimarTiempoMin,
   SVG_MINI_FLAG,
   SVG_MINI_HOUSE,
@@ -23,65 +23,7 @@ import {
   SVG_MINI_PIN
 } from '../utils/mapIcons';
 
-const MOCK_PEDIDOS_INITIAL: Pedido[] = [
-  {
-    pedido_id: 'p1111111-1111-1111-1111-111111111111',
-    codigo_seguimiento: 'PED-LIMA-001',
-    cliente_nombre: 'Bodega San José · San Juan de Lurigancho',
-    origen_direccion: 'Av. Nicolás Ayllón 2340, Ate (Centro de Distribución EcoLogística)',
-    direccion_destino: 'Av. Canto Grande 2450, SJL',
-    latitud: -12.001200,
-    longitud: -77.012300,
-    peso_kg: 85.0,
-    volumen_m3: 0.95,
-    ventana_inicio: '08:00',
-    ventana_fin: '11:00',
-    prioridad: 'ALTA',
-    estado: 'PENDIENTE',
-    referencia_ubicacion: 'Rampa de Despacho 2, Almacén de Carga Seca, frente a garita principal.',
-    restriccion_acceso: 'LIBRE_ACCESO',
-    foto_referencia_url: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=500&auto=format&fit=crop&q=60',
-    telefono_contacto: '987112233'
-  },
-  {
-    pedido_id: 'p2222222-2222-2222-2222-222222222222',
-    codigo_seguimiento: 'PED-LIMA-002',
-    cliente_nombre: 'Minimarket Los Laureles · Santa Anita',
-    origen_direccion: 'Av. Argentina 2060, Callao (Almacén Central Callao)',
-    direccion_destino: 'Av. Los Frutales 120, Ate',
-    latitud: -12.045000,
-    longitud: -76.965000,
-    peso_kg: 42.0,
-    volumen_m3: 0.45,
-    ventana_inicio: '10:00',
-    ventana_fin: '13:00',
-    prioridad: 'ESTANDAR',
-    estado: 'EN_TRANSITO',
-    referencia_ubicacion: 'Pabellón B, Rampa 5, acceso exclusivo por Av. Materiales.',
-    restriccion_acceso: 'ALTURA_MAXIMA_2_5M',
-    foto_referencia_url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&auto=format&fit=crop&q=60',
-    telefono_contacto: '912334455'
-  },
-  {
-    pedido_id: 'p3333333-3333-3333-3333-333333333333',
-    codigo_seguimiento: 'PED-LIMA-003',
-    cliente_nombre: 'Supermercado Central · El Agustino',
-    origen_direccion: 'Av. Elmer Faucett 2823, Callao (Hub Logístico Aeropuerto)',
-    direccion_destino: 'Jr. Ancash 890, El Agustino',
-    latitud: -12.038000,
-    longitud: -76.998000,
-    peso_kg: 120.0,
-    volumen_m3: 1.40,
-    ventana_inicio: '13:00',
-    ventana_fin: '16:00',
-    prioridad: 'URGENTE',
-    estado: 'PENDIENTE',
-    referencia_ubicacion: 'Bahía de Despacho Rápido 1, presentar fotocheck y guía de remisión.',
-    restriccion_acceso: 'SOLO_VEHICULOS_LIGEROS',
-    foto_referencia_url: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=500&auto=format&fit=crop&q=60',
-    telefono_contacto: '965443322'
-  }
-];
+
 
 const RESTRICCIONES_OPCIONES = [
   { valor: 'LIBRE_ACCESO', label: 'Libre acceso vehicular', desc: 'Tránsito sin restricciones de galibo ni peso' },
@@ -89,32 +31,6 @@ const RESTRICCIONES_OPCIONES = [
   { valor: 'SOLO_VEHICULOS_LIGEROS', label: 'Solo vehículos ligeros', desc: 'Furgonetas pequeñas o motocicletas' },
   { valor: 'NO_CAMIONES_PESADOS', label: 'No camiones pesados', desc: 'Restricción de pesaje > 3.5 toneladas' },
   { valor: 'ZONA_PEATONAL', label: 'Zona peatonal', desc: 'Ingreso exclusivo a pie con carretilla' }
-];
-
-const DICCIONARIO_PUNTOS_LIMA = [
-  { lat: -12.112000, lng: -76.998000, dir: 'Av. Primavera 654, Santiago de Surco' },
-  { lat: -12.045000, lng: -76.965000, dir: 'Av. Los Ruiseñores 420, Santa Anita' },
-  { lat: -12.119000, lng: -77.034000, dir: 'Av. José Pardo 805, Miraflores' },
-  { lat: -11.995000, lng: -77.072000, dir: 'Av. Antúnez de Mayolo 1240, Los Olivos' },
-  { lat: -12.001200, lng: -77.012300, dir: 'Av. Canto Grande 2450, San Juan de Lurigancho' },
-  { lat: -12.056700, lng: -76.978900, dir: 'Av. Nicolás Ayllón 1540, Ate Vitarte' },
-  { lat: -12.046374, lng: -77.042793, dir: 'Jr. de la Unión 850, Cercado de Lima' },
-  { lat: -12.098700, lng: -77.034500, dir: 'Av. Javier Prado Este 210, San Isidro' },
-  { lat: -12.162300, lng: -76.968900, dir: 'Av. Los Héroes 620, San Juan de Miraflores' },
-  { lat: -12.034500, lng: -77.112300, dir: 'Av. Sáenz Peña 450, Callao' },
-  { lat: -12.038900, lng: -77.028900, dir: 'Av. Francisco Pizarro 410, Rímac' },
-  { lat: -12.038000, lng: -76.998000, dir: 'Jr. Ancash 890, El Agustino' },
-  { lat: -12.214500, lng: -76.934100, dir: 'Av. Revolución 1200, Villa El Salvador' },
-  { lat: -11.989200, lng: -77.054000, dir: 'Av. Carlos Izaguirre 800, Independencia' },
-  { lat: -12.078900, lng: -77.068900, dir: 'Av. Brasil 2200, Pueblo Libre' },
-  { lat: -12.083400, lng: -77.051200, dir: 'Av. Salaverry 1500, Jesús María' },
-  { lat: -12.062300, lng: -77.038900, dir: 'Av. Arequipa 1100, Lince' },
-  { lat: -12.138900, lng: -77.023400, dir: 'Av. Pedro de Osma 320, Barranco' },
-  { lat: -12.084500, lng: -76.971200, dir: 'Av. Javier Prado Este 4200, La Molina' },
-  { lat: -12.071200, lng: -77.023400, dir: 'Av. México 1350, La Victoria' },
-  { lat: -12.085000, lng: -77.078900, dir: 'Av. Sucre 640, Magdalena del Mar' },
-  { lat: -12.072000, lng: -77.085000, dir: 'Av. La Marina 1800, San Miguel' },
-  { lat: -12.022000, lng: -77.065000, dir: 'Av. Perú 2100, San Martín de Porres' }
 ];
 
 export const resolverDireccionLima = async (lat: number, lng: number): Promise<string> => {
@@ -145,19 +61,26 @@ export const resolverDireccionLima = async (lat: number, lng: number): Promise<s
     // Si falla o timeout, usar diccionario de puntos conocidos de Lima
   }
 
-  // 2. Fallback inteligente: Encontrar punto más cercano del diccionario de Lima
-  const masCercano = DICCIONARIO_PUNTOS_LIMA.reduce((prev, curr) => {
-    const dPrev = Math.hypot(prev.lat - lat, prev.lng - lng);
-    const dCurr = Math.hypot(curr.lat - lat, curr.lng - lng);
-    return dCurr < dPrev ? curr : prev;
-  }, DICCIONARIO_PUNTOS_LIMA[0]);
+  return `Ubicación seleccionada (${lat.toFixed(6)}, ${lng.toFixed(6)})`;
+};
 
-  return masCercano.dir;
+export const geocodificarDestino = async (direccion: string): Promise<{latitud:number;longitud:number}> => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+  try {
+    const query = new URLSearchParams({format:'jsonv2',q:direccion,countrycodes:'pe',viewbox:'-77.5,-11.5,-76.5,-12.5',bounded:'1',limit:'1'});
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?${query}`, {signal:controller.signal,headers:{'Accept-Language':'es'}});
+    if (!response.ok) throw new Error('Geocodificación no disponible');
+    const results = await response.json();
+    const latitud = Number(results[0]?.lat), longitud = Number(results[0]?.lon);
+    if (!Number.isFinite(latitud) || !Number.isFinite(longitud) || latitud < -12.5 || latitud > -11.5 || longitud < -77.5 || longitud > -76.5) throw new Error('Dirección no localizada en Lima');
+    return {latitud,longitud};
+  } finally {clearTimeout(timeout);}
 };
 
 export function PedidosView() {
   const [subTab, setSubTab] = useState<'registro' | 'preferencias' | 'mapa'>('registro');
-  const [pedidos, setPedidos] = useState<Pedido[]>(MOCK_PEDIDOS_INITIAL);
+  const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [filtroEstado, setFiltroEstado] = useState<string>('TODOS');
   const [filtroPrioridad, setFiltroPrioridad] = useState<string>('TODOS');
   const [busquedaOrden, setBusquedaOrden] = useState<string>('');
@@ -172,11 +95,15 @@ export function PedidosView() {
   // Estados del Formulario de Registro (US-003)
   const [codigo, setCodigo] = useState('');
   const [cliente, setCliente] = useState('');
+  const [cuentaCliente, setCuentaCliente] = useState('');
+  const [cuentasClientes, setCuentasClientes] = useState<{usuario_id:string;nombre:string}[]>([]);
+  useEffect(() => { (async()=>{try{setCuentasClientes(await PedidoService.getCuentasClientes() || []);}catch{setCuentasClientes([]);}})(); }, []);
   const [origenDireccion, setOrigenDireccion] = useState('Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)');
   const [origenLat, setOrigenLat] = useState<number>(-12.052000);
   const [origenLng, setOrigenLng] = useState<number>(-77.085000);
   const [referenciaUbicacion, setReferenciaUbicacion] = useState(''); // Referencia textual exclusiva del Punto A (Origen)
   const [direccion, setDireccion] = useState(''); // Dirección de Destino (Punto B)
+  const [destinoConfirmado, setDestinoConfirmado] = useState(false);
   const [latitud, setLatitud] = useState<number>(-12.046374);
   const [longitud, setLongitud] = useState<number>(-77.042793);
   const [referenciaDestino, setReferenciaDestino] = useState(''); // Referencia textual exclusiva del Punto B (Destino)
@@ -237,9 +164,7 @@ export function PedidosView() {
         estado: filtroEstado,
         prioridad: filtroPrioridad
       });
-      if (data && data.length > 0) {
-        setPedidos(data);
-      }
+      setPedidos(data || []);
     } catch {
       // Fallback a memoria local
     } finally {
@@ -319,6 +244,7 @@ export function PedidosView() {
     try {
       const dirResuelta = await resolverDireccionLima(targetLat, targetLng);
       setDireccion(dirResuelta);
+      setDestinoConfirmado(true);
     } catch {
       // Continuar sin interrumpir
     }
@@ -411,6 +337,7 @@ export function PedidosView() {
     setReferenciaUbicacion(item.refOrigen);
     setDireccion(item.direccion);
     setReferenciaDestino(item.refDest);
+    setDestinoConfirmado(true);
     setLatitud(item.lat);
     setLongitud(item.lng);
     setPeso(item.peso);
@@ -556,6 +483,7 @@ export function PedidosView() {
             });
           } else {
             // Modo Destino con Bandera de Fin de Carrera SVG
+            setDestinoConfirmado(true);
             setLatitud(latFija);
             setLongitud(lngFija);
             setDireccion(nuevaDir);
@@ -858,17 +786,28 @@ export function PedidosView() {
 
     setCargandoRegistro(true);
 
+    let coordenadas = {latitud,longitud};
+    if (!destinoConfirmado) {
+      try {
+        coordenadas = await geocodificarDestino(direccion.trim());
+        setLatitud(coordenadas.latitud); setLongitud(coordenadas.longitud); setDestinoConfirmado(true);
+      } catch {
+        setToast({tipo:'error',titulo:'Falta confirmar la ubicación',mensaje:'No se pudo localizar la dirección. Selecciona el destino en el mapa o vuelve a intentarlo.'});
+        setCargandoRegistro(false); return;
+      }
+    }
     const codFinal = codigo.trim() || `PED-LIMA-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const nuevoPedidoPayload = {
+      usuario_cliente_id: cuentaCliente || undefined,
       codigo_seguimiento: codFinal,
       cliente_nombre: cliente.trim(),
       origen_direccion: origenDireccion.trim(),
       origen_lat: origenLat,
       origen_lng: origenLng,
       direccion_destino: direccion.trim(),
-      latitud,
-      longitud,
+      latitud: coordenadas.latitud,
+      longitud: coordenadas.longitud,
       peso_kg: peso,
       volumen_m3: volumen,
       ventana_inicio: vInicio,
@@ -886,24 +825,12 @@ export function PedidosView() {
       setToast({
         tipo: 'success',
         titulo: 'Pedido Registrado con Éxito (US-003)',
-        mensaje: `Orden ${creado.codigo_seguimiento} para "${creado.cliente_nombre}" registrada en Supabase PostGIS.`
+        mensaje: `Orden ${creado.codigo_seguimiento} para "${creado.cliente_nombre}" guardada correctamente.`
       });
       limpiarFormulario();
     } catch (err: any) {
-      console.warn('Error en persistencia remota, aplicando fallback resiliente:', err);
-      // Fallback local
-      const nuevoLocal: Pedido = {
-        ...nuevoPedidoPayload,
-        pedido_id: `local-${Date.now()}`,
-        estado: 'PENDIENTE'
-      };
-      setPedidos(prev => [nuevoLocal, ...prev]);
-      setToast({
-        tipo: 'success',
-        titulo: 'Pedido Registrado (Modo Resiliente)',
-        mensaje: `Registrado: ${nuevoLocal.codigo_seguimiento}. Estado: Pendiente de Programación.`
-      });
-      limpiarFormulario();
+      setToast({ tipo: 'error', titulo: 'No se guardó el pedido',
+        mensaje: err.message || 'No hay conexión. Conservamos el formulario para que puedas reintentar.' });
     } finally {
       setCargandoRegistro(false);
     }
@@ -912,6 +839,7 @@ export function PedidosView() {
   const limpiarFormulario = () => {
     setCodigo('');
     setCliente('');
+    setCuentaCliente('');
     setOrigenDireccion('Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)');
     setOrigenLat(-12.052000);
     setOrigenLng(-77.085000);
@@ -966,47 +894,22 @@ export function PedidosView() {
         mensaje: `Preferencias del cliente aplicadas para ${actualizado.codigo_seguimiento} y futuros cálculos de ruteo.`
       });
     } catch (err: any) {
-      const msg = err.response?.data?.detail || 'No se pudo conectar al backend. Actualizando en sesión local.';
-      if (err.response?.status === 400 && msg.includes('tránsito')) {
-        setToast({
-          tipo: 'error',
-          titulo: 'Restricción de Negocio (RN-007 / RN-010)',
-          mensaje: msg
-        });
-        return;
-      }
-      // Actualización en estado local
-      const localAct: Pedido = {
-        ...pedidoSeleccionado,
-        ventana_inicio: prefVInicio,
-        ventana_fin: prefVFin,
-        restriccion_acceso: prefRestriccion,
-        referencia_ubicacion: prefReferencia,
-        foto_referencia_url: prefFotoUrl,
-        telefono_contacto: prefTelefono
-      };
-      setPedidos(prev => prev.map(p => p.pedido_id === localAct.pedido_id ? localAct : p));
-      setPedidoSeleccionado(localAct);
-      setToast({
-        tipo: 'success',
-        titulo: 'Preferencias Guardadas (Local)',
-        mensaje: `Restricciones y preferencias guardadas para ${localAct.codigo_seguimiento}.`
-      });
+      setToast({ tipo: 'error', titulo: 'No se guardaron las preferencias',
+        mensaje: err.message || 'Revisa la conexión y vuelve a intentar.' });
     }
   };
 
   // Alternar estado para simular pedidos en tránsito (Prueba de Escenario 2 US-004)
   const toggleEstadoPedido = async (p: Pedido) => {
-    const nuevoEstado = p.estado === 'PENDIENTE' ? 'EN_TRANSITO' : 'PENDIENTE';
+    const nuevoEstado = 'EN_TRANSITO';
+    if (p.estado !== 'ASIGNADO') return;
     try {
       const act = await PedidoService.updateEstado(p.pedido_id, nuevoEstado);
       setPedidos(prev => prev.map(item => item.pedido_id === act.pedido_id ? act : item));
       if (pedidoSeleccionado?.pedido_id === act.pedido_id) setPedidoSeleccionado(act);
     } catch {
-      // Fallback local
-      const actLocal = { ...p, estado: nuevoEstado };
-      setPedidos(prev => prev.map(item => item.pedido_id === actLocal.pedido_id ? actLocal : item));
-      if (pedidoSeleccionado?.pedido_id === actLocal.pedido_id) setPedidoSeleccionado(actLocal);
+      setToast({ tipo: 'error', titulo: 'No se actualizó el estado', mensaje: 'Revisa la conexión y reintenta.' });
+      return;
     }
     setToast({
       tipo: 'warning',
@@ -1017,7 +920,7 @@ export function PedidosView() {
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', paddingBottom: '3rem' }}>
-      
+
       {/* HUD Apple Toasts */}
       {toast && (
         <div className="apple-toast-container">
@@ -1041,20 +944,20 @@ export function PedidosView() {
       )}
 
       {/* Cabecera Principal Sticky (Permanece siempre fija arriba al hacer scroll) */}
-      <div style={{ 
-        position: 'sticky', 
-        top: '-2.25rem', 
+      <div style={{
+        position: 'sticky',
+        top: '-2.25rem',
         zIndex: 40,
         background: '#F5F4EE',
         paddingTop: '0.5rem',
         paddingBottom: '1rem',
         marginBottom: '1.5rem',
         borderBottom: '1.5px solid #D8DFCD',
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        flexWrap: 'wrap', 
-        gap: '1rem' 
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem'
       }}>
         <div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', padding: '0.2rem 0.65rem', borderRadius: '8px', background: '#EBF1E6', border: '1px solid #A7B38B', marginBottom: '0.35rem' }}>
@@ -1071,22 +974,22 @@ export function PedidosView() {
 
         {/* Segmented Control macOS / visionOS */}
         <div className="segmented-control" style={{ minWidth: '380px' }}>
-          <button 
-            className={subTab === 'registro' ? 'selected' : ''} 
+          <button
+            className={subTab === 'registro' ? 'selected' : ''}
             onClick={() => setSubTab('registro')}
           >
             <PackageCheck size={15} />
             <span>Registro y Órdenes</span>
           </button>
-          <button 
-            className={subTab === 'preferencias' ? 'selected' : ''} 
+          <button
+            className={subTab === 'preferencias' ? 'selected' : ''}
             onClick={() => setSubTab('preferencias')}
           >
             <Sliders size={15} />
             <span>Preferencias (US-004)</span>
           </button>
-          <button 
-            className={subTab === 'mapa' ? 'selected' : ''} 
+          <button
+            className={subTab === 'mapa' ? 'selected' : ''}
             onClick={() => setSubTab('mapa')}
           >
             <MapPin size={15} />
@@ -1100,7 +1003,7 @@ export function PedidosView() {
           ===================================================================== */}
       {subTab === 'registro' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%' }}>
-          
+
           {/* BLOQUE SUPERIOR COMPLETO: Formulario Nuevo Pedido de Entrega (100% Ancho) */}
           <div className="apple-card" style={{ padding: '1.6rem', marginBottom: 0, width: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
@@ -1115,20 +1018,20 @@ export function PedidosView() {
               </div>
 
               <div style={{ display: 'flex', gap: '0.45rem', alignItems: 'center' }}>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={llenarDatosPrueba}
-                  className="btn-secondary" 
-                  style={{ 
-                    fontSize: '0.74rem', 
-                    padding: '0.28rem 0.65rem', 
-                    background: '#F0EFE9', 
-                    borderColor: '#CAD3BD', 
-                    color: '#2D3A2E', 
-                    fontWeight: 600, 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '0.35rem' 
+                  className="btn-secondary"
+                  style={{
+                    fontSize: '0.74rem',
+                    padding: '0.28rem 0.65rem',
+                    background: '#F0EFE9',
+                    borderColor: '#CAD3BD',
+                    color: '#2D3A2E',
+                    fontWeight: 600,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
                   }}
                   title="Rellenar automáticamente con un cliente y dirección real de Lima"
                 >
@@ -1139,18 +1042,24 @@ export function PedidosView() {
             </div>
 
             <form onSubmit={handleCrearPedido} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-              
+              <label>Cuenta del cliente (para que pueda consultar el pedido y sus preferencias)
+                <select aria-label="Cuenta del cliente" value={cuentaCliente} onChange={e=>setCuentaCliente(e.target.value)}>
+                  <option value="">Sin cuenta asociada</option>
+                  {cuentasClientes.map(c=><option key={c.usuario_id} value={c.usuario_id}>{c.nombre}</option>)}
+                </select>
+              </label>
+
               {/* Fila 1: Identificación del Pedido (Código, Cliente y Teléfono) */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     CÓDIGO DE SEGUIMIENTO (ÚNICO)
                   </label>
-                  <input 
-                    type="text" 
-                    value={codigo} 
-                    onChange={e => setCodigo(e.target.value)} 
-                    placeholder="Ej. PED-LIMA-105" 
+                  <input
+                    type="text"
+                    value={codigo}
+                    onChange={e => setCodigo(e.target.value)}
+                    placeholder="Ej. PED-LIMA-105"
                     style={{ width: '100%', fontFamily: 'monospace', fontWeight: 600 }}
                   />
                 </div>
@@ -1159,12 +1068,12 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     CLIENTE / RAZÓN SOCIAL *
                   </label>
-                  <input 
+                  <input
                     ref={clienteInputRef}
-                    type="text" 
-                    value={cliente} 
-                    onChange={e => setCliente(e.target.value)} 
-                    placeholder="Ej. Distribuidora Santa Anita S.A.C." 
+                    type="text"
+                    value={cliente}
+                    onChange={e => setCliente(e.target.value)}
+                    placeholder="Ej. Distribuidora Santa Anita S.A.C."
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -1173,20 +1082,20 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     TELÉFONO DE CONTACTO
                   </label>
-                  <input 
-                    type="tel" 
-                    value={telefonoContacto} 
-                    onChange={e => setTelefonoContacto(e.target.value)} 
-                    placeholder="Ej. 984123456" 
+                  <input
+                    type="tel"
+                    value={telefonoContacto}
+                    onChange={e => setTelefonoContacto(e.target.value)}
+                    placeholder="Ej. 984123456"
                     style={{ width: '100%' }}
                   />
                 </div>
               </div>
 
               {/* Fila 2: Ruta Logística · Origen y Destino */}
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', 
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
                 gap: '1.2rem',
                 background: '#FAF9F5',
                 border: '1.5px solid #CAD3BD',
@@ -1211,11 +1120,11 @@ export function PedidosView() {
                       type="button"
                       onClick={() => abrirMapaParaFijar('A')}
                       className="btn-secondary"
-                      style={{ 
-                        fontSize: '0.72rem', 
-                        padding: '0.2rem 0.6rem', 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
+                      style={{
+                        fontSize: '0.72rem',
+                        padding: '0.2rem 0.6rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
                         gap: '0.35rem',
                         color: '#2D3A2E',
                         background: '#FFFFFF',
@@ -1234,12 +1143,12 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       DIRECCIÓN DE ORIGEN *
                     </label>
-                    <input 
+                    <input
                       ref={origenInputRef}
-                      type="text" 
-                      value={origenDireccion} 
-                      onChange={e => setOrigenDireccion(e.target.value)} 
-                      placeholder="Ej. Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)" 
+                      type="text"
+                      value={origenDireccion}
+                      onChange={e => setOrigenDireccion(e.target.value)}
+                      placeholder="Ej. Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)"
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
                     <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -1252,10 +1161,10 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       REFERENCIA TEXTUAL DEL ORIGEN
                     </label>
-                    <input 
-                      type="text" 
-                      value={referenciaUbicacion} 
-                      onChange={e => setReferenciaUbicacion(e.target.value)} 
+                    <input
+                      type="text"
+                      value={referenciaUbicacion}
+                      onChange={e => setReferenciaUbicacion(e.target.value)}
                       placeholder="Ej. Rampa de Despacho 4, Pabellón Este, ingresar por garita de pesaje..."
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
@@ -1283,11 +1192,11 @@ export function PedidosView() {
                       type="button"
                       onClick={() => abrirMapaParaFijar('B')}
                       className="btn-secondary"
-                      style={{ 
-                        fontSize: '0.72rem', 
-                        padding: '0.2rem 0.6rem', 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
+                      style={{
+                        fontSize: '0.72rem',
+                        padding: '0.2rem 0.6rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
                         gap: '0.35rem',
                         color: '#2D3A2E',
                         background: '#FFFFFF',
@@ -1306,12 +1215,12 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       DIRECCIÓN DE DESTINO *
                     </label>
-                    <input 
+                    <input
                       ref={direccionInputRef}
-                      type="text" 
-                      value={direccion} 
-                      onChange={e => setDireccion(e.target.value)} 
-                      placeholder="Ej. Av. Primavera 654, Santiago de Surco" 
+                      type="text"
+                      value={direccion}
+                      onChange={e => {setDireccion(e.target.value);setDestinoConfirmado(false);}}
+                      placeholder="Ej. Av. Primavera 654, Santiago de Surco"
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
                     <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -1324,10 +1233,10 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#C47D2B', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       REFERENCIA TEXTUAL DEL DESTINO
                     </label>
-                    <input 
-                      type="text" 
-                      value={referenciaDestino} 
-                      onChange={e => setReferenciaDestino(e.target.value)} 
+                    <input
+                      type="text"
+                      value={referenciaDestino}
+                      onChange={e => setReferenciaDestino(e.target.value)}
                       placeholder="Ej. Pasando el óvalo Higuereta, fachada con toldo verde, timbre 201..."
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
@@ -1344,13 +1253,13 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     PESO CARGA (KG) *
                   </label>
-                  <input 
-                    type="number" 
-                    step="0.1" 
-                    min="0.1" 
-                    required 
-                    value={peso} 
-                    onChange={e => setPeso(parseFloat(e.target.value))} 
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0.1"
+                    required
+                    value={peso}
+                    onChange={e => setPeso(parseFloat(e.target.value))}
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -1359,13 +1268,13 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VOLUMEN (M³) *
                   </label>
-                  <input 
-                    type="number" 
-                    step="0.05" 
-                    min="0.01" 
-                    required 
-                    value={volumen} 
-                    onChange={e => setVolumen(parseFloat(e.target.value))} 
+                  <input
+                    type="number"
+                    step="0.05"
+                    min="0.01"
+                    required
+                    value={volumen}
+                    onChange={e => setVolumen(parseFloat(e.target.value))}
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -1374,11 +1283,11 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VENTANA INICIO *
                   </label>
-                  <input 
-                    type="time" 
-                    required 
-                    value={vInicio} 
-                    onChange={e => setVInicio(e.target.value)} 
+                  <input
+                    type="time"
+                    required
+                    value={vInicio}
+                    onChange={e => setVInicio(e.target.value)}
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -1387,11 +1296,11 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VENTANA FIN *
                   </label>
-                  <input 
-                    type="time" 
-                    required 
-                    value={vFin} 
-                    onChange={e => setVFin(e.target.value)} 
+                  <input
+                    type="time"
+                    required
+                    value={vFin}
+                    onChange={e => setVFin(e.target.value)}
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -1400,9 +1309,9 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     PRIORIDAD
                   </label>
-                  <select 
-                    value={prioridad} 
-                    onChange={e => setPrioridad(e.target.value)} 
+                  <select
+                    value={prioridad}
+                    onChange={e => setPrioridad(e.target.value)}
                     style={{ width: '100%' }}
                   >
                     <option value="BAJA">Baja</option>
@@ -1416,9 +1325,9 @@ export function PedidosView() {
                   <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     ACCESO VEHICULAR
                   </label>
-                  <select 
-                    value={restriccionAcceso} 
-                    onChange={e => setRestriccionAcceso(e.target.value)} 
+                  <select
+                    value={restriccionAcceso}
+                    onChange={e => setRestriccionAcceso(e.target.value)}
                     style={{ width: '100%' }}
                   >
                     {RESTRICCIONES_OPCIONES.map(r => (
@@ -1429,18 +1338,18 @@ export function PedidosView() {
               </div>
 
               {/* Fila 4: Botón de Envío */}
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={cargandoRegistro}
                 onClick={(e) => {
                   if (!cargandoRegistro) {
                     handleCrearPedido(e);
                   }
                 }}
-                className="btn" 
-                style={{ 
-                  width: '100%', 
-                  marginTop: '0.25rem', 
+                className="btn"
+                style={{
+                  width: '100%',
+                  marginTop: '0.25rem',
                   justifyContent: 'center',
                   padding: '0.85rem',
                   cursor: cargandoRegistro ? 'wait' : 'pointer',
@@ -1459,7 +1368,7 @@ export function PedidosView() {
                 {cargandoRegistro ? (
                   <>
                     <RefreshCw size={16} className="spin" />
-                    <span>Guardando Pedido en Supabase...</span>
+                    <span>Guardando pedido...</span>
                   </>
                 ) : (
                   <>
@@ -1475,7 +1384,7 @@ export function PedidosView() {
               BLOQUE INFERIOR: ÓRDENES REGISTRADAS EN CARDS PEQUEÑAS (GRID)
               ================================================================= */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
-            
+
             {/* Cabecera del Listado con Filtros y Buscador */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -1488,24 +1397,24 @@ export function PedidosView() {
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
                 {/* Buscador Rápido */}
                 <div style={{ position: 'relative' }}>
-                  <input 
-                    type="text" 
-                    placeholder="Buscar código o cliente..." 
-                    value={busquedaOrden} 
-                    onChange={e => setBusquedaOrden(e.target.value)} 
-                    style={{ 
-                      fontSize: '0.78rem', 
-                      padding: '0.35rem 0.65rem 0.35rem 1.85rem', 
-                      width: '210px', 
-                      borderRadius: '8px' 
-                    }} 
+                  <input
+                    type="text"
+                    placeholder="Buscar código o cliente..."
+                    value={busquedaOrden}
+                    onChange={e => setBusquedaOrden(e.target.value)}
+                    style={{
+                      fontSize: '0.78rem',
+                      padding: '0.35rem 0.65rem 0.35rem 1.85rem',
+                      width: '210px',
+                      borderRadius: '8px'
+                    }}
                   />
                   <Search size={13} color="#6E7E5A" style={{ position: 'absolute', left: '0.6rem', top: '50%', transform: 'translateY(-50%)' }} />
                 </div>
 
-                <select 
-                  value={filtroEstado} 
-                  onChange={e => setFiltroEstado(e.target.value)} 
+                <select
+                  value={filtroEstado}
+                  onChange={e => setFiltroEstado(e.target.value)}
                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.65rem', borderRadius: '8px' }}
                 >
                   <option value="TODOS">Todos los Estados</option>
@@ -1514,9 +1423,9 @@ export function PedidosView() {
                   <option value="ENTREGADO">Entregado</option>
                 </select>
 
-                <select 
-                  value={filtroPrioridad} 
-                  onChange={e => setFiltroPrioridad(e.target.value)} 
+                <select
+                  value={filtroPrioridad}
+                  onChange={e => setFiltroPrioridad(e.target.value)}
                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.65rem', borderRadius: '8px' }}
                 >
                   <option value="TODOS">Todas las Prioridades</option>
@@ -1536,22 +1445,22 @@ export function PedidosView() {
                 <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>Prueba ajustando los filtros o registra un nuevo pedido en el formulario superior.</p>
               </div>
             ) : (
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fill, minmax(285px, 1fr))', 
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(285px, 1fr))',
                 gap: '1rem',
                 width: '100%'
               }}>
                 {paginacion.pageItems.map(p => (
-                  <div 
-                    key={p.pedido_id} 
-                    className="apple-card" 
-                    style={{ 
-                      padding: '1.1rem', 
+                  <div
+                    key={p.pedido_id}
+                    className="apple-card"
+                    style={{
+                      padding: '1.1rem',
                       marginBottom: 0,
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      justifyContent: 'space-between', 
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
                       gap: '0.75rem',
                       borderRadius: '12px',
                       border: '1.5px solid #CAD3BD',
@@ -1630,26 +1539,27 @@ export function PedidosView() {
 
                     {/* Acciones */}
                     <div style={{ display: 'flex', gap: '0.4rem', borderTop: '1px solid #EAE8DF', paddingTop: '0.6rem' }}>
-                      <button 
+                      <button
                         onClick={() => {
                           cargarPedidoEnPreferencias(p);
                           setSubTab('preferencias');
                         }}
-                        className="btn-secondary" 
+                        className="btn-secondary"
                         title="Gestionar preferencias y restricciones de este cliente (US-004)"
                         style={{ flex: 1, fontSize: '0.72rem', padding: '0.35rem 0.45rem', justifyContent: 'center' }}
                       >
                         <Sliders size={13} color="#556B2F" />
                         <span>Preferencias</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => toggleEstadoPedido(p)}
-                        className="btn-secondary" 
-                        title={p.estado === 'PENDIENTE' ? 'Cambiar a En Tránsito' : 'Regresar a Pendiente'}
-                        style={{ 
-                          flex: 1, 
-                          fontSize: '0.72rem', 
-                          padding: '0.35rem 0.45rem', 
+                        className="btn-secondary"
+                        disabled={p.estado !== 'ASIGNADO'}
+                        title={p.estado === 'ASIGNADO' ? 'Iniciar entrega' : 'Primero asigna el pedido a una ruta'}
+                        style={{
+                          flex: 1,
+                          fontSize: '0.72rem',
+                          padding: '0.35rem 0.45rem',
                           justifyContent: 'center',
                           color: p.estado === 'PENDIENTE' ? '#C47D2B' : '#556B2F',
                           borderColor: p.estado === 'PENDIENTE' ? '#E5CEAC' : '#CAD3BD'
@@ -1681,7 +1591,7 @@ export function PedidosView() {
           ===================================================================== */}
       {subTab === 'preferencias' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 420px) 1fr', gap: '1.75rem' }}>
-          
+
           {/* Panel Lateral: Selector de Cliente/Pedido */}
           <div className="apple-card" style={{ padding: '1.25rem' }}>
             <h2 style={{ marginBottom: '0.4rem' }}>Seleccionar Cliente / Pedido</h2>
@@ -1691,7 +1601,7 @@ export function PedidosView() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               {pedidos.map(p => (
-                <div 
+                <div
                   key={p.pedido_id}
                   onClick={() => cargarPedidoEnPreferencias(p)}
                   style={{
@@ -1722,7 +1632,7 @@ export function PedidosView() {
           {/* Formulario de Preferencias del Cliente (US-004) */}
           {pedidoSeleccionado && (
             <div className="apple-card" style={{ padding: '1.75rem' }}>
-              
+
               {/* Alerta de Pedido en Tránsito (Regla RN-007 / RN-010) */}
               {pedidoSeleccionado.estado === 'EN_TRANSITO' && (
                 <div className="apple-banner apple-banner-error" style={{ marginBottom: '1.25rem' }}>
@@ -1741,9 +1651,9 @@ export function PedidosView() {
                     Código de Orden: <code>{pedidoSeleccionado.codigo_seguimiento}</code> · Estado Actual: <strong>{pedidoSeleccionado.estado}</strong>
                   </p>
                 </div>
-                
+
                 {/* Botón de cambio rápido para probar el bloqueo */}
-                <button 
+                <button
                   onClick={() => toggleEstadoPedido(pedidoSeleccionado)}
                   className="btn-secondary"
                   style={{ fontSize: '0.72rem', padding: '0.35rem 0.65rem' }}
@@ -1753,7 +1663,7 @@ export function PedidosView() {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                
+
                 {/* 1. Horarios de Atención del Establecimiento */}
                 <div>
                   <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.5rem' }}>
@@ -1762,19 +1672,19 @@ export function PedidosView() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div>
                       <span style={{ fontSize: '0.72rem', color: 'var(--apple-text-tertiary)' }}>Hora Apertura:</span>
-                      <input 
-                        type="time" 
-                        value={prefVInicio} 
-                        onChange={e => setPrefVInicio(e.target.value)} 
+                      <input
+                        type="time"
+                        value={prefVInicio}
+                        onChange={e => setPrefVInicio(e.target.value)}
                         style={{ width: '100%' }}
                       />
                     </div>
                     <div>
                       <span style={{ fontSize: '0.72rem', color: 'var(--apple-text-tertiary)' }}>Hora Cierre:</span>
-                      <input 
-                        type="time" 
-                        value={prefVFin} 
-                        onChange={e => setPrefVFin(e.target.value)} 
+                      <input
+                        type="time"
+                        value={prefVFin}
+                        onChange={e => setPrefVFin(e.target.value)}
                         style={{ width: '100%' }}
                       />
                     </div>
@@ -1788,7 +1698,7 @@ export function PedidosView() {
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.65rem' }}>
                     {RESTRICCIONES_OPCIONES.map(opt => (
-                      <div 
+                      <div
                         key={opt.valor}
                         onClick={() => setPrefRestriccion(opt.valor)}
                         style={{
@@ -1817,10 +1727,10 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       REFERENCIA TEXTUAL DEL ORIGEN
                     </label>
-                    <textarea 
-                      rows={3} 
-                      value={prefReferencia} 
-                      onChange={e => setPrefReferencia(e.target.value)} 
+                    <textarea
+                      rows={3}
+                      value={prefReferencia}
+                      onChange={e => setPrefReferencia(e.target.value)}
                       placeholder="Instrucciones para el punto de recojo (rampa de carga, muelle este, garita de pesaje...)"
                       style={{ width: '100%', resize: 'none' }}
                     />
@@ -1829,21 +1739,21 @@ export function PedidosView() {
                     <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       TELÉFONO DE CONTACTO RECEPTOR
                     </label>
-                    <input 
-                      type="text" 
-                      value={prefTelefono} 
-                      onChange={e => setPrefTelefono(e.target.value)} 
-                      placeholder="Ej. 987112233" 
+                    <input
+                      type="text"
+                      value={prefTelefono}
+                      onChange={e => setPrefTelefono(e.target.value)}
+                      placeholder="Ej. 987112233"
                       style={{ width: '100%', marginBottom: '0.5rem' }}
                     />
                     <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       URL FOTOGRAFÍA DE REFERENCIA (FACHADA)
                     </label>
-                    <input 
-                      type="url" 
-                      value={prefFotoUrl} 
-                      onChange={e => setPrefFotoUrl(e.target.value)} 
-                      placeholder="https://..." 
+                    <input
+                      type="url"
+                      value={prefFotoUrl}
+                      onChange={e => setPrefFotoUrl(e.target.value)}
+                      placeholder="https://..."
                       style={{ width: '100%' }}
                     />
                   </div>
@@ -1856,9 +1766,9 @@ export function PedidosView() {
                       <Eye size={14} /> REFERENCIA VISUAL DE FACHADA (TIEMPO DE RESPUESTA &lt; 1 SEG)
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                      <img 
-                        src={prefFotoUrl} 
-                        alt="Fachada de cliente" 
+                      <img
+                        src={prefFotoUrl}
+                        alt="Fachada de cliente"
                         style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--apple-chrome-border)' }}
                         onError={(e) => {
                           (e.target as HTMLElement).style.display = 'none';
@@ -1873,7 +1783,7 @@ export function PedidosView() {
 
                 {/* Botón de Guardado */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
-                  <button 
+                  <button
                     onClick={handleGuardarPreferencias}
                     className="btn"
                     style={{ padding: '0.65rem 1.4rem' }}
@@ -1893,7 +1803,7 @@ export function PedidosView() {
           PESTAÑA 3: MAPA INTERACTIVO DE ENTREGAS (PERSISTENTE EN EL DOM)
           ===================================================================== */}
       <div style={{ display: subTab === 'mapa' ? 'block' : 'none' }}>
-        <div 
+        <div
           className={mapaMaximizado ? "mapa-fullscreen-container" : "apple-card"}
           style={mapaMaximizado ? {
             position: 'fixed',
@@ -2002,8 +1912,8 @@ export function PedidosView() {
                 </button>
               </div>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={centrarEnLima}
                 className="btn-secondary"
                 style={{ fontSize: '0.74rem', padding: '0.35rem 0.7rem' }}
@@ -2013,8 +1923,8 @@ export function PedidosView() {
                 <span>Centrar en Lima</span>
               </button>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={verTodosLosPedidos}
                 className="btn-secondary"
                 style={{ fontSize: '0.74rem', padding: '0.35rem 0.7rem' }}
@@ -2024,8 +1934,8 @@ export function PedidosView() {
                 <span>Ver Pedidos ({pedidos.length})</span>
               </button>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setMapaMaximizado(!mapaMaximizado)}
                 className="btn"
                 style={{ fontSize: '0.74rem', padding: '0.35rem 0.85rem' }}
@@ -2038,17 +1948,17 @@ export function PedidosView() {
 
           {/* Contenedor del Mapa Leaflet */}
           <div style={{ position: 'relative', width: '100%', flex: mapaMaximizado ? 1 : 'unset' }}>
-            <div 
-              ref={mapContainerRef} 
-              style={{ 
-                width: '100%', 
-                height: mapaMaximizado ? 'calc(100vh - 120px)' : 'calc(100vh - 280px)', 
+            <div
+              ref={mapContainerRef}
+              style={{
+                width: '100%',
+                height: mapaMaximizado ? 'calc(100vh - 120px)' : 'calc(100vh - 280px)',
                 minHeight: '500px',
-                borderRadius: '12px', 
+                borderRadius: '12px',
                 border: '1.5px solid #CAD3BD',
                 background: '#EAE8DF',
                 boxShadow: '0 2px 8px rgba(45, 58, 46, 0.06)'
-              }} 
+              }}
             />
 
             {/* Floating Pill con Coordenadas Capturadas (Origen y Destino) */}

@@ -5,9 +5,69 @@
  *        restricciones de acceso, ventana horaria, búsqueda y badges de estado.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PedidosView, resolverDireccionLima } from './PedidosView';
+import { PedidosView, resolverDireccionLima, geocodificarDestino } from './PedidosView';
+import L from 'leaflet';
+
+describe('Ubicación y registro de pedidos',()=>{
+  beforeEach(async()=>{
+    vi.clearAllMocks();
+    const {PedidoService,ConductorService}=await import('../services/api');
+    vi.mocked(PedidoService.getAll).mockResolvedValue([]);
+    vi.mocked(ConductorService.getAll).mockResolvedValue([]);
+    vi.mocked(PedidoService.create).mockImplementation(async(p:any)=>({...p,pedido_id:'saved-1',estado:'PENDIENTE'}));
+    globalThis.fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>({address:{road:'Av. Prueba',house_number:'100',city:'Lima'}})});
+  });
+  it('transfiere al formulario las coordenadas que oficina selecciona en el mapa',async()=>{
+    const {PedidoService}=await import('../services/api');
+    await act(async()=>{render(<PedidosView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Datos de Prueba'}));
+    fireEvent.click(screen.getByTitle('Abrir mapa para fijar coordenadas de origen en Lima con Casa SVG'));
+    await waitFor(()=>expect(L.map).toHaveBeenCalled());
+    const map=vi.mocked(L.map).mock.results[0].value as any;
+    const callback=map.on.mock.calls.find((c:any)=>c[0]==='click')[1];
+    await act(async()=>{await callback({latlng:{lat:-12.03,lng:-77.02}});});
+    expect(screen.getByText('Origen Fijado con Casa SVG')).toBeTruthy();
+    fireEvent.click(screen.getByTitle('Fijar Destino (con Bandera de Meta SVG)'));
+    await act(async()=>{await callback({latlng:{lat:-12.11,lng:-77.04}});});
+    expect(screen.getByText('Destino Fijado con Bandera de Meta')).toBeTruthy();
+    fireEvent.click(screen.getByTitle('Centrar vista en Lima Centro'));
+    expect(map.setView).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button',{name:'Registro y Órdenes'}));
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(PedidoService.create).toHaveBeenCalledWith(expect.objectContaining({latitud:-12.11,longitud:-77.04,origen_lat:-12.03,origen_lng:-77.02}));
+  });
+  it('geocodifica una dirección editada y evita guardar si no puede localizarla',async()=>{
+    const {PedidoService}=await import('../services/api');
+    await act(async()=>{render(<PedidosView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Datos de Prueba'}));
+    const address=screen.getByPlaceholderText('Ej. Av. Primavera 654, Santiago de Surco');
+    expect(address).toBeTruthy();
+    fireEvent.change(address!,{target:{value:'Av. Nueva 123'}});
+    globalThis.fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>[]});
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(PedidoService.create).not.toHaveBeenCalled();
+    expect(screen.getByText('Falta confirmar la ubicación')).toBeTruthy();
+    expect(address).toHaveValue('Av. Nueva 123');
+    globalThis.fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>[{lat:'-12.08',lon:'-77.06'}]});
+    await act(async()=>{fireEvent.submit(document.querySelector('form')!);});
+    expect(PedidoService.create).toHaveBeenCalledWith(expect.objectContaining({latitud:-12.08,longitud:-77.06}));
+  });
+});
+
+describe('Geolocalización de dirección',()=>{
+  it('obtiene coordenadas de Lima y rechaza ubicaciones no encontradas',async()=>{
+    const previous=globalThis.fetch;
+    try {
+      globalThis.fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>[{lat:'-12.1',lon:'-77.03'}]});
+      await expect(geocodificarDestino('Av. Pardo 805, Miraflores')).resolves.toEqual({latitud:-12.1,longitud:-77.03});
+      expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/search?'),expect.any(Object));
+      globalThis.fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>[]});
+      await expect(geocodificarDestino('No existe')).rejects.toThrow('Dirección no localizada');
+    } finally {globalThis.fetch=previous;}
+  });
+});
 
 // ─── Mock Leaflet ─────────────────────────────────────────────────────────────
 vi.mock('leaflet', () => {
@@ -28,8 +88,8 @@ vi.mock('leaflet', () => {
     removeLayer: vi.fn().mockReturnThis()
   };
   const mockPolygon  = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
-  const mockPolyline = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
-  const mockMarker   = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
+  const mockPolyline = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis(),setLatLngs:vi.fn().mockReturnThis() };
+  const mockMarker   = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis(),setLatLng:vi.fn().mockReturnThis(),setIcon:vi.fn().mockReturnThis(),getLatLng:vi.fn().mockReturnValue({lat:-12.05,lng:-77.05}),on:vi.fn().mockReturnThis() };
   const mockCircle   = { addTo: vi.fn().mockReturnThis(), bindPopup: vi.fn().mockReturnThis() };
   return {
     default: {
@@ -67,6 +127,7 @@ vi.mock('../utils/mapIcons', () => ({
 // ─── Mock services/api ─────────────────────────────────────────────────────────
 vi.mock('../services/api', () => ({
   PedidoService: {
+    getCuentasClientes: vi.fn().mockResolvedValue([]),
     getAll: vi.fn(),
     create: vi.fn(),
     updatePreferencias: vi.fn(),
@@ -310,6 +371,46 @@ describe('Componente: PedidosView (US-003/004)', () => {
       expect(bodega.length + farm.length + mini.length).toBeGreaterThan(0);
     }, { timeout: 3000 });
   });
+  it('conserva el pedido escrito cuando el servidor rechaza el guardado', async () => {
+    const {PedidoService} = await import('../services/api');
+    vi.mocked(PedidoService.create).mockRejectedValueOnce(new Error('No hay conexión con el servidor'));
+    await act(async () => {render(<PedidosView />);});
+    await user.click(screen.getByRole('button',{name:'Datos de Prueba'}));
+    const input = screen.getByPlaceholderText('Ej. PED-LIMA-105') as HTMLInputElement;
+    const code = input.value;
+    await act(async () => {fireEvent.submit(document.querySelector('form')!);});
+    expect(PedidoService.create).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('No se guardó el pedido')).toBeTruthy();
+    expect(input.value).toBe(code);
+    expect(screen.queryByText('Pedido Registrado (Modo Resiliente)')).toBeNull();
+  });
+
+  it('muestra la confirmación únicamente después del guardado y limpia el formulario', async () => {
+    const {PedidoService} = await import('../services/api');
+    await act(async () => {render(<PedidosView />);});
+    await user.click(screen.getByRole('button',{name:'Datos de Prueba'}));
+    await act(async () => {fireEvent.submit(document.querySelector('form')!);});
+    expect(PedidoService.create).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Pedido Registrado con Éxito (US-003)')).toBeTruthy();
+    expect((screen.getByPlaceholderText('Ej. PED-LIMA-105') as HTMLInputElement).value).toBe('');
+  });
+
+  it.each([true,false])('guarda preferencias solo cuando el servidor las acepta (éxito=%s)', async (success) => {
+    const {PedidoService} = await import('../services/api');
+    if (!success) vi.mocked(PedidoService.updatePreferencias).mockRejectedValueOnce(new Error('La ruta no admite ese horario'));
+    await act(async () => {render(<PedidosView />);});
+    await user.click(screen.getAllByRole('button',{name:'Preferencias',exact:true})[0]);
+    const timeInputs = document.querySelectorAll('input[type=time]');
+    await act(async () => {fireEvent.change(timeInputs[1],{target:{value:'14:00'}});});
+    await user.click(screen.getByRole('button',{name:'Guardar Preferencias del Cliente (US-004)'}));
+    expect(PedidoService.updatePreferencias).toHaveBeenCalledWith('p1',expect.objectContaining({ventana_fin:'14:00'}));
+    if (success) expect(await screen.findByText('Preferencias Actualizadas (US-004)')).toBeTruthy();
+    else {
+      expect(await screen.findByText('No se guardaron las preferencias')).toBeTruthy();
+      expect((timeInputs[1] as HTMLInputElement).value).toBe('14:00');
+    }
+  });
+
 });
 
 // ─── Tests de función pura ────────────────────────────────────────────────────

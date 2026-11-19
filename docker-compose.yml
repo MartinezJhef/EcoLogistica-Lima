@@ -6,12 +6,13 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD in .env before starting the application}
       POSTGRES_DB: ecologistica_db
     ports:
       - "5432:5432"
     volumes:
       - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts/006_sprint3_route_updates.sql:/docker-entrypoint-initdb.d/zz_sprint3.sql:ro
       - pgdata:/var/lib/postgresql/data
 
   backend:
@@ -22,9 +23,12 @@ services:
     restart: always
     environment:
       POSTGRES_SERVER: db
+      OSRM_URL: ${OSRM_URL:-https://router.project-osrm.org}
+      BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-["http://localhost:5173","http://127.0.0.1:5173"]}
+      SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY in .env before starting the application}
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD in .env before starting the application}
       POSTGRES_DB: ecologistica_db
     ports:
       - "8000:8000"
@@ -35,6 +39,8 @@ services:
     build:
       context: ./src/frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000/api/v1}
     container_name: ecologistica_frontend
     restart: always
     ports:

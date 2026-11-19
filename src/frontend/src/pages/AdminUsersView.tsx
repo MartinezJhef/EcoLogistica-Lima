@@ -1,3 +1,4 @@
+import { ConductorService, Conductor } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { 
   Users, UserPlus, ShieldCheck, ShieldAlert, KeyRound, 
@@ -7,7 +8,6 @@ import {
 import { 
   Usuario, UsuarioService, RolUsuario, EstadoUsuario, 
   PermisoItem, CatalogoPermisosResponse, UsuarioCreatePayload,
-  ClienteService
 } from '../services/api';
 import { usePagination } from '../hooks/usePagination';
 import { Pagination } from '../components/Pagination';
@@ -62,6 +62,8 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
   // Estados del Formulario
   const [email, setEmail] = useState<string>('');
   const [nombreCompleto, setNombreCompleto] = useState<string>('');
+  const [conductorId, setConductorId] = useState('');
+  const [conductores, setConductores] = useState<Conductor[]>([]);
   const [telefono, setTelefono] = useState<string>('');
   const [rolSeleccionado, setRolSeleccionado] = useState<RolUsuario>('OFICINA');
   const [password, setPassword] = useState<string>('');
@@ -84,6 +86,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
         UsuarioService.getCatalogoPermisos()
       ]);
       setUsuarios(usersData);
+      try { setConductores(await ConductorService.getAll()); } catch { setConductores([]); }
       setCatalogo(catData);
     } catch (err: any) {
       setErrorAlerta('Error al conectar con la base de datos de usuarios. Verifique que el backend esté activo.');
@@ -116,8 +119,9 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
     setEmail('');
     setNombreCompleto('');
     setTelefono('');
+    setConductorId('');
     setRolSeleccionado('OFICINA');
-    setPassword('Eco2026*!');
+    setPassword('');
     setEstadoSeleccionado('ACTIVO');
 
     if (catalogo) {
@@ -134,6 +138,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
     setEmail(user.email);
     setNombreCompleto(user.nombre_completo);
     setTelefono(user.telefono || '');
+    setConductorId(user.conductor_id || '');
     setRolSeleccionado(user.rol);
     setPassword('');
     setPermisosSeleccionados(user.permisos || []);
@@ -151,6 +156,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
         const updatePayload: any = {
           nombre_completo: nombreCompleto,
           telefono: telefono || undefined,
+          conductor_id: conductorId || null,
           rol: rolSeleccionado,
           permisos: permisosSeleccionados,
           estado: estadoSeleccionado
@@ -163,32 +169,13 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
         setUsuarios(prev => prev.map(u => u.usuario_id === actualizado.usuario_id ? actualizado : u));
         setMensajeExito(`Usuario ${actualizado.nombre_completo} actualizado correctamente.`);
 
-        // Sincronizar actualización con el Directorio de Clientes B2B si es CLIENTE
-        if (actualizado.rol === 'CLIENTE') {
-          try {
-            const list = await ClienteService.getAll();
-            const match = list.find(c => 
-              c.cliente_id === actualizado.usuario_id || 
-              (c.email && actualizado.email && c.email.toLowerCase() === actualizado.email.toLowerCase())
-            );
-            if (match) {
-              await ClienteService.update(match.cliente_id, {
-                razon_social: actualizado.nombre_completo,
-                telefono: actualizado.telefono,
-                email: actualizado.email,
-                estado: (actualizado.estado === 'INACTIVO' || (actualizado.estado as string) === 'BLOQUEADO') ? 'INACTIVO' : 'ACTIVO'
-              });
-            }
-          } catch (syncErr) {
-            console.warn('Sync client update:', syncErr);
-          }
-        }
       } else {
         // Crear
         const nuevoPayload: UsuarioCreatePayload = {
           email: email.trim().toLowerCase(),
           nombre_completo: nombreCompleto.trim(),
           telefono: telefono.trim() || undefined,
+          conductor_id: conductorId || null,
           rol: rolSeleccionado,
           password: password,
           permisos: permisosSeleccionados,
@@ -199,30 +186,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
         setUsuarios(prev => [creado, ...prev]);
         setMensajeExito(`Usuario ${creado.nombre_completo} (${ROL_CONFIG[creado.rol].label}) creado con éxito.`);
 
-        // Sincronizar automáticamente con el Directorio de Clientes B2B si es CLIENTE
-        if (creado.rol === 'CLIENTE') {
-          try {
-            await ClienteService.create({
-              tipo_documento: 'RUC',
-              numero_documento: '20' + Math.floor(100000000 + Math.random() * 900000000),
-              razon_social: creado.nombre_completo,
-              nombre_contacto: creado.nombre_completo.replace(/\s*\(.*\)/, '').split('·')[0].trim() || 'Contacto Comercial',
-              telefono: creado.telefono || '987112233',
-              email: creado.email,
-              direccion: 'Av. Canto Grande 2450',
-              distrito: 'San Juan de Lurigancho',
-              latitud: -12.001200,
-              longitud: -77.012300,
-              tipo_comercio: 'BODEGA',
-              ventana_entrega_inicio: '08:00',
-              ventana_entrega_fin: '13:00',
-              restriccion_acceso: 'LIBRE_ACCESO',
-              estado: creado.estado === 'INACTIVO' ? 'INACTIVO' : 'ACTIVO'
-            });
-          } catch (syncErr) {
-            console.warn('Sync client create:', syncErr);
-          }
-        }
+
       }
 
       setModalAbierto(false);
@@ -240,19 +204,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
       setUsuarios(prev => prev.filter(u => u.usuario_id !== user.usuario_id));
       setMensajeExito(`Usuario ${user.nombre_completo} eliminado.`);
 
-      // Si es CLIENTE, eliminar o dar de baja también del Directorio de Clientes
-      if (user.rol === 'CLIENTE') {
-        try {
-          const list = await ClienteService.getAll();
-          const match = list.find(c => 
-            c.cliente_id === user.usuario_id || 
-            (c.email && user.email && c.email.toLowerCase() === user.email.toLowerCase())
-          );
-          if (match) {
-            await ClienteService.delete(match.cliente_id);
-          }
-        } catch {}
-      }
+
     } catch (err: any) {
       setErrorAlerta('Error al eliminar el usuario.');
     }
@@ -561,6 +513,13 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                   />
                 </div>
 
+                <div>
+                  <label>Conductor vinculado</label>
+                  <select aria-label="Conductor vinculado" value={conductorId} onChange={e => setConductorId(e.target.value)}>
+                    <option value="">Sin conductor vinculado</option>
+                    {conductores.map(c => <option key={c.conductor_id} value={c.conductor_id}>{c.nombres} {c.apellidos} · DNI {c.dni}</option>)}
+                  </select>
+                </div>
                 <div>
                   <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono de Contacto:

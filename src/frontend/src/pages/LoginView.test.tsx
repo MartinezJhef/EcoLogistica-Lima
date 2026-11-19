@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { LoginView } from './LoginView';
-import { AuthService, CUENTAS_PREDEFINIDAS } from '../services/auth';
+import { AuthService } from '../services/auth';
+import { CUENTAS_PREDEFINIDAS } from '../test/demoFixtures';
 
 describe('Componente de Vista: LoginView', () => {
   const onLoginSuccessMock = vi.fn();
@@ -58,7 +59,7 @@ describe('Componente de Vista: LoginView', () => {
     const passwordInput = screen.getByPlaceholderText('••••••••••••');
     const submitBtn = screen.getByRole('button', { name: /Iniciar Sesión/i });
 
-    fireEvent.change(emailInput, { target: { value: 'admin@ecologistica.pe' } });
+    fireEvent.change(emailInput, { target: { value: 'admin@example.test' } });
     fireEvent.change(passwordInput, { target: { value: 'Admin2026*' } });
     fireEvent.click(submitBtn);
 

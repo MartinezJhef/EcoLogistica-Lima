@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, JSON
+from sqlalchemy import Column, String, DateTime, JSON, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from app.models.vehiculo import Base
 
@@ -12,6 +12,7 @@ class Usuario(Base):
     __tablename__ = "usuarios"
 
     usuario_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conductor_id = Column(UUID(as_uuid=True), ForeignKey("conductores.conductor_id"), nullable=True)
     email = Column(String(255), nullable=False, unique=True, index=True)
     nombre_completo = Column(String(150), nullable=False, default="Usuario")
     telefono = Column(String(20), nullable=True)

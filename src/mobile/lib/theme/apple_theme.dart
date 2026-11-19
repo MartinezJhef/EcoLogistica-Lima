@@ -71,6 +71,7 @@ class AppleTheme {
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
+          fontFamily: '.SF Pro Text',
           color: textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w700,

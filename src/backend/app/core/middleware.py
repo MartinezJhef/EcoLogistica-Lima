@@ -49,11 +49,14 @@ class CacheHeadersMiddleware(BaseHTTPMiddleware):
         }
         cabeceras["ETag"] = etag
         cabeceras["Cache-Control"] = CACHE_CONTROL_API
+        if request.headers.get("authorization"):
+            cabeceras["Cache-Control"] = "private, no-store"
+            cabeceras["Vary"] = "Authorization"
 
         if request.headers.get("if-none-match") == etag:
             return Response(
                 status_code=304,
-                headers={"ETag": etag, "Cache-Control": CACHE_CONTROL_API},
+                headers={"ETag": etag, "Cache-Control": cabeceras["Cache-Control"], "Vary": "Authorization"},
             )
 
         return Response(

@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Literal
 from uuid import UUID
 import re
+from datetime import date
 
 CATEGORIAS_LICENCIA = ('A-I', 'A-IIa', 'A-IIb', 'A-IIIa', 'A-IIIb', 'A-IIIc')
 ESTADOS_CONDUCTOR = ('DISPONIBLE', 'EN_RUTA', 'DESCANSO', 'INACTIVO')
@@ -11,6 +12,7 @@ class ConductorBase(BaseModel):
     nombres: str = Field(..., min_length=2, max_length=100, description="Nombres del conductor")
     apellidos: str = Field(..., min_length=2, max_length=100, description="Apellidos del conductor")
     licencia: str = Field(..., min_length=6, max_length=20, description="Licencia de conducir MTC (ej. Q12345678)")
+    licencia_vencimiento: Optional[date] = None
     categoria_licencia: Optional[str] = Field("A-IIIc", description="Categoría oficial MTC: A-I, A-IIa, A-IIb, A-IIIa, A-IIIb, A-IIIc")
     telefono: str = Field(..., min_length=7, max_length=15, description="Teléfono de contacto")
     direccion_origen: Optional[str] = Field(None, max_length=200, description="Dirección o punto base de inicio habitual")
@@ -53,9 +55,21 @@ class ConductorBase(BaseModel):
         return est
 
 class ConductorCreate(ConductorBase):
+    licencia_vencimiento: date
     usuario_id: Optional[UUID] = None
 
+    @field_validator('licencia_vencimiento')
+    def vigente(cls, value):
+        if value < date.today(): raise ValueError('La licencia de conducir está vencida.')
+        return value
+
 class ConductorUpdate(BaseModel):
+    licencia_vencimiento: Optional[date] = None
+
+    @field_validator('licencia_vencimiento')
+    def vigente(cls, value):
+        if value is not None and value < date.today(): raise ValueError('La licencia de conducir está vencida.')
+        return value
     nombres: Optional[str] = Field(None, min_length=2, max_length=100)
     apellidos: Optional[str] = Field(None, min_length=2, max_length=100)
     telefono: Optional[str] = Field(None, min_length=7, max_length=15)

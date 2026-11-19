@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import pytest
 from datetime import date, time
 from uuid import UUID, uuid4
@@ -59,6 +60,18 @@ class TestUS005US006Rutas:
     """
 
     @pytest.fixture(autouse=True)
+    def deterministic_road_network(self, monkeypatch):
+        # Deterministic provider for domain tests; actual provider geometry is tested separately.
+        from app.services.road_service import RoadService, RoadLeg, RoadBlocked
+        from shapely.geometry import LineString, Polygon
+        def leg(_self, start, end, blocked=(), traffic=()):
+            if any(LineString([start, end]).intersects(Polygon(p)) for p in blocked):
+                raise RoadBlocked("Recorrido bloqueado")
+            d = haversine_km(start[1], start[0], end[1], end[0])
+            return RoadLeg(d, d / 24 * 60, [start, end])
+        monkeypatch.setattr(RoadService, "leg", leg)
+
+    @pytest.fixture(autouse=True)
     def setup_data(self, db_session):
         """Prepara datos limpios en la base de datos de pruebas para cada test."""
         db_session.query(Tramo).delete()
@@ -113,7 +126,7 @@ class TestUS005US006Rutas:
         db_session.add(self.vehiculo_diesel)
 
         # Crear Conductor Disponible
-        self.conductor = Conductor(
+        self.conductor = Conductor(licencia_vencimiento=date.today()+timedelta(days=365),
             conductor_id=uuid4(),
             dni="70894512",
             nombres="Carlos Eduardo",
@@ -335,12 +348,15 @@ class TestUS005US006Rutas:
         assert data["pedidos_no_asignados_count"] == 1
         assert data["pedidos_no_asignados"][0]["codigo_seguimiento"] == "PED-ZBE-001"
 
-    def test_us005_insercion_descanso_tecnico_fatiga_ley_30224(self, db_session):
+    def test_us005_insercion_descanso_tecnico_fatiga_ley_30224(self, db_session, monkeypatch):
         """
         US-005 Escenario 4 / Regla RN-004 (Ley N° 30224):
         Si la simulación arroja >= 4.5 horas continuas de conducción (>= 270 min),
         el motor debe insertar automáticamente una parada técnica obligatoria de 30 minutos de descanso.
         """
+        from app.services.road_service import RoadService, RoadLeg
+        # Three 100-minute legs: break before returning, total still fits the daily limit.
+        monkeypatch.setattr(RoadService, "leg", lambda self, a, b, *args: RoadLeg(40, 100, [a, b]))
         # Distancias largas que superan los 120 km y 270 minutos de conducción continua:
         # Ancón (-11.750, -77.150) y Pucusana (-12.480, -76.780)
         p1 = crear_pedido_helper(
@@ -477,7 +493,7 @@ class TestUS005US006Rutas:
         data_reopt = res_reopt.json()
 
         assert data_reopt["ruta_id"] == ruta_id
-        assert "reoptimizada exitosamente" in data_reopt["mensaje"]
+        assert "Itinerario en cola" in data_reopt["mensaje"]
         # La distancia debió reducirse al omitir el segundo punto
         assert data_reopt["distancia_total_km"] < distancia_inicial
 

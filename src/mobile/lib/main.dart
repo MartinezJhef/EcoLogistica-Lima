@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'theme/apple_theme.dart';
 import 'models/usuario_model.dart';
 import 'services/auth_service.dart';
 import 'services/local_db_service.dart';
+import 'services/sync_service.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/repartidor/repartidor_home_screen.dart';
 import 'screens/cliente/cliente_home_screen.dart';
@@ -11,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalDbService.inicializarSiVacio();
   final usuarioSesion = await AuthService.restaurarSesion();
+  await SyncService.inicializar();
 
   runApp(EcoLogisticaMobileApp(usuarioInicial: usuarioSesion));
 }

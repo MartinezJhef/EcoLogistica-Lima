@@ -1,111 +1,22 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/pedido_mobile_model.dart';
 
-/// Servicio de Base de Datos SQL / SQLite Local Emulada (Offline-First Storage).
-/// Garantiza persistencia transaccional incluso si se pierde la conexión con PostgreSQL.
+/// Servicio de Base de Datos local persistente (Offline-First Storage).
+/// Garantiza persistencia local incluso si se pierde la conexión con PostgreSQL.
 class LocalDbService {
-  static const String _keyPedidos = 'ecologistica_pedidos_local_db';
-  static const String _keyOutboxSync = 'ecologistica_outbox_sync_queue';
+  static String accountId = '';
+  static String get _keyPedidos => 'ecologistica_pedidos_local_db_$accountId';
+  static String get _keyOutboxSync =>
+      'ecologistica_outbox_sync_queue_$accountId';
 
-  /// Inicializa datos mock para demostración si la base SQL local está vacía
+  /// Inicializa una colección vacía si la base SQL local está vacía
   static Future<void> inicializarSiVacio() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey(_keyPedidos)) {
-      final pedidosIniciales = [
-        PedidoMobileModel(
-          id: 'ped-sjl-001',
-          codigoSeguimiento: 'PED-LIMA-101',
-          clienteNombre: 'Bodega Don Pepe · San Juan de Lurigancho',
-          telefonoContacto: '987112233',
-          origenDireccion: 'Centro de Distribución EcoLogística · Av. Argentina 2050, Lima',
-          origenLat: -12.046374,
-          origenLng: -77.042793,
-          destinoDireccion: 'Av. Canto Grande 2450, SJL',
-          destinoLat: -12.001200,
-          destinoLng: -77.012300,
-          precioProducto: 85.00,
-          metodoPago: 'CONTRAENTREGA',
-          estado: 'PENDIENTE',
-          distanciaKm: 9.4,
-          tiempoEstimadoMinutos: 32,
-          consumoCombustibleGal: 0.25,
-          emisionCo2Kg: 0.61,
-          fleteOfrecido: 22.50,
-          faseEntrega: 'OFERTA_DISPONIBLE',
-          conductorLat: -12.052800,
-          conductorLng: -77.051200,
-          tiempoHaciaOrigenMin: 7,
-          distanciaHaciaOrigenKm: 2.1,
-          consumoKmGal: 38.0,
-          restriccionZonal: 'LIBRE_CIRCULACION',
-          ahorroCo2Porcentaje: 38.0,
-          co2AhorradoKg: 0.42,
-          isSynced: true,
-        ),
-        PedidoMobileModel(
-          id: 'ped-ate-002',
-          codigoSeguimiento: 'PED-LIMA-102',
-          clienteNombre: 'Minimarket Los Laureles · Santa Anita',
-          telefonoContacto: '912334455',
-          origenDireccion: 'Almacén Central · Jr. Huancavelica 850, Cercado de Lima',
-          origenLat: -12.046000,
-          origenLng: -77.038000,
-          destinoDireccion: 'Av. Los Frutales 120, Ate',
-          destinoLat: -12.045000,
-          destinoLng: -76.965000,
-          precioProducto: 140.50,
-          metodoPago: 'PAGADO',
-          estado: 'PENDIENTE',
-          distanciaKm: 8.8,
-          tiempoEstimadoMinutos: 29,
-          consumoCombustibleGal: 0.23,
-          emisionCo2Kg: 0.57,
-          fleteOfrecido: 26.00,
-          faseEntrega: 'OFERTA_DISPONIBLE',
-          conductorLat: -12.052800,
-          conductorLng: -77.051200,
-          tiempoHaciaOrigenMin: 9,
-          distanciaHaciaOrigenKm: 3.2,
-          consumoKmGal: 38.0,
-          restriccionZonal: 'LIBRE_CIRCULACION',
-          ahorroCo2Porcentaje: 38.0,
-          co2AhorradoKg: 0.39,
-          isSynced: true,
-        ),
-        PedidoMobileModel(
-          id: 'ped-mira-003',
-          codigoSeguimiento: 'PED-LIMA-103',
-          clienteNombre: 'Café Orgánico · Miraflores',
-          telefonoContacto: '998443322',
-          origenDireccion: 'Centro de Distribución EcoLogística · Av. Argentina 2050, Lima',
-          origenLat: -12.046374,
-          origenLng: -77.042793,
-          destinoDireccion: 'Av. Larco 880, Miraflores',
-          destinoLat: -12.125000,
-          destinoLng: -77.029000,
-          precioProducto: 62.00,
-          metodoPago: 'CONTRAENTREGA',
-          estado: 'PENDIENTE',
-          distanciaKm: 11.2,
-          tiempoEstimadoMinutos: 36,
-          consumoCombustibleGal: 0.29,
-          emisionCo2Kg: 0.72,
-          fleteOfrecido: 30.00,
-          faseEntrega: 'OFERTA_DISPONIBLE',
-          conductorLat: -12.052800,
-          conductorLng: -77.051200,
-          tiempoHaciaOrigenMin: 12,
-          distanciaHaciaOrigenKm: 4.5,
-          consumoKmGal: 38.0,
-          restriccionZonal: 'LIBRE_CIRCULACION',
-          ahorroCo2Porcentaje: 38.0,
-          co2AhorradoKg: 0.49,
-          isSynced: true,
-        ),
-      ];
-
-      await guardarTodosLosPedidos(pedidosIniciales);
+      await guardarTodosLosPedidos([]);
     }
   }
 
@@ -126,7 +37,9 @@ class LocalDbService {
   }
 
   /// Guarda la colección completa de pedidos localmente
-  static Future<void> guardarTodosLosPedidos(List<PedidoMobileModel> pedidos) async {
+  static Future<void> guardarTodosLosPedidos(
+    List<PedidoMobileModel> pedidos,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = pedidos.map((p) => p.toJson()).toList();
     await prefs.setString(_keyPedidos, jsonEncode(jsonList));
@@ -148,9 +61,15 @@ class LocalDbService {
   }
 
   /// Actualiza un pedido en la base local (ej. cambiar a EN_TRANSITO o ENTREGADO con foto POD)
-  static Future<void> actualizarPedidoLocal(PedidoMobileModel pedidoActualizado) async {
+  static Future<void> actualizarPedidoLocal(
+    PedidoMobileModel pedidoActualizado,
+  ) async {
     final lista = await obtenerPedidosLocales();
     final index = lista.indexWhere((p) => p.id == pedidoActualizado.id);
+    if (index == -1)
+      throw StateError(
+        'Pedido no disponible en este dispositivo. Actualiza el reparto antes de cambiarlo.',
+      );
     if (index != -1) {
       lista[index] = pedidoActualizado;
       await guardarTodosLosPedidos(lista);
@@ -173,7 +92,9 @@ class LocalDbService {
   }
 
   /// Encola una transacción en la tabla outbox_sync para envío diferido a PostgreSQL
-  static Future<void> encolarTransaccionOutbox(Map<String, dynamic> transaccion) async {
+  static Future<void> encolarTransaccionOutbox(
+    Map<String, dynamic> transaccion,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final cola = await obtenerColaOutbox();
     cola.add(transaccion);
@@ -187,6 +108,37 @@ class LocalDbService {
     if (jsonStr == null || jsonStr.isEmpty) return [];
     final List<dynamic> decoded = jsonDecode(jsonStr);
     return decoded.map((e) => Map<String, dynamic>.from(e)).toList();
+  }
+
+  /// Remove only acknowledged snapshot entries. New edits and failures stay queued.
+  static Future<void> confirmarTransacciones(
+    List<Map<String, dynamic>> confirmadas,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final cola = await obtenerColaOutbox();
+    for (final confirmada in confirmadas) {
+      final index = cola.indexWhere(
+        (t) => jsonEncode(t) == jsonEncode(confirmada),
+      );
+      if (index >= 0) cola.removeAt(index);
+    }
+    await prefs.setString(_keyOutboxSync, jsonEncode(cola));
+    final pedidos = await obtenerPedidosLocales();
+    final pendientes = cola
+        .map((t) => t['pedido_id'] ?? (t['pedido'] as Map?)?['id'])
+        .toSet();
+    final idsConfirmados = confirmadas
+        .map((t) => t['pedido_id'] ?? (t['pedido'] as Map?)?['id'])
+        .toSet();
+    await guardarTodosLosPedidos(
+      pedidos
+          .map(
+            (p) => idsConfirmados.contains(p.id) && !pendientes.contains(p.id)
+                ? p.copyWith(isSynced: true)
+                : p,
+          )
+          .toList(),
+    );
   }
 
   /// Limpia la cola de transacciones una vez completada la sincronización

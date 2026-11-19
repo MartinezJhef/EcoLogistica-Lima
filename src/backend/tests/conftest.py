@@ -1,4 +1,6 @@
 import pytest
+import os
+os.environ['CODECARBON_ENABLED'] = '0'
 import re
 import shapely.wkt
 import shapely.wkb
@@ -28,6 +30,9 @@ from app.models.pedido import Pedido
 from app.models.ruta import Ruta
 from app.models.tramo import Tramo
 from app.models.zona_restringida import ZonaRestringida
+from app.models.route_update import RouteUpdate
+from app.core.auth import current_user
+from types import SimpleNamespace
 
 def geom_from_ewkt_sqlite(ewkt_str):
     if not ewkt_str:
@@ -66,6 +71,14 @@ Pedido.__table__.create(bind=engine_test, checkfirst=True)
 Ruta.__table__.create(bind=engine_test, checkfirst=True)
 Tramo.__table__.create(bind=engine_test, checkfirst=True)
 ZonaRestringida.__table__.create(bind=engine_test, checkfirst=True)
+RouteUpdate.__table__.create(bind=engine_test, checkfirst=True)
+
+
+@pytest.fixture(autouse=True)
+def clear_delivery_queue():
+    with TestingSessionLocal() as db:
+        db.query(RouteUpdate).delete()
+        db.commit()
 
 def override_get_db():
     db = TestingSessionLocal()
@@ -75,6 +88,7 @@ def override_get_db():
         db.close()
 
 app.dependency_overrides[get_db] = override_get_db
+app.dependency_overrides[current_user] = lambda: SimpleNamespace(rol='ADMIN', permisos=[], conductor_id=None)
 
 @pytest.fixture(scope="session")
 def client():
