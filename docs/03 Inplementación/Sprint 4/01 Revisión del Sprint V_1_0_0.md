@@ -6,7 +6,7 @@
 
 ## Historias de Usuario completadas en este Sprint
 
-Incremento implementado y probado en la [rama de Sprint 4](https://github.com/MartinezJhef/EcoLogistica-Lima/tree/prep/sprint-4). La aprobación por pares y publicación compartida siguen pendientes; por ello no se declara cumplida toda la Definition of Done.
+Incremento implementado y probado en la [rama de Sprint 4](https://github.com/MartinezJhef/EcoLogistica-Lima/tree/prep/sprint-4), disponible para revisión en el [PR #13](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/13). La [web compartida](https://ecologistica-web.onrender.com) está publicada desde el 19/11/2026. Siguen pendientes la activación del administrador, la aceptación autenticada en ese entorno y la aprobación por pares; no se declara cumplida toda la Definition of Done.
 
 | Historia | Implementación y aceptación técnica comprobada |
 |---|---|
@@ -25,11 +25,13 @@ Las evidencias reproducibles están en `scripts/sprint4_e2e.py`, `src/frontend/e
 ## Pendientes
 
 - Aprobar la revisión de código e integrar las ramas en main; el incremento hasta Sprint 3 sigue en PR #12.
-- Crear las cuentas de hosting y base, configurar Secrets, aplicar migraciones y comprobar la URL pública. Se incluye Blueprint de Render y workflow de despliegue.
+- Activar la cuenta de administrador y comprobar los flujos autenticados en el hosting ya publicado. Las migraciones están aplicadas. Configurar los secretos del workflow para automatizar publicaciones desde main; la primera publicación se hizo mediante Render.
 - Configurar factores, precios y proyectos ambientales reales. Los datos sintéticos son exclusivamente de pruebas.
 - Realizar la evaluación SUS, revisión y retrospectiva con participantes; confirmar líder y responsables de las acciones.
 - Medir disponibilidad y tiempos en hosting: la medición local no acredita uptime público y una petición Firefox alcanzó 516,56 ms.
 
 V_1_0_0 — 18/11/2026: informe del incremento técnico y evidencia local, sin atribuir cierre académico completo.
+
+19/11/2026: actualización con la publicación gratuita verificada en Render y Neon. Se corrigió además el workflow heredado de Sprint 3 para aplicar la migración 007 antes de ejecutar la regresión integrada; su ejecución anterior fallaba por ausencia de `sustainability_snapshots` en la base desechable.
 
 [← Volver al README principal](../../../README.md)

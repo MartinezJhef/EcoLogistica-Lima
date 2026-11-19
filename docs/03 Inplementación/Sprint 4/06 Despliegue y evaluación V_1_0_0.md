@@ -11,11 +11,13 @@
 7. Las nuevas rutas conservan esos parámetros al comenzar. Las rutas históricas sin instantánea muestran costo no configurado; no se inventa su tarifa.
 8. Comprobar `docker compose logs report-worker` si un PDF permanece pendiente. Los trabajos y archivos se conservan en PostgreSQL; reiniciar el trabajador no los pierde.
 
-## Publicación gratuita preparada
+## Publicación gratuita realizada
 
-Se incluye `render.yaml`: web estática y API gratuita en Render, con el trabajador PDF en el mismo contenedor. Se necesita una cuenta de Render y una base PostgreSQL con PostGIS, por ejemplo Neon. No se ha creado una cuenta ni desplegado un servicio público todavía.
+El 19/11/2026 se publicó la [web](https://ecologistica-web.onrender.com) y la [API](https://ecologistica-api.onrender.com) en Render, con el trabajador PDF en el mismo contenedor y PostgreSQL 16/PostGIS en Neon. Se usaron recursos gratuitos. Ambos servicios publicaron el commit `c6c6609568502d44faccd9d9fe84b94791ed3f70` de `prep/sprint-4`; esta publicación de revisión no sustituye la integración revisada en main.
 
-Crear una base vacía, activar PostGIS y aplicar `src/database/init.sql`, `scripts/006_sprint3_route_updates.sql` y `scripts/007_sprint4_analytics.sql`, en ese orden. Mantener las credenciales en variables privadas del proveedor. No cargar los datos de las pruebas E2E.
+Se aplicaron el esquema inicial y las migraciones 006 y 007, y se verificaron 17 tablas públicas, incluida la tabla espacial de PostGIS. La conexión privada está guardada en Render, fuera del repositorio. La web muestra el servidor conectado; CORS acepta su origen HTTPS exacto. Una petición de acceso con cuenta inexistente devolvió HTTP 401 tras consultar la base, sin error del servidor. La primera cuenta de administración sigue pendiente de activación por el propietario; no se han comprobado aún los flujos autenticados en esta instalación pública.
+
+Para reproducir el despliegue, crear una base vacía, activar PostGIS y aplicar `src/database/init.sql`, `scripts/006_sprint3_route_updates.sql` y `scripts/007_sprint4_analytics.sql`, en ese orden. Mantener las credenciales en variables privadas del proveedor. No cargar los datos de las pruebas E2E.
 
 Al importar el Blueprint de Render, configurar `DATABASE_URL`, `BACKEND_CORS_ORIGINS` con el origen HTTPS exacto de la web y `VITE_API_URL` con la URL HTTPS de la API terminada en `/api/v1`. Crear la cuenta de administración usando la conexión privada a la base. La API y el trabajador usan la misma base.
 

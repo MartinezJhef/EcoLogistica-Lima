@@ -54,6 +54,8 @@ jobs:
           psql -h localhost -U postgres -d ecologistica_test -v ON_ERROR_STOP=1 -f src/database/init.sql
           psql -h localhost -U postgres -d ecologistica_test -v ON_ERROR_STOP=1 -f scripts/006_sprint3_route_updates.sql
           psql -h localhost -U postgres -d ecologistica_test -v ON_ERROR_STOP=1 -f scripts/006_sprint3_route_updates.sql
+          psql -h localhost -U postgres -d ecologistica_test -v ON_ERROR_STOP=1 -f scripts/007_sprint4_analytics.sql
+          psql -h localhost -U postgres -d ecologistica_test -v ON_ERROR_STOP=1 -f scripts/007_sprint4_analytics.sql
       - name: Unit and integration tests
         working-directory: src/backend
         env:
