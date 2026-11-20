@@ -201,3 +201,7 @@ El resumen redujo su mediana de 585,43 a 458,45 ms, aproximadamente 21,7 %. Nuev
 Corte real: 1027.88 segundos (17.13 minutos), 36/36 peticiones correctas, 100.0 % de éxito muestral. Intervalo objetivo 60 s. El proceso se inició con duración de dos horas y este corte NO acredita su finalización. Incluye periodos de publicación y puede mantener despierto el servicio; no evalúa el comportamiento tras inactividad ni constituye SLA.
 
 Evidencias: [antes](evidencias/latencia-produccion-antes.json), [después](evidencias/latencia-produccion-despues.json), [corte del monitoreo](evidencias/monitoreo-extendido-corte.json).
+
+## Escenarios simulados complementarios
+
+Se añade un [escenario hipotético de disponibilidad y latencia](10%20Resultados%20simulados%20de%20disponibilidad%20y%20latencia%20V_1_0_0.md), con supuestos y cálculos explícitos. No reemplaza las muestras reales ni convierte el objetivo de 500 ms en aprobado.
