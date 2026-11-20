@@ -70,15 +70,17 @@ def preserve_completed_legs(db, route, tramos):
     db.flush()
 
 
-def totals(db, desde, hasta):
+def totals(db, desde, hasta, *, routes=None, snapshots=None):
     # Only completed operations enter report totals. Current route is counted once.
-    routes = db.query(Ruta).filter(Ruta.fecha_operacion >= desde, Ruta.fecha_operacion <= hasta,
-                                   Ruta.estado == 'COMPLETADA').all()
+    if routes is None:
+        routes = db.query(Ruta).filter(Ruta.fecha_operacion >= desde, Ruta.fecha_operacion <= hasta,
+                                       Ruta.estado == 'COMPLETADA').all()
     result = {'rutas': len(routes), 'distancia_km': 0., 'co2_kg': 0., 'consumo_gal': 0.,
               'energia_kwh': 0., 'costo_pen': 0., 'parametros_incompletos': 0}
     details = []
-    snapshots = {r.id: r.data for r in db.query(RouteSnapshot).filter(
-        RouteSnapshot.id.in_([str(r.ruta_id) for r in routes])).all()} if routes else {}
+    if snapshots is None:
+        snapshots = {r.id: r.data for r in db.query(RouteSnapshot).filter(
+            RouteSnapshot.id.in_([str(r.ruta_id) for r in routes])).all()} if routes else {}
     for route in routes:
         snap = snapshots.get(str(route.ruta_id))
         km = float(route.distancia_total_km) + (snap or {}).get('confirmado_km', 0)
@@ -115,13 +117,20 @@ def totals(db, desde, hasta):
 
 def summary(db, desde, hasta):
     start, end = comparison_period(desde, hasta)
-    current, details = totals(db, desde, hasta)
-    previous, _ = totals(db, start, end)
+    # Fetch both periods together to avoid repeated round trips to hosted Postgres.
+    routes = db.query(Ruta).filter(Ruta.fecha_operacion >= start, Ruta.fecha_operacion <= hasta).all()
+    completed = [r for r in routes if r.estado == 'COMPLETADA']
+    snapshots = {r.id: r.data for r in db.query(RouteSnapshot).filter(
+        RouteSnapshot.id.in_([str(r.ruta_id) for r in completed])).all()} if completed else {}
+    current, details = totals(db, desde, hasta,
+        routes=[r for r in completed if desde <= r.fecha_operacion <= hasta], snapshots=snapshots)
+    previous, _ = totals(db, start, end,
+        routes=[r for r in completed if start <= r.fecha_operacion <= end], snapshots=snapshots)
     changes = {key: float(percentage_change(current[key], previous[key]))
                if current[key] is not None and previous[key] is not None else None
                for key in ('distancia_km', 'co2_kg', 'costo_pen')}
-    states = dict(db.query(Ruta.estado, func.count(Ruta.ruta_id)).filter(
-        Ruta.fecha_operacion >= desde, Ruta.fecha_operacion <= hasta).group_by(Ruta.estado).all())
+    from collections import Counter
+    states = dict(Counter(r.estado for r in routes if desde <= r.fecha_operacion <= hasta))
     return {'desde': str(desde), 'hasta': str(hasta), 'totales': current,
             'anterior': previous, 'variacion_porcentaje': changes, 'estados': states,
             'ahorro_co2_kg': round(previous['co2_kg'] - current['co2_kg'], 2) if previous['rutas'] else 0,

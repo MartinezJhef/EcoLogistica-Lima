@@ -100,6 +100,33 @@ def test_compensation_rounding_and_export(client, setup_s4):
         assert client.post('/api/v1/compensacion/propuestas', json={**payload,'distribucion':dist}).status_code == 422
 
 
+def test_summary_batches_periods_and_preserves_state_counts(setup_s4):
+    from sqlalchemy import event
+    db, user, route = setup_s4
+    prior = Ruta(conductor_id=route.conductor_id, vehiculo_id=route.vehiculo_id,
+        fecha_operacion=date(2026, 5, 31), distancia_total_km=50,
+        co2_total_kg=20, tiempo_total_min=30, estado='COMPLETADA')
+    pending = Ruta(conductor_id=route.conductor_id, vehiculo_id=route.vehiculo_id,
+        fecha_operacion=date(2026, 6, 1), distancia_total_km=999,
+        co2_total_kg=999, tiempo_total_min=30, estado='PLANIFICADA')
+    db.add_all([prior, pending]); db.flush(); capture_snapshot(db, prior); db.commit()
+    selects = []
+    def observe(conn, cursor, statement, parameters, context, executemany):
+        if statement.lstrip().upper().startswith('SELECT'): selects.append(statement)
+    engine = db.get_bind()
+    event.listen(engine, 'before_cursor_execute', observe)
+    try:
+        result = summary(db, date(2026, 6, 1), date(2026, 6, 1))
+    finally:
+        event.remove(engine, 'before_cursor_execute', observe)
+    assert result['totales']['distancia_km'] == 100
+    assert result['anterior']['distancia_km'] == 50
+    assert result['variacion_porcentaje']['distancia_km'] == 100
+    assert result['estados']['PLANIFICADA'] == 1
+    assert len(selects) <= 2
+    db.delete(prior); db.delete(pending); db.commit()
+
+
 def test_missing_snapshot_does_not_invent_costs(setup_s4):
     db, user, route = setup_s4
     db.query(RouteSnapshot).delete(); db.commit()
