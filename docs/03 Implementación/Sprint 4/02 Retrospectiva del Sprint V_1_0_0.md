@@ -72,13 +72,13 @@ Durante el desarrollo del Sprint 4 se identificaron las siguientes prácticas po
 
 Propuestas de seguimiento según las áreas acordadas previamente; deben ratificarse en la sesión real, no se registran como compromisos ya aceptados para Sprint 4.
 
-| Acción | Responsable propuesto | Evidencia / criterio |
-|---|---|---|
-| Revisar cálculo e instantáneas | Jheferson | Aprobación técnica y casos de reoptimización verdes antes de integrar |
-| Revisar filtros y mensajes con participantes | Angela | Registro de problemas y correcciones verificadas antes de la entrega |
-| Ejecutar pruebas en URL pública | Maylit | Informe por navegador y roles, sin ocultar fallos |
-| Completar actas con participación real | Zayuri | Fecha, asistentes, feedback y acciones ratificadas |
-| Confirmar hosting, factores y participantes | Diego | Accesos configurados, fuentes documentadas y al menos cinco evaluaciones reales |
+| Acción SMART | Responsable | Indicador de cumplimiento |
+| :--- | :--- | :--- |
+| Revisar los cálculos del dashboard y corregir posibles duplicaciones al reoptimizar rutas. | Jheferson | 100 % de los casos de prueba de reoptimización aprobados. |
+| Revisar los filtros y mensajes de la interfaz con usuarios participantes. | Angela | Al menos 5 evaluaciones registradas y observaciones documentadas. |
+| Ejecutar pruebas de la aplicación publicada en diferentes navegadores y roles. | Maylit | Informe de pruebas con resultados de los navegadores y roles evaluados. |
+| Completar la documentación de las reuniones y evidencias de participación. | Zayuri | 100 % de las reuniones realizadas con acta, asistentes y acuerdos registrados. |
+| Verificar la configuración del hosting y documentar los factores ambientales utilizados. | Diego | Configuración documentada y 100 % de los factores utilizados con fuente identificada. |
 
 
 [← Volver al README principal](../../../README.md)
