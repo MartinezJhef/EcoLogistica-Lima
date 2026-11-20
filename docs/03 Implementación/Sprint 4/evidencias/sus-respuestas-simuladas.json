@@ -1,0 +1,82 @@
+[
+  {
+    "participante": "SIM01",
+    "rol": "Administración",
+    "respuestas": [
+      4,
+      2,
+      4,
+      2,
+      5,
+      1,
+      4,
+      2,
+      4,
+      2
+    ]
+  },
+  {
+    "participante": "SIM02",
+    "rol": "Oficina y despacho",
+    "respuestas": [
+      4,
+      2,
+      4,
+      3,
+      4,
+      2,
+      4,
+      2,
+      4,
+      2
+    ]
+  },
+  {
+    "participante": "SIM03",
+    "rol": "Reparto",
+    "respuestas": [
+      4,
+      2,
+      5,
+      2,
+      4,
+      2,
+      4,
+      1,
+      4,
+      2
+    ]
+  },
+  {
+    "participante": "SIM04",
+    "rol": "Cliente",
+    "respuestas": [
+      5,
+      1,
+      4,
+      2,
+      4,
+      2,
+      5,
+      2,
+      4,
+      1
+    ]
+  },
+  {
+    "participante": "SIM05",
+    "rol": "Consulta de sostenibilidad",
+    "respuestas": [
+      4,
+      3,
+      4,
+      2,
+      4,
+      2,
+      4,
+      2,
+      4,
+      3
+    ]
+  }
+]

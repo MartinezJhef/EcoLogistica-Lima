@@ -1,0 +1,30 @@
+{
+  "naturaleza": "SIMULADO - ejercicio pedagógico, sin participantes reales",
+  "calculo": {
+    "resultados": [
+      {
+        "participante": "SIM01",
+        "sus": 80.0
+      },
+      {
+        "participante": "SIM02",
+        "sus": 72.5
+      },
+      {
+        "participante": "SIM03",
+        "sus": 80.0
+      },
+      {
+        "participante": "SIM04",
+        "sus": 85.0
+      },
+      {
+        "participante": "SIM05",
+        "sus": 70.0
+      }
+    ],
+    "promedio": 77.5,
+    "alcanza_68": true,
+    "participantes": 5
+  }
+}
