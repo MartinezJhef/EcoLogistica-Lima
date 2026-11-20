@@ -30,7 +30,7 @@ Una petición Firefox supera el objetivo de 500 ms. No se declara que todas las 
 
 Se verificaron HTTP 200/202 en consultas y solicitudes válidas, 422 por distribución inválida y 403 por permisos. La desconexión conserva el último resultado y muestra error; al recuperar red se puede actualizar. El trabajador guarda PDF y estado en PostgreSQL; sus fallos tienen reintento. Los tests del servidor comprueban descarga privada, falta de datos, reportes multipágina e históricos.
 
-Se observó disponibilidad durante la ejecución local. No se ha medido uptime de un servicio público porque el hosting aún no está creado; no se extrapola una prueba corta a disponibilidad mensual.
+Se observó disponibilidad durante la ejecución local. El hosting público en Render está operativo. Ocho comprobaciones públicas de disponibilidad, CORS y restricciones sin sesión aprobaron el 19/11/2026; cinco comprobaciones autenticadas aprobaron después de activar el administrador. Estas observaciones puntuales no equivalen a uptime mensual. La aceptación publicada detectó y motivó la corrección UTC/Lima del PR #14.
 
 ## Evidencias y reproducción
 
@@ -42,3 +42,5 @@ Se observó disponibilidad durante la ejecución local. No se ha medido uptime d
 V_1_0_0 — 18/11/2026.
 
 [← Volver al README principal](../../../README.md)
+
+20/11/2026: PR #14 con todas las verificaciones de GitHub aprobadas: backend, frontend, móvil, compilación, aceptación Playwright y despliegue desechable. La ejecución local de servidor fue 92 aprobadas y una prueba PostGIS reservada a CI.
