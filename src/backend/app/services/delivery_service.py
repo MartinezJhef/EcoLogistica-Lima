@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from datetime import date
 from fastapi import HTTPException
 from app.models.ruta import Ruta
@@ -18,15 +19,15 @@ def update_delivery(db, order, state, photo=None):
         raise HTTPException(409, 'La transición no corresponde al estado actual del pedido')
     if state == 'EN_TRANSITO' and not route:
         raise HTTPException(409, 'Primero asigna el pedido a una ruta')
-    if route and state == 'EN_TRANSITO' and order.estado != 'EN_TRANSITO' and route.fecha_operacion != date.today():
+    if route and state == 'EN_TRANSITO' and order.estado != 'EN_TRANSITO' and route.fecha_operacion != operational_today():
         raise HTTPException(409, 'La ruta no está programada para hoy')
-    if route and state == 'EN_TRANSITO' and (driver.licencia_vencimiento is None or driver.licencia_vencimiento < date.today()):
+    if route and state == 'EN_TRANSITO' and (driver.licencia_vencimiento is None or driver.licencia_vencimiento < operational_today()):
         raise HTTPException(409, 'Debe verificar una licencia vigente antes de iniciar la ruta')
     if route and state == 'EN_TRANSITO' and not route.jornada_reservada:
-        if route.fecha_operacion != date.today():
+        if route.fecha_operacion != operational_today():
             raise HTTPException(409, 'La ruta no está programada para hoy')
-        if driver.fecha_jornada < date.today():
-            driver.fecha_jornada, driver.horas_conduccion_hoy = date.today(), 0
+        if driver.fecha_jornada < operational_today():
+            driver.fecha_jornada, driver.horas_conduccion_hoy = operational_today(), 0
         total = float(driver.horas_conduccion_hoy) + route.tiempo_total_min / 60
         if total > 8:
             raise HTTPException(409, 'La ruta supera la jornada disponible de hoy')

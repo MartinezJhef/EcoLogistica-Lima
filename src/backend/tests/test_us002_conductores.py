@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from datetime import date, timedelta
 import time
 import pytest
@@ -20,7 +21,7 @@ class TestUS002Conductores:
     def test_sub002_01_diseno_formulario_y_validaciones_pydantic(self):
         """SUB-002-01: Validar campos obligatorios, DNI, licencia MTC y categoría."""
         # 1. Conductor válido con todos los atributos
-        c_valido = ConductorCreate(licencia_vencimiento=date.today()+timedelta(days=365),
+        c_valido = ConductorCreate(licencia_vencimiento=operational_today()+timedelta(days=365),
             dni="71234567",
             nombres="Juan Carlos",
             apellidos="Pérez Quispe",
@@ -40,7 +41,7 @@ class TestUS002Conductores:
 
         # 2. DNI inválido (no numérico o no tiene 8 dígitos)
         with pytest.raises(ValidationError):
-            ConductorCreate(licencia_vencimiento=date.today()+timedelta(days=365),
+            ConductorCreate(licencia_vencimiento=operational_today()+timedelta(days=365),
                 dni="1234ABC",  # Inválido
                 nombres="Carlos",
                 apellidos="López",
@@ -49,7 +50,7 @@ class TestUS002Conductores:
             )
 
         with pytest.raises(ValidationError):
-            ConductorCreate(licencia_vencimiento=date.today()+timedelta(days=365),
+            ConductorCreate(licencia_vencimiento=operational_today()+timedelta(days=365),
                 dni="123456789",  # 9 dígitos
                 nombres="Carlos",
                 apellidos="López",
@@ -59,7 +60,7 @@ class TestUS002Conductores:
 
         # 3. Categoría de licencia no permitida
         with pytest.raises(ValidationError):
-            ConductorCreate(licencia_vencimiento=date.today()+timedelta(days=365),
+            ConductorCreate(licencia_vencimiento=operational_today()+timedelta(days=365),
                 dni="74561230",
                 nombres="Pedro",
                 apellidos="Gómez",
@@ -80,7 +81,7 @@ class TestUS002Conductores:
             "apellidos": "Santillán Ramos",
             "licencia": lic_test,
             "categoria_licencia": "A-IIIb",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "981234567",
             "direccion_origen": "Av. Colonial 1450, Cercado de Lima",
             "latitud_origen": -12.046374,
@@ -121,7 +122,7 @@ class TestUS002Conductores:
             "apellidos": "Vega Castro",
             "licencia": lic_base,
             "categoria_licencia": "A-IIIc",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "999888777",
             "estado": "DISPONIBLE"
         }
@@ -155,7 +156,7 @@ class TestUS002Conductores:
             "apellidos": "Alvarado",
             "licencia": lic,
             "categoria_licencia": "A-IIb",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "912345678",
             "estado": "DISPONIBLE",
             "horas_conduccion_hoy": 3.5
@@ -190,7 +191,7 @@ class TestUS002Conductores:
             "apellidos": "Salinas",
             "licencia": lic,
             "categoria_licencia": "A-IIIc",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "934567890",
             "estado": "EN_RUTA",
             "horas_conduccion_hoy": 2.0
@@ -216,7 +217,7 @@ class TestUS002Conductores:
             "apellidos": "Mendoza",
             "licencia": lic,
             "categoria_licencia": "A-IIIa",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "956789012",
             "direccion_origen": "Av. Grau 400, La Victoria",
             "latitud_origen": -12.058900,
@@ -258,7 +259,7 @@ class TestUS002Conductores:
             "apellidos": "Gutiérrez",
             "licencia": lic,
             "categoria_licencia": "A-IIIc",
-            "licencia_vencimiento": (date.today()+timedelta(days=365)).isoformat(),
+            "licencia_vencimiento": (operational_today()+timedelta(days=365)).isoformat(),
             "telefono": "978123456",
             "estado": "DISPONIBLE",
             "horas_conduccion_hoy": 7.5  # 7.5 horas acumuladas

@@ -8,23 +8,44 @@ on:
 permissions:
   contents: read
   actions: read
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     environment: production
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.DEPLOY_SHA }}
       - name: Require CI and tests for this exact commit
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          for workflow in ci.yml tests.yml; do
-            gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs?head_sha=$GITHUB_SHA&status=success" --jq '.workflow_runs | length > 0' | grep -qx true
+          # The first workflow can finish while the other is still running.
+          for attempt in $(seq 1 60); do
+            ready=true
+            for workflow in ci.yml tests.yml; do
+              result=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs?head_sha=$DEPLOY_SHA&event=push" --jq '.workflow_runs[0] | if .status == "completed" then .conclusion else "pending" end')
+              case "$result" in
+                success) ;;
+                pending|null) ready=false ;;
+                *) echo "Required workflow did not pass: $workflow ($result)"; exit 1 ;;
+              esac
+            done
+            if [ "$ready" = true ]; then exit 0; fi
+            sleep 10
           done
+          echo 'Timed out waiting for both required workflows.'
+          exit 1
       - name: Deploy validated commit to configured Render services
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
           RENDER_API_SERVICE_ID: ${{ secrets.RENDER_API_SERVICE_ID }}
           RENDER_WEB_SERVICE_ID: ${{ secrets.RENDER_WEB_SERVICE_ID }}
+          GITHUB_SHA: ${{ env.DEPLOY_SHA }}
         run: python scripts/deploy_render.py

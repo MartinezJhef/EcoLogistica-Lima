@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from datetime import date, timedelta
 import json
 from datetime import time
@@ -26,7 +27,7 @@ def domain(db_session, monkeypatch):
         db.query(model).delete()
     vehicle = Vehiculo(placa='NEW-123', marca_modelo='Electric van', capacidad_peso_kg=100,
         capacidad_volumen_m3=10, tipo_combustible='ELECTRICO', factor_emision_co2=0, altura_m=2.2, es_ligero=True)
-    driver = Conductor(licencia_vencimiento=date.today()+timedelta(days=365), dni='76543210', nombres='Ana', apellidos='Perez', licencia='Q76543210',
+    driver = Conductor(licencia_vencimiento=operational_today()+timedelta(days=365), dni='76543210', nombres='Ana', apellidos='Perez', licencia='Q76543210',
         telefono='999999999', horas_conduccion_hoy=0)
     db.add_all([vehicle, driver]); db.commit()
     def fake_leg(_self, start, end, blocked=(), traffic=()):
@@ -41,6 +42,55 @@ def domain(db_session, monkeypatch):
         data.update(kwargs)
         result = Pedido(**data); db.add(result); db.commit(); return result
     return db, vehicle, driver, order
+
+
+def test_lima_evening_route_can_start_when_utc_is_next_day(client, domain, monkeypatch):
+    from datetime import datetime
+    from app.core import operational_time
+    class Clock:
+        @staticmethod
+        def now(tz):
+            return datetime.fromisoformat('2026-11-20T02:00:00+00:00').astimezone(tz)
+    monkeypatch.setattr(operational_time, 'datetime', Clock)
+    db, vehicle, driver, order = domain
+    driver.licencia_vencimiento = date(2027, 11, 20)
+    driver.fecha_jornada = date(2026, 11, 19)
+    db.commit()
+    p = order()
+    route = RoutingService.optimizar_rutas(db, RutaOptimizarRequest(fecha_operacion=date(2026, 11, 19))).rutas[0]
+    response = client.patch(f'/api/v1/pedidos/{p.pedido_id}/estado', json={'estado': 'EN_TRANSITO'})
+    assert response.status_code == 200
+    db.expire_all()
+    assert db.get(Ruta, route.ruta_id).estado == 'EN_EJECUCION'
+
+
+def test_pod_rejects_skipped_and_invalid_states(client, domain):
+    db, vehicle, driver, order = domain
+    p = order()
+    path = f'/api/v1/pedidos/{p.pedido_id}/entrega-pod'
+    assert client.patch(path, json={'estado': 'ENTREGADO'}).status_code == 409
+    assert client.patch(path, json={'estado': 'INVENTADO'}).status_code == 422
+    db.refresh(p)
+    assert p.estado == 'PENDIENTE'
+
+
+def test_pod_updates_delivery_queue_and_requires_return(client, domain):
+    db, vehicle, driver, order = domain
+    p = order()
+    route = RoutingService.optimizar_rutas(db, RutaOptimizarRequest()).rutas[0]
+    base = f'/api/v1/pedidos/{p.pedido_id}'
+    assert client.patch(base + '/estado', json={'estado': 'EN_TRANSITO'}).status_code == 200
+    before = db.query(RouteUpdate).count()
+    response = client.patch(base + '/entrega-pod', json={'foto_entrega_url': 'https://example.test/prueba.jpg'})
+    assert response.status_code == 200
+    assert response.json()['estado'] == 'ENTREGADO'
+    assert response.json()['foto_entrega_url'] == 'https://example.test/prueba.jpg'
+    assert db.query(RouteUpdate).count() == before + 1
+    db.expire_all()
+    assert db.get(Ruta, route.ruta_id).estado == 'EN_EJECUCION'
+    assert client.post(f'/api/v1/rutas/{route.ruta_id}/finalizar', json={'regreso_confirmado': True}).status_code == 200
+    db.expire_all()
+    assert db.get(Ruta, route.ruta_id).estado == 'COMPLETADA'
 
 
 def test_jornada_rejects_75_hours_plus_new_route(domain):
@@ -79,7 +129,7 @@ def test_maximum_count_can_choose_larger_vehicle_for_only_driver(domain):
 def test_unverified_or_expired_license_cannot_receive_route(domain):
     db, vehicle, driver, order = domain
     order()
-    for expiry in (None,date.today()-timedelta(days=1)):
+    for expiry in (None,operational_today()-timedelta(days=1)):
         driver.licencia_vencimiento = expiry
         db.commit()
         with pytest.raises(HTTPException) as error:

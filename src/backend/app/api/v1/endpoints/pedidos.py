@@ -7,7 +7,8 @@ from app.schemas.pedido import (
     PedidoCreate, 
     PedidoResponse, 
     PreferenciasClienteUpdate, 
-    EstadoPedidoUpdate
+    EstadoPedidoUpdate,
+    EntregaPODUpdate
 )
 from app.services.order_service import OrderService
 
@@ -96,11 +97,11 @@ def update_estado(
 )
 def registrar_entrega_pod(
     pedido_id: UUID,
-    datos: dict,
+    datos: EntregaPODUpdate,
     db: Session = Depends(get_db)
 ):
-    foto_entrega_url = datos.get("foto_entrega_url")
-    estado = datos.get("estado", "ENTREGADO")
+    foto_entrega_url = datos.foto_entrega_url
+    estado = datos.estado
     return OrderService.registrar_entrega_pod(db, pedido_id, foto_entrega_url, estado)
 
 @router.delete(

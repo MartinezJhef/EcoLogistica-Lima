@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 import uuid
 from sqlalchemy import Column, String, Numeric, ForeignKey, Date
 from datetime import date
@@ -21,5 +22,5 @@ class Conductor(Base):
     longitud_origen = Column(Numeric(10, 6), nullable=True)
     estado = Column(String(20), nullable=False, default="DISPONIBLE", index=True)
     horas_conduccion_hoy = Column(Numeric(4, 2), nullable=False, default=0.00)
-    fecha_jornada = Column(Date, nullable=False, default=date.today)
+    fecha_jornada = Column(Date, nullable=False, default=operational_today)
 

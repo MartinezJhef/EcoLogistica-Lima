@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from datetime import date, timedelta
 """Optional real PostGIS regression. CI creates a disposable *_test database first."""
 import os
@@ -31,7 +32,7 @@ def test_real_postgis_planning_and_replanning(monkeypatch):
             marker = uuid4().hex[:6].upper()
             vehicle = Vehiculo(placa=f'T{marker[:2]}-{marker[2:5]}',marca_modelo='PostGIS test', capacidad_peso_kg=100,
                 capacidad_volumen_m3=10,tipo_combustible='ELECTRICO',factor_emision_co2=0,altura_m=2,es_ligero=True)
-            driver = Conductor(licencia_vencimiento=date.today()+timedelta(days=365), dni=uuid4().hex[:8],nombres='Test',apellidos='Driver',licencia=f'T{marker}',telefono='999999999')
+            driver = Conductor(licencia_vencimiento=operational_today()+timedelta(days=365), dni=uuid4().hex[:8],nombres='Test',apellidos='Driver',licencia=f'T{marker}',telefono='999999999')
             depot = Deposito(nombre='Test depot',direccion='Test address',latitud=-12.045,longitud=-77.06)
             db.add_all([vehicle,driver,depot]); db.flush()
             owner = Usuario(email=f'{marker}@example.test',nombre_completo='Test',password_hash='not-used',rol='CLIENTE',permisos=[],estado='ACTIVO')

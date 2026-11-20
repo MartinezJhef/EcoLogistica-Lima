@@ -142,6 +142,11 @@ class EstadoPedidoUpdate(BaseModel):
             return "No Asignados por Exceso de Capacidad"
         return st.upper()
 
+class EntregaPODUpdate(BaseModel):
+    estado: Literal['ENTREGADO', 'NO_ENTREGADO'] = 'ENTREGADO'
+    foto_entrega_url: Optional[str] = None
+
+
 class PedidoResponse(BaseModel):
     """Respuesta serializada con coordenadas geográficas y preferencias completas."""
     pedido_id: UUID

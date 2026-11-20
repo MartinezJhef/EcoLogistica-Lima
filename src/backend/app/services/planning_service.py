@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 """Shared feasibility checks for initial planning and dynamic replanning."""
 import json
 import time
@@ -127,7 +128,7 @@ def select_assignments(orders, vehicles, drivers, origin, request, road, operati
         road.time_weight = request.peso_tiempo/60
         try:
             rows = schedule(sequence,vehicle,driver,origin,minutes(request.hora_salida),road,
-                used_hours=None if operation == date.today() else 0)
+                used_hours=None if operation == operational_today() else 0)
         except RoadUnavailable:
             raise
         except ValueError as exc:
@@ -202,14 +203,14 @@ def enqueue(db, route, reason):
 def optimize(db, request, _commit=True):
     from app.services.routing_service import RoutingService, DEPOSITO_DEFAULT_LAT, DEPOSITO_DEFAULT_LNG
     started, road = time.perf_counter(), RoadService()
-    operation = request.fecha_operacion or date.today()
+    operation = request.fecha_operacion or operational_today()
     try:
         # Lock resource rows to avoid simultaneous reservations in PostgreSQL.
         vehicles = db.query(Vehiculo).filter(Vehiculo.estado == "DISPONIBLE").order_by(Vehiculo.vehiculo_id).with_for_update(of=Vehiculo).all()
         drivers = db.query(Conductor).filter(Conductor.estado.in_(["DISPONIBLE", "DESCANSO"])).order_by(Conductor.conductor_id).with_for_update(of=Conductor).all()
         for driver in drivers:
-            if driver.fecha_jornada and driver.fecha_jornada < date.today():
-                driver.horas_conduccion_hoy, driver.fecha_jornada = 0, date.today()
+            if driver.fecha_jornada and driver.fecha_jornada < operational_today():
+                driver.horas_conduccion_hoy, driver.fecha_jornada = 0, operational_today()
                 if driver.estado == "DESCANSO":
                     driver.estado = "DISPONIBLE"
         active = db.query(Ruta).filter(or_(Ruta.fecha_operacion == operation, Ruta.estado == "EN_EJECUCION"),
@@ -218,7 +219,7 @@ def optimize(db, request, _commit=True):
             and not any(r.vehiculo_id == v.vehiculo_id for r in active)]
         drivers = [c for c in drivers if (not request.conductor_id or c.conductor_id == request.conductor_id)
             and c.estado == "DISPONIBLE" and c.licencia_vencimiento is not None and c.licencia_vencimiento >= operation
-            and (operation != date.today() or float(c.horas_conduccion_hoy or 0) < 8) and not any(r.conductor_id == c.conductor_id for r in active)]
+            and (operation != operational_today() or float(c.horas_conduccion_hoy or 0) < 8) and not any(r.conductor_id == c.conductor_id for r in active)]
         drivers.sort(key=lambda c: float(c.horas_conduccion_hoy or 0))
         if not vehicles or not drivers:
             raise HTTPException(400, "No hay vehículo y conductor disponibles con licencia vigente verificada y sin otra ruta activa")
@@ -240,11 +241,11 @@ def optimize(db, request, _commit=True):
             route = Ruta(conductor_id=driver.conductor_id, vehiculo_id=vehicle.vehiculo_id,
                 deposito_origen_id=depot.deposito_id if depot else None, fecha_operacion=operation, estado="PLANIFICADA",
                 hora_salida=request.hora_salida,
-                jornada_reservada=operation == date.today())
+                jornada_reservada=operation == operational_today())
             db.add(route)
             db.flush()
             persist(db, route, rows)
-            if operation == date.today():
+            if operation == operational_today():
                 driver.horas_conduccion_hoy = round(float(driver.horas_conduccion_hoy or 0) + route.tiempo_total_min / 60, 4)
             enqueue(db, route, "RUTA_ASIGNADA")
             routes.append(route)
@@ -292,7 +293,7 @@ def reoptimize(db, route_id, request):
                 raise HTTPException(409, "La ruta no tiene entregas pendientes para redistribuir")
             route.vehiculo.estado = "MANTENIMIENTO"
             route.estado = "CANCELADA"
-            if route.fecha_operacion == date.today():
+            if route.fecha_operacion == operational_today():
                 reserved = (route.tiempo_total_min + float(route.minutos_transcurridos or 0)) / 60 if route.jornada_reservada else 0
                 route.conductor.horas_conduccion_hoy = max(0, float(route.conductor.horas_conduccion_hoy or 0) - reserved) + request.minutos_transcurridos / 60
             for order in orders:
@@ -334,7 +335,7 @@ def reoptimize(db, route_id, request):
             raise HTTPException(409, "El tiempo transcurrido no puede retroceder")
         reserved = (route.tiempo_total_min + float(route.minutos_transcurridos or 0)) / 60 if route.jornada_reservada else 0
         base_hours = (max(0, float(route.conductor.horas_conduccion_hoy or 0) - reserved)
-            if route.fecha_operacion == date.today() else 0) + request.minutos_transcurridos / 60
+            if route.fecha_operacion == operational_today() else 0) + request.minutos_transcurridos / 60
         rows = schedule(orders, route.vehiculo, route.conductor, origin, minutes(departure), RoadService(),
             blocked, [i for i in incidents if not i.cierre], [float(last.longitud), float(last.latitud)], base_hours, request.conduccion_continua_min) if orders or route.estado == "EN_EJECUCION" else []
         from app.services.analytics_service import preserve_completed_legs
@@ -343,7 +344,7 @@ def reoptimize(db, route_id, request):
         persist(db, route, rows)
         if not orders and route.estado == "PLANIFICADA":
             route.estado = "CANCELADA"
-        if route.fecha_operacion == date.today():
+        if route.fecha_operacion == operational_today():
             route.conductor.horas_conduccion_hoy = round(base_hours + route.tiempo_total_min / 60, 4)
             route.jornada_reservada = True
         route.minutos_transcurridos = request.minutos_transcurridos
