@@ -29,7 +29,7 @@ Las evidencias reproducibles están en `scripts/sprint4_e2e.py`, `src/frontend/e
 - Realizar la evaluación SUS, revisión y retrospectiva con participantes; confirmar líder y responsables de las acciones.
 - Medir disponibilidad y tiempos en hosting: la medición local no acredita uptime público y una petición Firefox alcanzó 516,56 ms.
 
-20/11/2026: se corrigieron el uso de la fecha UTC del servidor y el salto de estados al registrar POD. Verificación local: 92 pruebas aprobadas y una prueba PostGIS pendiente de ejecución en este pase.
+20/11/2026: se corrigieron el uso de la fecha UTC del servidor y el salto de estados al registrar POD. Verificación local: 92 pruebas aprobadas y una prueba PostGIS omitida localmente. Las verificaciones de GitHub posteriores del PR #14 aprobaron backend, frontend, móvil, aceptación y despliegue desechable. El PR #14 se integró en main como 7a17fb6; el PR #15 integró la actualización arquitectónica como 09336fd.
 
 V_1_0_0 — 18/11/2026: informe del incremento técnico y evidencia local, sin atribuir cierre académico completo.
 
