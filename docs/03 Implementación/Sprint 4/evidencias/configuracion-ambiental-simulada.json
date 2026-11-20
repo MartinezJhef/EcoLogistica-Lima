@@ -1,0 +1,24 @@
+{
+  "fuente": "SIMULACIÓN PEDAGÓGICA: valores ficticios para demostración; no son tarifas, factores científicos ni convenios reales. No usar para decisiones ambientales o comerciales.",
+  "vigencia": "2026-11-20",
+  "precios_por_galon": {
+    "DIESEL": 18,
+    "GNV": 8,
+    "HIBRIDO": 18
+  },
+  "precio_kwh": 0.75,
+  "consumo_electrico_kwh_km": 0.2,
+  "kg_por_arbol": 20,
+  "horizonte_anios": 10,
+  "kg_por_credito": 1000,
+  "proyectos": [
+    {
+      "id": "sim_arbolado",
+      "nombre": "SIMULADO - Arbolado urbano de demostración"
+    },
+    {
+      "id": "sim_restauracion",
+      "nombre": "SIMULADO - Restauración de demostración"
+    }
+  ]
+}

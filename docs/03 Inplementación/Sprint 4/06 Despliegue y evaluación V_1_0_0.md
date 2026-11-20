@@ -73,3 +73,7 @@ Usar identificadores P01–P05, con consentimiento y sin registrar contraseñas.
 Guardar respuestas reales como JSON con `participante` y `respuestas` (diez enteros). `python scripts/sus_score.py respuestas.json` calcula los puntajes individuales y promedio: impares respuesta−1, pares 5−respuesta, suma×2,5. SUS es una puntuación 0–100, no un porcentaje de tareas completadas. Comparar con 68. No mezclar resultados de automatización con respuestas SUS.
 
 [← Volver al README principal](../../../README.md)
+
+## Configuración pedagógica aplicada
+
+El 20/11/2026 se guardó y releyó la [configuración simulada](evidencias/configuracion-ambiental-simulada.json) en la aplicación publicada. Precios ficticios: DIESEL 18, GNV 8 e HIBRIDO 18 PEN/gal; electricidad 0,75 PEN/kWh y 0,2 kWh/km; 20 kg por árbol en diez años y 1000 kg por crédito. Son supuestos didácticos, sin validez científica o comercial. Los dos proyectos incluyen SIMULADO en su nombre. Se verificó la creación de una propuesta con distribución 60/40. Las rutas con instantánea anterior conservan sus parámetros; la configuración no altera costos históricos.

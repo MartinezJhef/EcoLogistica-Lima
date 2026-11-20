@@ -1,0 +1,48 @@
+{
+  "desde": "2026-11-20",
+  "hasta": "2026-11-20",
+  "co2_kg": 0.0,
+  "creditos": 0.0,
+  "arboles": 0,
+  "parametros": {
+    "fuente": "SIMULACIÓN PEDAGÓGICA: valores ficticios para demostración; no son tarifas, factores científicos ni convenios reales. No usar para decisiones ambientales o comerciales.",
+    "vigencia": "2026-11-20",
+    "precios_por_galon": {
+      "DIESEL": 18.0,
+      "GNV": 8.0,
+      "HIBRIDO": 18.0
+    },
+    "precio_kwh": 0.75,
+    "consumo_electrico_kwh_km": 0.2,
+    "kg_por_arbol": 20.0,
+    "horizonte_anios": 10,
+    "kg_por_credito": 1000.0,
+    "proyectos": [
+      {
+        "id": "sim_arbolado",
+        "nombre": "SIMULADO - Arbolado urbano de demostración"
+      },
+      {
+        "id": "sim_restauracion",
+        "nombre": "SIMULADO - Restauración de demostración"
+      }
+    ]
+  },
+  "proyectos": [
+    {
+      "id": "sim_arbolado",
+      "nombre": "SIMULADO - Arbolado urbano de demostración",
+      "porcentaje": 60.0,
+      "arboles": 0
+    },
+    {
+      "id": "sim_restauracion",
+      "nombre": "SIMULADO - Restauración de demostración",
+      "porcentaje": 40.0,
+      "arboles": 0
+    }
+  ],
+  "aviso": "Propuesta estimada; no acredita compra, retiro de créditos ni árboles plantados.",
+  "id": "45a5009c-2561-49fd-b13e-164d8c2bd1db",
+  "estado": "PENDIENTE"
+}
