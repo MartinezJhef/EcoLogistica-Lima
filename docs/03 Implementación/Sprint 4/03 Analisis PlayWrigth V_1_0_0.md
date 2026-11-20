@@ -196,7 +196,7 @@ Medición HTTP desde el mismo equipo, secuencial, con conexión reutilizada; cin
 
 El resumen redujo su mediana de 585,43 a 458,45 ms, aproximadamente 21,7 %. Nueve de diez consultas del resumen fueron menores de 500 ms; la restante midió 500,91 ms. El objetivo universal no se alcanzó. El login conserva PBKDF2 a 600.000 iteraciones y no se debilita para mejorar una métrica. La latencia incluye red, servidor y base de datos; este experimento no separa sus contribuciones.
 
-### Monitoreo extendido en curso
+### Corte histórico del monitoreo extendido
 
 Corte real: 1027.88 segundos (17.13 minutos), 36/36 peticiones correctas, 100.0 % de éxito muestral. Intervalo objetivo 60 s. El proceso se inició con duración de dos horas y este corte NO acredita su finalización. Incluye periodos de publicación y puede mantener despierto el servicio; no evalúa el comportamiento tras inactividad ni constituye SLA.
 
@@ -205,3 +205,20 @@ Evidencias: [antes](evidencias/latencia-produccion-antes.json), [después](evide
 ## Escenarios simulados complementarios
 
 Se añade un [escenario hipotético de disponibilidad y latencia](10%20Resultados%20simulados%20de%20disponibilidad%20y%20latencia%20V_1_0_0.md), con supuestos y cálculos explícitos. No reemplaza las muestras reales ni convierte el objetivo de 500 ms en aprobado.
+
+## Resultado final del monitoreo real de dos horas
+
+Inicio: 20/11/2026 11:29:29; último registro: 20/11/2026 13:29:26, hora de Lima. Duración observada: **7200.30 segundos**. Intervalo objetivo entre ciclos: 60 s; una petición a web y otra a API por ciclo, con timeout de 20 s. Se conservaron todas las muestras.
+
+**239 de 240 peticiones devolvieron HTTP 200: éxito muestral 99.58 %.** No equivale a disponibilidad continua ni a SLA mensual: no se observan los intervalos entre peticiones y las consultas periódicas pueden mantener activo el servidor gratuito.
+
+| Destino | Peticiones | HTTP 200 | Fallos | Mediana ms de todas las peticiones | p95 ms de todas las peticiones | Máximo ms |
+|---|---:|---:|---:|---:|---:|---:|
+| web | 120 | 120 | 0 | 71.60 | 330.51 | 1304.54 |
+| api | 120 | 119 | 1 | 247.53 | 565.91 | 20062.80 |
+
+### Incidencias conservadas
+
+- 12:42:00 Lima: api, estado HTTP None, error ReadTimeout, 20062.80 ms. No se atribuye una causa sin registros del proveedor.
+
+[Registro íntegro de las dos horas](evidencias/monitoreo-real-2h.json). Esta sección cierra la ejecución iniciada a las 11:29; los cortes anteriores se conservan como historial. El monitoreo final no demuestra que todas las respuestas sean menores de 500 ms. Las mediciones de login y operaciones autenticadas permanecen en la sección de latencia.

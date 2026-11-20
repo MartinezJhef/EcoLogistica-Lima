@@ -1,0 +1,1691 @@
+{
+  "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+  "interval_seconds": 60,
+  "observed_seconds": 7200.3,
+  "samples": [
+    {
+      "time_utc": "2026-11-20T16:29:29.275802+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 334.02
+    },
+    {
+      "time_utc": "2026-11-20T16:29:29.609823+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 247.99
+    },
+    {
+      "time_utc": "2026-11-20T16:30:29.859059+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 95.54
+    },
+    {
+      "time_utc": "2026-11-20T16:30:29.953918+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 226.72
+    },
+    {
+      "time_utc": "2026-11-20T16:31:30.182273+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 120.81
+    },
+    {
+      "time_utc": "2026-11-20T16:31:30.302485+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 230.98
+    },
+    {
+      "time_utc": "2026-11-20T16:32:30.534718+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 79.86
+    },
+    {
+      "time_utc": "2026-11-20T16:32:30.608775+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 239.45
+    },
+    {
+      "time_utc": "2026-11-20T16:33:30.854600+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 51.63
+    },
+    {
+      "time_utc": "2026-11-20T16:33:30.905642+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 239.23
+    },
+    {
+      "time_utc": "2026-11-20T16:34:31.146038+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 308.11
+    },
+    {
+      "time_utc": "2026-11-20T16:34:31.453987+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 258.32
+    },
+    {
+      "time_utc": "2026-11-20T16:35:31.713175+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 65.08
+    },
+    {
+      "time_utc": "2026-11-20T16:35:31.777930+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 224.94
+    },
+    {
+      "time_utc": "2026-11-20T16:36:32.004181+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 58.42
+    },
+    {
+      "time_utc": "2026-11-20T16:36:32.060619+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 226.02
+    },
+    {
+      "time_utc": "2026-11-20T16:37:32.289803+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.68
+    },
+    {
+      "time_utc": "2026-11-20T16:37:32.342306+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.16
+    },
+    {
+      "time_utc": "2026-11-20T16:38:32.585364+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 56.65
+    },
+    {
+      "time_utc": "2026-11-20T16:38:32.641124+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 236.48
+    },
+    {
+      "time_utc": "2026-11-20T16:39:32.879397+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 289.69
+    },
+    {
+      "time_utc": "2026-11-20T16:39:33.164861+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 243.45
+    },
+    {
+      "time_utc": "2026-11-20T16:40:33.413173+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 310.89
+    },
+    {
+      "time_utc": "2026-11-20T16:40:33.723838+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.89
+    },
+    {
+      "time_utc": "2026-11-20T16:41:33.967611+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.49
+    },
+    {
+      "time_utc": "2026-11-20T16:41:34.019426+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1223.52
+    },
+    {
+      "time_utc": "2026-11-20T16:42:35.244570+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 66.98
+    },
+    {
+      "time_utc": "2026-11-20T16:42:35.310895+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 241.55
+    },
+    {
+      "time_utc": "2026-11-20T16:43:35.553843+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 45.47
+    },
+    {
+      "time_utc": "2026-11-20T16:43:35.599214+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 264.44
+    },
+    {
+      "time_utc": "2026-11-20T16:44:35.864733+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 78.69
+    },
+    {
+      "time_utc": "2026-11-20T16:44:35.942555+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 222.47
+    },
+    {
+      "time_utc": "2026-11-20T16:45:36.166883+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 290.64
+    },
+    {
+      "time_utc": "2026-11-20T16:45:36.454307+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 335.1
+    },
+    {
+      "time_utc": "2026-11-20T16:46:36.793730+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 55.6
+    },
+    {
+      "time_utc": "2026-11-20T16:46:36.848451+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 218.68
+    },
+    {
+      "time_utc": "2026-11-20T16:47:37.069042+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 56.87
+    },
+    {
+      "time_utc": "2026-11-20T16:47:37.119299+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 222.11
+    },
+    {
+      "time_utc": "2026-11-20T16:48:37.348980+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 83.64
+    },
+    {
+      "time_utc": "2026-11-20T16:48:37.430979+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 243.16
+    },
+    {
+      "time_utc": "2026-11-20T16:49:37.676817+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 55.28
+    },
+    {
+      "time_utc": "2026-11-20T16:49:37.729094+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 245.45
+    },
+    {
+      "time_utc": "2026-11-20T16:50:37.978327+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 333.58
+    },
+    {
+      "time_utc": "2026-11-20T16:50:38.311575+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 268.15
+    },
+    {
+      "time_utc": "2026-11-20T16:51:38.581382+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 80.48
+    },
+    {
+      "time_utc": "2026-11-20T16:51:38.658495+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 565.91
+    },
+    {
+      "time_utc": "2026-11-20T16:52:39.229123+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 69.3
+    },
+    {
+      "time_utc": "2026-11-20T16:52:39.298136+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 261.79
+    },
+    {
+      "time_utc": "2026-11-20T16:53:39.561525+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 271.93
+    },
+    {
+      "time_utc": "2026-11-20T16:53:39.832589+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 325.65
+    },
+    {
+      "time_utc": "2026-11-20T16:54:40.160137+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 280.08
+    },
+    {
+      "time_utc": "2026-11-20T16:54:40.440123+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 251.53
+    },
+    {
+      "time_utc": "2026-11-20T16:55:40.692895+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 64.39
+    },
+    {
+      "time_utc": "2026-11-20T16:55:40.756355+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.98
+    },
+    {
+      "time_utc": "2026-11-20T16:56:41.001282+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 110.05
+    },
+    {
+      "time_utc": "2026-11-20T16:56:41.109479+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 238.95
+    },
+    {
+      "time_utc": "2026-11-20T16:57:41.351313+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 69.45
+    },
+    {
+      "time_utc": "2026-11-20T16:57:41.420003+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 265.2
+    },
+    {
+      "time_utc": "2026-11-20T16:58:41.686757+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 74.3
+    },
+    {
+      "time_utc": "2026-11-20T16:58:41.759329+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 231.13
+    },
+    {
+      "time_utc": "2026-11-20T16:59:41.993027+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1304.54
+    },
+    {
+      "time_utc": "2026-11-20T16:59:43.297654+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 247.84
+    },
+    {
+      "time_utc": "2026-11-20T17:00:43.546805+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 53.59
+    },
+    {
+      "time_utc": "2026-11-20T17:00:43.599754+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 262.01
+    },
+    {
+      "time_utc": "2026-11-20T17:01:43.863296+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 101.32
+    },
+    {
+      "time_utc": "2026-11-20T17:01:43.959717+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 267.38
+    },
+    {
+      "time_utc": "2026-11-20T17:02:44.233217+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 79.69
+    },
+    {
+      "time_utc": "2026-11-20T17:02:44.309644+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 254.04
+    },
+    {
+      "time_utc": "2026-11-20T17:03:44.568513+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 63.57
+    },
+    {
+      "time_utc": "2026-11-20T17:03:44.631622+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 270.41
+    },
+    {
+      "time_utc": "2026-11-20T17:04:44.903909+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 319.72
+    },
+    {
+      "time_utc": "2026-11-20T17:04:45.223067+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 230.98
+    },
+    {
+      "time_utc": "2026-11-20T17:05:45.456136+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 62.66
+    },
+    {
+      "time_utc": "2026-11-20T17:05:45.518648+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 262.47
+    },
+    {
+      "time_utc": "2026-11-20T17:06:45.782272+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 108.69
+    },
+    {
+      "time_utc": "2026-11-20T17:06:45.890103+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 237.84
+    },
+    {
+      "time_utc": "2026-11-20T17:07:46.130217+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 69.94
+    },
+    {
+      "time_utc": "2026-11-20T17:07:46.199981+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 248.49
+    },
+    {
+      "time_utc": "2026-11-20T17:08:46.450075+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 64.24
+    },
+    {
+      "time_utc": "2026-11-20T17:08:46.513936+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1050.41
+    },
+    {
+      "time_utc": "2026-11-20T17:09:47.565796+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 285.28
+    },
+    {
+      "time_utc": "2026-11-20T17:09:47.850543+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 238.0
+    },
+    {
+      "time_utc": "2026-11-20T17:10:48.090327+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 319.43
+    },
+    {
+      "time_utc": "2026-11-20T17:10:48.408838+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 244.01
+    },
+    {
+      "time_utc": "2026-11-20T17:11:48.654880+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 95.72
+    },
+    {
+      "time_utc": "2026-11-20T17:11:48.750315+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 247.21
+    },
+    {
+      "time_utc": "2026-11-20T17:12:48.999237+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 71.44
+    },
+    {
+      "time_utc": "2026-11-20T17:12:49.070308+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 563.49
+    },
+    {
+      "time_utc": "2026-11-20T17:13:49.635513+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 54.4
+    },
+    {
+      "time_utc": "2026-11-20T17:13:49.689935+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 248.03
+    },
+    {
+      "time_utc": "2026-11-20T17:14:49.939076+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 80.55
+    },
+    {
+      "time_utc": "2026-11-20T17:14:50.018730+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 238.22
+    },
+    {
+      "time_utc": "2026-11-20T17:15:50.259045+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 269.95
+    },
+    {
+      "time_utc": "2026-11-20T17:15:50.528863+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 237.08
+    },
+    {
+      "time_utc": "2026-11-20T17:16:50.767461+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 51.78
+    },
+    {
+      "time_utc": "2026-11-20T17:16:50.818500+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 255.22
+    },
+    {
+      "time_utc": "2026-11-20T17:17:51.075527+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 48.15
+    },
+    {
+      "time_utc": "2026-11-20T17:17:51.123115+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 220.63
+    },
+    {
+      "time_utc": "2026-11-20T17:18:51.345447+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 58.01
+    },
+    {
+      "time_utc": "2026-11-20T17:18:51.402265+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 248.65
+    },
+    {
+      "time_utc": "2026-11-20T17:19:51.653481+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 48.66
+    },
+    {
+      "time_utc": "2026-11-20T17:19:51.701664+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 230.98
+    },
+    {
+      "time_utc": "2026-11-20T17:20:51.934468+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 275.66
+    },
+    {
+      "time_utc": "2026-11-20T17:20:52.209593+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 229.52
+    },
+    {
+      "time_utc": "2026-11-20T17:21:52.440808+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 77.2
+    },
+    {
+      "time_utc": "2026-11-20T17:21:52.517740+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 263.26
+    },
+    {
+      "time_utc": "2026-11-20T17:22:52.782493+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 111.32
+    },
+    {
+      "time_utc": "2026-11-20T17:22:52.893881+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 336.02
+    },
+    {
+      "time_utc": "2026-11-20T17:23:53.230998+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 56.67
+    },
+    {
+      "time_utc": "2026-11-20T17:23:53.287128+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.91
+    },
+    {
+      "time_utc": "2026-11-20T17:24:53.531718+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.88
+    },
+    {
+      "time_utc": "2026-11-20T17:24:53.584565+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 243.22
+    },
+    {
+      "time_utc": "2026-11-20T17:25:53.829144+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 330.51
+    },
+    {
+      "time_utc": "2026-11-20T17:25:54.159445+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 260.27
+    },
+    {
+      "time_utc": "2026-11-20T17:26:54.421363+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 74.55
+    },
+    {
+      "time_utc": "2026-11-20T17:26:54.495232+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 286.38
+    },
+    {
+      "time_utc": "2026-11-20T17:27:54.783555+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 69.42
+    },
+    {
+      "time_utc": "2026-11-20T17:27:54.852041+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 261.3
+    },
+    {
+      "time_utc": "2026-11-20T17:28:55.115858+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 62.18
+    },
+    {
+      "time_utc": "2026-11-20T17:28:55.178027+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 232.29
+    },
+    {
+      "time_utc": "2026-11-20T17:29:55.411895+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 51.98
+    },
+    {
+      "time_utc": "2026-11-20T17:29:55.463157+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 235.78
+    },
+    {
+      "time_utc": "2026-11-20T17:30:55.701037+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 302.13
+    },
+    {
+      "time_utc": "2026-11-20T17:30:56.002289+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 233.15
+    },
+    {
+      "time_utc": "2026-11-20T17:31:56.237524+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 87.22
+    },
+    {
+      "time_utc": "2026-11-20T17:31:56.324573+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 246.88
+    },
+    {
+      "time_utc": "2026-11-20T17:32:56.572975+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 64.06
+    },
+    {
+      "time_utc": "2026-11-20T17:32:56.634137+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 248.49
+    },
+    {
+      "time_utc": "2026-11-20T17:33:56.887236+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 55.44
+    },
+    {
+      "time_utc": "2026-11-20T17:33:56.937033+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 539.4
+    },
+    {
+      "time_utc": "2026-11-20T17:34:57.483442+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.18
+    },
+    {
+      "time_utc": "2026-11-20T17:34:57.528876+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 245.34
+    },
+    {
+      "time_utc": "2026-11-20T17:35:57.782419+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 302.79
+    },
+    {
+      "time_utc": "2026-11-20T17:35:58.078756+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 557.81
+    },
+    {
+      "time_utc": "2026-11-20T17:36:58.644993+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 290.11
+    },
+    {
+      "time_utc": "2026-11-20T17:36:58.934697+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 260.08
+    },
+    {
+      "time_utc": "2026-11-20T17:37:59.196483+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 85.35
+    },
+    {
+      "time_utc": "2026-11-20T17:37:59.281666+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 252.13
+    },
+    {
+      "time_utc": "2026-11-20T17:38:59.535551+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 125.42
+    },
+    {
+      "time_utc": "2026-11-20T17:38:59.660236+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 238.72
+    },
+    {
+      "time_utc": "2026-11-20T17:39:59.901636+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 53.78
+    },
+    {
+      "time_utc": "2026-11-20T17:39:59.954211+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 224.21
+    },
+    {
+      "time_utc": "2026-11-20T17:41:00.181105+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 87.75
+    },
+    {
+      "time_utc": "2026-11-20T17:41:00.268759+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 246.54
+    },
+    {
+      "time_utc": "2026-11-20T17:42:00.516659+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 385.48
+    },
+    {
+      "time_utc": "2026-11-20T17:42:00.901967+00:00",
+      "target": "api",
+      "status": null,
+      "available": false,
+      "error": "ReadTimeout",
+      "elapsed_ms": 20062.8
+    },
+    {
+      "time_utc": "2026-11-20T17:43:20.967113+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 77.66
+    },
+    {
+      "time_utc": "2026-11-20T17:43:21.042334+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 561.04
+    },
+    {
+      "time_utc": "2026-11-20T17:44:21.607189+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 276.13
+    },
+    {
+      "time_utc": "2026-11-20T17:44:21.875113+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 223.86
+    },
+    {
+      "time_utc": "2026-11-20T17:45:22.108688+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 60.41
+    },
+    {
+      "time_utc": "2026-11-20T17:45:22.164834+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 263.51
+    },
+    {
+      "time_utc": "2026-11-20T17:46:22.434304+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 300.63
+    },
+    {
+      "time_utc": "2026-11-20T17:46:22.734375+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 250.2
+    },
+    {
+      "time_utc": "2026-11-20T17:47:22.986408+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 93.06
+    },
+    {
+      "time_utc": "2026-11-20T17:47:23.079365+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 279.65
+    },
+    {
+      "time_utc": "2026-11-20T17:48:23.360535+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 71.76
+    },
+    {
+      "time_utc": "2026-11-20T17:48:23.432210+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 248.34
+    },
+    {
+      "time_utc": "2026-11-20T17:49:23.682118+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 95.12
+    },
+    {
+      "time_utc": "2026-11-20T17:49:23.776494+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 249.65
+    },
+    {
+      "time_utc": "2026-11-20T17:50:24.028621+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 45.44
+    },
+    {
+      "time_utc": "2026-11-20T17:50:24.073522+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 551.97
+    },
+    {
+      "time_utc": "2026-11-20T17:51:24.627369+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 413.83
+    },
+    {
+      "time_utc": "2026-11-20T17:51:25.040287+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.48
+    },
+    {
+      "time_utc": "2026-11-20T17:52:25.277469+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 72.21
+    },
+    {
+      "time_utc": "2026-11-20T17:52:25.349301+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 231.34
+    },
+    {
+      "time_utc": "2026-11-20T17:53:25.582583+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 55.98
+    },
+    {
+      "time_utc": "2026-11-20T17:53:25.634244+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 590.61
+    },
+    {
+      "time_utc": "2026-11-20T17:54:26.230548+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 46.19
+    },
+    {
+      "time_utc": "2026-11-20T17:54:26.276020+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 270.12
+    },
+    {
+      "time_utc": "2026-11-20T17:55:26.548319+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 62.49
+    },
+    {
+      "time_utc": "2026-11-20T17:55:26.610501+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 250.53
+    },
+    {
+      "time_utc": "2026-11-20T17:56:26.862867+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 284.83
+    },
+    {
+      "time_utc": "2026-11-20T17:56:27.147384+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 238.69
+    },
+    {
+      "time_utc": "2026-11-20T17:57:27.387947+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 50.64
+    },
+    {
+      "time_utc": "2026-11-20T17:57:27.438495+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 235.79
+    },
+    {
+      "time_utc": "2026-11-20T17:58:27.676070+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 59.34
+    },
+    {
+      "time_utc": "2026-11-20T17:58:27.735277+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.51
+    },
+    {
+      "time_utc": "2026-11-20T17:59:27.971695+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 54.36
+    },
+    {
+      "time_utc": "2026-11-20T17:59:28.025957+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 241.74
+    },
+    {
+      "time_utc": "2026-11-20T18:00:28.269264+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 66.4
+    },
+    {
+      "time_utc": "2026-11-20T18:00:28.334643+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 240.48
+    },
+    {
+      "time_utc": "2026-11-20T18:01:28.577968+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 264.08
+    },
+    {
+      "time_utc": "2026-11-20T18:01:28.841020+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 240.49
+    },
+    {
+      "time_utc": "2026-11-20T18:02:29.084256+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 45.76
+    },
+    {
+      "time_utc": "2026-11-20T18:02:29.129709+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 237.69
+    },
+    {
+      "time_utc": "2026-11-20T18:03:29.369163+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 53.15
+    },
+    {
+      "time_utc": "2026-11-20T18:03:29.420512+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 236.88
+    },
+    {
+      "time_utc": "2026-11-20T18:04:29.660797+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 67.55
+    },
+    {
+      "time_utc": "2026-11-20T18:04:29.727390+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 536.1
+    },
+    {
+      "time_utc": "2026-11-20T18:05:30.266330+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 48.66
+    },
+    {
+      "time_utc": "2026-11-20T18:05:30.314603+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 249.64
+    },
+    {
+      "time_utc": "2026-11-20T18:06:30.566326+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 284.29
+    },
+    {
+      "time_utc": "2026-11-20T18:06:30.850502+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 244.08
+    },
+    {
+      "time_utc": "2026-11-20T18:07:31.096332+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 46.06
+    },
+    {
+      "time_utc": "2026-11-20T18:07:31.142250+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 235.83
+    },
+    {
+      "time_utc": "2026-11-20T18:08:31.380267+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 68.96
+    },
+    {
+      "time_utc": "2026-11-20T18:08:31.439361+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.16
+    },
+    {
+      "time_utc": "2026-11-20T18:09:31.685235+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 64.89
+    },
+    {
+      "time_utc": "2026-11-20T18:09:31.749681+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 241.84
+    },
+    {
+      "time_utc": "2026-11-20T18:10:31.993755+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 64.8
+    },
+    {
+      "time_utc": "2026-11-20T18:10:32.057950+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 528.72
+    },
+    {
+      "time_utc": "2026-11-20T18:11:30.140769+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 285.52
+    },
+    {
+      "time_utc": "2026-11-20T18:11:30.425724+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.98
+    },
+    {
+      "time_utc": "2026-11-20T18:12:30.662986+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 59.48
+    },
+    {
+      "time_utc": "2026-11-20T18:12:30.721896+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 276.09
+    },
+    {
+      "time_utc": "2026-11-20T18:13:31.000883+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 103.19
+    },
+    {
+      "time_utc": "2026-11-20T18:13:31.104012+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 552.83
+    },
+    {
+      "time_utc": "2026-11-20T18:14:31.658596+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 49.37
+    },
+    {
+      "time_utc": "2026-11-20T18:14:31.707746+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1251.58
+    },
+    {
+      "time_utc": "2026-11-20T18:15:32.961592+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 44.4
+    },
+    {
+      "time_utc": "2026-11-20T18:15:33.005657+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 264.65
+    },
+    {
+      "time_utc": "2026-11-20T18:16:33.272145+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 286.97
+    },
+    {
+      "time_utc": "2026-11-20T18:16:33.558238+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 233.46
+    },
+    {
+      "time_utc": "2026-11-20T18:17:33.794481+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 102.52
+    },
+    {
+      "time_utc": "2026-11-20T18:17:33.896223+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 267.54
+    },
+    {
+      "time_utc": "2026-11-20T18:18:34.166216+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 137.28
+    },
+    {
+      "time_utc": "2026-11-20T18:18:34.303116+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 250.78
+    },
+    {
+      "time_utc": "2026-11-20T18:19:34.556041+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 49.08
+    },
+    {
+      "time_utc": "2026-11-20T18:19:34.604433+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 255.38
+    },
+    {
+      "time_utc": "2026-11-20T18:20:34.862311+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 54.58
+    },
+    {
+      "time_utc": "2026-11-20T18:20:34.916040+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 253.4
+    },
+    {
+      "time_utc": "2026-11-20T18:21:35.172142+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 259.37
+    },
+    {
+      "time_utc": "2026-11-20T18:21:35.431090+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 235.61
+    },
+    {
+      "time_utc": "2026-11-20T18:22:35.668850+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 92.56
+    },
+    {
+      "time_utc": "2026-11-20T18:22:35.761152+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1288.13
+    },
+    {
+      "time_utc": "2026-11-20T18:23:37.051586+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 65.8
+    },
+    {
+      "time_utc": "2026-11-20T18:23:37.117040+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 288.43
+    },
+    {
+      "time_utc": "2026-11-20T18:24:37.407515+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 73.05
+    },
+    {
+      "time_utc": "2026-11-20T18:24:37.479821+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 223.6
+    },
+    {
+      "time_utc": "2026-11-20T18:25:37.706035+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 56.25
+    },
+    {
+      "time_utc": "2026-11-20T18:25:37.761705+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 562.98
+    },
+    {
+      "time_utc": "2026-11-20T18:26:38.327233+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 343.06
+    },
+    {
+      "time_utc": "2026-11-20T18:26:38.666345+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.15
+    },
+    {
+      "time_utc": "2026-11-20T18:27:38.914392+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 101.68
+    },
+    {
+      "time_utc": "2026-11-20T18:27:39.015932+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 282.3
+    },
+    {
+      "time_utc": "2026-11-20T18:28:39.299973+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 59.01
+    },
+    {
+      "time_utc": "2026-11-20T18:28:39.358934+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 246.78
+    },
+    {
+      "time_utc": "2026-11-20T18:29:26.748756+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 47.11
+    },
+    {
+      "time_utc": "2026-11-20T18:29:26.795701+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 249.66
+    }
+  ],
+  "successful_samples": 239,
+  "total_samples": 240,
+  "sample_success_percent": 99.58
+}
