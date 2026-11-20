@@ -166,4 +166,16 @@ El p95 no sustituye al máximo ni elimina la solicitud Firefox de 516,56 ms. No 
 
 ![Administración en WebKit](evidencias/playwright-webkit-admin.png)
 
-Permanece por incorporar una captura específica del reporte HTML oficial de Playwright. Las comprobaciones públicas conservadas son puntuales: no se ha ejecutado una ventana de monitoreo de horas o días y no se declara ese uptime. Un monitoreo continuo futuro debe registrar intervalo, número de muestras, errores y duración real, sin extrapolar a meses.
+La captura específica del reporte HTML oficial se incluye a continuación. Las comprobaciones públicas conservadas son puntuales: no se ha ejecutado una ventana de monitoreo de horas o días y no se declara ese uptime. Un monitoreo continuo futuro debe registrar intervalo, número de muestras, errores y duración real, sin extrapolar a meses.
+
+## Captura del reporte HTML oficial
+
+![Reporte oficial Playwright: 12 aprobadas y 0 fallidas](evidencias/playwright-reporte-oficial.jpg)
+
+Captura tomada del reporte HTML generado por Playwright TypeScript. La pantalla conserva la fecha de ejecución 18/11/2026, 12 aprobadas, cero fallidas, cero inestables, cero omitidas y duración total 28,6 s. La fecha de captura no se presenta como una nueva ejecución.
+
+## Ventana real de disponibilidad observada
+
+El 20/11/2026 se observaron web y API durante **120,31 segundos**, con un intervalo objetivo de 20 s entre ciclos y timeout de 20 s por petición. Hubo **12 peticiones: 11 HTTP 200 y un ReadTimeout de la API**, éxito muestral **91,67 %**. La primera consulta de API agotó 20.020,27 ms; consultas posteriores recuperaron HTTP 200. El muestreo es secuencial: un timeout prolonga el intervalo real. No se determina la causa del timeout con estas muestras.
+
+[Registro completo](evidencias/disponibilidad-observada.json). Esta observación detecta una interrupción y recuperación, pero no acredita horas o días de uptime ni un SLA mensual. No se eliminó la muestra fallida para mejorar el resultado. Para extenderlo: `python scripts/monitor_public_availability.py --seconds 7200 --interval 60 --output disponibilidad-2h.json`; las dos horas deben transcurrir antes de reportarlas.

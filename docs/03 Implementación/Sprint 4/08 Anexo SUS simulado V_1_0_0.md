@@ -30,7 +30,7 @@ Para los ítems impares se calcula respuesta − 1; para los pares, 5 − respue
 
 ## Promedio e interpretación del ejercicio
 
-Promedio = (80.0 + 72.5 + 80.0 + 85.0 + 70.0) / 5 = **77.5 puntos**. El promedio construido supera el umbral 68 usado por la consigna. Este resultado describe exclusivamente los datos ficticios y no permite concluir que los usuarios reales estén satisfechos. No se asigna una clasificación normativa A–F sin definir y citar una escala de conversión concreta; el umbral 68 por sí solo no determina un grado.
+Promedio = (80.0 + 72.5 + 80.0 + 85.0 + 70.0) / 5 = **77.5 puntos**. El promedio construido supera el umbral 68 usado por la consigna. Este resultado describe exclusivamente los datos ficticios y no permite concluir que los usuarios reales estén satisfechos. La clasificación de los datos simulados se detalla en la escala citada al final; el umbral 68 por sí solo no determina un grado.
 
 ## Análisis de resultados simulados y mejoras a comprobar
 
@@ -43,3 +43,16 @@ La aplicación ya incorpora mensajes ante porcentajes incorrectos, estados de re
 [Respuestas ficticias](evidencias/sus-respuestas-simuladas.json) y [resultado del cálculo](evidencias/sus-resultados-simulados.json). Desde la raíz: `python scripts/sus_score.py "docs/03 Inplementación/Sprint 4/evidencias/sus-respuestas-simuladas.json"`.
 
 [← Volver al informe de usabilidad](04%20Usabilidad%20V_1_0_0.md) · [← Volver al README principal](../../../README.md)
+
+## Clasificación de los resultados simulados con escala citada
+
+Se usa la escala curva Sauro–Lewis presentada por [MeasuringU, Understanding Different Types of 100-Point Scales](https://measuringu.com/types-of-100-point-scales/). En ella, 77,2–78,8 corresponde a B+; por tanto, **77,5 puntos simulados corresponden a B+** y superan 68. La letra B+ es una interpretación numérica del conjunto ficticio, no una evaluación observada de usuarios.
+
+| Caso simulado | SUS | Grado según la escala citada |
+|---|---:|---|
+| SIM01 | 80,0 | A− |
+| SIM02 | 72,5 | C+ |
+| SIM03 | 80,0 | A− |
+| SIM04 | 85,0 | A+ |
+| SIM05 | 70,0 | C |
+| Promedio simulado | 77,5 | B+ |
