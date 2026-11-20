@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Literal
 from uuid import UUID
@@ -60,7 +61,7 @@ class ConductorCreate(ConductorBase):
 
     @field_validator('licencia_vencimiento')
     def vigente(cls, value):
-        if value < date.today(): raise ValueError('La licencia de conducir está vencida.')
+        if value < operational_today(): raise ValueError('La licencia de conducir está vencida.')
         return value
 
 class ConductorUpdate(BaseModel):
@@ -68,7 +69,7 @@ class ConductorUpdate(BaseModel):
 
     @field_validator('licencia_vencimiento')
     def vigente(cls, value):
-        if value is not None and value < date.today(): raise ValueError('La licencia de conducir está vencida.')
+        if value is not None and value < operational_today(): raise ValueError('La licencia de conducir está vencida.')
         return value
     nombres: Optional[str] = Field(None, min_length=2, max_length=100)
     apellidos: Optional[str] = Field(None, min_length=2, max_length=100)

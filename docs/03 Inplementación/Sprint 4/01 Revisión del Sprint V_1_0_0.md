@@ -6,7 +6,7 @@
 
 ## Historias de Usuario completadas en este Sprint
 
-Incremento implementado y probado en la [rama de Sprint 4](https://github.com/MartinezJhef/EcoLogistica-Lima/tree/prep/sprint-4), disponible para revisión en el [PR #13](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/13). La [web compartida](https://ecologistica-web.onrender.com) está publicada desde el 19/11/2026. Siguen pendientes la activación del administrador, la aceptación autenticada en ese entorno y la aprobación por pares; no se declara cumplida toda la Definition of Done.
+Incremento implementado y probado en la [rama de Sprint 4](https://github.com/MartinezJhef/EcoLogistica-Lima/tree/prep/sprint-4), disponible para revisión en el [PR #13](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/13). La [web compartida](https://ecologistica-web.onrender.com) está publicada desde el 19/11/2026. Los PR #12 y #13 fueron aprobados por Anahii14 e integrados en main. El administrador fue activado y se verificaron login, analítica, configuración, reportes y usuarios (HTTP 200). La aceptación completa del recorrido publicado detectó una diferencia de fecha UTC/Lima; su corrección y la del registro de entrega con foto tienen pruebas de regresión. No se declara cumplida toda la Definition of Done.
 
 | Historia | Implementación y aceptación técnica comprobada |
 |---|---|
@@ -24,11 +24,12 @@ Las evidencias reproducibles están en `scripts/sprint4_e2e.py`, `src/frontend/e
 
 ## Pendientes
 
-- Aprobar la revisión de código e integrar las ramas en main; el incremento hasta Sprint 3 sigue en PR #12.
-- Activar la cuenta de administrador y comprobar los flujos autenticados en el hosting ya publicado. Las migraciones están aplicadas. Configurar los secretos del workflow para automatizar publicaciones desde main; la primera publicación se hizo mediante Render.
+- Publicar las correcciones de fecha operativa y entrega con foto y completar la prueba del recorrido publicado. Las migraciones están aplicadas. Configurar los secretos del workflow para automatizar publicaciones desde main; la primera publicación se hizo mediante Render.
 - Configurar factores, precios y proyectos ambientales reales. Los datos sintéticos son exclusivamente de pruebas.
 - Realizar la evaluación SUS, revisión y retrospectiva con participantes; confirmar líder y responsables de las acciones.
 - Medir disponibilidad y tiempos en hosting: la medición local no acredita uptime público y una petición Firefox alcanzó 516,56 ms.
+
+20/11/2026: se corrigieron el uso de la fecha UTC del servidor y el salto de estados al registrar POD. Verificación local: 92 pruebas aprobadas y una prueba PostGIS pendiente de ejecución en este pase.
 
 V_1_0_0 — 18/11/2026: informe del incremento técnico y evidencia local, sin atribuir cierre académico completo.
 

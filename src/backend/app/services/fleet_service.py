@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.models.vehiculo import Vehiculo
@@ -359,7 +360,7 @@ class FleetService:
                 detail=f"Conductor no disponible para asignación. Estado actual: '{conductor.estado}'. Solo se pueden asignar rutas a conductores en estado 'DISPONIBLE'."
             )
 
-        if conductor.licencia_vencimiento is None or conductor.licencia_vencimiento < date.today():
+        if conductor.licencia_vencimiento is None or conductor.licencia_vencimiento < operational_today():
             raise HTTPException(400, "Debe verificar una licencia vigente antes de asignar una ruta.")
 
         # SUB-002-07 & Escenario 2: Límite legal 8 horas

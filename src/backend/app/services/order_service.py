@@ -271,10 +271,7 @@ class OrderService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Pedido con ID {pedido_id} no encontrado."
             )
-        pedido.estado = estado.upper()
-        if foto_entrega_url:
-            pedido.foto_entrega_url = foto_entrega_url
-        db.commit()
-        db.refresh(pedido)
-        return OrderService._to_response(pedido)
+        from app.services.delivery_service import update_delivery
+        updated = update_delivery(db, pedido, estado.upper(), foto_entrega_url)
+        return OrderService._to_response(updated)
 

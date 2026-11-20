@@ -1,3 +1,4 @@
+from app.core.operational_time import operational_today
 from datetime import date, timedelta
 import pytest
 from datetime import date, time
@@ -126,7 +127,7 @@ class TestUS005US006Rutas:
         db_session.add(self.vehiculo_diesel)
 
         # Crear Conductor Disponible
-        self.conductor = Conductor(licencia_vencimiento=date.today()+timedelta(days=365),
+        self.conductor = Conductor(licencia_vencimiento=operational_today()+timedelta(days=365),
             conductor_id=uuid4(),
             dni="70894512",
             nombres="Carlos Eduardo",
@@ -215,7 +216,7 @@ class TestUS005US006Rutas:
         db_session.commit()
 
         payload = {
-            "fecha_operacion": str(date.today()),
+            "fecha_operacion": str(operational_today()),
             "vehiculo_id": str(self.vehiculo_electrico.vehiculo_id),
             "conductor_id": str(self.conductor.conductor_id),
             "factor_capacidad_max": 0.90
@@ -285,7 +286,7 @@ class TestUS005US006Rutas:
         db_session.commit()
 
         payload = {
-            "fecha_operacion": str(date.today()),
+            "fecha_operacion": str(operational_today()),
             "vehiculo_id": str(self.vehiculo_electrico.vehiculo_id),
             "conductor_id": str(self.conductor.conductor_id),
             "factor_capacidad_max": 0.90
@@ -334,7 +335,7 @@ class TestUS005US006Rutas:
 
         # Intentar optimizar exclusivamente con vehículo DIESEL
         payload = {
-            "fecha_operacion": str(date.today()),
+            "fecha_operacion": str(operational_today()),
             "vehiculo_id": str(self.vehiculo_diesel.vehiculo_id),
             "conductor_id": str(self.conductor.conductor_id)
         }
@@ -387,7 +388,7 @@ class TestUS005US006Rutas:
         db_session.commit()
 
         req = RutaOptimizarRequest(
-            fecha_operacion=date.today(),
+            fecha_operacion=operational_today(),
             vehiculo_id=self.vehiculo_electrico.vehiculo_id,
             conductor_id=self.conductor.conductor_id,
             factor_capacidad_max=0.90
@@ -424,7 +425,7 @@ class TestUS005US006Rutas:
         db_session.commit()
 
         res_opt = client.post("/api/v1/rutas/optimizar", json={
-            "fecha_operacion": str(date.today()),
+            "fecha_operacion": str(operational_today()),
             "vehiculo_id": str(self.vehiculo_electrico.vehiculo_id),
             "conductor_id": str(self.conductor.conductor_id)
         })
@@ -474,7 +475,7 @@ class TestUS005US006Rutas:
 
         # Generar ruta inicial
         res_init = client.post("/api/v1/rutas/optimizar", json={
-            "fecha_operacion": str(date.today()),
+            "fecha_operacion": str(operational_today()),
             "vehiculo_id": str(self.vehiculo_electrico.vehiculo_id),
             "conductor_id": str(self.conductor.conductor_id)
         })
