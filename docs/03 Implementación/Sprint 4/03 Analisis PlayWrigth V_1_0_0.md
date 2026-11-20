@@ -179,3 +179,25 @@ Captura tomada del reporte HTML generado por Playwright TypeScript. La pantalla 
 El 20/11/2026 se observaron web y API durante **120,31 segundos**, con un intervalo objetivo de 20 s entre ciclos y timeout de 20 s por petición. Hubo **12 peticiones: 11 HTTP 200 y un ReadTimeout de la API**, éxito muestral **91,67 %**. La primera consulta de API agotó 20.020,27 ms; consultas posteriores recuperaron HTTP 200. El muestreo es secuencial: un timeout prolonga el intervalo real. No se determina la causa del timeout con estas muestras.
 
 [Registro completo](evidencias/disponibilidad-observada.json). Esta observación detecta una interrupción y recuperación, pero no acredita horas o días de uptime ni un SLA mensual. No se eliminó la muestra fallida para mejorar el resultado. Para extenderlo: `python scripts/monitor_public_availability.py --seconds 7200 --interval 60 --output disponibilidad-2h.json`; las dos horas deben transcurrir antes de reportarlas.
+
+## Optimización desplegada y nueva medición — 20/11/2026
+
+El commit `356b7ea` agrupa ambos periodos y las instantáneas en un máximo de dos consultas, frente a cinco consultas previas. Las pruebas verifican resultados, estados e históricos. CI, Tests y regresión hasta Sprint 3 aprobaron. [Despliegue automático aprobado](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/44775271194).
+
+Medición HTTP desde el mismo equipo, secuencial, con conexión reutilizada; cinco login y diez consultas por operación. No es una prueba de carga. p95 por rango más cercano; no se descartan solicitudes lentas.
+
+| Operación | Mediana antes ms | Mediana después ms | p95 después ms | Peticiones después <500 ms |
+|---|---:|---:|---:|---:|
+| login | 1089.50 | 1111.81 | 1385.90 | 0/5 |
+| health | 204.97 | 186.76 | 205.16 | 10/10 |
+| configuracion | 422.25 | 407.31 | 525.32 | 9/10 |
+| resumen | 585.43 | 458.44 | 500.91 | 9/10 |
+| reportes | 424.98 | 453.39 | 547.39 | 9/10 |
+
+El resumen redujo su mediana de 585,43 a 458,45 ms, aproximadamente 21,7 %. Nueve de diez consultas del resumen fueron menores de 500 ms; la restante midió 500,91 ms. El objetivo universal no se alcanzó. El login conserva PBKDF2 a 600.000 iteraciones y no se debilita para mejorar una métrica. La latencia incluye red, servidor y base de datos; este experimento no separa sus contribuciones.
+
+### Monitoreo extendido en curso
+
+Corte real: 1027.88 segundos (17.13 minutos), 36/36 peticiones correctas, 100.0 % de éxito muestral. Intervalo objetivo 60 s. El proceso se inició con duración de dos horas y este corte NO acredita su finalización. Incluye periodos de publicación y puede mantener despierto el servicio; no evalúa el comportamiento tras inactividad ni constituye SLA.
+
+Evidencias: [antes](evidencias/latencia-produccion-antes.json), [después](evidencias/latencia-produccion-despues.json), [corte del monitoreo](evidencias/monitoreo-extendido-corte.json).

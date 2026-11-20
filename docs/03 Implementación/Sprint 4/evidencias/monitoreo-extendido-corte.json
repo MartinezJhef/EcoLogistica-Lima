@@ -1,0 +1,262 @@
+{
+  "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+  "interval_seconds": 60,
+  "observed_seconds": 1027.88,
+  "samples": [
+    {
+      "time_utc": "2026-11-20T16:29:29.275802+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 334.02
+    },
+    {
+      "time_utc": "2026-11-20T16:29:29.609823+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 247.99
+    },
+    {
+      "time_utc": "2026-11-20T16:30:29.859059+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 95.54
+    },
+    {
+      "time_utc": "2026-11-20T16:30:29.953918+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 226.72
+    },
+    {
+      "time_utc": "2026-11-20T16:31:30.182273+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 120.81
+    },
+    {
+      "time_utc": "2026-11-20T16:31:30.302485+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 230.98
+    },
+    {
+      "time_utc": "2026-11-20T16:32:30.534718+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 79.86
+    },
+    {
+      "time_utc": "2026-11-20T16:32:30.608775+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 239.45
+    },
+    {
+      "time_utc": "2026-11-20T16:33:30.854600+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 51.63
+    },
+    {
+      "time_utc": "2026-11-20T16:33:30.905642+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 239.23
+    },
+    {
+      "time_utc": "2026-11-20T16:34:31.146038+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 308.11
+    },
+    {
+      "time_utc": "2026-11-20T16:34:31.453987+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 258.32
+    },
+    {
+      "time_utc": "2026-11-20T16:35:31.713175+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 65.08
+    },
+    {
+      "time_utc": "2026-11-20T16:35:31.777930+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 224.94
+    },
+    {
+      "time_utc": "2026-11-20T16:36:32.004181+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 58.42
+    },
+    {
+      "time_utc": "2026-11-20T16:36:32.060619+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 226.02
+    },
+    {
+      "time_utc": "2026-11-20T16:37:32.289803+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.68
+    },
+    {
+      "time_utc": "2026-11-20T16:37:32.342306+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.16
+    },
+    {
+      "time_utc": "2026-11-20T16:38:32.585364+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 56.65
+    },
+    {
+      "time_utc": "2026-11-20T16:38:32.641124+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 236.48
+    },
+    {
+      "time_utc": "2026-11-20T16:39:32.879397+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 289.69
+    },
+    {
+      "time_utc": "2026-11-20T16:39:33.164861+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 243.45
+    },
+    {
+      "time_utc": "2026-11-20T16:40:33.413173+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 310.89
+    },
+    {
+      "time_utc": "2026-11-20T16:40:33.723838+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 242.89
+    },
+    {
+      "time_utc": "2026-11-20T16:41:33.967611+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 52.49
+    },
+    {
+      "time_utc": "2026-11-20T16:41:34.019426+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 1223.52
+    },
+    {
+      "time_utc": "2026-11-20T16:42:35.244570+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 66.98
+    },
+    {
+      "time_utc": "2026-11-20T16:42:35.310895+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 241.55
+    },
+    {
+      "time_utc": "2026-11-20T16:43:35.553843+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 45.47
+    },
+    {
+      "time_utc": "2026-11-20T16:43:35.599214+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 264.44
+    },
+    {
+      "time_utc": "2026-11-20T16:44:35.864733+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 78.69
+    },
+    {
+      "time_utc": "2026-11-20T16:44:35.942555+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 222.47
+    },
+    {
+      "time_utc": "2026-11-20T16:45:36.166883+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 290.64
+    },
+    {
+      "time_utc": "2026-11-20T16:45:36.454307+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 335.1
+    },
+    {
+      "time_utc": "2026-11-20T16:46:36.793730+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 55.6
+    },
+    {
+      "time_utc": "2026-11-20T16:46:36.848451+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 218.68
+    }
+  ],
+  "successful_samples": 36,
+  "total_samples": 36,
+  "sample_success_percent": 100.0
+}

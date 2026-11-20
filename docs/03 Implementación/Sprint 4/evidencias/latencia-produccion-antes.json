@@ -1,0 +1,313 @@
+{
+  "checked_at": "2026-11-20T16:30:25.163510+00:00",
+  "scope": "Sequential HTTP roundtrip from the executing computer; includes network and login password verification; no samples removed",
+  "summary": {
+    "login": {
+      "samples": 5,
+      "median_ms": 1089.5,
+      "p95_ms": 2100.69,
+      "max_ms": 2100.69,
+      "under_500": 0
+    },
+    "health": {
+      "samples": 10,
+      "median_ms": 204.975,
+      "p95_ms": 231.46,
+      "max_ms": 231.46,
+      "under_500": 10
+    },
+    "configuracion": {
+      "samples": 10,
+      "median_ms": 422.245,
+      "p95_ms": 749.97,
+      "max_ms": 749.97,
+      "under_500": 9
+    },
+    "resumen": {
+      "samples": 10,
+      "median_ms": 585.4300000000001,
+      "p95_ms": 654.41,
+      "max_ms": 654.41,
+      "under_500": 0
+    },
+    "reportes": {
+      "samples": 10,
+      "median_ms": 424.98,
+      "p95_ms": 454.49,
+      "max_ms": 454.49,
+      "under_500": 10
+    }
+  },
+  "samples": [
+    {
+      "endpoint": "login",
+      "sample": 1,
+      "status": 200,
+      "ms": 2100.69
+    },
+    {
+      "endpoint": "login",
+      "sample": 2,
+      "status": 200,
+      "ms": 1010.97
+    },
+    {
+      "endpoint": "login",
+      "sample": 3,
+      "status": 200,
+      "ms": 1183.66
+    },
+    {
+      "endpoint": "login",
+      "sample": 4,
+      "status": 200,
+      "ms": 1006.14
+    },
+    {
+      "endpoint": "login",
+      "sample": 5,
+      "status": 200,
+      "ms": 1089.5
+    },
+    {
+      "endpoint": "health",
+      "sample": 1,
+      "status": 200,
+      "ms": 211.93
+    },
+    {
+      "endpoint": "health",
+      "sample": 2,
+      "status": 200,
+      "ms": 209.74
+    },
+    {
+      "endpoint": "health",
+      "sample": 3,
+      "status": 200,
+      "ms": 204.95
+    },
+    {
+      "endpoint": "health",
+      "sample": 4,
+      "status": 200,
+      "ms": 203.57
+    },
+    {
+      "endpoint": "health",
+      "sample": 5,
+      "status": 200,
+      "ms": 205.0
+    },
+    {
+      "endpoint": "health",
+      "sample": 6,
+      "status": 200,
+      "ms": 201.14
+    },
+    {
+      "endpoint": "health",
+      "sample": 7,
+      "status": 200,
+      "ms": 209.64
+    },
+    {
+      "endpoint": "health",
+      "sample": 8,
+      "status": 200,
+      "ms": 231.46
+    },
+    {
+      "endpoint": "health",
+      "sample": 9,
+      "status": 200,
+      "ms": 189.09
+    },
+    {
+      "endpoint": "health",
+      "sample": 10,
+      "status": 200,
+      "ms": 198.19
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 1,
+      "status": 200,
+      "ms": 458.39
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 2,
+      "status": 200,
+      "ms": 749.97
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 3,
+      "status": 200,
+      "ms": 431.48
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 4,
+      "status": 200,
+      "ms": 415.03
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 5,
+      "status": 200,
+      "ms": 417.46
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 6,
+      "status": 200,
+      "ms": 406.82
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 7,
+      "status": 200,
+      "ms": 424.63
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 8,
+      "status": 200,
+      "ms": 408.62
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 9,
+      "status": 200,
+      "ms": 423.5
+    },
+    {
+      "endpoint": "configuracion",
+      "sample": 10,
+      "status": 200,
+      "ms": 420.99
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 1,
+      "status": 200,
+      "ms": 654.41
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 2,
+      "status": 200,
+      "ms": 577.06
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 3,
+      "status": 200,
+      "ms": 581.92
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 4,
+      "status": 200,
+      "ms": 583.71
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 5,
+      "status": 200,
+      "ms": 593.36
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 6,
+      "status": 200,
+      "ms": 607.62
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 7,
+      "status": 200,
+      "ms": 607.43
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 8,
+      "status": 200,
+      "ms": 580.12
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 9,
+      "status": 200,
+      "ms": 585.73
+    },
+    {
+      "endpoint": "resumen",
+      "sample": 10,
+      "status": 200,
+      "ms": 585.13
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 1,
+      "status": 200,
+      "ms": 447.22
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 2,
+      "status": 200,
+      "ms": 439.56
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 3,
+      "status": 200,
+      "ms": 427.4
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 4,
+      "status": 200,
+      "ms": 421.16
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 5,
+      "status": 200,
+      "ms": 424.41
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 6,
+      "status": 200,
+      "ms": 425.55
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 7,
+      "status": 200,
+      "ms": 407.14
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 8,
+      "status": 200,
+      "ms": 415.14
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 9,
+      "status": 200,
+      "ms": 417.12
+    },
+    {
+      "endpoint": "reportes",
+      "sample": 10,
+      "status": 200,
+      "ms": 454.49
+    }
+  ]
+}
