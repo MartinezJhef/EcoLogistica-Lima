@@ -1,3 +1,24 @@
+[← Volver al README principal](../../../README.md)
+
+# 01. Analisis PlayWrigth V_1_0_0
+
+---
+
+## 1. Información del documento
+
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales |
+| **Responsable del Documento** | Diego Angulo Gonzales |
+| **Fecha de Elaboración** | 19 de noviembre de 2026 |
+| **Versión** | 1.0.0 |
+
+--- 
+
+<br><br>
+
 # Análisis Playwright del Sprint 4
 
 ## Entorno y ejecución

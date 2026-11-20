@@ -1,3 +1,23 @@
+[← Volver al README principal](../../../README.md)
+
+# 01. Guía de revisión e integración V_1_0_0
+
+---
+
+## 1. Información del documento
+
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales |
+| **Responsable del Documento** | Maylit Mendoza Alarcon |
+| **Fecha de Elaboración** | 19 de noviembre de 2026 |
+| **Versión** | 1.0.0 |
+
+--- 
+<br><br>
+
 # Instalación, despliegue y evaluación del Sprint 4
 
 ## Ejecutar en el equipo

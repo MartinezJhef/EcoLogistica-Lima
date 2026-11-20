@@ -1,4 +1,24 @@
-# Preparación del Sprint 4
+[← Volver al README principal](../../../README.md)
+
+# 01. Preparación del Sprint 4 V_1_0_0
+
+---
+
+## 1. Información del documento
+
+| Campo | Detalle |
+| :--- | :--- |
+| **Nombre del Proyecto** | EcoLogistica-Lima: Plataforma Web y Móvil para la Gestión y Optimización de Logística Verde Urbana |
+| **Código del Proyecto** | PFA-ECOLIMA-2026 |
+| **Integrantes del Equipo** | • Zayuri Cerron Medina <br>• Jheferson Martinez Valerio <br>• Angela Rojas Quispe <br>• Maylit Mendoza Alarcon <br>• Diego Angulo Gonzales |
+| **Responsable del Documento** | Zayuri Cerron Medina |
+| **Fecha de Elaboración** | 19 de noviembre de 2026 |
+| **Versión** | 1.0.0 |
+
+---
+
+
+## Preparación del Sprint 4
 
 > Registro histórico de preparación. La implementación y resultados posteriores se documentan en [Revisión del Sprint](01%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md) y [Análisis Playwright](03%20Analisis%20PlayWrigth%20V_1_0_0.md).
 
@@ -127,4 +147,4 @@ Estas decisiones no impiden preparar servicios y casos de prueba con datos sint�
 
 V_1_0_0, 18/11/2026: preparación a partir del backlog, la consigna y el código comprobado hasta Sprint 3. No se modificaron Jira, main ni el PR #12.
 
-[Guía para revisar e integrar el PR #12](05%20Gu%C3%ADa%20de%20revisi%C3%B3n%20e%20integraci%C3%B3n%20V_1_0_0.md) · [← Volver al README principal](../../../README.md)
+[← Volver al README principal](../../../README.md)

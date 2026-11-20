@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-11-20T02:00:20.432480+00:00",
+  "checks": [
+    {
+      "check": "admin_login",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "/analitica/resumen?desde=2026-11-01&hasta=2026-11-19",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "/analitica/configuracion",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "/reportes",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "/usuarios/",
+      "status": 200,
+      "passed": true
+    }
+  ],
+  "scope": "Inicio de sesión administrador y lectura autenticada; sin modificar datos."
+}
