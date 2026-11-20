@@ -1,4 +1,4 @@
-[← Volver al README principal](../../README.md)
+[← Volver al README principal](../../../README.md)
 
 # 01. Revisión del Sprint V_1_0_0
 

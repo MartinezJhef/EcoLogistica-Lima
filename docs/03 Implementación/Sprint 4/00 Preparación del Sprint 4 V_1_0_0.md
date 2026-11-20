@@ -1,4 +1,4 @@
-[← Volver al README principal](../../README.md)
+[← Volver al README principal](../../../README.md)
 
 # 01. Preparación del Sprint 4 V_1_0_0
 
@@ -147,4 +147,4 @@ Estas decisiones no impiden preparar servicios y casos de prueba con datos sint�
 
 V_1_0_0, 18/11/2026: preparación a partir del backlog, la consigna y el código comprobado hasta Sprint 3. No se modificaron Jira, main ni el PR #12.
 
-[← Volver al README principal](../../README.md)
+[← Volver al README principal](../../../README.md)

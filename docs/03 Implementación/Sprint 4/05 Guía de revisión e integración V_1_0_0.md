@@ -1,4 +1,4 @@
-[← Volver al README principal](../../README.md)
+[← Volver al README principal](../../../README.md)
 
 # 01. Guía de revisión e integración V_1_0_0
 
