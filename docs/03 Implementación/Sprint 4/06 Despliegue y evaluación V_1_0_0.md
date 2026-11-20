@@ -1,5 +1,9 @@
 [← Volver al README principal](../../../README.md)
 
+## Estado verificado al 20/11/2026
+
+Main d8de949 publicado en ambos servicios. El recorrido completo de entrega y PDF aprobó en producción. GitHub Secrets configurados y [Deploy production aprobado](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/44764670259). Las instrucciones siguientes se conservan para reproducir la instalación. Ver [validación final y evidencias](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md).
+
 # 01. Guía de revisión e integración V_1_0_0
 
 ---

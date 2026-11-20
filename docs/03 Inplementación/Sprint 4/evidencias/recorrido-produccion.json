@@ -1,0 +1,71 @@
+{
+  "tag": "QA-FINAL-1A4B0C",
+  "checks": [
+    {
+      "check": "Acceso administrador",
+      "passed": true
+    },
+    {
+      "check": "Registro de vehículo, conductor y pedido",
+      "passed": true
+    },
+    {
+      "check": "Planificación asigna el pedido",
+      "passed": true
+    },
+    {
+      "check": "Trazado vial disponible",
+      "passed": true
+    },
+    {
+      "check": "Emisiones directas de vehículo eléctrico",
+      "passed": true
+    },
+    {
+      "check": "No permite cerrar ruta con entrega pendiente",
+      "passed": true
+    },
+    {
+      "check": "Reoptimización publicada",
+      "passed": true
+    },
+    {
+      "check": "Preferencias bloqueadas durante reparto",
+      "passed": true
+    },
+    {
+      "check": "Entrega y retorno completan la ruta",
+      "passed": true
+    },
+    {
+      "check": "Ruta completada incluida en analítica",
+      "passed": true
+    },
+    {
+      "check": "Trabajador genera el PDF publicado",
+      "passed": true
+    },
+    {
+      "check": "Descarga privada del PDF",
+      "passed": true
+    },
+    {
+      "check": "PDF protegido sin sesión",
+      "passed": true
+    },
+    {
+      "check": "Recursos de prueba desactivados",
+      "passed": true
+    }
+  ],
+  "scope": "Pruebas funcionales con registros sintÃ©ticos identificados; no evaluaciÃ³n de personas.",
+  "checked_at": "2026-11-20T15:29:42.003893+00:00",
+  "vehicle": "e2942c07-c95e-4d94-8dcc-0745b241ab3b",
+  "driver": "be64a012-bb2c-4eb1-87e2-19c225c231ab",
+  "order": "15e5a35d-bcb0-4f40-911b-8dcd5ff7b052",
+  "route": "41bfa4f2-5d5e-4b46-ac54-f1717b90f4cc",
+  "date": "2026-11-20",
+  "report": "43fc86e5-47cf-42ee-af1a-32779b7aa7ef",
+  "configuration_present": false,
+  "completed": true
+}

@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-11-20T15:28:45.050912+00:00",
+  "checks": [
+    {
+      "check": "web",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "elapsed_ms": 373.82
+    },
+    {
+      "check": "health",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "elapsed_ms": 270.01
+    },
+    {
+      "check": "cors",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "elapsed_ms": 217.92
+    },
+    {
+      "check": "invalid_login_database_check",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "elapsed_ms": 1199.97
+    },
+    {
+      "check": "unauthenticated_/analitica/resumen",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "elapsed_ms": 222.2
+    },
+    {
+      "check": "unauthenticated_/analitica/configuracion",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "elapsed_ms": 207.24
+    },
+    {
+      "check": "unauthenticated_/reportes",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "elapsed_ms": 187.13
+    },
+    {
+      "check": "unauthenticated_/usuarios",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "elapsed_ms": 486.95
+    }
+  ],
+  "scope": "Disponibilidad y controles sin sesión; no sustituye aceptación autenticada."
+}

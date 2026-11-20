@@ -65,3 +65,5 @@ El [protocolo y cuestionario](06%20Despliegue%20y%20evaluaci%C3%B3n%20V_1_0_0.md
 V_1_0_0 — 18/11/2026. Actualización 20/11/2026: se incorporan las cinco comprobaciones de la instalación publicada y su evidencia JSON.
 
 [← Volver al README principal](../../../README.md)
+
+La aceptación técnica posterior de producción completó también entrega, regreso y PDF. Sus resultados están en la [validación final](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md). El cuestionario SUS conserva su estado pendiente de respuestas.

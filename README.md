@@ -440,3 +440,7 @@ Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), ta
 Universidad Continental · 2026
 
 </div>
+
+### Evidencias finales de producción del Sprint 4
+
+[Recorrido completo publicado y PDF generado](docs/03%20Inplementaci%C3%B3n/Sprint%204/07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md).

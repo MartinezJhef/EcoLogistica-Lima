@@ -65,3 +65,9 @@ V_1_0_0 — 18/11/2026.
 [← Volver al README principal](../../../README.md)
 
 20/11/2026: PR #14 con todas las verificaciones de GitHub aprobadas: backend, frontend, móvil, compilación, aceptación Playwright y despliegue desechable. La ejecución local de servidor fue 92 aprobadas y una prueba PostGIS reservada a CI.
+
+## Aceptación del entorno publicado — 20/11/2026
+
+El recorrido HTTP completo aprobó después de publicar las correcciones en main: planificación vial, reoptimización, restricciones durante reparto, entrega y regreso, inclusión en analítica y PDF procesado por el trabajador con descarga privada. Esta comprobación HTTP complementa la suite Playwright de tres navegadores, no se atribuye a una ejecución adicional de navegador. Ver [evidencias finales](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md).
+
+Las ocho comprobaciones públicas aprobaron. Web: 373,82 ms; health: 270,01 ms; CORS: 217,92 ms; login inválido: 1199,97 ms; accesos rechazados sin sesión: 187,13–486,95 ms. Son muestras puntuales, no una medición de uptime mensual.

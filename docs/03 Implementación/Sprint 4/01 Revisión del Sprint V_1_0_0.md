@@ -65,11 +65,13 @@ Queda pendiente realizar una demostración formal con los stakeholders en un ent
 Algunos pendientes que se tiene son los siguientes:
 | Pendiente | Justificación | Tratamiento posterior |
 | :--- | :--- | :--- |
-| Publicación de correcciones de fecha y registro de entrega con foto. | Se realizaron correcciones y pruebas locales, pero falta completar la verificación del recorrido publicado. | Publicar los cambios y ejecutar pruebas de regresión en Render. |
 | Configuración de factores y proyectos ambientales reales. | Los valores actuales son sintéticos y no representan datos definitivos. | Obtener y registrar factores, precios y proyectos con fuentes verificables. |
 | Evaluación SUS y revisión con participantes. | Todavía no se cuenta con resultados de evaluación de usabilidad. | Aplicar el instrumento, consolidar resultados y documentar observaciones. |
 | Medición de disponibilidad y tiempos en hosting. | Las mediciones locales no representan el rendimiento del entorno público. | Ejecutar mediciones en producción y registrar disponibilidad y tiempos de respuesta. |
-| Automatización del despliegue desde main. | La primera publicación se realizó mediante Render y falta completar la automatización del workflow. | Configurar secretos y validar el proceso de despliegue. |
 
 
 [← Volver al README principal](../../../README.md)
+
+Producción 20/11/2026: main d8de949 publicado correctamente en API y web. Se verificaron planificación, reoptimización, entrega, regreso, analítica, generación y descarga privada PDF. Los recursos de prueba se desactivaron. Ocho comprobaciones públicas aprobaron; la autenticación tardó 1199,97 ms y no se declara cumplimiento universal del objetivo de 500 ms.
+
+El despliegue automático desde main quedó operativo: [ejecución aprobada](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/44764670259). Los secretos se guardan en GitHub y la clave tiene permisos limitados.
