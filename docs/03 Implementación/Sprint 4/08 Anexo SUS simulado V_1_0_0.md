@@ -1,4 +1,4 @@
-# Anexo pedagógico: evaluación SUS simulada
+# Resultados simulados de evaluación SUS
 
 ## Naturaleza y ficha técnica
 
@@ -32,7 +32,7 @@ Para los ítems impares se calcula respuesta − 1; para los pares, 5 − respue
 
 Promedio = (80.0 + 72.5 + 80.0 + 85.0 + 70.0) / 5 = **77.5 puntos**. El promedio construido supera el umbral 68 usado por la consigna. Este resultado describe exclusivamente los datos ficticios y no permite concluir que los usuarios reales estén satisfechos. No se asigna una clasificación normativa A–F sin definir y citar una escala de conversión concreta; el umbral 68 por sí solo no determina un grado.
 
-## Análisis pedagógico y mejoras a comprobar
+## Análisis de resultados simulados y mejoras a comprobar
 
 Los ítems pares 4 y 10 permiten plantear una posible necesidad de ayuda y aprendizaje; no son hallazgos observados en participantes. En una evaluación real se debe comprobar la claridad de la configuración ambiental, la visibilidad del estado del PDF y las restricciones de permisos.
 

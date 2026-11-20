@@ -68,6 +68,6 @@ V_1_0_0 — 18/11/2026. Actualización 20/11/2026: se incorporan las cinco compr
 
 La aceptación técnica posterior de producción completó también entrega, regreso y PDF. Sus resultados están en la [validación final](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md). El cuestionario SUS conserva su estado pendiente de respuestas.
 
-## Anexo pedagógico de cálculo SUS
+## Resultados simulados del cálculo SUS
 
 Se incorpora un [ejercicio con cinco perfiles ficticios](08%20Anexo%20SUS%20simulado%20V_1_0_0.md), matriz de respuestas simuladas y cálculo individual y promedio. Se mantiene separado de las evidencias reales: no modifica la muestra SUS real ni acredita participación.

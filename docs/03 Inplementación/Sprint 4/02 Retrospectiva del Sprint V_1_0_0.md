@@ -83,6 +83,6 @@ Propuestas de seguimiento según las áreas acordadas previamente; deben ratific
 
 [← Volver al README principal](../../../README.md)
 
-## Material pedagógico complementario
+## Resultados simulados complementarios
 
 [Review y retrospectiva simuladas](09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md), con guion, retroalimentación ficticia y acciones propuestas. No sustituye el registro de una sesión real.

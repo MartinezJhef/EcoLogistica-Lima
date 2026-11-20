@@ -3,7 +3,7 @@
 **Nombre del Proyecto:** EcoLogística Lima.
 **Líder del Proyecto:** Rol ficticio de facilitador para este ejercicio.
 
-Este documento es una simulación pedagógica de review y retrospectiva. No acredita una reunión celebrada, asistentes reales, aceptación de stakeholders ni compromisos asumidos por integrantes. Fecha de elaboración del ejercicio: 20/11/2026.
+Este documento es una presentación de resultados simulados de review y retrospectiva. No acredita una reunión celebrada, asistentes reales, aceptación de stakeholders ni compromisos asumidos por integrantes. Fecha de elaboración del ejercicio: 20/11/2026.
 
 ## Historias de Usuario completadas en este Sprint
 
@@ -11,7 +11,7 @@ Este documento es una simulación pedagógica de review y retrospectiva. No acre
 |---|---|
 | US-008 Dashboard | Indicadores por periodo, comparación y conservación de parámetros históricos. [PR 13](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/13) |
 | US-009 Reportes | Cola persistente, generación y descarga privada PDF; recorrido publicado aprobado. [Validación final](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md) |
-| US-010 Compensación | Factores configurables y distribución al 100 %. Configuración pedagógica aplicada con fuente y proyectos identificados como simulados. [Configuración](evidencias/configuracion-ambiental-simulada.json) |
+| US-010 Compensación | Factores configurables y distribución al 100 %. Configuración simulada aplicada con fuente y proyectos identificados como simulados. [Configuración](evidencias/configuracion-ambiental-simulada.json) |
 
 ## Demostración del trabajo completado
 
@@ -52,7 +52,7 @@ Probar el recorrido completo en producción después de cada cambio funcional y 
 
 ### Herramientas
 
-Mantener las credenciales en Secrets, comprobar despliegues y distinguir los valores pedagógicos de datos operativos.
+Mantener las credenciales en Secrets, comprobar despliegues y distinguir los valores simulados de datos operativos.
 
 ### Acciones a realizar
 

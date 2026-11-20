@@ -76,6 +76,6 @@ Producción 20/11/2026: main d8de949 publicado correctamente en API y web. Se ve
 
 El despliegue automático desde main quedó operativo: [ejecución aprobada](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/44764670259). Los secretos se guardan en GitHub y la clave tiene permisos limitados.
 
-## Material pedagógico complementario
+## Resultados simulados complementarios
 
 [Review y retrospectiva simuladas](09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md), con guion, retroalimentación ficticia y acciones propuestas. No sustituye el registro de una sesión real.

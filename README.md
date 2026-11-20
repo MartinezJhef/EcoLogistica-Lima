@@ -445,6 +445,6 @@ Universidad Continental · 2026
 
 [Recorrido completo publicado y PDF generado](docs/03%20Inplementaci%C3%B3n/Sprint%204/07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md).
 
-[Anexo pedagógico: cinco casos SUS simulados](docs/03%20Inplementaci%C3%B3n/Sprint%204/08%20Anexo%20SUS%20simulado%20V_1_0_0.md).
+[Resultados simulados: cinco casos SUS](docs/03%20Inplementaci%C3%B3n/Sprint%204/08%20Anexo%20SUS%20simulado%20V_1_0_0.md).
 
-[Review y retrospectiva: ejercicio simulado](docs/03%20Inplementaci%C3%B3n/Sprint%204/09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md). La aplicación dispone de configuración ambiental pedagógica identificada como simulada.
+[Review y retrospectiva: ejercicio simulado](docs/03%20Inplementaci%C3%B3n/Sprint%204/09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md). La aplicación dispone de configuración ambiental con valores simulados.

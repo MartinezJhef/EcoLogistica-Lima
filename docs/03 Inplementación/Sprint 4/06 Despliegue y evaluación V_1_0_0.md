@@ -74,6 +74,6 @@ Guardar respuestas reales como JSON con `participante` y `respuestas` (diez ente
 
 [← Volver al README principal](../../../README.md)
 
-## Configuración pedagógica aplicada
+## Configuración simulada aplicada
 
-El 20/11/2026 se guardó y releyó la [configuración simulada](evidencias/configuracion-ambiental-simulada.json) en la aplicación publicada. Precios ficticios: DIESEL 18, GNV 8 e HIBRIDO 18 PEN/gal; electricidad 0,75 PEN/kWh y 0,2 kWh/km; 20 kg por árbol en diez años y 1000 kg por crédito. Son supuestos didácticos, sin validez científica o comercial. Los dos proyectos incluyen SIMULADO en su nombre. Se verificó la creación de una propuesta con distribución 60/40. Las rutas con instantánea anterior conservan sus parámetros; la configuración no altera costos históricos.
+El 20/11/2026 se guardó y releyó la [configuración simulada](evidencias/configuracion-ambiental-simulada.json) en la aplicación publicada. Precios ficticios: DIESEL 18, GNV 8 e HIBRIDO 18 PEN/gal; electricidad 0,75 PEN/kWh y 0,2 kWh/km; 20 kg por árbol en diez años y 1000 kg por crédito. Son supuestos simulados, sin validez científica o comercial. Los dos proyectos incluyen SIMULADO en su nombre. Se verificó la creación de una propuesta con distribución 60/40. Las rutas con instantánea anterior conservan sus parámetros; la configuración no altera costos históricos.
