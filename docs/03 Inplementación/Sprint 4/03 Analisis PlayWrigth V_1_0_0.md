@@ -71,3 +71,99 @@ V_1_0_0 — 18/11/2026.
 El recorrido HTTP completo aprobó después de publicar las correcciones en main: planificación vial, reoptimización, restricciones durante reparto, entrega y regreso, inclusión en analítica y PDF procesado por el trabajador con descarga privada. Esta comprobación HTTP complementa la suite Playwright de tres navegadores, no se atribuye a una ejecución adicional de navegador. Ver [evidencias finales](07%20Validaci%C3%B3n%20final%20de%20producci%C3%B3n%20V_1_0_0.md).
 
 Las ocho comprobaciones públicas aprobaron. Web: 373,82 ms; health: 270,01 ms; CORS: 217,92 ms; login inválido: 1199,97 ms; accesos rechazados sin sesión: 187,13–486,95 ms. Son muestras puntuales, no una medición de uptime mensual.
+
+## Estructura de las pruebas y configuración ejecutable
+
+```text
+scripts/
+  sprint4_e2e.py          # Recorrido integral, PDF, red y métricas
+  seed_sprint4_e2e.py     # Datos exclusivos de una base desechable
+src/frontend/
+  playwright.config.ts
+  e2e/
+    sprint4.spec.ts       # Cuatro roles por tres navegadores
+  playwright-report/
+    index.html           # Reporte HTML oficial generado
+playwright-report/
+  index.html             # Informe del recorrido integral Python
+  results.json           # Muestras originales por navegador y rol
+  <navegador>-<rol>.png   # Capturas de las pantallas verificadas
+  <navegador>-<rol>-trace.zip
+```
+
+Los directorios de reportes son salidas generadas, excluidas de Git; se conserva una selección revisada en evidencias y el workflow almacena artefactos.
+
+### Contenido de playwright.config.ts
+
+```typescript
+import { defineConfig, devices } from '@playwright/test';
+export default defineConfig({
+  testDir: './e2e', fullyParallel: false, workers: 1, timeout: 60000,
+  reporter: [['list'], ['html', { open: 'never' }]],
+  use: { baseURL: process.env.E2E_WEB_URL || 'http://127.0.0.1:5173', trace: 'retain-on-failure', screenshot: 'only-on-failure' },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } }
+  ]
+});
+```
+
+`testDir` selecciona e2e; un trabajador evita interferencias sobre la base compartida de pruebas. `use` configura URL, trazas y capturas. Los proyectos ejecutan Chromium, Firefox y WebKit. `reporter` produce lista y HTML sin abrir navegador automáticamente.
+
+### Código fuente del caso crítico sprint4.spec.ts
+
+```typescript
+import { test, expect } from '@playwright/test';
+for (const role of ['admin', 'oficina', 'repartidor', 'cliente']) {
+  test(`${role}: autenticar, consultar y respetar permisos`, async ({ page, request }) => {
+    if (!process.env.E2E_PASSWORD) throw new Error('Define E2E_PASSWORD para las cuentas desechables');
+    await page.goto('/');
+    await page.getByPlaceholder('usuario@ecologistica.pe').fill(`${role}@sprint4.example.test`);
+    await page.locator('input[type=password]').fill(process.env.E2E_PASSWORD);
+    await page.getByRole('button', { name: /Iniciar SesiÃ³n/i }).click();
+    await expect(page.getByText('Cerrar SesiÃ³n', { exact: true })).toBeVisible();
+    const token = await page.evaluate(() => localStorage.getItem('ecologistica_access_token'));
+    const api = process.env.E2E_API_URL || 'http://127.0.0.1:8000/api/v1';
+    const result = await request.get(`${api}/analitica/resumen?desde=2026-06-01&hasta=2026-06-01`, { headers: { Authorization: `Bearer ${token}` } });
+    if (role === 'admin' || role === 'oficina') {
+      expect(result.status()).toBe(200);
+      await page.getByRole('button', { name: 'Sostenibilidad', exact: true }).click();
+      await page.getByLabel('Desde', { exact: true }).fill('2026-06-01');
+      await page.getByLabel('Hasta', { exact: true }).fill('2026-06-01');
+      await page.getByRole('button', { name: 'Actualizar indicadores' }).click();
+      await expect(page.getByText('100 km', { exact: true })).toBeVisible();
+      await page.getByLabel('Proyecto de prueba (%)').fill('100');
+      await page.getByRole('button', { name: 'Calcular y preparar PDF' }).click();
+      await expect(page.getByText(/0.045 crÃ©ditos estimados/)).toBeVisible();
+    } else {
+      expect(result.status()).toBe(403);
+      await expect(page.getByRole('button', { name: 'Sostenibilidad', exact: true })).toHaveCount(0);
+    }
+  });
+}
+```
+
+### Percentil 95 de las muestras conservadas
+
+Se utiliza rango más cercano: ordenar las mediciones y seleccionar la posición ceil(0,95 × n). Se excluyen valores negativos o no numéricos. Estas muestras pertenecen al entorno local del 18/11/2026, no constituyen una nueva ejecución ni una medición de producción.
+
+| Navegador | Solicitudes medidas | p95 API (ms) | Máximo API (ms) |
+|---|---:|---:|---:|
+| chromium | 74 | 368.30 | 376.38 |
+| firefox | 72 | 374.24 | 516.56 |
+| webkit | 70 | 365.33 | 375.72 |
+
+El p95 no sustituye al máximo ni elimina la solicitud Firefox de 516,56 ms. No se acredita cumplimiento universal del límite de 500 ms. [Muestras originales](evidencias/playwright-resultados-originales.json).
+
+### Evidencias visuales y reporte HTML
+
+[Informe HTML del recorrido integral Python](evidencias/playwright-informe-integral.html), generado por scripts/sprint4_e2e.py. Las imágenes siguientes son capturas de la aplicación durante las pruebas, no capturas del index.html del reporte oficial:
+
+![Administración en Chromium](evidencias/playwright-chromium-admin.png)
+
+![Administración en Firefox](evidencias/playwright-firefox-admin.png)
+
+![Administración en WebKit](evidencias/playwright-webkit-admin.png)
+
+Permanece por incorporar una captura específica del reporte HTML oficial de Playwright. Las comprobaciones públicas conservadas son puntuales: no se ha ejecutado una ventana de monitoreo de horas o días y no se declara ese uptime. Un monitoreo continuo futuro debe registrar intervalo, número de muestras, errores y duración real, sin extrapolar a meses.

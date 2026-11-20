@@ -1,0 +1,1658 @@
+[
+  {
+    "browser": "chromium",
+    "role": "admin",
+    "status": "PASS",
+    "elapsed_ms": 3192,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 5.15
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 5.239
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 376.383
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 27.91799999977229
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 27.784999998402782
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 13.032
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 18.168
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 19.877
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 27.045
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 34.281
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 37.184
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 13.406
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 16.823
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.054
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 17.272
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.463
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.568
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 21.65
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 14.385
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 17.62
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.308
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.557
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.745
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.619
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/0f5e073a-3260-49a1-9d9d-45c27cdd6e29/archivo",
+        "ms": 6.07
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 25.712
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.21
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.912
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 10.909
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.508
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 10.672
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 206.89999999850988,
+        "navigationId": 9794,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.19999999552965164,
+        "domainLookupStart": 1.1999999955296516,
+        "domainLookupEnd": 1.8999999985098839,
+        "connectStart": 1.8999999985098839,
+        "secureConnectionStart": 0,
+        "connectEnd": 2.5,
+        "requestStart": 2.6999999955296516,
+        "responseStart": 6.600000001490116,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 6.600000001490116,
+        "responseEnd": 7.100000001490116,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 16.19999999552965,
+        "domContentLoadedEventStart": 153,
+        "domContentLoadedEventEnd": 153.10000000149012,
+        "domComplete": 206,
+        "loadEventStart": 206.89999999850988,
+        "loadEventEnd": 206.89999999850988,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-paint",
+        "ms": 64
+      },
+      {
+        "name": "first-contentful-paint",
+        "ms": 64
+      }
+    ],
+    "lcp_ms": 64
+  },
+  {
+    "browser": "chromium",
+    "role": "oficina",
+    "status": "PASS",
+    "elapsed_ms": 4031,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.447
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.398
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 368.304
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 24.441000001388602
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 24.23599999747239
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 7.682
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 12.227
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 12.836
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 14.943
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 20.431
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 26.469
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 29.742
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 31.359
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.922
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 15.272
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.95
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 15.025
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.191
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.315
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 14.652
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.922
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.23
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.92
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.61
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 13.209
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 16.074
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/77a86e6c-f383-488d-9238-e71978b117f3/archivo",
+        "ms": 7.104
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 15.321
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.544
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.599
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 10.233
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.25
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.096
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 224.39999999850988,
+        "navigationId": 5064,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.20000000298023224,
+        "domainLookupStart": 0.6000000014901161,
+        "domainLookupEnd": 0.7999999970197678,
+        "connectStart": 0.7999999970197678,
+        "secureConnectionStart": 0,
+        "connectEnd": 1.1000000014901161,
+        "requestStart": 1.1000000014901161,
+        "responseStart": 4.700000002980232,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 4.700000002980232,
+        "responseEnd": 5.100000001490116,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 12.399999998509884,
+        "domContentLoadedEventStart": 204.29999999701977,
+        "domContentLoadedEventEnd": 204.39999999850988,
+        "domComplete": 223.20000000298023,
+        "loadEventStart": 224.39999999850988,
+        "loadEventEnd": 224.39999999850988,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-paint",
+        "ms": 44
+      },
+      {
+        "name": "first-contentful-paint",
+        "ms": 44
+      }
+    ],
+    "lcp_ms": 44
+  },
+  {
+    "browser": "chromium",
+    "role": "repartidor",
+    "status": "PASS",
+    "elapsed_ms": 1291,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.456
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.11
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 370.187
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 6.222
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 10.658
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 196.70000000298023,
+        "navigationId": 2937,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000000149011612,
+        "domainLookupStart": 0.6000000014901161,
+        "domainLookupEnd": 0.8999999985098839,
+        "connectStart": 0.8999999985098839,
+        "secureConnectionStart": 0,
+        "connectEnd": 1.2000000029802322,
+        "requestStart": 1.3000000044703484,
+        "responseStart": 5.399999998509884,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 5.399999998509884,
+        "responseEnd": 5.899999998509884,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 12.700000002980232,
+        "domContentLoadedEventStart": 195.80000000447035,
+        "domContentLoadedEventEnd": 195.80000000447035,
+        "domComplete": 196.20000000298023,
+        "loadEventStart": 196.70000000298023,
+        "loadEventEnd": 196.70000000298023,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-paint",
+        "ms": 36
+      },
+      {
+        "name": "first-contentful-paint",
+        "ms": 36
+      }
+    ],
+    "lcp_ms": 36
+  },
+  {
+    "browser": "chromium",
+    "role": "cliente",
+    "status": "PASS",
+    "elapsed_ms": 1284,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.497
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.466
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 371.756
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 9.254
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 13.366
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 164.89999999850988,
+        "navigationId": 5611,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.19999999552965164,
+        "domainLookupStart": 0.5999999940395355,
+        "domainLookupEnd": 0.7999999970197678,
+        "connectStart": 0.7999999970197678,
+        "secureConnectionStart": 0,
+        "connectEnd": 1.0999999940395355,
+        "requestStart": 1.1999999955296516,
+        "responseStart": 4.399999998509884,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 4.399999998509884,
+        "responseEnd": 4.699999995529652,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 10.599999994039536,
+        "domContentLoadedEventStart": 161.89999999850988,
+        "domContentLoadedEventEnd": 161.89999999850988,
+        "domComplete": 163.79999999701977,
+        "loadEventStart": 164.89999999850988,
+        "loadEventEnd": 164.89999999850988,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-paint",
+        "ms": 44
+      },
+      {
+        "name": "first-contentful-paint",
+        "ms": 44
+      }
+    ],
+    "lcp_ms": 44
+  },
+  {
+    "browser": "firefox",
+    "role": "admin",
+    "status": "PASS",
+    "elapsed_ms": 14348,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 12.1259765625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 516.56494140625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 9.2919921875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 13.373046875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 21.98291015625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 31.60595703125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 18.68798828125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 25.16796875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 29.27099609375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 38.89501953125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 48.660888671875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 36.028076171875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 56.0830078125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 38.782958984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 15.14208984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 20.1259765625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.655029296875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.283935546875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 24.59912109375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.443115234375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.407958984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.944091796875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.304931640625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.448974609375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.1630859375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/c156484d-21b1-4608-bcbc-c4492332d568/archivo",
+        "ms": 5.97900390625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 17.241943359375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.615966796875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.2529296875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 11.833984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 13.823974609375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 15.051025390625
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 662,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": -2,
+        "domainLookupStart": 17,
+        "domainLookupEnd": 17,
+        "connectStart": 17,
+        "connectEnd": 18,
+        "secureConnectionStart": 0,
+        "requestStart": 18,
+        "finalResponseHeadersStart": 23,
+        "firstInterimResponseStart": 0,
+        "responseStart": 23,
+        "responseEnd": 23,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 152,
+        "domContentLoadedEventStart": 451,
+        "domContentLoadedEventEnd": 452,
+        "domComplete": 662,
+        "loadEventStart": 662,
+        "loadEventEnd": 662,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 161
+      }
+    ],
+    "lcp_ms": 161
+  },
+  {
+    "browser": "firefox",
+    "role": "oficina",
+    "status": "PASS",
+    "elapsed_ms": 14034,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.760009765625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 378.218994140625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 4.81103515625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": 8.881103515625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 10.27490234375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 10.9599609375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 12.876953125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 23.60205078125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 24.325927734375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 26.011962890625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 30.712890625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 31.72900390625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 45.9951171875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 45.946044921875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.1201171875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 18.89208984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.450927734375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.18896484375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 14.987060546875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 12.22998046875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.010009765625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.43896484375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.450927734375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.113037109375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.531982421875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/c4594e95-17bc-470d-9dce-ea96959dca41/archivo",
+        "ms": 7.368896484375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 19.986083984375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 12.1279296875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.635986328125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 10.64599609375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 13.262939453125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.5810546875
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 238,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": -1,
+        "domainLookupStart": 3,
+        "domainLookupEnd": 3,
+        "connectStart": 3,
+        "connectEnd": 4,
+        "secureConnectionStart": 0,
+        "requestStart": 4,
+        "finalResponseHeadersStart": 8,
+        "firstInterimResponseStart": 0,
+        "responseStart": 8,
+        "responseEnd": 8,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 18,
+        "domContentLoadedEventStart": 229,
+        "domContentLoadedEventEnd": 230,
+        "domComplete": 238,
+        "loadEventStart": 238,
+        "loadEventEnd": 238,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 33
+      }
+    ],
+    "lcp_ms": 33
+  },
+  {
+    "browser": "firefox",
+    "role": "repartidor",
+    "status": "PASS",
+    "elapsed_ms": 1518,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 6.926025390625
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 377.498046875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 7.4130859375
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 13.196044921875
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 232,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": -1,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "connectEnd": 2,
+        "secureConnectionStart": 0,
+        "requestStart": 2,
+        "finalResponseHeadersStart": 5,
+        "firstInterimResponseStart": 0,
+        "responseStart": 5,
+        "responseEnd": 6,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 19,
+        "domContentLoadedEventStart": 224,
+        "domContentLoadedEventEnd": 225,
+        "domComplete": 232,
+        "loadEventStart": 232,
+        "loadEventEnd": 232,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 33
+      }
+    ],
+    "lcp_ms": 33
+  },
+  {
+    "browser": "firefox",
+    "role": "cliente",
+    "status": "PASS",
+    "elapsed_ms": 1533,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 5.20703125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 374.240966796875
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 8.3720703125
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 13.0791015625
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 229,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "connectEnd": 2,
+        "secureConnectionStart": 0,
+        "requestStart": 2,
+        "finalResponseHeadersStart": 5,
+        "firstInterimResponseStart": 0,
+        "responseStart": 5,
+        "responseEnd": 6,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 16,
+        "domContentLoadedEventStart": 220,
+        "domContentLoadedEventEnd": 221,
+        "domComplete": 229,
+        "loadEventStart": 229,
+        "loadEventEnd": 229,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 30
+      }
+    ],
+    "lcp_ms": 30
+  },
+  {
+    "browser": "webkit",
+    "role": "admin",
+    "status": "PASS",
+    "elapsed_ms": 3887,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.9
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.097
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 365.335
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 20.698
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 25.719
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 27.838
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 31.568
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 32.864
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 32.512
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.93
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.658
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.682
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 14.597
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.518
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.508
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.482
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 7.662
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 11.451
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.275
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.996
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.879
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.545
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/c0d30d17-4bc3-481e-b85b-1d6f199ebe54/archivo",
+        "ms": 5.7
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 15.79
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.719
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 15.206
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 10.769
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.999
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.783
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 218,
+        "initiatorType": "navigation",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 2,
+        "domainLookupStart": 2,
+        "domainLookupEnd": 2,
+        "connectStart": 2,
+        "connectEnd": 3,
+        "secureConnectionStart": 0,
+        "requestStart": 3,
+        "finalResponseHeadersStart": 6,
+        "firstInterimResponseStart": 0,
+        "responseStart": 6,
+        "responseEnd": 8,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "deliveryType": "",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 15,
+        "domContentLoadedEventStart": 217,
+        "domContentLoadedEventEnd": 217,
+        "domComplete": 218,
+        "loadEventStart": 218,
+        "loadEventEnd": 218,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 32
+      }
+    ],
+    "lcp_ms": 32
+  },
+  {
+    "browser": "webkit",
+    "role": "oficina",
+    "status": "PASS",
+    "elapsed_ms": 3911,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.127
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.461
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 369.327
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos",
+        "ms": -1
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 5.509
+      },
+      {
+        "url": "http://localhost:8000/api/v1/vehiculos/",
+        "ms": 5.423
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 20.828
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/configuracion",
+        "ms": 20.054
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 25.272
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 26.22
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 27.585
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 26.573
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.117
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.749
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.106
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.973
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.93
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 13.076
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 11.047
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.404
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 10.604
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 9.583
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.049
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.62
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.161
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes/90195abf-0007-4ec4-ac35-e93aaa6b1345/archivo",
+        "ms": 5.828
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 15.882
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 8.278
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 9.591
+      },
+      {
+        "url": "http://localhost:8000/api/v1/compensacion/propuestas",
+        "ms": 9.091
+      },
+      {
+        "url": "http://localhost:8000/api/v1/reportes",
+        "ms": 10.837
+      },
+      {
+        "url": "http://localhost:8000/api/v1/analitica/resumen",
+        "ms": 12.381
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 195,
+        "initiatorType": "navigation",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 1,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "connectEnd": 1,
+        "secureConnectionStart": 0,
+        "requestStart": 1,
+        "finalResponseHeadersStart": 3,
+        "firstInterimResponseStart": 0,
+        "responseStart": 3,
+        "responseEnd": 5,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "deliveryType": "",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 11,
+        "domContentLoadedEventStart": 194,
+        "domContentLoadedEventEnd": 194,
+        "domComplete": 194,
+        "loadEventStart": 195,
+        "loadEventEnd": 195,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 26
+      }
+    ],
+    "lcp_ms": 26
+  },
+  {
+    "browser": "webkit",
+    "role": "repartidor",
+    "status": "PASS",
+    "elapsed_ms": 1621,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 3.161
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.935
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 375.718
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 19.898
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 20.775
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 205,
+        "initiatorType": "navigation",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 1,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "connectEnd": 1,
+        "secureConnectionStart": 0,
+        "requestStart": 1,
+        "finalResponseHeadersStart": 5,
+        "firstInterimResponseStart": 0,
+        "responseStart": 5,
+        "responseEnd": 6,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "deliveryType": "",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 12,
+        "domContentLoadedEventStart": 203,
+        "domContentLoadedEventEnd": 203,
+        "domComplete": 204,
+        "loadEventStart": 205,
+        "loadEventEnd": 205,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 24
+      }
+    ],
+    "lcp_ms": 24
+  },
+  {
+    "browser": "webkit",
+    "role": "cliente",
+    "status": "PASS",
+    "elapsed_ms": 1666,
+    "api_timings": [
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.859
+      },
+      {
+        "url": "http://localhost:8000/api/v1/health",
+        "ms": 2.663
+      },
+      {
+        "url": "http://localhost:8000/api/v1/auth/login",
+        "ms": 371.63
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 10.314
+      },
+      {
+        "url": "http://localhost:8000/api/v1/mobile/pedidos",
+        "ms": 10.38
+      }
+    ],
+    "navigation": [
+      {
+        "name": "http://127.0.0.1:5173/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 220,
+        "initiatorType": "navigation",
+        "nextHopProtocol": "http/1.1",
+        "workerStart": 0,
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 1,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "connectEnd": 1,
+        "secureConnectionStart": 0,
+        "requestStart": 1,
+        "finalResponseHeadersStart": 3,
+        "firstInterimResponseStart": 0,
+        "responseStart": 3,
+        "responseEnd": 5,
+        "transferSize": 4704,
+        "encodedBodySize": 4404,
+        "decodedBodySize": 4404,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedRouterSource": "",
+        "workerFinalRouterSource": "",
+        "deliveryType": "",
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 13,
+        "domContentLoadedEventStart": 219,
+        "domContentLoadedEventEnd": 219,
+        "domComplete": 220,
+        "loadEventStart": 220,
+        "loadEventEnd": 220,
+        "type": "navigate",
+        "redirectCount": 0
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-contentful-paint",
+        "ms": 36
+      }
+    ],
+    "lcp_ms": 36
+  }
+]
