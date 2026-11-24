@@ -62,6 +62,16 @@ describe('Componente Principal de Enrutamiento: App', () => {
     expect(screen.getByText(adminUser.email)).toBeInTheDocument();
   });
 
+  it('redirige al login cuando el servidor rechaza la sesión activa', async () => {
+    vi.spyOn(AuthService, 'getUser').mockReturnValue(CUENTAS_PREDEFINIDAS[0]);
+    localStorage.setItem('ecologistica_access_token','expired-token');
+    render(<App />);
+    fireEvent(window, new Event('ecologistica-session-expired'));
+    await waitFor(() => expect(screen.getByText('Acceso al Sistema')).toBeInTheDocument());
+    expect(localStorage.getItem('ecologistica_access_token')).toBeNull();
+    expect(screen.queryByRole('button',{name:'Administración',exact:true})).not.toBeInTheDocument();
+  });
+
   it('permite cerrar sesión y redirige a la vista de Login', async () => {
     const adminUser = CUENTAS_PREDEFINIDAS[0];
     vi.spyOn(AuthService, 'getUser').mockReturnValue(adminUser);

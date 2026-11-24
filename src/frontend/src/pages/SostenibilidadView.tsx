@@ -76,7 +76,7 @@ export function SostenibilidadView() {
       <p>Reducción de CO₂ frente al periodo anterior: {summary.ahorro_co2_kg} kg. Sin histórico comparable, la variación es 0 %.</p>
       <p>{summary.metodologia}</p><p>{Object.entries(summary.estados).map(([state, count]) => `${state}: ${count}`).join(' · ')}</p>
     </>}
-    <h2>Reportes PDF</h2><button disabled={busy || !desde || !hasta || desde > hasta} onClick={() => void action(async () => {
+    <h2>Reportes PDF</h2><p>Los PDF quedan guardados en el servidor. Cada cuenta de oficina ve sus propios reportes; administración puede consultar todos. Cliente y repartidor no acceden a estos reportes globales.</p><button disabled={busy || !desde || !hasta || desde > hasta} onClick={() => void action(async () => {
       await api.post('/reportes', { desde, hasta }); setNotice('Reporte solicitado. Aparecerá aquí para descargar cuando termine.'); await refresh();
     })}>Generar reporte PDF</button>
     <ul>{jobs.map(job => <li key={job.id}>{job.tipo} · {job.desde} a {job.hasta} · {job.estado} {job.error}

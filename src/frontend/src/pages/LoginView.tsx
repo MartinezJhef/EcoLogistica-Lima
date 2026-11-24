@@ -165,6 +165,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
           </div>
 
           {/* Formulario de Login */}
+          <p style={{fontSize:'0.85rem', color:'#3C4A3F'}}>El rol se reconoce por tu cuenta. Para entrar como oficina, repartidor o cliente, utiliza el correo y la contraseña que te asignó administración.</p>
           <form onSubmit={handleLogin}>
             {error && (
               <div style={{

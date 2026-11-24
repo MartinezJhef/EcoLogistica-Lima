@@ -75,6 +75,12 @@ function AppLayout() {
   const [currentUser, setCurrentUser] = useState<Usuario | null>(() => AuthService.getUser());
 
   useEffect(() => {
+    const expired = () => { AuthService.logout(); setCurrentUser(null); navigate('/login', { replace: true }); };
+    window.addEventListener('ecologistica-session-expired', expired);
+    return () => window.removeEventListener('ecologistica-session-expired', expired);
+  }, [navigate]);
+
+  useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
@@ -335,10 +341,7 @@ function AppLayout() {
             path="/admin" 
             element={
               canAccessAdmin ? (
-                <AdminUsersView 
-                  currentSimulatedRole={userRole} 
-                  onRoleChange={() => {}} 
-                />
+                <AdminUsersView />
               ) : (
                 <Navigate to="/pedidos" replace />
               )

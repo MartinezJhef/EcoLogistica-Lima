@@ -35,6 +35,11 @@ async function request<T>(
       signal: controller.signal
     });
     if (!res.ok) {
+      if (res.status === 401 && localStorage.getItem('ecologistica_access_token') && path !== '/auth/login') {
+        localStorage.removeItem('ecologistica_access_token');
+        localStorage.removeItem('ecologistica_auth_user');
+        window.dispatchEvent(new Event('ecologistica-session-expired'));
+      }
       const detalle = await res.text().catch(() => '');
       let message = detalle;
       try { message = JSON.parse(detalle).detail || detalle; } catch {}

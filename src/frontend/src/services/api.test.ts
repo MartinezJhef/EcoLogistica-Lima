@@ -14,7 +14,8 @@ import {
   PedidoService,
   ClienteService,
   RutaService,
-  UsuarioService
+  UsuarioService,
+  api
 } from './api';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -59,6 +60,19 @@ const makeFetchFallback = (
 };
 
 describe('Servicios integrados con FastAPI', () => {
+  it('cierra una sesión rechazada y avisa a la aplicación sin confundirla con un error de red', async () => {
+    localStorage.setItem('ecologistica_access_token', 'expired-token');
+    localStorage.setItem('ecologistica_auth_user', '{}');
+    const expired = vi.fn();
+    window.addEventListener('ecologistica-session-expired', expired);
+    global.fetch = vi.fn().mockResolvedValue({ok:false,status:401,text:async()=>JSON.stringify({detail:'Inicia sesión con una cuenta activa'})});
+    try {
+      await expect(api.get('/usuarios/')).rejects.toThrow('Inicia sesión');
+      expect(localStorage.getItem('ecologistica_access_token')).toBeNull();
+      expect(localStorage.getItem('ecologistica_auth_user')).toBeNull();
+      expect(expired).toHaveBeenCalledOnce();
+    } finally { window.removeEventListener('ecologistica-session-expired', expired); }
+  });
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); });
   it.each([
     ['vehículos', () => VehiculoService.getAll(), '/vehiculos'],

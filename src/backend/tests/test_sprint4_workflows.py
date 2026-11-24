@@ -71,6 +71,19 @@ def test_persistent_report_worker_pdf_and_private_download(client, setup_s4):
     assert not process_next(db)
 
 
+def test_admin_lists_existing_reports_but_office_only_own(client, setup_s4):
+    db, user, route = setup_s4
+    other = SustainabilityExport(owner=str(uuid4()), kind='REPORTE', data={'desde':'2026-06-01','hasta':'2026-06-01'})
+    own = SustainabilityExport(owner=str(user.usuario_id), kind='REPORTE', data={'desde':'2026-06-01','hasta':'2026-06-01'})
+    db.add_all([other, own]); db.commit()
+    ids = {r['id'] for r in client.get('/api/v1/reportes').json()}
+    assert str(other.id) in ids and str(own.id) in ids
+    user.rol = 'OFICINA'; user.permisos = ['ANALITICA']
+    ids = {r['id'] for r in client.get('/api/v1/reportes').json()}
+    assert str(own.id) in ids and str(other.id) not in ids
+    assert client.get(f'/api/v1/reportes/{other.id}').status_code == 404
+
+
 def test_empty_report_exact_message(client, setup_s4):
     response = client.post('/api/v1/reportes', json={'desde':'2020-06-01','hasta':'2020-06-01'})
     assert response.status_code == 422

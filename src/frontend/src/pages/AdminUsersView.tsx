@@ -88,8 +88,9 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
       setUsuarios(usersData);
       try { setConductores(await ConductorService.getAll()); } catch { setConductores([]); }
       setCatalogo(catData);
+      setErrorAlerta(null);
     } catch (err: any) {
-      setErrorAlerta('Error al conectar con la base de datos de usuarios. Verifique que el backend esté activo.');
+      setErrorAlerta(err.response?.data?.detail || err.message || 'No se pudieron cargar los usuarios. Revisa la conexión y vuelve a intentar.');
     } finally {
       setCargando(false);
     }
@@ -284,6 +285,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
         </div>
       </div>
 
+      <p>Para acceder con otro rol, crea su cuenta en «Nuevo Usuario», asigna el rol y los permisos, cierra tu sesión e inicia con su correo y contraseña. Las cuentas de repartidor deben vincularse con un conductor.</p>
       {/* Selector de Simulación de Rol Activo */}
       {onRoleChange && (
         <div className="card" style={{ padding: '1rem 1.25rem', marginBottom: '1.5rem', background: '#F7F6F1', border: '1.5px solid #CAD3BD' }}>

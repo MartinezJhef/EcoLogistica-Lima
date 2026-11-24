@@ -72,7 +72,10 @@ def proposal(data: Proposal, db: Session = Depends(get_db), user=Depends(analyst
 
 @router.get('/reportes')
 def reports(db: Session = Depends(get_db), user=Depends(analyst)):
-    rows = db.query(SustainabilityExport).filter(SustainabilityExport.owner == str(user.usuario_id)).order_by(SustainabilityExport.created_at.desc()).limit(50).all()
+    query = db.query(SustainabilityExport)
+    if user.rol != 'ADMIN':
+        query = query.filter(SustainabilityExport.owner == str(user.usuario_id))
+    rows = query.order_by(SustainabilityExport.created_at.desc()).limit(50).all()
     return [{'id': r.id, 'estado': r.status, 'tipo': r.kind, 'error': r.error,
              'desde': r.data['desde'], 'hasta': r.data['hasta']} for r in rows]
 
