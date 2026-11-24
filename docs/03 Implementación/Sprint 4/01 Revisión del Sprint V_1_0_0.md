@@ -30,6 +30,11 @@ Incremento implementado y probado en la [rama de Sprint 4](https://github.com/Ma
 
 Pruebas locales: 85 del servidor, 217 de la web y 12 recorridos integrales con Playwright Python en tres navegadores. Cobertura: servidor 85,18 %; web 82,77 % de líneas. La integración espacial se comprobó mediante el despliegue local PostgreSQL/PostGIS y migración 007 aplicada dos veces.
 
+### Demostración de las 3 historias de usuario completadas
+![alt text](image.png)
+
+![alt text](image-1.png)
+
 ## Demostración del trabajo completado
 
 La demostración del incremento desarrollado durante el Sprint 4 se realizó mediante pruebas automatizadas en un entorno local controlado y desechable. Este entorno estuvo compuesto por una API desarrollada con FastAPI, una base de datos PostgreSQL 16 con PostGIS, un trabajador independiente para la generación de archivos PDF y una interfaz web desarrollada con React.
