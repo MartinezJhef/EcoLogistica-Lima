@@ -1,0 +1,24 @@
+{
+  "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+  "interval_seconds": 3600,
+  "observed_seconds": 0.69,
+  "samples": [
+    {
+      "time_utc": "2026-11-27T23:46:07.223143+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 236.0
+    },
+    {
+      "time_utc": "2026-11-27T23:46:07.458640+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 376.27
+    }
+  ],
+  "successful_samples": 2,
+  "total_samples": 2,
+  "sample_success_percent": 100.0
+}

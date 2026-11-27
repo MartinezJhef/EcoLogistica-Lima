@@ -1,0 +1,26 @@
+{
+  "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+  "interval_seconds": 3600,
+  "observed_seconds": 20.32,
+  "samples": [
+    {
+      "time_utc": "2026-11-27T23:43:07.057831+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.26
+    },
+    {
+      "time_utc": "2026-11-27T23:43:07.292099+00:00",
+      "target": "api",
+      "status": null,
+      "available": false,
+      "error": "ReadTimeout",
+      "elapsed_ms": 20063.41
+    }
+  ],
+  "successful_samples": 1,
+  "total_samples": 2,
+  "sample_success_percent": 50.0,
+  "source_run": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46084024618"
+}

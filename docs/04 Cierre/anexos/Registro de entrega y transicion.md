@@ -21,7 +21,7 @@
 
 ## Condiciones que recibe el equipo
 
-Jira tiene los Sprints 1–4 cerrados, diez historias (67 SP), 99 subtareas y siete épicas en Listo. Se cerraron seguridad, vista de conductor y documentación. Quedan cuatro validaciones no funcionales fuera de los sprints. [Estado final y evidencia pendiente](Estado%20final%20del%20cierre%20Jira.md). No se declara aceptación global inexistente.
+Jira tiene los Sprints 1–4 cerrados, diez historias (67 SP), 99 subtareas y siete épicas en Listo. Se cerraron seguridad, vista de conductor y documentación. El corte de calidad posterior tiene 122 actividades Listo y ANA-26 En curso; la disponibilidad mensual aún no está acreditada. [Estado final y evidencia pendiente](Estado%20final%20del%20cierre%20Jira.md). No se declara aceptación global inexistente.
 
 Las pruebas automáticas no sustituyen evaluación humana de satisfacción. La reunión de cierre, las firmas y la sustentación no se atribuyen a nadie sin constancia. La consigna no exige un archivo de firmas adicional: este registro documenta la transición preparada sin convertir esa formalidad no aportada en un resultado ficticio.
 

@@ -10,7 +10,7 @@
 
 **Fecha de consolidación:** 27/11/2026. **Fecha de reunión de cierre:** no se acredita una reunión realizada; se propone usar este documento como agenda y registrar después asistentes/acuerdos reales. Las recomendaciones son una síntesis analítica del repositorio y de los incidentes comprobados.
 
-> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias en Listo (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Se regularizaron las 40 subtareas del corte inicial. Seguridad, vista de conductor y documentación también están en Listo. El proyecto completo registra **119/123 actividades terminadas**; siguen abiertas cuatro validaciones no funcionales. Horas, costos, EVM, mood y SUS autorizados conservan su naturaleza simulada. [Estado final y límites de aceptación](anexos/Estado%20final%20del%20cierre%20Jira.md).
+> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Corte de calidad posterior: **122/123 actividades Listo**; ANA-26 continúa En curso para completar la revisión manual WCAG. Rendimiento y capacidad tienen mediciones controladas; monitoreo y recuperación están implementados. La disponibilidad mensual no está acreditada. Horas, costos, EVM, mood y SUS conservan su naturaleza simulada. [Estado final](anexos/Estado%20final%20del%20cierre%20Jira.md) · [Resultados de calidad](anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md).
 
 ## 1. Matriz Consolidada de Aprendizajes
 

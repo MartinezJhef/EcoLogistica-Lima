@@ -1,0 +1,42 @@
+{
+  "fecha": "2026-11-27",
+  "fuente": "Interfaz autenticada de Jira, consulta project = ANA AND statusCategory != Done; una actividad restante",
+  "total_actividades": 123,
+  "Listo": 122,
+  "En_curso": 1,
+  "Por_hacer": 0,
+  "pendientes": [
+    {
+      "key": "ANA-26",
+      "estado": "En curso",
+      "motivo": "Auditoría automática completada; revisión manual integral WCAG 2.1 AA no acreditada"
+    }
+  ],
+  "cambios": [
+    {
+      "key": "ANA-21",
+      "estado": "Listo",
+      "alcance": "Motor sobre PostGIS con adaptador vial controlado"
+    },
+    {
+      "key": "ANA-29",
+      "estado": "Listo",
+      "alcance": "1000 pedidos y 50 vehículos en prueba controlada con integridad"
+    },
+    {
+      "key": "ANA-39",
+      "estado": "Listo",
+      "alcance": "Implementación de monitoreo y recuperación; SLA mensual no acreditado"
+    }
+  ],
+  "sprints_cerrados": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "subtareas_Listo": 99,
+  "historias_Listo": 10,
+  "SP": 67,
+  "epicas_Listo": 7
+}

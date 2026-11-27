@@ -141,7 +141,7 @@ write(p,text)
 p=CLOSE/'anexos/Matriz de entregables y evidencias.md'
 text=p.read_text(encoding='utf-8')
 extra='El cierre final observado se incorpora automáticamente con `scripts/finalize_closure_documents.py` al terminar `complete_closure_evidence.py`. [Estado final de Jira](Estado%20final%20del%20cierre%20Jira.md): cuatro sprints cerrados; cuatro validaciones generales aún abiertas.'
-if extra not in text:text+='\n\n'+extra
+if 'El cierre final observado se incorpora automáticamente' not in text:text+='\n\n'+extra
 write(p,text)
 p=ROOT/'README.md';text=p.read_text(encoding='utf-8')
 marker='### Evidencias actuales del cierre, 27/11/2026'
@@ -154,3 +154,6 @@ Sprints **1–4 cerrados**. Diez historias (**67 SP**), **99/99 subtareas** y si
 '''
 write(p,text)
 print('Cierre final conciliado: 4 sprints cerrados, 119/123 actividades; 4 validaciones abiertas.')
+if (EV/'jira-calidad-final-27nov.json').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/finalize_quality_documents.py'),run_name='__main__')

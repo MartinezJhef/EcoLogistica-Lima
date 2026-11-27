@@ -108,6 +108,18 @@ if (CLOSE/'evidencias/jira-cierre-final-27nov.json').exists():
     check(len(events['sprints'])==4 and all(any('Sprint completado' in row for row in s['rows']) for s in events['sprints']),'Falta evento oficial de cierre')
     current=json.loads((CLOSE/'evidencias/validacion-tecnica-cierre-27nov.json').read_text(encoding='utf-8-sig'))
     check(current['main'].startswith('6ef087e') and all(r['conclusion']=='success' for r in current['runs']),'CI del cierre funcional no aprobado')
+if (CLOSE/'evidencias/jira-calidad-final-27nov.json').exists():
+    quality=json.loads((CLOSE/'evidencias/jira-calidad-final-27nov.json').read_text(encoding='utf-8'))
+    check(quality['Listo']+quality['En_curso']+quality['Por_hacer']==quality['total_actividades']==123,'Total del corte de calidad inconsistente')
+    check(quality['pendientes']==[{'key':'ANA-26','estado':'En curso','motivo':'Auditoría automática completada; revisión manual integral WCAG 2.1 AA no acreditada'}],'Pendiente de calidad inconsistente')
+    capacity=json.loads((CLOSE/'evidencias/medicion-capacidad-postgis-27nov.json').read_text(encoding='utf-8'))
+    check(capacity['150_orders_15_vehicles']['assigned']==150 and capacity['150_orders_15_vehicles']['optimization_seconds']<=45,'Medición de 150 pedidos fuera del objetivo interno')
+    check(capacity['1000_orders_50_vehicles']['assigned']==1000,'Capacidad sin 1000 asignaciones')
+    audit=json.loads((CLOSE/'evidencias/auditoria-accesibilidad-27nov.json').read_text(encoding='utf-8'))
+    check(audit['tests']['expected']==len(audit['results'])==30 and not audit['tests']['unexpected'],'Auditoría de accesibilidad incompleta')
+    check(all(r['violations']==0 for r in audit['results']),'Violaciones de accesibilidad pendientes en el alcance automático')
+    recovery=json.loads((CLOSE/'evidencias/recuperacion-postgis-local-27nov.json').read_text(encoding='utf-8'))
+    check(recovery['result']=='PASS' and recovery['worker_resumed_and_pdf_valid'],'Falta recuperación local medida')
 tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
 for file in tracked:
     check(not re.search(r'(^|/)(node_modules|\.venv|venv|__pycache__|\.dart_tool)/|\.pyc$',file),f'Residuo rastreado: {file}')

@@ -21,20 +21,24 @@ Commit funcional `6ef087e`: regresión local de **103 pruebas backend, 229 front
 
 [Aplicación pública](https://ecologistica-web.onrender.com) · [API y Swagger](https://ecologistica-api.onrender.com/docs).
 
-## Cuatro actividades generales todavía abiertas
+## Validaciones de calidad actualizadas
 
-**119/123 actividades Listo**, cuatro Por hacer, ninguna En curso. Los sprints funcionales cerrados no acreditan por sí solos todos los requisitos de calidad.
+**122/123 actividades Listo**, una En curso (ANA-26), ninguna Por hacer. Se conservan el corte anterior de 119 Listo y sus capturas como antecedentes.
 
-| Jira | Requisito | Evidencia que falta para declarar cumplimiento |
+| Jira | Estado observado | Resultado y límite |
 |---|---|---|
-| [ANA-21](https://continental-team-yg5bc6tv.atlassian.net/browse/ANA-21) | Rendimiento RNF-001 | Acreditar una solución válida con 150 pedidos/15 vehículos en ≤45 s y reoptimización ≤30 s, incluyendo las condiciones del proveedor vial. Las regresiones funcionales no equivalen a esta prueba máxima. |
-| [ANA-26](https://continental-team-yg5bc6tv.atlassian.net/browse/ANA-26) | Accesibilidad RNF-003 | Completar auditoría de criterios WCAG 2.1 AA aplicables en las pantallas principales, incluyendo teclado, foco, contraste y comprensión. Las pruebas de controles actuales no certifican el estándar completo. |
-| [ANA-29](https://continental-team-yg5bc6tv.atlassian.net/browse/ANA-29) | Capacidad RNF-004 | Ejecutar y conservar una prueba reproducible de 1.000 pedidos diarios y 50 vehículos con registro, consulta y funciones esenciales, comprobando integridad y límites del entorno. |
-| [ANA-39](https://continental-team-yg5bc6tv.atlassian.net/browse/ANA-39) | Disponibilidad RNF-006 | Acreditar ≥99.5% mensual entre 05:00 y 22:00 y recuperación íntegra. El monitoreo real de dos horas (239/240 muestras) no cubre un mes; no se puede completar ese periodo retroactivamente. |
+| ANA-21 | Listo | Motor sobre PostGIS: 150 pedidos/15 vehículos, 2,099 s; reoptimización 0,049 s. Adaptador vial controlado; no acredita esos tiempos con OSRM público. |
+| ANA-29 | Listo | 1.000 pedidos/50 vehículos; 1.000 entregas persistidas sin duplicados; 33 rutas. Carga sintética ejecutada contra PostGIS real. |
+| ANA-39 | Listo | Implementación de monitoreo horario, salud que consulta la base y recuperación de exportación tras reinicio local (2,387 s). No acredita SLA mensual ni failover de producción. |
+| ANA-26 | En curso | 30/30 auditorías automáticas aprobadas en tres navegadores, correcciones de contraste, etiquetas, teclado y ancho 320 px. Falta acreditar la revisión manual integral WCAG 2.1 AA. |
 
-![Consulta final de pendientes](../evidencias/jira-pendientes-generales-final-27nov.jpg)
+![Consulta de pendientes posterior a las validaciones](../evidencias/jira-calidad-pendiente-27nov.jpg)
 
-No se marcaron estas validaciones como aprobadas por tener código o pruebas de otro alcance. El hosting gratuito y OSRM público no acreditan por sí solos carga máxima, capacidad ni disponibilidad mensual. No se contrataron recursos pagos para alterar esta limitación.
+[Corte observado de calidad](../evidencias/jira-calidad-final-27nov.json) · [Pruebas, capturas y límites](Validaciones%20de%20calidad%20y%20continuidad%2027nov.md).
+
+Los cambios funcionales de calidad se publicaron en main en `924168b`. La revisión automática de accesibilidad y los datos sintéticos no se presentan como certificación universal o evaluación con personas. El objetivo mensual requiere observación real del periodo, aun cuando la tarea de implementar el monitor esté terminada.
+
+[CI y despliegue de calidad verificados](../evidencias/validacion-tecnica-calidad-27nov.json) · [Comprobación pública posterior](../evidencias/muestra-publica-postdeploy-27nov.json).
 
 ## Entrega documental y aceptación
 

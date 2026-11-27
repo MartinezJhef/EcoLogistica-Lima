@@ -47,8 +47,14 @@ Se probó un reinicio planificado de PostgreSQL en una instancia local aislada: 
 
 Se añadió [muestreo operativo programado](../../../.github/workflows/availability.yml): una consulta a la web y al estado de la API cada hora entre 05:00 y 21:00 de Lima, con artefactos retenidos 90 días y sin solicitudes de precalentamiento. GitHub puede retrasar ejecuciones programadas. Las muestras se conservan con fecha UTC y sus fallos; no se convierten en disponibilidad continua.
 
+La [primera ejecución operativa](../evidencias/monitoreo-operativo-inicial-27nov.json), a las 18:43 de Lima, registró web HTTP 200 en 234,26 ms y API sin respuesta dentro de 20 s (`ReadTimeout`): una de dos muestras disponibles. Se conserva el fallo. Que el workflow termine correctamente significa que recogió la evidencia; no que ambos servicios estuvieran disponibles. La muestra precede a la finalización del despliegue de calidad y no se usa como medición de latencia del nuevo commit.
+
+Después del despliegue aprobado, una [nueva comprobación pública](../evidencias/muestra-publica-postdeploy-27nov.json) obtuvo HTTP 200 en web y API. Es una muestra posterior independiente; no borra el timeout previo ni establece un SLA.
+
 **Pendiente temporal:** el objetivo de ≥99,5 % mensual en horario 05:00–22:00 exige observación real durante el periodo. Las 239/240 muestras históricas de dos horas y el reinicio local no prueban ese SLA ni el failover de Neon/Render. La instrumentación y la recuperación están implementadas; la aceptación mensual permanece pendiente de evidencia.
 
 ## Regresión
 
 Se mantuvieron aprobadas 229 pruebas unitarias web. El conjunto backend local pasó 105 pruebas, con cuatro integraciones omitidas en SQLite; las tres nuevas pruebas de capacidad se ejecutaron aparte sobre PostGIS. La compilación TypeScript/Vite y la precompresión finalizaron correctamente. La publicación debe acompañarse del resultado de CI y despliegue del commit correspondiente; estos resultados locales no sustituyen esa verificación.
+
+GitHub aprobó CI, pruebas Sprint 4, validación funcional hasta Sprint 3 (incluye PostGIS, Android y entorno desechable), Green IT y el despliegue de producción del commit `924168b`. [Registro de ejecuciones y enlace al despliegue](../evidencias/validacion-tecnica-calidad-27nov.json). Se conserva también el segundo despliegue del mismo SHA que dispara el otro workflow, con el estado observado al recoger la evidencia.

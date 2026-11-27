@@ -4,7 +4,7 @@
 
 **Proyecto:** EcoLogística Lima · **Corte:** 27/11/2026 · **Versión de entrega:** 1.0.0, revisión de evidencias 2. **Marco:** Scrum con gobierno predictivo.
 
-> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias en Listo (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Se regularizaron las 40 subtareas del corte inicial. Seguridad, vista de conductor y documentación también están en Listo. El proyecto completo registra **119/123 actividades terminadas**; siguen abiertas cuatro validaciones no funcionales. Horas, costos, EVM, mood y SUS autorizados conservan su naturaleza simulada. [Estado final y límites de aceptación](anexos/Estado%20final%20del%20cierre%20Jira.md).
+> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Corte de calidad posterior: **122/123 actividades Listo**; ANA-26 continúa En curso para completar la revisión manual WCAG. Rendimiento y capacidad tienen mediciones controladas; monitoreo y recuperación están implementados. La disponibilidad mensual no está acreditada. Horas, costos, EVM, mood y SUS conservan su naturaleza simulada. [Estado final](anexos/Estado%20final%20del%20cierre%20Jira.md) · [Resultados de calidad](anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md).
 
 ## 1. Burndown Chart: Sprint 4 cerrado
 
@@ -26,7 +26,7 @@ La captura muestra las diez historias en Listo antes de terminar los sprints. Or
 
 ![Flujo acumulado final](evidencias/jira-flujo-acumulado-cierre-final-27nov.jpg)
 
-Recuento de 123 actividades de distintos tipos: 119 Listo y cuatro validaciones generales Por hacer. No se presentan como 123 historias. Las 99 subtareas funcionales y siete épicas están terminadas.
+Captura histórica de 123 actividades de distintos tipos: 119 Listo y cuatro Por hacer. El corte de calidad posterior tiene 122 Listo y ANA-26 En curso. No se presentan como 123 historias. Las 99 subtareas funcionales y siete épicas están terminadas.
 
 ## 4. Mood Chart del equipo: resultados simulados autorizados
 
