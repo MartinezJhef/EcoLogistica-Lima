@@ -5,13 +5,15 @@ Creates synthetic users, one vehicle, one driver and one order, then verifies a 
 """
 from pathlib import Path
 import json,time,secrets,httpx
-from datetime import date,timedelta
+from datetime import datetime,timedelta,timezone
 import os
 from urllib.parse import urlparse
 base=os.getenv('STAGING_API_URL','http://127.0.0.1:8000/api/v1').rstrip('/')
 if urlparse(base).hostname not in ('localhost','127.0.0.1'):
     raise SystemExit('Esta prueba solo puede ejecutarse contra el entorno local desechable.')
 private={'admin_email':os.getenv('STAGING_ADMIN_EMAIL','staging-admin@example.test'),'admin_password':os.environ['STAGING_ADMIN_PASSWORD']}
+# Match the operational date used by the API, even when the CI host is in UTC.
+operational_date=datetime.now(timezone(timedelta(hours=-5))).date()
 report=[]
 client=httpx.Client(base_url=base,timeout=60,follow_redirects=True)
 def call(method,path,**kwargs):
@@ -25,7 +27,7 @@ login=call('POST','/auth/login',json={'email':private['admin_email'],'password':
 admin={'Authorization':'Bearer '+login['access_token']};client.headers.update(admin)
 tag=secrets.token_hex(3);plate=secrets.token_hex(2).upper()[:3]+'-'+str(secrets.randbelow(900)+100)
 vehicle=call('POST','/vehiculos',json=dict(placa=plate,marca_modelo='Vehículo de prueba local',anio_fabricacion=2025,capacidad_peso_kg=100,capacidad_volumen_m3=10,tipo_combustible='ELECTRICO',factor_emision_co2=0,altura_m=2.4,es_ligero=True,estado='DISPONIBLE'))
-driver=call('POST','/conductores',json=dict(dni=str(secrets.randbelow(90000000)+10000000),nombres='Conductor',apellidos='Prueba local',licencia='T'+str(secrets.randbelow(90000000)+10000000),licencia_vencimiento=(date.today()+timedelta(days=365)).isoformat(),categoria_licencia='A-IIIc',telefono='900000000',estado='DISPONIBLE'))
+driver=call('POST','/conductores',json=dict(dni=str(secrets.randbelow(90000000)+10000000),nombres='Conductor',apellidos='Prueba local',licencia='T'+str(secrets.randbelow(90000000)+10000000),licencia_vencimiento=(operational_date+timedelta(days=365)).isoformat(),categoria_licencia='A-IIIc',telefono='900000000',estado='DISPONIBLE'))
 users={}
 for role in ['CLIENTE','REPARTIDOR']:
     password=secrets.token_urlsafe(24);email=f'review-{role.lower()}-{tag}@example.test'
@@ -38,7 +40,7 @@ oid=order['pedido_id'];prefs={'ventana_inicio':'09:00','ventana_fin':'18:00','re
 call('PATCH',f'/mobile/pedidos/{oid}/preferencias',json=prefs);assert call('GET',f'/mobile/pedidos/{oid}')['referencia_ubicacion']=='Puerta de prueba'
 report.append('Cliente autenticado registra pedido propio y guarda sus preferencias en PostgreSQL real.')
 client.headers.update(admin);started=time.monotonic()
-plan=call('POST','/rutas/optimizar',json={'fecha_operacion':date.today().isoformat(),'vehiculo_id':vehicle['vehiculo_id'],'conductor_id':driver['conductor_id'],'pedidos_ids':[oid]})
+plan=call('POST','/rutas/optimizar',json={'fecha_operacion':operational_date.isoformat(),'vehiculo_id':vehicle['vehiculo_id'],'conductor_id':driver['conductor_id'],'pedidos_ids':[oid]})
 assert plan['pedidos_asignados_count']==1,plan.get('pedidos_no_asignados')
 route=plan['rutas'][0];rid=route['ruta_id']
 assert any(t.get('geometria_linea_geojson') for t in route['tramos']);assert route['co2_total_kg']==0
