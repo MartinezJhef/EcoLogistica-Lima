@@ -207,7 +207,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
 
 
     } catch (err: any) {
-      setErrorAlerta('Error al eliminar el usuario.');
+      setErrorAlerta(err.response?.data?.detail || err.message || 'Error al eliminar el usuario.');
     }
   };
 

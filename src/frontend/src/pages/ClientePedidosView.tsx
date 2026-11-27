@@ -8,7 +8,11 @@ export function ClientePedidosView({ readOnly = false }: { readOnly?: boolean })
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const load = async () => {
-    try { setPedidos((await api.get<Pedido[]>('/mobile/pedidos')).data); }
+    try {
+      const data = (await api.get<Pedido[]>('/mobile/pedidos')).data;
+      setPedidos(data); setMessage('');
+      setSelected(previous => previous ? data.find(p => p.pedido_id === previous.pedido_id) || null : null);
+    }
     catch { setMessage('No se pudieron cargar tus pedidos. Revisa la conexión.'); }
   };
   useEffect(() => { load(); }, []);
@@ -35,7 +39,8 @@ export function ClientePedidosView({ readOnly = false }: { readOnly?: boolean })
     reader.onload = () => setForm(old => ({...old,foto_referencia_url:String(reader.result)}));
     reader.readAsDataURL(file);
   };
-  const inTransit = selected?.estado === 'EN_TRANSITO';
+  const inTransit = ['EN_TRANSITO', 'EN_RUTA'].includes(selected?.estado || '');
+  const closed = ['ENTREGADO', 'NO_ENTREGADO', 'CANCELADO'].includes(selected?.estado || '');
   return <section style={{maxWidth:850,margin:'0 auto'}}>
     <h1>{readOnly ? 'Mis entregas' : 'Mis pedidos y preferencias'}</h1>
     <p>Solo se muestran los pedidos asociados a tu cuenta.</p>
@@ -50,7 +55,8 @@ export function ClientePedidosView({ readOnly = false }: { readOnly?: boolean })
     {selected && !readOnly && <form className="card" onSubmit={save} style={{display:'grid',gap:12,padding:20,marginTop:16}}>
       <h2>Preferencias: {selected.codigo_seguimiento}</h2>
       {inTransit && <p>No se pueden alterar las preferencias de un pedido en tránsito.</p>}
-      <fieldset disabled={inTransit || busy} style={{display:'grid',gap:12,border:0,padding:0}}>
+      {closed && <p>El pedido ya está cerrado; sus preferencias no se pueden modificar.</p>}
+      <fieldset disabled={inTransit || closed || busy} style={{display:'grid',gap:12,border:0,padding:0}}>
         <label>Hora de apertura<input aria-label="Hora de apertura" type="time" required value={form.ventana_inicio?.slice(0,5) || ''} onChange={e=>setForm({...form,ventana_inicio:e.target.value})}/></label>
         <label>Hora de cierre<input aria-label="Hora de cierre" type="time" required value={form.ventana_fin?.slice(0,5) || ''} onChange={e=>setForm({...form,ventana_fin:e.target.value})}/></label>
         <label>Restricción de acceso<select aria-label="Restricción de acceso" value={form.restriccion_acceso} onChange={e=>setForm({...form,restriccion_acceso:e.target.value})}>

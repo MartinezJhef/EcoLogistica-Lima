@@ -86,7 +86,7 @@ class FleetService:
             query = query.filter(Vehiculo.estado == estado.upper())
         if restriccion:
             query = query.filter(Vehiculo.restriccion_circulacion == restriccion.upper())
-        return query.offset(skip).limit(limit).all()
+        return query.order_by(Vehiculo.vehiculo_id).offset(skip).limit(limit).all()
 
     @staticmethod
     def contar_vehiculos(
@@ -241,7 +241,7 @@ class FleetService:
         query = db.query(Conductor)
         if estado:
             query = query.filter(Conductor.estado == estado.upper())
-        return query.offset(skip).limit(limit).all()
+        return query.order_by(Conductor.conductor_id).offset(skip).limit(limit).all()
 
     @staticmethod
     def contar_conductores(db: Session, estado: Optional[str] = None) -> int:

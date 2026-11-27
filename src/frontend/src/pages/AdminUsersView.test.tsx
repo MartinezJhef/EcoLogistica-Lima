@@ -152,9 +152,9 @@ describe('Componente: AdminUsersView', () => {
     fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);
     expect(UsuarioService.delete).not.toHaveBeenCalled();
     confirm.mockReturnValue(true);
-    vi.mocked(UsuarioService.delete).mockRejectedValueOnce(new Error('Error'));
+    vi.mocked(UsuarioService.delete).mockRejectedValueOnce(Object.assign(new Error('Conflicto'), {response:{data:{detail:'Debe quedar al menos un administrador activo.'}}}));
     await act(async()=>{fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);});
-    expect(screen.getByText('Error al eliminar el usuario.')).toBeTruthy();
+    expect(screen.getByText('Debe quedar al menos un administrador activo.')).toBeTruthy();
     await act(async()=>{fireEvent.click(screen.getAllByTitle('Eliminar usuario')[0]);});
     expect(screen.queryByText('Super Admin')).toBeNull();
     confirm.mockRestore();

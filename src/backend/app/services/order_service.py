@@ -195,6 +195,9 @@ class OrderService:
                 detail="No se pueden alterar las preferencias de un pedido en tránsito."
             )
 
+        if pedido.estado in ('ENTREGADO', 'NO_ENTREGADO', 'CANCELADO'):
+            raise HTTPException(409, 'El pedido ya está cerrado; sus preferencias no se pueden modificar.')
+
         # Validar y actualizar ventanas de entrega si fueron suministradas
         nueva_inicio = prefs_in.ventana_inicio or pedido.ventana_inicio
         nueva_fin = prefs_in.ventana_fin or pedido.ventana_fin

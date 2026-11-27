@@ -61,6 +61,16 @@ export const api = {
   delete: <T>(path: string) => request<T>('DELETE', path)
 };
 
+async function getAllPages<T>(path: string, filters: Record<string, string> = {}): Promise<T[]> {
+  const rows: T[] = [];
+  const limit = 500;
+  for (let skip = 0; ; skip += limit) {
+    const { data } = await api.get<T[]>(path, { params: { ...filters, limit, skip } });
+    rows.push(...data);
+    if (data.length < limit) return rows;
+  }
+}
+
 export interface Vehiculo {
   altura_m?: number | null;
   es_ligero?: boolean | null;
@@ -166,14 +176,14 @@ export type ClienteCreatePayload = Omit<Cliente, 'cliente_id' | 'creado_en'>;
 export type ClienteUpdatePayload = Partial<ClienteCreatePayload>;
 
 export const VehiculoService = {
-  getAll: async (tipo?: string): Promise<Vehiculo[]> => (await api.get<Vehiculo[]>('/vehiculos', { params: tipo && tipo !== 'TODOS' ? { tipo_combustible: tipo } : {} })).data,
+  getAll: (tipo?: string): Promise<Vehiculo[]> => getAllPages('/vehiculos', tipo && tipo !== 'TODOS' ? { tipo_combustible: tipo } : {}),
   getById: async (id: string): Promise<Vehiculo> => (await api.get<Vehiculo>(`/vehiculos/${id}`)).data,
   create: async (data: Omit<Vehiculo, 'vehiculo_id'>): Promise<Vehiculo> => (await api.post<Vehiculo>('/vehiculos', data)).data,
   update: async (id: string, data: Partial<Vehiculo>): Promise<Vehiculo> => (await api.put<Vehiculo>(`/vehiculos/${id}`, data)).data,
   delete: async (id: string) => (await api.delete(`/vehiculos/${id}`)).data,
 };
 export const ConductorService = {
-  getAll: async (estado?: string): Promise<Conductor[]> => (await api.get<Conductor[]>('/conductores', { params: estado && estado !== 'TODOS' ? { estado } : {} })).data,
+  getAll: (estado?: string): Promise<Conductor[]> => getAllPages('/conductores', estado && estado !== 'TODOS' ? { estado } : {}),
   getById: async (id: string): Promise<Conductor> => (await api.get<Conductor>(`/conductores/${id}`)).data,
   create: async (data: Omit<Conductor, 'conductor_id'>): Promise<Conductor> => (await api.post<Conductor>('/conductores', data)).data,
   update: async (id: string, data: Partial<Conductor>): Promise<Conductor> => (await api.put<Conductor>(`/conductores/${id}`, data)).data,
@@ -251,7 +261,7 @@ export interface UsuarioUpdatePayload {
 
 export const UsuarioService = {
   getCatalogoPermisos: async () => (await api.get<any>('/usuarios/catalogo-permisos')).data,
-  getAll: async (rol?: string, estado?: string): Promise<Usuario[]> => (await api.get<Usuario[]>('/usuarios', {params: {limit: 500, ...(rol && rol !== 'TODOS' ? {rol} : {}), ...(estado && estado !== 'TODOS' ? {estado} : {})}})).data,
+  getAll: (rol?: string, estado?: string): Promise<Usuario[]> => getAllPages('/usuarios', {...(rol && rol !== 'TODOS' ? {rol} : {}), ...(estado && estado !== 'TODOS' ? {estado} : {})}),
   getById: async (id: string): Promise<Usuario> => (await api.get<Usuario>(`/usuarios/${id}`)).data,
   create: async (data: UsuarioCreatePayload): Promise<Usuario> => (await api.post<Usuario>('/usuarios', data)).data,
   update: async (id: string, data: UsuarioUpdatePayload): Promise<Usuario> => (await api.put<Usuario>(`/usuarios/${id}`, data)).data,
@@ -260,7 +270,7 @@ export const UsuarioService = {
 
 
 export const ClienteService = {
-  getAll: async (): Promise<Cliente[]> => (await api.get<Cliente[]>('/clientes', {params:{limit:500}})).data,
+  getAll: (): Promise<Cliente[]> => getAllPages('/clientes'),
   getById: async (id: string): Promise<Cliente> => (await api.get<Cliente>(`/clientes/${id}`)).data,
   create: async (data: ClienteCreatePayload): Promise<Cliente> => (await api.post<Cliente>('/clientes', data)).data,
   update: async (id: string, data: ClienteUpdatePayload): Promise<Cliente> => (await api.put<Cliente>(`/clientes/${id}`, data)).data,

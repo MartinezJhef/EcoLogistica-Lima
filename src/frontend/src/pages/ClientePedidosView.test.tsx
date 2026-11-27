@@ -57,4 +57,19 @@ describe('Preferencias propias del cliente',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Actualizar pedidos'}));
     await waitFor(()=>expect(api.get).toHaveBeenCalledTimes(2));
   });
+  it('actualizar pedidos bloquea un formulario abierto si el pedido salió a reparto',async()=>{
+    render(<ClientePedidosView/>);
+    fireEvent.click(await screen.findByRole('button',{name:/Editar preferencias/}));
+    vi.mocked(api.get).mockResolvedValue({data:[{...pedido,estado:'EN_TRANSITO'}]});
+    fireEvent.click(screen.getByRole('button',{name:'Actualizar pedidos'}));
+    await waitFor(()=>expect(screen.getByRole('button',{name:'Guardar mis preferencias'})).toBeDisabled());
+    expect(api.patch).not.toHaveBeenCalled();
+  });
+  it.each(['ENTREGADO','NO_ENTREGADO','CANCELADO'])('no permite cambiar preferencias del pedido cerrado %s',async estado=>{
+    vi.mocked(api.get).mockResolvedValue({data:[{...pedido,estado}]});
+    render(<ClientePedidosView/>);
+    fireEvent.click(await screen.findByRole('button',{name:/Editar preferencias/}));
+    expect(screen.getByRole('button',{name:'Guardar mis preferencias'})).toBeDisabled();
+    expect(screen.getByText(/El pedido ya está cerrado/)).toBeInTheDocument();
+  });
 });

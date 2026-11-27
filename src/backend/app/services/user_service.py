@@ -19,6 +19,14 @@ def _hash_password(plain_password: str) -> str:
 
 class UserService:
     @staticmethod
+    def preserve_administrator(db: Session, user: Usuario, role: str, state: str):
+        if user.rol == 'ADMIN' and user.estado == 'ACTIVO' and (role != 'ADMIN' or state != 'ACTIVO'):
+            admins = (db.query(Usuario).filter(Usuario.rol == 'ADMIN', Usuario.estado == 'ACTIVO')
+                      .order_by(Usuario.usuario_id).with_for_update().all())
+            if not any(admin.usuario_id != user.usuario_id for admin in admins):
+                raise HTTPException(409, 'Debe quedar al menos un administrador activo. Crea o activa otro antes de continuar.')
+
+    @staticmethod
     def validate_driver_link(db, driver_id, user_id=None):
         if not driver_id:
             return
@@ -101,6 +109,9 @@ class UserService:
     @staticmethod
     def update(db: Session, usuario_id: UUID, user_in: UsuarioUpdate) -> Usuario:
         user = UserService.get_by_id(db, usuario_id)
+        UserService.preserve_administrator(db, user,
+            user_in.rol.value if user_in.rol is not None else user.rol,
+            user_in.estado.value if user_in.estado is not None else user.estado)
 
         if "conductor_id" in user_in.model_fields_set:
             UserService.validate_driver_link(db, user_in.conductor_id, usuario_id)
@@ -129,5 +140,6 @@ class UserService:
     @staticmethod
     def delete(db: Session, usuario_id: UUID) -> None:
         user = UserService.get_by_id(db, usuario_id)
+        UserService.preserve_administrator(db, user, '', '')
         db.delete(user)
         db.commit()

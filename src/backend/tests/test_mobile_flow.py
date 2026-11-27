@@ -81,6 +81,18 @@ def test_driver_delivery_updates_route_and_does_not_expose_other_drivers(domain,
     assert client.patch(f'/api/v1/mobile/pedidos/{p.pedido_id}',json={'estado':'ASIGNADO'}).status_code == 409
 
 
+@pytest.mark.parametrize('state', ['ENTREGADO', 'NO_ENTREGADO', 'CANCELADO'])
+def test_closed_order_keeps_its_original_preferences(domain, client, as_user, state):
+    db, vehicle, driver, order = domain
+    user = as_user('CLIENTE')
+    p = order(usuario_cliente_id=user.usuario_id, estado=state, referencia_ubicacion='Referencia original')
+    response = client.patch(f'/api/v1/mobile/pedidos/{p.pedido_id}/preferencias',
+                            json={'referencia_ubicacion': 'Cambio posterior al cierre'})
+    assert response.status_code == 409
+    db.refresh(p)
+    assert p.referencia_ubicacion == 'Referencia original'
+
+
 def test_breakdown_redistributes_to_available_vehicle_and_notifies_both_routes(domain):
     from app.models.vehiculo import Vehiculo
     db, vehicle, driver, order = domain

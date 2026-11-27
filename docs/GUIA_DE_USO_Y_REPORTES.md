@@ -11,6 +11,8 @@ No se elige el rol en el login. Administración crea la cuenta en **Administraci
 
 Una sesión rechazada por el servidor devuelve al login. No debe confundirse con un fallo de base de datos.
 
+Debe quedar al menos un administrador activo. Antes de bloquear, eliminar o cambiar el rol del último administrador, crea o activa otra cuenta administradora. El servidor rechaza la operación si dejaría el sistema sin administración.
+
 ## Recorrido de registro a reporte
 
 1. Registrar vehículo disponible y conductor con licencia vigente.
@@ -21,6 +23,10 @@ Una sesión rechazada por el servidor devuelve al login. No debe confundirse con
 6. Reoptimizar ante incidencias, conservando las entregas ya resueltas.
 7. Confirmar regreso al depósito para completar la ruta.
 8. En Sostenibilidad seleccionar las fechas de operación, actualizar indicadores, generar PDF y descargarlo cuando esté LISTO.
+
+Las preferencias se pueden editar antes del reparto. Se bloquean durante el tránsito y después del cierre del pedido (entregado, no entregado o cancelado). Actualizar la lista también actualiza el estado del formulario abierto.
+
+Los listados de vehículos, conductores, usuarios y clientes recuperan las páginas del servidor antes de aplicar la paginación de la pantalla. No se limitan a los primeros 12 registros.
 
 ## Conservación y acceso
 

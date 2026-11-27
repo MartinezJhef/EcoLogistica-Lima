@@ -95,6 +95,20 @@ describe('Servicios integrados con FastAPI', () => {
     expect(init.headers.Authorization).toBe('Bearer token-test');
   });
   it.each([
+    ['vehículos', () => VehiculoService.getAll('DIESEL'), 'tipo_combustible=DIESEL'],
+    ['conductores', () => ConductorService.getAll('DISPONIBLE'), 'estado=DISPONIBLE'],
+    ['usuarios', () => UsuarioService.getAll('CLIENTE'), 'rol=CLIENTE'],
+  ])('recupera las páginas restantes de %s y conserva el filtro', async (_name, call, filter) => {
+    const first = Array.from({length:500}, (_,id)=>({id}));
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce({ok:true,status:200,json:async()=>first})
+      .mockResolvedValueOnce({ok:true,status:200,json:async()=>[{id:500}]});
+    const rows = await call();
+    expect(rows).toHaveLength(501);
+    expect((global.fetch as any).mock.calls[1][0]).toContain('skip=500');
+    expect((global.fetch as any).mock.calls[1][0]).toContain(filter);
+  });
+  it.each([
     ['crear pedido', () => PedidoService.create({} as any)],
     ['guardar preferencias', () => PedidoService.updatePreferencias('p1', {ventana_inicio:'09:00'})],
     ['crear vehículo', () => VehiculoService.create({} as any)],
