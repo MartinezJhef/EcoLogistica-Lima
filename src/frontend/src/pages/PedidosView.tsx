@@ -467,7 +467,7 @@ export function PedidosView() {
                 <div style="font-size:0.75rem;color:#2D3A2E;margin-bottom:2px;font-weight:600;">
                   ${nuevaDir}
                 </div>
-                <div style="font-size:0.72rem;color:#6E7E5A;margin-bottom:4px;">
+                <div style="font-size:0.72rem;color:#596A46;margin-bottom:4px;">
                   GPS Origen: [${latFija}, ${lngFija}]
                 </div>
                 <div style="font-size:0.7rem;color:#556B2F;background:#EBF1E6;padding:2px 5px;border-radius:4px;border:1px solid #CAD3BD;">
@@ -503,10 +503,10 @@ export function PedidosView() {
                 <div style="font-weight:700;color:#1A1A1A;font-size:0.85rem;margin-bottom:2px;display:flex;align-items:center;gap:5px;">
                   ${SVG_MINI_FLAG} Destino (Meta Final)
                 </div>
-                <div style="font-size:0.75rem;color:#C47D2B;margin-bottom:2px;font-weight:600;">
+                <div style="font-size:0.75rem;color:#885318;margin-bottom:2px;font-weight:600;">
                   ${nuevaDir}
                 </div>
-                <div style="font-size:0.72rem;color:#6E7E5A;margin-bottom:4px;">
+                <div style="font-size:0.72rem;color:#596A46;margin-bottom:4px;">
                   GPS Destino: [${latFija}, ${lngFija}]
                 </div>
                 <div style="font-size:0.7rem;color:#2D3A2E;background:#F5F4EE;padding:2px 5px;border-radius:4px;border:1px solid #CAD3BD;">
@@ -577,7 +577,7 @@ export function PedidosView() {
                 <div style="font-size:0.92rem;font-weight:700;color:#2D3A2E;margin-bottom:2px;">
                   ${c.nombres} ${c.apellidos}
                 </div>
-                <div style="font-size:0.75rem;color:#6E7E5A;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
+                <div style="font-size:0.75rem;color:#596A46;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
                   ${SVG_MINI_PIN} Base Fija: ${c.direccion_origen || 'Lima Metropolitana'}
                 </div>
                 <div style="display:flex;gap:4px;font-size:0.7rem;margin-bottom:6px;">
@@ -672,7 +672,7 @@ export function PedidosView() {
       if (markersLayerRef.current) {
         markersLayerRef.current.clearLayers();
         pedidos.forEach(p => {
-          const color = p.prioridad === 'URGENTE' ? '#D64541' : p.prioridad === 'ALTA' ? '#C47D2B' : '#556B2F';
+          const color = p.prioridad === 'URGENTE' ? '#D64541' : p.prioridad === 'ALTA' ? '#885318' : '#556B2F';
           const marker = L.marker([p.latitud, p.longitud], {
             icon: L.divIcon({
               className: 'custom-pin',
@@ -686,12 +686,12 @@ export function PedidosView() {
             <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-width:210px;padding:4px;">
               <div style="font-weight:700;color:#556B2F;font-size:0.85rem;margin-bottom:2px;">${p.codigo_seguimiento}</div>
               <div style="font-weight:600;font-size:0.85rem;color:#2D3A2E;margin-bottom:4px;">${p.cliente_nombre}</div>
-              <div style="font-size:0.75rem;color:#6E7E5A;margin-bottom:6px;">${p.direccion_destino}</div>
+              <div style="font-size:0.75rem;color:#596A46;margin-bottom:6px;">${p.direccion_destino}</div>
               <div style="display:flex;gap:4px;font-size:0.7rem;margin-bottom:6px;">
                 <span style="background:#F5F4EE;border:1px solid #CAD3BD;padding:2px 6px;border-radius:4px;color:#2D3A2E;">${p.peso_kg} kg</span>
                 <span style="background:#F5F4EE;border:1px solid #CAD3BD;padding:2px 6px;border-radius:4px;color:#2D3A2E;">${p.ventana_inicio} - ${p.ventana_fin}</span>
               </div>
-              <div style="font-size:0.72rem;color:#C47D2B;font-weight:600;">${p.restriccion_acceso || 'LIBRE_ACCESO'}</div>
+              <div style="font-size:0.72rem;color:#885318;font-weight:600;">${p.restriccion_acceso || 'LIBRE_ACCESO'}</div>
             </div>
           `);
           marker.addTo(markersLayerRef.current!);
@@ -1013,7 +1013,7 @@ export function PedidosView() {
                 </div>
                 <div>
                   <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#2D3A2E' }}>Nuevo Pedido de Entrega</h2>
-                  <p style={{ fontSize: '0.75rem', color: '#6E7E5A', marginTop: '1px' }}>US-003: Registro y Georreferenciación de Órdenes en Lima Metropolitana</p>
+                  <p style={{ fontSize: '0.75rem', color: '#596A46', marginTop: '1px' }}>US-003: Registro y Georreferenciación de Órdenes en Lima Metropolitana</p>
                 </div>
               </div>
 
@@ -1052,10 +1052,10 @@ export function PedidosView() {
               {/* Fila 1: Identificación del Pedido (Código, Cliente y Teléfono) */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
+                  <label htmlFor="pedidosview-field-45187" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     CÓDIGO DE SEGUIMIENTO (ÚNICO)
                   </label>
-                  <input
+                  <input id="pedidosview-field-45187"
                     type="text"
                     value={codigo}
                     onChange={e => setCodigo(e.target.value)}
@@ -1065,10 +1065,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
+                  <label htmlFor="pedidosview-field-45798" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     CLIENTE / RAZÓN SOCIAL *
                   </label>
-                  <input
+                  <input id="pedidosview-field-45798"
                     ref={clienteInputRef}
                     type="text"
                     value={cliente}
@@ -1079,10 +1079,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
+                  <label htmlFor="pedidosview-field-46427" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     TELÉFONO DE CONTACTO
                   </label>
-                  <input
+                  <input id="pedidosview-field-46427"
                     type="tel"
                     value={telefonoContacto}
                     onChange={e => setTelefonoContacto(e.target.value)}
@@ -1140,10 +1140,10 @@ export function PedidosView() {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                    <label htmlFor="pedidosview-field-49409" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       DIRECCIÓN DE ORIGEN *
                     </label>
-                    <input
+                    <input id="pedidosview-field-49409"
                       ref={origenInputRef}
                       type="text"
                       value={origenDireccion}
@@ -1151,24 +1151,24 @@ export function PedidosView() {
                       placeholder="Ej. Av. Argentina 2060, Callao (Centro de Distribución EcoLogística)"
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
-                    <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <div style={{ fontSize: '0.7rem', color: '#596A46', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                       <Navigation size={11} color="#556B2F" />
                       <span>GPS Origen fijado: <strong style={{ color: '#2D3A2E', fontFamily: 'monospace' }}>[{origenLat.toFixed(6)}, {origenLng.toFixed(6)}]</strong></span>
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                    <label htmlFor="pedidosview-field-50551" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#556B2F', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       REFERENCIA TEXTUAL DEL ORIGEN
                     </label>
-                    <input
+                    <input id="pedidosview-field-50551"
                       type="text"
                       value={referenciaUbicacion}
                       onChange={e => setReferenciaUbicacion(e.target.value)}
                       placeholder="Ej. Rampa de Despacho 4, Pabellón Este, ingresar por garita de pesaje..."
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
-                    <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '0.25rem' }}>
+                    <div style={{ fontSize: '0.68rem', color: '#596A46', marginTop: '0.25rem' }}>
                       * Referencia física/textual para el transportista exclusiva del punto de partida.
                     </div>
                   </div>
@@ -1178,7 +1178,7 @@ export function PedidosView() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '0.35rem', borderBottom: '1px solid #CAD3BD' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#C47D2B', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#885318', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Flag size={12} color="#FFFFFF" />
                       </div>
                       <div>
@@ -1206,16 +1206,16 @@ export function PedidosView() {
                       }}
                       title="Abrir mapa para fijar coordenadas de entrega con Bandera de Fin de Carrera SVG"
                     >
-                      <Flag size={12} color="#C47D2B" />
+                      <Flag size={12} color="#885318" />
                       <span>Fijar en Mapa</span>
                     </button>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                    <label htmlFor="pedidosview-field-53469" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       DIRECCIÓN DE DESTINO *
                     </label>
-                    <input
+                    <input id="pedidosview-field-53469"
                       ref={direccionInputRef}
                       type="text"
                       value={direccion}
@@ -1223,24 +1223,24 @@ export function PedidosView() {
                       placeholder="Ej. Av. Primavera 654, Santiago de Surco"
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
-                    <div style={{ fontSize: '0.7rem', color: '#6E7E5A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                      <Navigation size={11} color="#C47D2B" />
+                    <div style={{ fontSize: '0.7rem', color: '#596A46', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <Navigation size={11} color="#885318" />
                       <span>GPS Destino fijado: <strong style={{ color: '#2D3A2E', fontFamily: 'monospace' }}>[{latitud.toFixed(6)}, {longitud.toFixed(6)}]</strong></span>
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#C47D2B', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
+                    <label htmlFor="pedidosview-field-54604" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#885318', marginBottom: '0.35rem', letterSpacing: '0.01em' }}>
                       REFERENCIA TEXTUAL DEL DESTINO
                     </label>
-                    <input
+                    <input id="pedidosview-field-54604"
                       type="text"
                       value={referenciaDestino}
                       onChange={e => setReferenciaDestino(e.target.value)}
                       placeholder="Ej. Pasando el óvalo Higuereta, fachada con toldo verde, timbre 201..."
                       style={{ width: '100%', background: '#FFFFFF' }}
                     />
-                    <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '0.25rem' }}>
+                    <div style={{ fontSize: '0.68rem', color: '#596A46', marginTop: '0.25rem' }}>
                       * Referencia física/textual para el transportista exclusiva del punto de entrega.
                     </div>
                   </div>
@@ -1250,10 +1250,10 @@ export function PedidosView() {
               {/* Fila 3: Parámetros Operativos (Peso, Volumen, Ventana Inicio, Ventana Fin, Prioridad, Acceso) (6 Columnas) */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-55827" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     PESO CARGA (KG) *
                   </label>
-                  <input
+                  <input id="pedidosview-field-55827"
                     type="number"
                     step="0.1"
                     min="0.1"
@@ -1265,10 +1265,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-56410" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VOLUMEN (M³) *
                   </label>
-                  <input
+                  <input id="pedidosview-field-56410"
                     type="number"
                     step="0.05"
                     min="0.01"
@@ -1280,10 +1280,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-56998" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VENTANA INICIO *
                   </label>
-                  <input
+                  <input id="pedidosview-field-56998"
                     type="time"
                     required
                     value={vInicio}
@@ -1293,10 +1293,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-57509" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     VENTANA FIN *
                   </label>
-                  <input
+                  <input id="pedidosview-field-57509"
                     type="time"
                     required
                     value={vFin}
@@ -1306,10 +1306,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-58011" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     PRIORIDAD
                   </label>
-                  <select
+                  <select id="pedidosview-field-58011"
                     value={prioridad}
                     onChange={e => setPrioridad(e.target.value)}
                     style={{ width: '100%' }}
@@ -1322,10 +1322,10 @@ export function PedidosView() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
+                  <label htmlFor="pedidosview-field-58723" style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem' }}>
                     ACCESO VEHICULAR
                   </label>
-                  <select
+                  <select id="pedidosview-field-58723"
                     value={restriccionAcceso}
                     onChange={e => setRestriccionAcceso(e.target.value)}
                     style={{ width: '100%' }}
@@ -1409,10 +1409,10 @@ export function PedidosView() {
                       borderRadius: '8px'
                     }}
                   />
-                  <Search size={13} color="#6E7E5A" style={{ position: 'absolute', left: '0.6rem', top: '50%', transform: 'translateY(-50%)' }} />
+                  <Search size={13} color="#596A46" style={{ position: 'absolute', left: '0.6rem', top: '50%', transform: 'translateY(-50%)' }} />
                 </div>
 
-                <select
+                <select aria-label="Filtrar por estado"
                   value={filtroEstado}
                   onChange={e => setFiltroEstado(e.target.value)}
                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.65rem', borderRadius: '8px' }}
@@ -1423,7 +1423,7 @@ export function PedidosView() {
                   <option value="ENTREGADO">Entregado</option>
                 </select>
 
-                <select
+                <select aria-label="Filtrar por prioridad"
                   value={filtroPrioridad}
                   onChange={e => setFiltroPrioridad(e.target.value)}
                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.65rem', borderRadius: '8px' }}
@@ -1439,7 +1439,7 @@ export function PedidosView() {
 
             {/* Grid de Cards Pequeñas (3 a 4 por fila según pantalla) */}
             {pedidosFiltrados.length === 0 ? (
-              <div className="apple-card" style={{ padding: '2.5rem', textAlign: 'center', color: '#6E7E5A', background: '#FFFFFF' }}>
+              <div className="apple-card" style={{ padding: '2.5rem', textAlign: 'center', color: '#596A46', background: '#FFFFFF' }}>
                 <PackageCheck size={36} color="#CAD3BD" style={{ margin: '0 auto 0.75rem' }} />
                 <p style={{ fontWeight: 600, color: '#2D3A2E' }}>No se encontraron órdenes registradas</p>
                 <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>Prueba ajustando los filtros o registra un nuevo pedido en el formulario superior.</p>
@@ -1499,8 +1499,8 @@ export function PedidosView() {
 
                       {/* Destino */}
                       <div style={{ fontSize: '0.74rem', color: '#2D3A2E', display: 'flex', alignItems: 'flex-start', gap: '0.35rem', lineHeight: 1.3 }}>
-                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#FBEEDB', border: '1px solid #E5CEAC', borderRadius: '4px', padding: '1px 5px', color: '#C47D2B', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
-                          <Flag size={10} color="#C47D2B" /> Destino
+                        <span style={{ fontSize: '0.64rem', fontWeight: 700, background: '#FBEEDB', border: '1px solid #E5CEAC', borderRadius: '4px', padding: '1px 5px', color: '#885318', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+                          <Flag size={10} color="#885318" /> Destino
                         </span>
                         <span style={{ color: '#2D3A2E', fontSize: '0.73rem' }}>{p.direccion_destino}</span>
                       </div>
@@ -1520,11 +1520,11 @@ export function PedidosView() {
                       </div>
 
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed #CAD3BD', paddingTop: '0.35rem' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#6E7E5A' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#596A46' }}>
                           <Navigation size={12} color="#556B2F" />
                           [{p.latitud.toFixed(3)}, {p.longitud.toFixed(3)}]
                         </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#C47D2B', fontWeight: 600, fontSize: '0.7rem' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#885318', fontWeight: 600, fontSize: '0.7rem' }}>
                           <Store size={12} />
                           {p.restriccion_acceso ? p.restriccion_acceso.replace(/_/g, ' ') : 'LIBRE'}
                         </span>
@@ -1561,7 +1561,7 @@ export function PedidosView() {
                           fontSize: '0.72rem',
                           padding: '0.35rem 0.45rem',
                           justifyContent: 'center',
-                          color: p.estado === 'PENDIENTE' ? '#C47D2B' : '#556B2F',
+                          color: p.estado === 'PENDIENTE' ? '#885318' : '#556B2F',
                           borderColor: p.estado === 'PENDIENTE' ? '#E5CEAC' : '#CAD3BD'
                         }}
                       >
@@ -1724,10 +1724,10 @@ export function PedidosView() {
                 {/* 3. Referencias de Entrega y Teléfono */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
+                    <label htmlFor="pedidosview-field-80758" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       REFERENCIA TEXTUAL DEL ORIGEN
                     </label>
-                    <textarea
+                    <textarea id="pedidosview-field-80758"
                       rows={3}
                       value={prefReferencia}
                       onChange={e => setPrefReferencia(e.target.value)}
@@ -1736,20 +1736,20 @@ export function PedidosView() {
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
+                    <label htmlFor="pedidosview-field-81448" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       TELÉFONO DE CONTACTO RECEPTOR
                     </label>
-                    <input
+                    <input id="pedidosview-field-81448"
                       type="text"
                       value={prefTelefono}
                       onChange={e => setPrefTelefono(e.target.value)}
                       placeholder="Ej. 987112233"
                       style={{ width: '100%', marginBottom: '0.5rem' }}
                     />
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
+                    <label htmlFor="pedidosview-field-82016" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       URL FOTOGRAFÍA DE REFERENCIA (FACHADA)
                     </label>
-                    <input
+                    <input id="pedidosview-field-82016"
                       type="url"
                       value={prefFotoUrl}
                       onChange={e => setPrefFotoUrl(e.target.value)}
@@ -1853,7 +1853,7 @@ export function PedidosView() {
                 borderRadius: '8px',
                 padding: '0.2rem 0.35rem'
               }}>
-                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#6E7E5A', padding: '0 0.25rem' }}>
+                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#596A46', padding: '0 0.25rem' }}>
                   Fijar con Clic:
                 </span>
                 <button
@@ -1897,9 +1897,9 @@ export function PedidosView() {
                     fontWeight: 600,
                     padding: '0.25rem 0.55rem',
                     borderRadius: '6px',
-                    border: modoFijarPunto === 'B' ? '1.5px solid #C47D2B' : '1px solid transparent',
+                    border: modoFijarPunto === 'B' ? '1.5px solid #885318' : '1px solid transparent',
                     background: modoFijarPunto === 'B' ? '#FBF4E8' : 'transparent',
-                    color: modoFijarPunto === 'B' ? '#C47D2B' : '#2D3A2E',
+                    color: modoFijarPunto === 'B' ? '#885318' : '#2D3A2E',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1907,7 +1907,7 @@ export function PedidosView() {
                   }}
                   title="Fijar Destino (con Bandera de Meta SVG)"
                 >
-                  <Flag size={12} color="#C47D2B" />
+                  <Flag size={12} color="#885318" />
                   <span>Destino (Bandera Meta)</span>
                 </button>
               </div>
@@ -1989,7 +1989,7 @@ export function PedidosView() {
                   <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2D3A2E', fontFamily: 'monospace' }}>
                     [{origenLat.toFixed(5)}, {origenLng.toFixed(5)}]
                   </div>
-                  <div style={{ fontSize: '0.68rem', color: '#6E7E5A', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div style={{ fontSize: '0.68rem', color: '#596A46', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {origenDireccion}
                   </div>
                 </div>
@@ -1997,15 +1997,15 @@ export function PedidosView() {
 
               {/* Destino (Bandera Meta) */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <Flag size={16} color="#C47D2B" />
+                <Flag size={16} color="#885318" />
                 <div>
-                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#C47D2B', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#885318', textTransform: 'uppercase' }}>
                     Destino (Bandera Meta):
                   </div>
                   <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2D3A2E', fontFamily: 'monospace' }}>
                     [{latitud.toFixed(5)}, {longitud.toFixed(5)}]
                   </div>
-                  <div style={{ fontSize: '0.68rem', color: '#6E7E5A', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div style={{ fontSize: '0.68rem', color: '#596A46', maxWidth: '180px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {direccion || 'Sin fijar'}
                   </div>
                 </div>

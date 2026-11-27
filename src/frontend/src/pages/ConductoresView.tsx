@@ -1,3 +1,4 @@
+import { AccessibleDialog } from '../components/AccessibleDialog';
 import React, { useState, useEffect, useRef } from 'react';
 import { usePagination } from '../hooks/usePagination';
 import { Pagination } from '../components/Pagination';
@@ -170,7 +171,7 @@ export function ConductoresView() {
               <div style="font-size:0.75rem;color:#556B2F;margin-bottom:4px;">
                 Coordenadas GPS: [${latClean}, ${lngClean}]
               </div>
-              <div style="font-size:0.72rem;color:#6E7E5A;">
+              <div style="font-size:0.72rem;color:#596A46;">
                 Punto de destino marcado con Bandera a Cuadros SVG.
               </div>
             </div>
@@ -234,7 +235,7 @@ export function ConductoresView() {
                 <div style="font-size:0.92rem;font-weight:700;color:#2D3A2E;margin-bottom:2px;">
                   ${c.nombres} ${c.apellidos}
                 </div>
-                <div style="font-size:0.75rem;color:#6E7E5A;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
+                <div style="font-size:0.75rem;color:#596A46;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
                   ${SVG_MINI_PIN} Base Fija: ${c.direccion_origen || 'Lima Metropolitana'}
                 </div>
                 <div style="display:flex;gap:4px;font-size:0.7rem;margin-bottom:6px;">
@@ -674,7 +675,7 @@ export function ConductoresView() {
                 <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
                 <span>Seleccionar Conductor para Trazar Ruta desde su Base Fija:</span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#6E7E5A' }}>
+              <div style={{ fontSize: '0.75rem', color: '#596A46' }}>
                 {conductores.length} unidades activas en Lima Metropolitana
               </div>
             </div>
@@ -682,7 +683,7 @@ export function ConductoresView() {
             <div style={{ display: 'flex', gap: '0.6rem', overflowX: 'auto', paddingBottom: '0.35rem' }}>
               {conductores.map(c => {
                 const isSelected = conductorSeleccionado?.conductor_id === c.conductor_id;
-                const statusColor = c.estado === 'DISPONIBLE' ? '#556B2F' : c.estado === 'EN_RUTA' ? '#C47D2B' : '#D64541';
+                const statusColor = c.estado === 'DISPONIBLE' ? '#556B2F' : c.estado === 'EN_RUTA' ? '#885318' : '#D64541';
                 return (
                   <button
                     key={c.conductor_id}
@@ -711,7 +712,7 @@ export function ConductoresView() {
                       <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#2D3A2E' }}>
                         {c.nombres.split(' ')[0]} {c.apellidos.split(' ')[0]}
                       </div>
-                      <div style={{ fontSize: '0.7rem', color: '#6E7E5A', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <div style={{ fontSize: '0.7rem', color: '#596A46', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: statusColor }}></span>
                         {c.direccion_origen ? c.direccion_origen.split(',')[1]?.trim() || c.direccion_origen.split(',')[0] : 'Lima'} · {c.horas_conduccion_hoy}h
                       </div>
@@ -751,7 +752,7 @@ export function ConductoresView() {
                   <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#2D3A2E' }}>
                     Mapa Geoespacial de Rutas y Flota en Vivo
                   </div>
-                  <div style={{ fontSize: '0.74rem', color: '#6E7E5A' }}>
+                  <div style={{ fontSize: '0.74rem', color: '#596A46' }}>
                     Haz clic en el mapa para colocar la <strong>Bandera de Llegada SVG</strong> y calcular la ruta desde el carro
                   </div>
                 </div>
@@ -886,7 +887,7 @@ export function ConductoresView() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
               {/* Origen del Conductor */}
               <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
-                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ fontSize: '0.72rem', color: '#596A46', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span dangerouslySetInnerHTML={{ __html: SVG_MINI_CAR }} />
                   Vehículo & Base Fija de Origen
                 </div>
@@ -898,7 +899,7 @@ export function ConductoresView() {
                     <div style={{ fontSize: '0.78rem', color: '#556B2F', fontWeight: 600, marginTop: '0.2rem' }}>
                       {conductorSeleccionado.direccion_origen || 'Cercado de Lima'}
                     </div>
-                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#596A46', marginTop: '0.2rem' }}>
                       GPS: [{conductorSeleccionado.latitud_origen?.toFixed(6)}, {conductorSeleccionado.longitud_origen?.toFixed(6)}]
                     </div>
                     <div style={{ fontSize: '0.72rem', color: '#2D3A2E', marginTop: '0.35rem' }}>
@@ -906,13 +907,13 @@ export function ConductoresView() {
                     </div>
                   </>
                 ) : (
-                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A' }}>Ningún conductor seleccionado</div>
+                  <div style={{ fontSize: '0.8rem', color: '#596A46' }}>Ningún conductor seleccionado</div>
                 )}
               </div>
 
               {/* Destino de la Bandera */}
               <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
-                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ fontSize: '0.72rem', color: '#596A46', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span dangerouslySetInnerHTML={{ __html: SVG_MINI_FLAG }} />
                   Punto de Llegada (Bandera SVG)
                 </div>
@@ -924,7 +925,7 @@ export function ConductoresView() {
                     <div style={{ fontSize: '0.78rem', color: '#556B2F', fontWeight: 600, marginTop: '0.2rem' }}>
                       Coordenadas: [{puntoLlegada.lat}, {puntoLlegada.lng}]
                     </div>
-                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#596A46', marginTop: '0.2rem' }}>
                       Punto fijado interactivamente con clic en el mapa
                     </div>
                     <div style={{ fontSize: '0.72rem', color: '#556B2F', marginTop: '0.35rem', fontWeight: 600 }}>
@@ -932,7 +933,7 @@ export function ConductoresView() {
                     </div>
                   </>
                 ) : (
-                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.8rem', color: '#596A46', lineHeight: 1.5 }}>
                     Haz clic en cualquier punto del mapa de Lima para clavar la Bandera de Llegada SVG.
                   </div>
                 )}
@@ -940,7 +941,7 @@ export function ConductoresView() {
 
               {/* Estimaciones de Ruta */}
               <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
-                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
+                <div style={{ fontSize: '0.72rem', color: '#596A46', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
                   Distancia & Tiempo Estimado
                 </div>
                 {infoRuta ? (
@@ -953,7 +954,7 @@ export function ConductoresView() {
                         ~{infoRuta.tiempoMin} min
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.72rem', color: '#6E7E5A', marginTop: '0.3rem' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#596A46', marginTop: '0.3rem' }}>
                       Cálculo geodésico Haversine + modelo tráfico urbano Lima
                     </div>
                     <div style={{ fontSize: '0.72rem', color: '#2D3A2E', marginTop: '0.35rem' }}>
@@ -961,7 +962,7 @@ export function ConductoresView() {
                     </div>
                   </>
                 ) : (
-                  <div style={{ fontSize: '0.8rem', color: '#6E7E5A' }}>
+                  <div style={{ fontSize: '0.8rem', color: '#596A46' }}>
                     Selecciona un vehículo y clava la bandera en el mapa para calcular distancia y tiempo.
                   </div>
                 )}
@@ -969,7 +970,7 @@ export function ConductoresView() {
 
               {/* Control de Fatiga Legal Ley N° 30224 */}
               <div style={{ padding: '0.85rem', background: '#F5F4EE', borderRadius: '10px', border: '1px solid #CAD3BD' }}>
-                <div style={{ fontSize: '0.72rem', color: '#6E7E5A', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
+                <div style={{ fontSize: '0.72rem', color: '#596A46', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.35rem' }}>
                   Cumplimiento Legal MTC (Ley N° 30224)
                 </div>
                 {conductorSeleccionado && (
@@ -1021,10 +1022,10 @@ export function ConductoresView() {
         <form onSubmit={handleCrear}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-44754" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 <CreditCard size={13} /> DNI (8 dígitos):
               </label>
-              <input
+              <input id="conductoresview-field-44754"
                 type="text"
                 required
                 maxLength={8}
@@ -1037,10 +1038,10 @@ export function ConductoresView() {
             </div>
 
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-45452" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Nombres:
               </label>
-              <input
+              <input id="conductoresview-field-45452"
                 type="text"
                 required
                 placeholder="Ej. Carlos Eduardo"
@@ -1051,10 +1052,10 @@ export function ConductoresView() {
             </div>
 
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-45976" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Apellidos:
               </label>
-              <input
+              <input id="conductoresview-field-45976"
                 type="text"
                 required
                 placeholder="Ej. Quispe Huamán"
@@ -1065,10 +1066,10 @@ export function ConductoresView() {
             </div>
 
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-46505" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 <Award size={13} /> Brevete MTC:
               </label>
-              <input
+              <input id="conductoresview-field-46505"
                 type="text"
                 required
                 placeholder="Ej. Q71234567"
@@ -1080,10 +1081,10 @@ export function ConductoresView() {
 
             <label>Vencimiento del brevete<input aria-label="Vencimiento del brevete" type="date" required value={licenciaVencimiento} onChange={e => setLicenciaVencimiento(e.target.value)} /></label>
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-47330" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Categoría MTC:
               </label>
-              <select
+              <select id="conductoresview-field-47330"
                 value={categoria}
                 onChange={e => setCategoria(e.target.value)}
                 style={{ width: '100%' }}
@@ -1098,10 +1099,10 @@ export function ConductoresView() {
             </div>
 
             <div>
-              <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+              <label htmlFor="conductoresview-field-48255" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 <Phone size={13} /> Teléfono Móvil:
               </label>
-              <input
+              <input id="conductoresview-field-48255"
                 type="text"
                 required
                 maxLength={12}
@@ -1120,10 +1121,10 @@ export function ConductoresView() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                <label htmlFor="conductoresview-field-49568" style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Dirección Base / Domicilio:
                 </label>
-                <input
+                <input id="conductoresview-field-49568"
                   type="text"
                   placeholder="Ej. Av. Elmer Faucett 2100, Callao"
                   value={direccionOrigen}
@@ -1133,10 +1134,10 @@ export function ConductoresView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                <label htmlFor="conductoresview-field-50146" style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Latitud GPS:
                 </label>
-                <input
+                <input id="conductoresview-field-50146"
                   type="number"
                   step="0.000001"
                   placeholder="-12.046374"
@@ -1147,10 +1148,10 @@ export function ConductoresView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                <label htmlFor="conductoresview-field-50755" style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Longitud GPS:
                 </label>
-                <input
+                <input id="conductoresview-field-50755"
                   type="number"
                   step="0.000001"
                   placeholder="-77.042793"
@@ -1353,7 +1354,7 @@ export function ConductoresView() {
       {/* Modal de Simulación / Asignación de Ruta (SUB-002-05 & SUB-002-07) */}
       {assigningConductor && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setAssigningConductor(null)}>
-          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
+          <AccessibleDialog label="Gestionar conductor" onDismiss={() => setAssigningConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
             <div className="modal-header">
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Send size={18} color="var(--apple-accent)" /> Asignación de Ruta a Conductor
@@ -1381,10 +1382,10 @@ export function ConductoresView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.82rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor="conductoresview-field-62214" style={{ fontSize: '0.82rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Duración estimada de la ruta a asignar (horas):
                 </label>
-                <input
+                <input id="conductoresview-field-62214"
                   type="number"
                   step="0.1"
                   min="0.1"
@@ -1443,14 +1444,14 @@ export function ConductoresView() {
                 </button>
               </div>
             </form>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
 
       {/* Modal de Edición de Conductor */}
       {editingConductor && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setEditingConductor(null)}>
-          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+          <AccessibleDialog label="Gestionar conductor" onDismiss={() => setEditingConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
             <div className="modal-header">
               <h2>Editar Conductor: {editingConductor.nombres}</h2>
               <button 
@@ -1465,10 +1466,10 @@ export function ConductoresView() {
             <form onSubmit={handleGuardarEdicion} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-66388" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Nombres:
                   </label>
-                  <input
+                  <input id="conductoresview-field-66388"
                     type="text"
                     required
                     value={editNombres}
@@ -1478,10 +1479,10 @@ export function ConductoresView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-66880" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Apellidos:
                   </label>
-                  <input
+                  <input id="conductoresview-field-66880"
                     type="text"
                     required
                     value={editApellidos}
@@ -1493,10 +1494,10 @@ export function ConductoresView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-67497" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono Móvil:
                   </label>
-                  <input
+                  <input id="conductoresview-field-67497"
                     type="text"
                     required
                     value={editTelefono}
@@ -1507,10 +1508,10 @@ export function ConductoresView() {
 
                 <label>Vencimiento del brevete<input aria-label="Editar vencimiento del brevete" type="date" value={editVencimiento} onChange={e => setEditVencimiento(e.target.value)} /></label>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-68194" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Categoría MTC:
                   </label>
-                  <select
+                  <select id="conductoresview-field-68194"
                     value={editCategoria}
                     onChange={e => setEditCategoria(e.target.value)}
                     style={{ width: '100%' }}
@@ -1526,10 +1527,10 @@ export function ConductoresView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor="conductoresview-field-69030" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Dirección Base / Origen:
                 </label>
-                <input
+                <input id="conductoresview-field-69030"
                   type="text"
                   value={editDireccion}
                   onChange={e => setEditDireccion(e.target.value)}
@@ -1539,10 +1540,10 @@ export function ConductoresView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-69591" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Latitud GPS:
                   </label>
-                  <input
+                  <input id="conductoresview-field-69591"
                     type="number"
                     step="0.000001"
                     value={editLatitud}
@@ -1552,10 +1553,10 @@ export function ConductoresView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="conductoresview-field-70133" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Longitud GPS:
                   </label>
-                  <input
+                  <input id="conductoresview-field-70133"
                     type="number"
                     step="0.000001"
                     value={editLongitud}
@@ -1566,10 +1567,10 @@ export function ConductoresView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor="conductoresview-field-70696" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Estado Operativo:
                 </label>
-                <select
+                <select id="conductoresview-field-70696"
                   value={editEstado}
                   onChange={e => setEditEstado(e.target.value)}
                   style={{ width: '100%' }}
@@ -1597,7 +1598,7 @@ export function ConductoresView() {
                 </button>
               </div>
             </form>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
     </div>

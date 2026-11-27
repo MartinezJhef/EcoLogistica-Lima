@@ -186,7 +186,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
             )}
 
             <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{
+              <label htmlFor="loginview-field-6509" style={{
                 display: 'block',
                 fontSize: '0.72rem',
                 fontWeight: 700,
@@ -203,10 +203,10 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                   left: '12px',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  color: '#6E7E5A',
+                  color: '#596A46',
                   pointerEvents: 'none'
                 }} />
-                <input
+                <input id="loginview-field-6509"
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
@@ -230,7 +230,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
             </div>
 
             <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{
+              <label htmlFor="loginview-field-8195" style={{
                 display: 'block',
                 fontSize: '0.72rem',
                 fontWeight: 700,
@@ -247,10 +247,10 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                   left: '12px',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  color: '#6E7E5A',
+                  color: '#596A46',
                   pointerEvents: 'none'
                 }} />
-                <input
+                <input id="loginview-field-8195"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
@@ -282,7 +282,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                     transform: 'translateY(-50%)',
                     background: 'none',
                     border: 'none',
-                    color: '#6E7E5A',
+                    color: '#596A46',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',

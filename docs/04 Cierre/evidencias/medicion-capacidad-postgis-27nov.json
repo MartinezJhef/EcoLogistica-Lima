@@ -1,0 +1,32 @@
+{
+  "150_orders_15_vehicles": {
+    "method": "Real service execution on disposable PostGIS with synthetic orders and controlled road adapter; excludes external OSRM/network/production capacity",
+    "orders": 150,
+    "vehicles": 15,
+    "routes": 5,
+    "optimization_seconds": 2.099032999991323,
+    "reoptimization_seconds": 0.04874600000039209,
+    "assigned": 150,
+    "result": "PASS"
+  },
+  "1000_orders_50_vehicles": {
+    "method": "Real service execution on disposable PostGIS with synthetic orders and controlled road adapter; excludes external OSRM/network/production capacity",
+    "orders": 1000,
+    "vehicles": 50,
+    "routes": 33,
+    "insert_seconds": 0.27128309999534395,
+    "query_all_pages_seconds": 0.05690139999205712,
+    "planning_batches_seconds": [
+      5.110396700009005,
+      4.294495199996163,
+      3.8604754000116372,
+      3.324336300007417,
+      2.8742554999917047,
+      2.5582884999894304,
+      1.1906023000046844
+    ],
+    "assigned": 1000,
+    "integrity": "1000 distinct persisted delivery legs, no reused driver",
+    "result": "PASS"
+  }
+}

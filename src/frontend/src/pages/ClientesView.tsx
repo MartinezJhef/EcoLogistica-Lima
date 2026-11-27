@@ -1,3 +1,4 @@
+import { AccessibleDialog } from '../components/AccessibleDialog';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePagination } from '../hooks/usePagination';
@@ -205,7 +206,7 @@ export function ClientesView() {
           <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:3px;min-width:180px;">
             <div style="font-weight:700;color:#556B2F;font-size:0.85rem;margin-bottom:2px;">Casa / Negocio</div>
             <div style="font-size:0.75rem;color:#2D3A2E;">[${latitud.toFixed(6)}, ${longitud.toFixed(6)}]</div>
-            <div style="font-size:0.72rem;color:#6E7E5A;margin-top:2px;">Arrastra o haz clic para reubicar</div>
+            <div style="font-size:0.72rem;color:#596A46;margin-top:2px;">Arrastra o haz clic para reubicar</div>
           </div>
         `);
 
@@ -227,7 +228,7 @@ export function ClientesView() {
             <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:3px;min-width:180px;">
               <div style="font-weight:700;color:#556B2F;font-size:0.85rem;margin-bottom:2px;">Casa / Negocio</div>
               <div style="font-size:0.75rem;color:#2D3A2E;">[${latFija}, ${lngFija}]</div>
-              <div style="font-size:0.72rem;color:#6E7E5A;margin-top:2px;">Distrito detectado: ${nearest ? nearest.nombre : 'Lima'}</div>
+              <div style="font-size:0.72rem;color:#596A46;margin-top:2px;">Distrito detectado: ${nearest ? nearest.nombre : 'Lima'}</div>
             </div>
           `);
         };
@@ -314,7 +315,7 @@ export function ClientesView() {
           if (c.latitud && c.longitud) {
             const isSelected = clienteEnfocado?.cliente_id === c.cliente_id;
             const markerColor = c.tipo_comercio === 'BODEGA' ? '#556B2F' 
-              : c.tipo_comercio === 'SUPERMERCADO' ? '#C47D2B'
+              : c.tipo_comercio === 'SUPERMERCADO' ? '#885318'
               : c.tipo_comercio === 'FARMACIA' ? '#2D3A2E'
               : '#3C4A3F';
 
@@ -375,7 +376,7 @@ export function ClientesView() {
                 <div style="font-size:0.92rem;font-weight:700;color:#2D3A2E;margin-bottom:2px;">
                   ${c.razon_social}
                 </div>
-                <div style="font-size:0.75rem;color:#6E7E5A;margin-bottom:4px;">
+                <div style="font-size:0.75rem;color:#596A46;margin-bottom:4px;">
                   <strong>${c.tipo_documento}:</strong> ${c.numero_documento}
                 </div>
                 <div style="font-size:0.75rem;color:#2D3A2E;margin-bottom:6px;">
@@ -711,10 +712,10 @@ export function ClientesView() {
             <form onSubmit={handleCrear}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-28356" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Tipo de Documento:
                   </label>
-                  <select
+                  <select id="clientesview-field-28356"
                     value={tipoDocumento}
                     onChange={e => setTipoDocumento(e.target.value as any)}
                     style={{ width: '100%' }}
@@ -726,10 +727,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-29099" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     N° Documento:
                   </label>
-                  <input
+                  <input id="clientesview-field-29099"
                     type="text"
                     required
                     placeholder={tipoDocumento === 'RUC' ? 'Ej. 20548962311' : 'Ej. 71234567'}
@@ -740,10 +741,10 @@ export function ClientesView() {
                 </div>
 
                 <div style={{ gridColumn: 'span 2' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-29826" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Razón Social / Nombre Comercial:
                   </label>
-                  <input
+                  <input id="clientesview-field-29826"
                     type="text"
                     required
                     placeholder="Ej. Bodega San José S.A.C."
@@ -754,10 +755,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-30442" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Tipo de Comercio:
                   </label>
-                  <select
+                  <select id="clientesview-field-30442"
                     value={tipoComercio}
                     onChange={e => setTipoComercio(e.target.value as any)}
                     style={{ width: '100%' }}
@@ -772,10 +773,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-31423" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Contacto / Encargado:
                   </label>
-                  <input
+                  <input id="clientesview-field-31423"
                     type="text"
                     placeholder="Ej. José María Quispe"
                     value={nombreContacto}
@@ -785,10 +786,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-31999" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Teléfono Móvil:
                   </label>
-                  <input
+                  <input id="clientesview-field-31999"
                     type="text"
                     required
                     placeholder="Ej. 987654321"
@@ -799,10 +800,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-32579" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Correo Electrónico:
                   </label>
-                  <input
+                  <input id="clientesview-field-32579"
                     type="email"
                     placeholder="Ej. contacto@bodegasanjose.pe"
                     value={email}
@@ -897,10 +898,10 @@ export function ClientesView() {
                 {/* Campos de texto y coordenadas */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.85rem', marginBottom: mapaFormularioExpandido ? '0.85rem' : '0' }}>
                   <div style={{ gridColumn: 'span 2' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                    <label htmlFor="clientesview-field-37449" style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Dirección de Destino:
                     </label>
-                    <input
+                    <input id="clientesview-field-37449"
                       type="text"
                       required
                       placeholder="Ej. Av. Canto Grande 2450"
@@ -911,10 +912,10 @@ export function ClientesView() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                    <label htmlFor="clientesview-field-38097" style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Distrito de Lima:
                     </label>
-                    <select
+                    <select id="clientesview-field-38097"
                       value={distrito}
                       onChange={e => handleCambioDistrito(e.target.value)}
                       style={{ width: '100%', fontSize: '0.85rem' }}
@@ -926,10 +927,10 @@ export function ClientesView() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                    <label htmlFor="clientesview-field-38811" style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Latitud GPS:
                     </label>
-                    <input
+                    <input id="clientesview-field-38811"
                       type="number"
                       step="0.000001"
                       required
@@ -947,10 +948,10 @@ export function ClientesView() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
+                    <label htmlFor="clientesview-field-39808" style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Longitud GPS:
                     </label>
-                    <input
+                    <input id="clientesview-field-39808"
                       type="number"
                       step="0.000001"
                       required
@@ -1013,7 +1014,7 @@ export function ClientesView() {
                       alignItems: 'center', 
                       marginTop: '0.45rem', 
                       fontSize: '0.72rem', 
-                      color: '#6E7E5A',
+                      color: '#596A46',
                       padding: '0 0.2rem',
                       flexWrap: 'wrap',
                       gap: '0.5rem'
@@ -1032,10 +1033,10 @@ export function ClientesView() {
               {/* Ventanas Horarias y Restricciones */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-43734" style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
                     Recepción Desde:
                   </label>
-                  <input
+                  <input id="clientesview-field-43734"
                     type="time"
                     value={ventanaInicio}
                     onChange={e => setVentanaInicio(e.target.value)}
@@ -1044,10 +1045,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-44247" style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
                     Recepción Hasta:
                   </label>
-                  <input
+                  <input id="clientesview-field-44247"
                     type="time"
                     value={ventanaFin}
                     onChange={e => setVentanaFin(e.target.value)}
@@ -1056,10 +1057,10 @@ export function ClientesView() {
                 </div>
 
                 <div style={{ gridColumn: 'span 2' }}>
-                  <label style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="clientesview-field-44787" style={{ fontSize: '0.78rem', fontWeight: 600, display: 'block', marginBottom: '0.25rem', color: 'var(--apple-text-secondary)' }}>
                     Restricción de Acceso Vehicular:
                   </label>
-                  <select
+                  <select id="clientesview-field-44787"
                     value={restriccionAcceso}
                     onChange={e => setRestriccionAcceso(e.target.value)}
                     style={{ width: '100%' }}
@@ -1094,7 +1095,7 @@ export function ClientesView() {
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                 {/* Buscador */}
                 <div style={{ position: 'relative', minWidth: '220px' }}>
-                  <Search size={14} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#6E7E5A' }} />
+                  <Search size={14} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#596A46' }} />
                   <input
                     type="text"
                     placeholder="Buscar por RUC, nombre o distrito..."
@@ -1105,7 +1106,7 @@ export function ClientesView() {
                 </div>
 
                 {/* Filtro por tipo */}
-                <select
+                <select aria-label="Filtrar por tipo de comercio"
                   value={filtroTipo}
                   onChange={e => setFiltroTipo(e.target.value)}
                   style={{ fontSize: '0.8rem', height: '32px', padding: '0 8px' }}
@@ -1119,7 +1120,7 @@ export function ClientesView() {
                 </select>
 
                 {/* Filtro por estado */}
-                <select
+                <select aria-label="Filtrar por estado"
                   value={filtroEstado}
                   onChange={e => setFiltroEstado(e.target.value)}
                   style={{ fontSize: '0.8rem', height: '32px', padding: '0 8px' }}
@@ -1171,7 +1172,7 @@ export function ClientesView() {
                       <td>
                         <div style={{ fontWeight: 600 }}>{c.telefono}</div>
                         {c.nombre_contacto && (
-                          <div style={{ fontSize: '0.72rem', color: '#6E7E5A' }}>{c.nombre_contacto}</div>
+                          <div style={{ fontSize: '0.72rem', color: '#596A46' }}>{c.nombre_contacto}</div>
                         )}
                       </td>
                       <td>
@@ -1185,7 +1186,7 @@ export function ClientesView() {
                           <Clock size={12} color="#556B2F" />
                           <span>{c.ventana_entrega_inicio} - {c.ventana_entrega_fin}</span>
                         </div>
-                        <div style={{ fontSize: '0.68rem', color: '#6E7E5A', marginTop: '2px' }}>
+                        <div style={{ fontSize: '0.68rem', color: '#596A46', marginTop: '2px' }}>
                           {c.restriccion_acceso}
                         </div>
                       </td>
@@ -1264,7 +1265,7 @@ export function ClientesView() {
                 <Navigation size={18} color="#556B2F" />
                 <span>Geolocalización de Clientes & Puntos de Entrega en Lima</span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#6E7E5A' }}>
+              <div style={{ fontSize: '0.75rem', color: '#596A46' }}>
                 {clientes.length} puntos mapeados en {distritosUnicos} distritos
               </div>
             </div>
@@ -1294,7 +1295,7 @@ export function ClientesView() {
                   >
                     <Store size={14} color="#556B2F" />
                     <span>{c.razon_social.split('·')[0].trim()}</span>
-                    <span style={{ fontSize: '0.7rem', color: '#6E7E5A' }}>({c.distrito})</span>
+                    <span style={{ fontSize: '0.7rem', color: '#596A46' }}>({c.distrito})</span>
                   </button>
                 );
               })}
@@ -1323,7 +1324,7 @@ export function ClientesView() {
       {/* Modal de Edición de Cliente */}
       {editingCliente && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setEditingCliente(null)}>
-          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '580px' }}>
+          <AccessibleDialog label="Editar cliente" onDismiss={() => setEditingCliente(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '580px' }}>
             <div className="modal-header">
               <h2>Editar Cliente: {editingCliente.razon_social}</h2>
               <button 
@@ -1337,10 +1338,10 @@ export function ClientesView() {
 
             <form onSubmit={handleGuardarEdicion} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor="clientesview-field-58452" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Razón Social:
                 </label>
-                <input
+                <input id="clientesview-field-58452"
                   type="text"
                   required
                   value={editRazonSocial}
@@ -1351,10 +1352,10 @@ export function ClientesView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-59034" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Tipo de Comercio:
                   </label>
-                  <select
+                  <select id="clientesview-field-59034"
                     value={editTipoComercio}
                     onChange={e => setEditTipoComercio(e.target.value as any)}
                     style={{ width: '100%' }}
@@ -1369,10 +1370,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-59926" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Estado Operativo:
                   </label>
-                  <select
+                  <select id="clientesview-field-59926"
                     value={editEstado}
                     onChange={e => setEditEstado(e.target.value as any)}
                     style={{ width: '100%' }}
@@ -1385,10 +1386,10 @@ export function ClientesView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-60641" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Contacto:
                   </label>
-                  <input
+                  <input id="clientesview-field-60641"
                     type="text"
                     value={editContacto}
                     onChange={e => setEditContacto(e.target.value)}
@@ -1397,10 +1398,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-61106" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono Móvil:
                   </label>
-                  <input
+                  <input id="clientesview-field-61106"
                     type="text"
                     required
                     value={editTelefono}
@@ -1411,10 +1412,10 @@ export function ClientesView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor="clientesview-field-61625" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Dirección:
                 </label>
-                <input
+                <input id="clientesview-field-61625"
                   type="text"
                   required
                   value={editDireccion}
@@ -1425,10 +1426,10 @@ export function ClientesView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-62204" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Distrito:
                   </label>
-                  <input
+                  <input id="clientesview-field-62204"
                     type="text"
                     required
                     value={editDistrito}
@@ -1438,10 +1439,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-62699" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Latitud GPS:
                   </label>
-                  <input
+                  <input id="clientesview-field-62699"
                     type="number"
                     step="0.000001"
                     required
@@ -1452,10 +1453,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-63242" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Longitud GPS:
                   </label>
-                  <input
+                  <input id="clientesview-field-63242"
                     type="number"
                     step="0.000001"
                     required
@@ -1468,10 +1469,10 @@ export function ClientesView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-63907" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Ventana Inicio:
                   </label>
-                  <input
+                  <input id="clientesview-field-63907"
                     type="time"
                     value={editVentanaInicio}
                     onChange={e => setEditVentanaInicio(e.target.value)}
@@ -1480,10 +1481,10 @@ export function ClientesView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="clientesview-field-64388" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Ventana Fin:
                   </label>
-                  <input
+                  <input id="clientesview-field-64388"
                     type="time"
                     value={editVentanaFin}
                     onChange={e => setEditVentanaFin(e.target.value)}
@@ -1505,7 +1506,7 @@ export function ClientesView() {
                 </button>
               </div>
             </form>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
     </div>

@@ -1,0 +1,240 @@
+{
+  "type": "REAL_AUTOMATED_BROWSER_AUDIT",
+  "scope": "Ten rendered web scenarios with controlled synthetic API responses; axe WCAG 2.1 A/AA tags, keyboard, modal focus and 320px control layout. Not SUS, a human study or universal WCAG certification.",
+  "tests": {
+    "startTime": "2026-11-27T23:36:45.470Z",
+    "duration": 68933.564,
+    "expected": 30,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "results": [
+    {
+      "scenario": "login",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 18,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "login",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 18,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "login",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 18,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "rutas",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "rutas",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "rutas",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "cliente",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "cliente",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "cliente",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": [
+        "color-contrast"
+      ]
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    }
+  ]
+}

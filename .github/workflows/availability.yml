@@ -1,0 +1,30 @@
+name: Operational availability samples
+on:
+  workflow_dispatch:
+  schedule:
+    # Hourly, 05:00–21:00 America/Lima. Samples are not continuous uptime/SLA.
+    - cron: '0 0-2,10-23 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: availability-sampling
+  cancel-in-progress: false
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install httpx
+      - run: mkdir -p availability-results
+      - name: Sample public web and database readiness without warm-up requests
+        run: python scripts/monitor_public_availability.py --seconds 0 --interval 3600 --output availability-results/sample.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: availability-${{ github.run_id }}-${{ github.run_attempt }}
+          path: availability-results/
+          retention-days: 90

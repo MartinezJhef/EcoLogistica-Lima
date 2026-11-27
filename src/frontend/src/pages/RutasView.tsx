@@ -1,3 +1,4 @@
+import { AccessibleDialog } from '../components/AccessibleDialog';
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -240,7 +241,7 @@ export const RutasView: React.FC = () => {
             </div>
           `;
         } else {
-          const bg = tramo.alerta_zona_riesgo ? '#DC2626' : '#0D9417';
+          const bg = tramo.alerta_zona_riesgo ? '#DC2626' : '#08781A';
           markerHtml = `
             <div style="
               width: 28px; height: 28px; border-radius: 50%;
@@ -289,7 +290,7 @@ export const RutasView: React.FC = () => {
         try {
           const geometry = JSON.parse(t.geometria_linea_geojson);
           const roadPoints = geometry.coordinates.map(([lng, lat]: number[]) => [lat, lng] as L.LatLngTuple);
-          group.addLayer(L.polyline(roadPoints, { color: '#0D9417', weight: 4.5 }));
+          group.addLayer(L.polyline(roadPoints, { color: '#08781A', weight: 4.5 }));
         } catch { /* Legacy routes without verified road geometry retain their stop markers. */ }
       });
       (rutaSeleccionada.incidencias || []).forEach(i => {
@@ -411,7 +412,7 @@ export const RutasView: React.FC = () => {
         .sprint3-controls label:has(input[type=checkbox]) {display:flex;align-items:flex-start;gap:8px;line-height:1.5}
         .sprint3-controls input[type=number], .sprint3-controls input[type=time] {width:100%;padding:9px;border:1px solid #d1d5db;border-radius:7px;box-sizing:border-box}
         .sprint3-controls button {padding:9px 12px;border:1px solid #c7d2fe;border-radius:7px;background:#eef2ff;color:#3730a3;text-align:left;cursor:pointer}
-        .sprint3-controls p {margin:0;line-height:1.5;color:#6b7280}
+        .sprint3-controls p {margin:0;line-height:1.5;color:#59616C}
       `}</style>
       <p>Tráfico: cierres y demoras reportados por oficina. Sin conexión a tráfico en vivo.</p>
       {modoMarcado && <p role="status">{modoMarcado === 'incidencia' ? 'Haz clic en dos esquinas opuestas del área afectada.' : 'Haz clic en la posición actual del conductor.'}</p>}
@@ -442,7 +443,7 @@ export const RutasView: React.FC = () => {
                 t.type === 'error' ? '#F87171' :
                 t.type === 'warning' ? '#FBBF24' :
                 t.type === 'success' ? '#34D399' :
-                '#9CA3AF'
+                '#626C7C'
               }`,
               boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
               display: 'flex',
@@ -461,7 +462,7 @@ export const RutasView: React.FC = () => {
             </div>
             <button
               onClick={() => removeToast(t.id)}
-              style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#9CA3AF', padding: '0 2px' }}
+              style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#626C7C', padding: '0 2px' }}
             >
               <X size={15} />
             </button>
@@ -482,12 +483,12 @@ export const RutasView: React.FC = () => {
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <RouteIcon size={24} color="#0D9417" />
+            <RouteIcon size={24} color="#08781A" />
             <h1 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#1F2937', letterSpacing: '-0.025em', margin: 0 }}>
               Rutas y Despacho Geoespacial (CVRPTW)
             </h1>
           </div>
-          <p style={{ margin: 0, fontSize: '0.88rem', color: '#6B7280' }}>
+          <p style={{ margin: 0, fontSize: '0.88rem', color: '#59616C' }}>
             Optimización multiobjetivo (Distancia, Tiempo, CO₂ vehicular) con medición de emisiones computacionales de Python (CodeCarbon).
           </p>
         </div>
@@ -509,7 +510,7 @@ export const RutasView: React.FC = () => {
               cursor: 'pointer'
             }}
           >
-            <ShieldAlert size={16} color={mostrarZonasRiesgo ? '#EF4444' : '#6B7280'} />
+            <ShieldAlert size={16} color={mostrarZonasRiesgo ? '#EF4444' : '#59616C'} />
             <span>{mostrarZonasRiesgo ? 'Zonas de Riesgo Activas' : 'Mostrar Zonas de Riesgo'}</span>
           </button>
 
@@ -519,7 +520,7 @@ export const RutasView: React.FC = () => {
             style={{
               padding: '0.55rem 1.25rem',
               borderRadius: '10px',
-              background: '#0D9417',
+              background: '#08781A',
               border: 'none',
               color: '#FFFFFF',
               fontSize: '0.84rem',
@@ -553,14 +554,14 @@ export const RutasView: React.FC = () => {
           border: '1px solid #E5E7EB',
           boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#6B7280', fontSize: '0.8rem', fontWeight: 600 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#59616C', fontSize: '0.8rem', fontWeight: 600 }}>
             <span>RUTAS PLANIFICADAS</span>
-            <RouteIcon size={18} color="#0D9417" />
+            <RouteIcon size={18} color="#08781A" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#111827', marginTop: '0.35rem' }}>
             {rutas.length}
           </div>
-          <div style={{ fontSize: '0.74rem', color: '#10B981', marginTop: '0.25rem', fontWeight: 600 }}>
+          <div style={{ fontSize: '0.74rem', color: '#087B56', marginTop: '0.25rem', fontWeight: 600 }}>
             Flota asignada con ventanas horarias
           </div>
         </div>
@@ -573,14 +574,14 @@ export const RutasView: React.FC = () => {
           border: '1px solid #E5E7EB',
           boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#6B7280', fontSize: '0.8rem', fontWeight: 600 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#59616C', fontSize: '0.8rem', fontWeight: 600 }}>
             <span>DISTANCIA & TIEMPO</span>
             <Clock size={18} color="#3B82F6" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#111827', marginTop: '0.35rem' }}>
             {rutaSeleccionada ? `${rutaSeleccionada.distancia_total_km} km` : '0.0 km'}
           </div>
-          <div style={{ fontSize: '0.74rem', color: '#6B7280', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '0.74rem', color: '#59616C', marginTop: '0.25rem' }}>
             {rutaSeleccionada ? `Aprox. ${(rutaSeleccionada.tiempo_total_min / 60).toFixed(1)} horas de recorrido` : 'Sin ruta activa'}
           </div>
         </div>
@@ -593,14 +594,14 @@ export const RutasView: React.FC = () => {
           border: '1px solid #E5E7EB',
           boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#6B7280', fontSize: '0.8rem', fontWeight: 600 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#59616C', fontSize: '0.8rem', fontWeight: 600 }}>
             <span>HUELLA VEHICULAR</span>
             <Leaf size={18} color="#059669" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#059669', marginTop: '0.35rem' }}>
             {rutaSeleccionada ? `${rutaSeleccionada.co2_total_kg} kg` : '0.00 kg'}
           </div>
-          <div style={{ fontSize: '0.74rem', color: '#6B7280', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '0.74rem', color: '#59616C', marginTop: '0.25rem' }}>
             {rutaSeleccionada?.vehiculo_tipo_combustible === 'ELECTRICO'
               ? 'Vehículo 100% Eléctrico (Cero Emisiones)'
               : 'Emisiones directas de combustión'}
@@ -609,7 +610,7 @@ export const RutasView: React.FC = () => {
 
         {/* MÉTRICAS COMPUTACIONALES CODECARBON (Requisito Específico) */}
         <div style={{
-          background: 'linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%)',
+          background: '#F0FDF4',
           padding: '1.15rem',
           borderRadius: '14px',
           border: '1.5px solid #A7F3D0',
@@ -696,7 +697,7 @@ export const RutasView: React.FC = () => {
             justifyContent: 'space-between'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.84rem', fontWeight: 700, color: '#374151' }}>
-              <MapPin size={16} color="#0D9417" />
+              <MapPin size={16} color="#08781A" />
               <span>Mapa Cartográfico de Trazado Vial</span>
             </div>
 
@@ -830,7 +831,7 @@ export const RutasView: React.FC = () => {
             {/* Selector de rutas si hay múltiples */}
             {rutas.length > 1 && (
               <div style={{ marginBottom: '0.85rem' }}>
-                <select
+                <select aria-label="Ruta seleccionada"
                   value={rutaSeleccionada?.ruta_id || ''}
                   onChange={e => {
                     const sel = rutas.find(r => r.ruta_id === e.target.value);
@@ -857,7 +858,7 @@ export const RutasView: React.FC = () => {
             {rutaSeleccionada ? (
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                  <Truck size={17} color="#0D9417" />
+                  <Truck size={17} color="#08781A" />
                   <span style={{ fontWeight: 700, fontSize: '0.88rem' }}>{rutaSeleccionada.vehiculo_placa}</span>
                   <span style={{
                     fontSize: '0.72rem',
@@ -884,7 +885,7 @@ export const RutasView: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontStyle: 'italic' }}>
+              <div style={{ fontSize: '0.8rem', color: '#626C7C', fontStyle: 'italic' }}>
                 No hay rutas generadas aún. Presiona "Optimizar Rutas del Día".
               </div>
             )}
@@ -928,7 +929,7 @@ export const RutasView: React.FC = () => {
                           <span style={{ fontWeight: 700, color: isDescanso ? '#1D4ED8' : isHub ? '#374151' : '#047857' }}>
                             #{t.orden_secuencia} · {t.tipo_parada}
                           </span>
-                          <span style={{ fontSize: '0.7rem', color: '#6B7280' }}>
+                          <span style={{ fontSize: '0.7rem', color: '#59616C' }}>
                             {t.distancia_tramo_km} km | {t.tiempo_estimado_min} min
                           </span>
                         </div>
@@ -964,7 +965,7 @@ export const RutasView: React.FC = () => {
                 )}
               </div>
             ) : (
-              <div style={{ fontSize: '0.78rem', color: '#9CA3AF', fontStyle: 'italic', textAlign: 'center', marginTop: '2rem' }}>
+              <div style={{ fontSize: '0.78rem', color: '#626C7C', fontStyle: 'italic', textAlign: 'center', marginTop: '2rem' }}>
                 Sin tramos para visualizar
               </div>
             )}
@@ -988,7 +989,7 @@ export const RutasView: React.FC = () => {
           zIndex: 10000,
           padding: '1rem'
         }}>
-          <div style={{
+          <AccessibleDialog label="Reoptimizar ruta" onDismiss={() => setShowReoptModal(false)} style={{
             background: '#FFFFFF',
             borderRadius: '16px',
             maxWidth: '480px',
@@ -1006,22 +1007,22 @@ export const RutasView: React.FC = () => {
                 </h3>
               </div>
               <button
-                onClick={() => setShowReoptModal(false)}
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#9CA3AF' }}
+                aria-label="Cerrar reoptimización" onClick={() => setShowReoptModal(false)}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#626C7C' }}
               >
                 <X size={18} />
               </button>
             </div>
 
-            <p style={{ fontSize: '0.8rem', color: '#6B7280', marginBottom: '1.15rem' }}>
+            <p style={{ fontSize: '0.8rem', color: '#59616C', marginBottom: '1.15rem' }}>
               Ajusta dinámicamente la secuencia del conductor ante contingencias operativas (cancelaciones o desvíos preventivos).
             </p>
 
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#374151', marginBottom: '0.35rem' }}>
+              <label htmlFor="rutasview-field-43829" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#374151', marginBottom: '0.35rem' }}>
                 Motivo de la Contingencia:
               </label>
-              <select
+              <select id="rutasview-field-43829"
                 value={motivoReopt}
                 onChange={e => setMotivoReopt(e.target.value)}
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '8px', border: '1px solid #D1D5DB', fontSize: '0.82rem' }}
@@ -1034,10 +1035,10 @@ export const RutasView: React.FC = () => {
             </div>
 
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#374151', marginBottom: '0.35rem' }}>
+              <label htmlFor="rutasview-field-44818" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#374151', marginBottom: '0.35rem' }}>
                 Cancelar Parada Específica de la Ruta (Opcional):
               </label>
-              <select
+              <select id="rutasview-field-44818"
                 value={pedidoACancelarId}
                 onChange={e => setPedidoACancelarId(e.target.value)}
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '8px', border: '1px solid #D1D5DB', fontSize: '0.82rem' }}
@@ -1125,7 +1126,7 @@ export const RutasView: React.FC = () => {
                 {reoptimizing ? 'Recalculando con CodeCarbon...' : 'Confirmar Reoptimización'}
               </button>
             </div>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
     </div>

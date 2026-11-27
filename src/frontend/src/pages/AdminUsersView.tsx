@@ -1,3 +1,4 @@
+import { AccessibleDialog } from '../components/AccessibleDialog';
 import { ConductorService, Conductor } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -16,7 +17,7 @@ const ROL_CONFIG: Record<RolUsuario, { label: string; icon: React.ReactNode; col
   ADMIN: {
     label: 'Administrador General',
     icon: <ShieldCheck size={14} />,
-    color: '#bf5af2', // Apple Purple
+    color: '#7D279C', // Apple Purple
     bg: 'rgba(191, 90, 242, 0.15)',
     border: 'rgba(191, 90, 242, 0.35)'
   },
@@ -276,7 +277,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
           </button>
           <button 
             className="btn" 
-            onClick={abrirModalCreacion}
+            onClick={event => { event.currentTarget.focus(); abrirModalCreacion(); }}
             style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
           >
             <UserPlus size={16} />
@@ -469,7 +470,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
       {/* Modal Apple Obsidian Glass para Alta y Edición de Usuario */}
       {modalAbierto && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setModalAbierto(false)}>
-          <div className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+          <AccessibleDialog label="Gestionar usuario" onDismiss={() => setModalAbierto(false)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
             <div className="modal-header">
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <KeyRound size={20} color="var(--apple-accent)" />
@@ -487,10 +488,10 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div style={{ gridColumn: 'span 2' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-19991" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Nombre Completo:
                   </label>
-                  <input
+                  <input id="adminusersview-field-19991"
                     type="text"
                     required
                     placeholder="Ej. Ing. Carlos Mendoza o Bodega Central"
@@ -501,10 +502,10 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-20573" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Correo Electrónico (Login):
                   </label>
-                  <input
+                  <input id="adminusersview-field-20573"
                     type="email"
                     required
                     disabled={!!usuarioEditando}
@@ -516,17 +517,17 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </div>
 
                 <div>
-                  <label>Conductor vinculado</label>
-                  <select aria-label="Conductor vinculado" value={conductorId} onChange={e => setConductorId(e.target.value)}>
+                  <label htmlFor="adminusersview-field-21181">Conductor vinculado</label>
+                  <select id="adminusersview-field-21181" aria-label="Conductor vinculado" value={conductorId} onChange={e => setConductorId(e.target.value)}>
                     <option value="">Sin conductor vinculado</option>
                     {conductores.map(c => <option key={c.conductor_id} value={c.conductor_id}>{c.nombres} {c.apellidos} · DNI {c.dni}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-21656" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono de Contacto:
                   </label>
-                  <input
+                  <input id="adminusersview-field-21656"
                     type="text"
                     placeholder="Ej. 998877665"
                     value={telefono}
@@ -536,10 +537,10 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-22174" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Rol Institucional:
                   </label>
-                  <select
+                  <select id="adminusersview-field-22174"
                     value={rolSeleccionado}
                     onChange={e => handleCambioRolEnForm(e.target.value as RolUsuario)}
                     style={{ width: '100%' }}
@@ -552,10 +553,10 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-23029" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     {usuarioEditando ? 'Nueva Contraseña (Opcional):' : 'Contraseña Inicial:'}
                   </label>
-                  <input
+                  <input id="adminusersview-field-23029"
                     type="password"
                     required={!usuarioEditando}
                     placeholder={usuarioEditando ? 'Dejar en blanco para conservar' : 'Mínimo 6 caracteres'}
@@ -566,10 +567,10 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
+                  <label htmlFor="adminusersview-field-23714" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Estado de la Cuenta:
                   </label>
-                  <select
+                  <select id="adminusersview-field-23714"
                     value={estadoSeleccionado}
                     onChange={e => setEstadoSeleccionado(e.target.value as EstadoUsuario)}
                     style={{ width: '100%' }}
@@ -658,7 +659,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                 </button>
               </div>
             </form>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
     </div>

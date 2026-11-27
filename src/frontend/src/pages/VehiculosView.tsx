@@ -1,3 +1,4 @@
+import { AccessibleDialog } from '../components/AccessibleDialog';
 import React, { useState, useEffect } from 'react';
 import { Truck, Plus, AlertCircle, Zap, Shield, Leaf, Gauge, Fuel, CheckCircle2, Pencil, X, Save, RefreshCw } from 'lucide-react';
 import { Vehiculo, VehiculoService } from '../services/api';
@@ -356,8 +357,8 @@ export function VehiculosView() {
         </h3>
         <form onSubmit={handleCrear} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', alignItems: 'end' }}>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Placa:</label>
-            <input
+            <label htmlFor="vehiculosview-field-14394" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Placa:</label>
+            <input id="vehiculosview-field-14394"
               type="text"
               required
               placeholder="Ej. ABC-123"
@@ -367,8 +368,8 @@ export function VehiculosView() {
             />
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Marca y Modelo:</label>
-            <input
+            <label htmlFor="vehiculosview-field-14847" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Marca y Modelo:</label>
+            <input id="vehiculosview-field-14847"
               type="text"
               required
               placeholder="Ej. Hyundai H-100"
@@ -378,8 +379,8 @@ export function VehiculosView() {
             />
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Año Fabricación:</label>
-            <input
+            <label htmlFor="vehiculosview-field-15315" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Año Fabricación:</label>
+            <input id="vehiculosview-field-15315"
               type="number"
               min={1990}
               max={2030}
@@ -389,8 +390,8 @@ export function VehiculosView() {
             />
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Propulsión / Combustible:</label>
-            <select
+            <label htmlFor="vehiculosview-field-15773" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Propulsión / Combustible:</label>
+            <select id="vehiculosview-field-15773"
               value={combustible}
               onChange={e => setCombustible(e.target.value as any)}
               style={{ width: '100%' }}
@@ -402,8 +403,8 @@ export function VehiculosView() {
             </select>
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Carga Útil (kg):</label>
-            <input
+            <label htmlFor="vehiculosview-field-16483" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Carga Útil (kg):</label>
+            <input id="vehiculosview-field-16483"
               type="number"
               min={100}
               value={peso}
@@ -412,8 +413,8 @@ export function VehiculosView() {
             />
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Volumen (m³):</label>
-            <input
+            <label htmlFor="vehiculosview-field-16914" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Volumen (m³):</label>
+            <input id="vehiculosview-field-16914"
               type="number"
               min={1}
               value={volumen}
@@ -422,8 +423,8 @@ export function VehiculosView() {
             />
           </div>
           <div>
-            <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Consumo (km/gal):</label>
-            <input
+            <label htmlFor="vehiculosview-field-17346" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>Consumo (km/gal):</label>
+            <input id="vehiculosview-field-17346"
               type="number"
               min={0}
               step="0.5"
@@ -565,7 +566,7 @@ export function VehiculosView() {
       {/* Modal Apple Glass para Edición de Vehículo (SUB-001-03) */}
       {editingVehiculo && (
         <div className="apple-modal-overlay" onClick={() => setEditingVehiculo(null)}>
-          <div className="apple-modal" onClick={e => e.stopPropagation()}>
+          <AccessibleDialog label="Editar vehículo" onDismiss={() => setEditingVehiculo(null)} className="apple-modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <div>
                 <h3>Editar Vehículo: {editingVehiculo.placa}</h3>
@@ -580,10 +581,10 @@ export function VehiculosView() {
 
             <form onSubmit={handleGuardarEdicion} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                <label htmlFor="vehiculosview-field-24784" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                   Marca y Modelo:
                 </label>
-                <input
+                <input id="vehiculosview-field-24784"
                   type="text"
                   required
                   value={editMarca}
@@ -594,10 +595,10 @@ export function VehiculosView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="vehiculosview-field-25391" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Año de Fabricación:
                   </label>
-                  <input
+                  <input id="vehiculosview-field-25391"
                     type="number"
                     min={1990}
                     max={2030}
@@ -608,10 +609,10 @@ export function VehiculosView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="vehiculosview-field-25970" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Propulsión / Combustible:
                   </label>
-                  <select
+                  <select id="vehiculosview-field-25970"
                     value={editCombustible}
                     onChange={e => setEditCombustible(e.target.value as any)}
                     style={{ width: '100%' }}
@@ -626,18 +627,18 @@ export function VehiculosView() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label>Altura total (m)</label>
-                  <input aria-label="Altura total" type="number" min="0.1" max="6" step="0.01" value={editAltura} onChange={e => setEditAltura(e.target.value)} />
-                  <label>Clasificación de acceso</label>
-                  <select aria-label="Clasificación de acceso" value={editLigero} onChange={e => setEditLigero(e.target.value)}>
+                  <label htmlFor="vehiculosview-field-26933">Altura total (m)</label>
+                  <input id="vehiculosview-field-26933" aria-label="Altura total" type="number" min="0.1" max="6" step="0.01" value={editAltura} onChange={e => setEditAltura(e.target.value)} />
+                  <label htmlFor="vehiculosview-field-27148">Clasificación de acceso</label>
+                  <select id="vehiculosview-field-27148" aria-label="Clasificación de acceso" value={editLigero} onChange={e => setEditLigero(e.target.value)}>
                     <option value="">Sin verificar</option><option value="true">Vehículo ligero</option><option value="false">Vehículo pesado</option>
                   </select>
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="vehiculosview-field-27564" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Carga Útil (kg):
                   </label>
-                  <input
+                  <input id="vehiculosview-field-27564"
                     type="number"
                     min={100}
                     value={editPeso}
@@ -647,10 +648,10 @@ export function VehiculosView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="vehiculosview-field-28107" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Volumen (m³):
                   </label>
-                  <input
+                  <input id="vehiculosview-field-28107"
                     type="number"
                     min={1}
                     value={editVolumen}
@@ -660,10 +661,10 @@ export function VehiculosView() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                  <label htmlFor="vehiculosview-field-28651" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Consumo (km/gal):
                   </label>
-                  <input
+                  <input id="vehiculosview-field-28651"
                     type="number"
                     min={0}
                     step="0.5"
@@ -698,10 +699,10 @@ export function VehiculosView() {
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
+                <label htmlFor="vehiculosview-field-30408" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                   Estado Operativo:
                 </label>
-                <select
+                <select id="vehiculosview-field-30408"
                   value={editEstado}
                   onChange={e => setEditEstado(e.target.value)}
                   style={{ width: '100%' }}
@@ -732,7 +733,7 @@ export function VehiculosView() {
                 </button>
               </div>
             </form>
-          </div>
+          </AccessibleDialog>
         </div>
       )}
     </div>

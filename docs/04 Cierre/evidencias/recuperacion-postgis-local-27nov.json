@@ -1,0 +1,9 @@
+{
+  "type": "REAL_CONTROLLED_LOCAL_RECOVERY",
+  "scope": "Disposable local PostgreSQL, synthetic export and planned fast restart; not production failover or monthly SLA",
+  "pending_job_survived_restart": true,
+  "snapshot_unchanged": true,
+  "worker_resumed_and_pdf_valid": true,
+  "restart_and_resume_seconds": 2.387,
+  "result": "PASS"
+}

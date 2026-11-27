@@ -70,7 +70,9 @@ class OrderService:
         if prioridad:
             query = query.filter(Pedido.prioridad == prioridad.upper())
         
-        pedidos = query.order_by(Pedido.creado_en.desc()).offset(skip).limit(limit).all()
+        # Batch imports share timestamps; a unique tie-breaker prevents orders
+        # from disappearing or appearing twice across OFFSET pages.
+        pedidos = query.order_by(Pedido.creado_en.desc(), Pedido.pedido_id.desc()).offset(skip).limit(limit).all()
         return [OrderService._to_response(p) for p in pedidos]
 
     @staticmethod

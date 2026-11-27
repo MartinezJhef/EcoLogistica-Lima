@@ -129,10 +129,10 @@ function AppLayout() {
   const canAccessAnalytics = userRole === 'ADMIN' || (userRole === 'OFICINA' && currentUser.permisos.includes('ANALITICA'));
 
   const roleMeta: Record<RolUsuario, { label: string; badge: string; color: string; icon: any }> = {
-    ADMIN: { label: 'Administrador', badge: 'Acceso Total', color: '#A7B38B', icon: Shield },
+    ADMIN: { label: 'Administrador', badge: 'Acceso Total', color: '#C4D2A8', icon: Shield },
     OFICINA: { label: 'Personal Oficina', badge: 'Seguimiento', color: '#F5F4EE', icon: Briefcase },
-    REPARTIDOR: { label: 'Repartidor', badge: 'Ruta Campo', color: '#DDA15E', icon: Truck },
-    CLIENTE: { label: 'Cliente B2B', badge: 'Tracking', color: '#A7B38B', icon: Store },
+    REPARTIDOR: { label: 'Repartidor', badge: 'Ruta Campo', color: '#EDB878', icon: Truck },
+    CLIENTE: { label: 'Cliente B2B', badge: 'Tracking', color: '#C4D2A8', icon: Store },
   };
 
   const roleConfig = roleMeta[userRole] || roleMeta.ADMIN;
@@ -140,6 +140,7 @@ function AppLayout() {
 
   return (
     <div className="container">
+      <a className="skip-link" href="#main-content">Saltar al contenido principal</a>
       {/* Sidebar Sólida Verde Bosque (#2D3A2E) */}
       <aside className="sidebar">
         <div className="brand-badge">
@@ -205,7 +206,7 @@ function AppLayout() {
 
           <div style={{
             fontSize: '0.7rem',
-            color: '#A7B38B',
+            color: '#C4D2A8',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -242,7 +243,7 @@ function AppLayout() {
         </div>
 
         {/* Enlaces de Navegación Dinámica */}
-        <nav className="nav-links">
+        <nav className="nav-links" aria-label="Navegación principal">
           {canAccessAnalytics && <button className={`nav-item ${currentPath === '/sostenibilidad' ? 'active' : ''}`} onClick={() => navigate('/sostenibilidad')}><Sparkles size={17} /><span>Sostenibilidad</span></button>}
           {canAccessVehiculos && (
             <button
@@ -307,7 +308,7 @@ function AppLayout() {
       </aside>
 
       {/* Área Principal de Contenido con Enrutamiento Dinámico */}
-      <main className="main-content">
+      <main className="main-content" id="main-content" tabIndex={-1}>
         <Suspense fallback={<ModuleFallback />}>
         <Routes>
           <Route path="/sostenibilidad" element={canAccessAnalytics ? <SostenibilidadView /> : <Navigate to="/pedidos" replace />} />

@@ -137,6 +137,41 @@ def select_assignments(orders, vehicles, drivers, origin, request, road, operati
         cache[key] = rows
         return rows
 
+    if len(ordered) > 20:
+        # A fully feasible insertion plan proves the maximum order count without
+        # enumerating every insertion permutation. Every tour still passes the
+        # exact same windows/capacity/driver/road checks as the exhaustive search.
+        # If this fast attempt leaves any order out, retain the original search;
+        # never present a partial heuristic as a verified maximum.
+        quick=[]
+        for order in ordered:
+            if time.monotonic() > deadline:
+                break
+            extensions=[]
+            for slot,(vi,di,seq,old_rows) in enumerate(quick):
+                rows=feasible(vi,di,seq+[order])
+                if rows is not None:
+                    extensions.append((objective(rows,request)-objective(old_rows,request),slot,rows))
+            if extensions:
+                _,slot,rows=min(extensions,key=lambda item:item[0])
+                vi,di,seq,_=quick[slot]
+                quick[slot]=(vi,di,seq+[order],rows)
+                continue
+            used_vehicles={p[0] for p in quick}
+            used_drivers={p[1] for p in quick}
+            pairs=[]
+            for vi in range(len(vehicles)):
+                if vi in used_vehicles:continue
+                for di in range(len(drivers)):
+                    if di in used_drivers:continue
+                    rows=feasible(vi,di,[order])
+                    if rows is not None:pairs.append((objective(rows,request),vi,di,rows))
+            if not pairs:break
+            _,vi,di,rows=min(pairs,key=lambda item:item[0])
+            quick.append((vi,di,[order],rows))
+        if sum(len(p[2]) for p in quick)==len(ordered):
+            return [(vehicles[vi],drivers[di],seq,rows) for vi,di,seq,rows in quick],reasons
+
     def visit(plans, remaining):
         nonlocal best, best_count, best_cost
         if time.monotonic() > deadline:

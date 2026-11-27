@@ -71,7 +71,7 @@ export function Pagination({
     >
       <span style={{ fontSize: '0.78rem', color: 'var(--apple-text-secondary, #556B2F)' }}>
         Mostrando <strong>{from}</strong>–<strong>{to}</strong> de <strong>{totalItems}</strong> {label}
-        <span style={{ opacity: 0.7 }}> · {pageSize} por página</span>
+        <span> · {pageSize} por página</span>
       </span>
 
       {totalPages > 1 && (

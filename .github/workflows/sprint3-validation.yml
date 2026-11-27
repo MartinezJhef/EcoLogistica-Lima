@@ -61,7 +61,14 @@ jobs:
         env:
           CODECARBON_ENABLED: '0'
           POSTGRES_TEST_URL: postgresql+psycopg://postgres:test-only@localhost:5432/ecologistica_test
+          QUALITY_EVIDENCE_PATH: ${{ github.workspace }}/quality-results/capacity.json
         run: pytest --cov-fail-under=80
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: postgis-capacity-measurements
+          path: quality-results/
+          retention-days: 14
   mobile:
     runs-on: ubuntu-latest
     steps:

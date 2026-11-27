@@ -3,6 +3,8 @@ from pathlib import Path
 from datetime import datetime,timezone
 import httpx
 p=argparse.ArgumentParser();p.add_argument('--seconds',type=int,default=7200);p.add_argument('--interval',type=int,default=60);p.add_argument('--output',default='outputs/disponibilidad-observada.json');a=p.parse_args()
+if a.seconds<0 or a.interval<=0:p.error('seconds debe ser >= 0 e interval > 0')
+Path(a.output).parent.mkdir(parents=True,exist_ok=True)
 start=time.monotonic();rows=[]
 with httpx.Client(timeout=20,follow_redirects=True) as c:
  while True:
