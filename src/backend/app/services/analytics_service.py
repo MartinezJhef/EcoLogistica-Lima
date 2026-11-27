@@ -131,8 +131,15 @@ def summary(db, desde, hasta):
                for key in ('distancia_km', 'co2_kg', 'costo_pen')}
     from collections import Counter
     states = dict(Counter(r.estado for r in routes if desde <= r.fecha_operacion <= hasta))
+    # A negative saving is a cost increase; missing factors must not become zero.
+    saving = (round(previous['costo_pen'] - current['costo_pen'], 2)
+              if current['costo_pen'] is not None and previous['costo_pen'] is not None
+              else None)
+    if not previous['rutas']:
+        saving = 0 if current['costo_pen'] is not None else None
     return {'desde': str(desde), 'hasta': str(hasta), 'totales': current,
             'anterior': previous, 'variacion_porcentaje': changes, 'estados': states,
+            'ahorro_monetario_pen': saving,
             'ahorro_co2_kg': round(previous['co2_kg'] - current['co2_kg'], 2) if previous['rutas'] else 0,
             'detalle': details, 'metodologia': 'Estimaciones de rutas completadas; comparación con periodo anterior de igual duración. No son mediciones físicas ni ahorro causal atribuible al optimizador.'}
 

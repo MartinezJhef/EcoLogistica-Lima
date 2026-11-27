@@ -17,6 +17,12 @@ test('loads dashboard, units and historical comparison', async () => {
   expect(screen.getByText('45 kg CO₂')).toBeInTheDocument();
   expect(screen.getByText('Variación: 0 %')).toBeInTheDocument();
 });
+
+test.each([[75.5, 'Ahorro monetario: S/ 75.50'], [-25, 'Incremento de costo: S/ 25.00'], [null, 'Ahorro monetario: no disponible']])('shows signed monetary comparison without inventing savings (%s)', async (value, label) => {
+  vi.mocked(api.get).mockImplementation(async path => ({status:200,data:path.includes('configuracion') ? config : path === '/reportes' ? [] : {...summary,ahorro_monetario_pen:value}}) as any);
+  render(<SostenibilidadView />);
+  expect(await screen.findByText(content => content.startsWith(label as string))).toBeInTheDocument();
+});
 test('requests a report and shows its asynchronous notification', async () => {
   vi.mocked(api.post).mockResolvedValue({status:202,data:{id:'job'}});
   render(<SostenibilidadView />); await screen.findByText('100 km');

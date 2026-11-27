@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth';
 import { Leaf, Route, Fuel, Zap, Wallet, FileText, Download, RefreshCw, Trees, SlidersHorizontal, ChevronDown, CalendarDays, Clock3, ArrowUpRight } from 'lucide-react';
 import './SostenibilidadView.css';
 
-type Summary = { desde: string; hasta: string; totales: Record<string, number | null>; variacion_porcentaje: Record<string, number | null>; estados: Record<string, number>; ahorro_co2_kg: number; metodologia: string };
+type Summary = { desde: string; hasta: string; totales: Record<string, number | null>; variacion_porcentaje: Record<string, number | null>; estados: Record<string, number>; ahorro_co2_kg: number; ahorro_monetario_pen?: number | null; metodologia: string };
 type Job = { id: string; estado: string; tipo: string; desde: string; hasta: string; error?: string };
 type Project = { id: string; nombre: string };
 const today = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Lima', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -89,8 +89,8 @@ export function SostenibilidadView() {
         <h2>{label}</h2><strong>{summary.totales[key]==null?'No configurado':`${summary.totales[key]?.toLocaleString('es-PE')} ${unit}`}</strong>
         {key in summary.variacion_porcentaje ? <p>Variación: {summary.variacion_porcentaje[key]==null?'No disponible':`${summary.variacion_porcentaje[key]} %`}</p> : <p>En el periodo seleccionado</p>}
       </article>)}</div>
-      <div className="sus-context"><div><span className="sus-context-icon"><ArrowUpRight size={18} aria-hidden="true"/></span><p><strong>{summary.totales.rutas ?? 0} rutas completadas</strong><span>Reducción de CO₂ frente al periodo anterior: {summary.ahorro_co2_kg} kg.</span></p></div><div className="sus-route-states">{Object.entries(summary.estados).map(([state,count])=><span key={state}>{state.replace(/_/g,' ')} <b>{count}</b></span>)}</div></div>
-      <details className="sus-method"><summary>Cómo se calculan estos indicadores <ChevronDown size={14} aria-hidden="true"/></summary><p>{summary.metodologia}</p><p>Sin histórico comparable, la variación es 0 %. Los valores de CO₂ representan estimaciones, no mediciones físicas.</p></details>
+      <div className="sus-context"><div><span className="sus-context-icon"><ArrowUpRight size={18} aria-hidden="true"/></span><p><strong>{summary.totales.rutas ?? 0} rutas completadas</strong><span>Reducción de CO₂ frente al periodo anterior: {summary.ahorro_co2_kg} kg.</span><span>{summary.ahorro_monetario_pen == null ? 'Ahorro monetario: no disponible' : `${summary.ahorro_monetario_pen < 0 ? 'Incremento de costo' : 'Ahorro monetario'}: S/ ${Math.abs(summary.ahorro_monetario_pen).toLocaleString('es-PE', {minimumFractionDigits:2,maximumFractionDigits:2})} frente al periodo anterior.`}</span></p></div><div className="sus-route-states">{Object.entries(summary.estados).map(([state,count])=><span key={state}>{state.replace(/_/g,' ')} <b>{count}</b></span>)}</div></div>
+      <details className="sus-method"><summary>Cómo se calculan estos indicadores <ChevronDown size={14} aria-hidden="true"/></summary><p>{summary.metodologia}</p><p>El ahorro monetario es el costo estimado anterior menos el actual; un resultado negativo indica incremento. Sin histórico comparable, la variación y el ahorro son cero. Si faltan factores históricos, el ahorro no está disponible. Esta comparación no atribuye causalmente el ahorro al optimizador. Los valores de CO₂ representan estimaciones, no mediciones físicas.</p></details>
     </>}
     <div className="sus-workspace">
       <section className="sus-panel sus-reports">

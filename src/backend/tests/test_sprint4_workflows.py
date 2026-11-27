@@ -49,6 +49,7 @@ def test_dashboard_historical_factors_and_periods(client, setup_s4):
     assert data['totales']['costo_pen'] == 200
     assert data['totales']['co2_kg'] == 45
     assert data['variacion_porcentaje']['co2_kg'] == 0
+    assert data['ahorro_monetario_pen'] == 0
     assert client.put('/api/v1/analitica/configuracion', json={**CONFIG, 'precios_por_galon': {'DIESEL': 999}}).status_code == 200
     route.vehiculo.consumo_km_gal = 1; db.commit()
     assert summary(db, date(2026,6,1), date(2026,6,1))['totales']['costo_pen'] == 200
@@ -135,6 +136,7 @@ def test_summary_batches_periods_and_preserves_state_counts(setup_s4):
     assert result['totales']['distancia_km'] == 100
     assert result['anterior']['distancia_km'] == 50
     assert result['variacion_porcentaje']['distancia_km'] == 100
+    assert result['ahorro_monetario_pen'] == -100
     assert result['estados']['PLANIFICADA'] == 1
     assert len(selects) <= 2
     db.delete(prior); db.delete(pending); db.commit()
@@ -145,6 +147,7 @@ def test_missing_snapshot_does_not_invent_costs(setup_s4):
     db.query(RouteSnapshot).delete(); db.commit()
     result = summary(db, date(2026,6,1), date(2026,6,1))
     assert result['totales']['costo_pen'] is None
+    assert result['ahorro_monetario_pen'] is None
     assert result['totales']['parametros_incompletos'] == 1
 
 
@@ -196,3 +199,17 @@ def test_pdf_large_report_has_multiple_pages(setup_s4):
     report['detalle'] *= 100
     document = render_pdf(report,'REPORTE')
     assert document.startswith(b'%PDF') and document.count(b'/Type /Page\n') > 1
+
+
+def test_monetary_saving_uses_comparable_costs_and_missing_history(setup_s4):
+    db, user, route = setup_s4
+    prior = Ruta(conductor_id=route.conductor_id, vehiculo_id=route.vehiculo_id,
+        fecha_operacion=date(2026,5,31), distancia_total_km=150,
+        co2_total_kg=60, tiempo_total_min=90, estado='COMPLETADA')
+    db.add(prior); db.flush(); capture_snapshot(db, prior); db.commit()
+    result = summary(db,date(2026,6,1),date(2026,6,1))
+    assert result['ahorro_monetario_pen'] == 100
+    assert render_pdf(result,'REPORTE').startswith(b'%PDF')
+    db.query(RouteSnapshot).filter(RouteSnapshot.id==str(prior.ruta_id)).delete(); db.commit()
+    assert summary(db,date(2026,6,1),date(2026,6,1))['ahorro_monetario_pen'] is None
+    db.delete(prior); db.commit()
