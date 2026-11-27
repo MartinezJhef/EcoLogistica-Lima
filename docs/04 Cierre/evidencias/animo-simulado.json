@@ -1,0 +1,45 @@
+{
+  "tipo": "SIMULADO",
+  "escala": "1 muy bajo a 5 muy alto",
+  "no_es_encuesta_real": true,
+  "integrantes": [
+    "Zayuri",
+    "Jheferson",
+    "Angela",
+    "Maylit",
+    "Diego"
+  ],
+  "valores": [
+    [
+      4,
+      3,
+      3,
+      4
+    ],
+    [
+      4,
+      3,
+      2,
+      4
+    ],
+    [
+      4,
+      4,
+      3,
+      5
+    ],
+    [
+      3,
+      3,
+      2,
+      4
+    ],
+    [
+      4,
+      3,
+      3,
+      4
+    ]
+  ],
+  "media_final": 4.2
+}

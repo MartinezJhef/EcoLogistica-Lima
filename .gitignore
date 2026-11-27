@@ -128,3 +128,15 @@ scratch/
 
 playwright-report/
 test-results/
+
+# Private operational access and signing material
+*.local.json
+*.pem
+*.key
+*.p12
+*.pfx
+[Cc]redenciales*.docx
+[Cc]redenciales*.txt
+.env.*
+!.env.example
+!*.env.example

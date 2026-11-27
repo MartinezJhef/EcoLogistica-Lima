@@ -23,6 +23,8 @@ jobs:
           python-version: '3.12'
       - run: pip install -r src/backend/requirements.txt bandit pip-audit
       - run: python -m compileall -q src/backend
+      - name: Verify closure reports, EVM arithmetic and relative links
+        run: python scripts/verify_closure.py
       - run: bandit -r src/backend/app -lll
       - run: pip-audit -r src/backend/requirements.txt
       - run: git diff --check

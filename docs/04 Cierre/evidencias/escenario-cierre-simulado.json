@@ -1,0 +1,138 @@
+{
+  "tipo": "SIMULADO",
+  "autorizacion": "El usuario solicitó simular lógicamente horas, costos, EVM y ánimo para el cierre; no son registros de personas ni pagos reales.",
+  "moneda": "PEN",
+  "BAC": "11467.50",
+  "tope_acta": "12850.00",
+  "cambio_interno_USD_PEN": "3.75",
+  "regla_EV": "Porcentaje simulado de paquetes de trabajo presupuestados; no conversión de Story Points a dinero.",
+  "regla_AC": "Horas simuladas por tarifa académica de la planificación; gasto externo del escenario: cero.",
+  "personas": [
+    {
+      "nombre": "Zayuri",
+      "rol": "Dirección del proyecto",
+      "tarifa_PEN_h": "6.5625",
+      "horas_periodo": [
+        45,
+        45,
+        75,
+        55
+      ],
+      "horas_planificadas": 240,
+      "horas_simuladas": 220,
+      "costo_simulado": "1443.75"
+    },
+    {
+      "nombre": "Jheferson",
+      "rol": "Liderazgo técnico",
+      "tarifa_PEN_h": "7.50",
+      "horas_periodo": [
+        45,
+        55,
+        100,
+        70
+      ],
+      "horas_planificadas": 240,
+      "horas_simuladas": 270,
+      "costo_simulado": "2025.00"
+    },
+    {
+      "nombre": "Angela",
+      "rol": "Producto e interfaces",
+      "tarifa_PEN_h": "6.375",
+      "horas_periodo": [
+        50,
+        55,
+        80,
+        55
+      ],
+      "horas_planificadas": 240,
+      "horas_simuladas": 240,
+      "costo_simulado": "1530.00"
+    },
+    {
+      "nombre": "Maylit",
+      "rol": "Calidad y riesgos",
+      "tarifa_PEN_h": "6.375",
+      "horas_periodo": [
+        30,
+        45,
+        100,
+        85
+      ],
+      "horas_planificadas": 240,
+      "horas_simuladas": 260,
+      "costo_simulado": "1657.50"
+    },
+    {
+      "nombre": "Diego",
+      "rol": "Comunicaciones y soporte",
+      "tarifa_PEN_h": "6.00",
+      "horas_periodo": [
+        45,
+        45,
+        85,
+        55
+      ],
+      "horas_planificadas": 240,
+      "horas_simuladas": 230,
+      "costo_simulado": "1380.00"
+    }
+  ],
+  "cortes": [
+    {
+      "corte": "2026-10-09",
+      "PV": "2293.50",
+      "EV": "1376.10",
+      "AC": "1412.81",
+      "SV": "-917.40",
+      "CV": "-36.71",
+      "SPI": "0.6",
+      "CPI": "0.9740163220815254705162052930",
+      "CSI": "0.5844097932489152823097231758"
+    },
+    {
+      "corte": "2026-10-23",
+      "PV": "5160.38",
+      "EV": "3440.25",
+      "AC": "3028.13",
+      "SV": "-1720.13",
+      "CV": "412.12",
+      "SPI": "0.6666660207194043849483952732",
+      "CPI": "1.136097195298748732716230809",
+      "CSI": "0.7573973963402928326454666210"
+    },
+    {
+      "corte": "2026-10-30",
+      "PV": "10320.75",
+      "EV": "8600.63",
+      "AC": "5927.81",
+      "SV": "-1720.12",
+      "CV": "2672.82",
+      "SPI": "0.8333338177942494489257079185",
+      "CPI": "1.450895018565034979191303365",
+      "CSI": "1.209079885039459030892338198"
+    },
+    {
+      "corte": "2026-11-27",
+      "PV": "11467.50",
+      "EV": "11467.50",
+      "AC": "8036.25",
+      "SV": "0.00",
+      "CV": "3431.25",
+      "SPI": "1",
+      "CPI": "1.426971535230984601026598227",
+      "CSI": "1.426971535230984601026598227"
+    }
+  ],
+  "periodos_AC": [
+    "1412.81",
+    "1615.32",
+    "2899.68",
+    "2108.44"
+  ],
+  "horas_planificadas": 1200,
+  "horas_simuladas": 1220,
+  "financiacion_real": "Servicios Render y Neon autorizados únicamente en planes gratuitos; no hay libro contable completo del proyecto.",
+  "limites": "EVM, horas, radiadores reconstruidos y ánimo son simulados. No acreditan pagos, aprobación del patrocinador, asistencia ni cierre real en Jira."
+}

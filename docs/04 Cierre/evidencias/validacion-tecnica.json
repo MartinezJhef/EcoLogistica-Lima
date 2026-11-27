@@ -1,0 +1,47 @@
+{
+  "main": "be3e3ac99db6714978326dbc3a52126861419dfd",
+  "protected": false,
+  "runs": [
+    {
+      "id": 45920399860,
+      "name": "Deploy production",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 45920209068,
+      "name": "Deploy production",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 45920120367,
+      "name": "Sprint 4 CI",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 45920120388,
+      "name": "Sprint 4 Tests",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 45920120395,
+      "name": "Validación funcional hasta Sprint 3",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "tipo": "EVIDENCIA_TECNICA_REAL",
+  "fecha_consulta_Lima": "2026-11-27",
+  "alcance": "Validaciones del commit técnico del 26/11; no encuesta ni aceptación administrativa.",
+  "pruebas_locales_documentadas": {
+    "frontend": 226,
+    "backend": 102,
+    "PostGIS_adicional": 1,
+    "comprobaciones_publicadas": 20
+  },
+  "fuente_workflows": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions",
+  "sin_registros_productivos_personales": true
+}

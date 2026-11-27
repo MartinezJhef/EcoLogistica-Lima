@@ -11,11 +11,32 @@
 
 [![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.0.0-10b981?style=for-the-badge&logo=git&logoColor=white)](https://github.com/MartinezJhef/EcoLogistica-Lima)
 [![Metodología](https://img.shields.io/badge/Metodolog%C3%ADa-H%C3%ADbrida%20(Scrum%20%2B%20Predictivo)-3b82f6?style=for-the-badge&logo=scrumalliance&logoColor=white)](docs/01%20Inicio/01.%20Selecci%C3%B3n%20del%20enfoque%20del%20proyecto%20V_1_0_0.md)
-[![Estándar](https://img.shields.io/badge/Gobernanza-PMBOK%C2%AE%207%C2%AA%20Edici%C3%B3n-8b5cf6?style=for-the-badge&logo=bookstack&logoColor=white)](docs/01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_0_0.md)
+[![Estándar](https://img.shields.io/badge/Gobernanza-PMBOK%C2%AE%207%C2%AA%20Edici%C3%B3n-8b5cf6?style=for-the-badge&logo=bookstack&logoColor=white)](docs/01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_1_0.md)
 [![Calidad](https://img.shields.io/badge/Calidad-ISO%2FIEC%2025010-f59e0b?style=for-the-badge&logo=checkmarx&logoColor=white)](docs/01%20Inicio/07.%20Requisitos%20no%20funcionales%20V_1_0_0.md)
-[![Estado](https://img.shields.io/badge/Estado-Fases%2001%2C%2002%20%26%2003%20(Sprint%201)%20Consolidadas-059669?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/MartinezJhef/EcoLogistica-Lima)
+[![Estado](https://img.shields.io/badge/Estado-Sprint%204%20y%20cierre%20documental%20preparados-059669?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/MartinezJhef/EcoLogistica-Lima)
 
 </div>
+
+---
+
+## Cierre del proyecto - entrega documental, 27/11/2026
+
+La aplicación web/API y móvil cuentan con verificación técnica. Los siguientes documentos distinguen esas pruebas de las **horas, costos, EVM y radiadores simulados** autorizados para el cierre. El estado técnico no equivale a aceptación administrativa ni satisfacción de usuarios reales. El video está excluido de este encargo y no se presenta como entregado.
+
+1. [01 Reporte de Estado V_1_0_0](docs/04%20Cierre/01%20Reporte%20de%20Estado%20V_1_0_0.md)
+2. [02 Reporte de Variación V_1_0_0](docs/04%20Cierre/02%20Reporte%20de%20Variaci%C3%B3n%20V_1_0_0.md)
+3. [03 Reporte de Análisis de Valor Ganado - EVM V_1_0_0](docs/04%20Cierre/03%20Reporte%20de%20An%C3%A1lisis%20de%20Valor%20Ganado%20-%20EVM%20V_1_0_0.md)
+4. [04 Tableros de Control - Híbridos V_1_0_0](docs/04%20Cierre/04%20Tableros%20de%20Control%20-%20H%C3%ADbridos%20V_1_0_0.md)
+5. [05 Radiadores de Información V_1_0_0](docs/04%20Cierre/05%20Radiadores%20de%20Informaci%C3%B3n%20V_1_0_0.md)
+6. [06 Reporte Final del Proyecto V_1_0_0](docs/04%20Cierre/06%20Reporte%20Final%20del%20Proyecto%20V_1_0_0.md)
+7. [07 Reporte Final de Lecciones Aprendidas V_1_0_0](docs/04%20Cierre/07%20Reporte%20Final%20de%20Lecciones%20Aprendidas%20V_1_0_0.md)
+
+- [Guía de sustentación: 10 minutos de gestión y 10 de demostración](docs/04%20Cierre/anexos/Guia%20de%20sustentacion%20y%20transicion.md).
+- [Matriz de cumplimiento y procedencia de evidencias](docs/04%20Cierre/anexos/Matriz%20de%20entregables%20y%20evidencias.md).
+- [Registro, roles y reportes persistentes](docs/GUIA_DE_USO_Y_REPORTES.md).
+- [Aplicación publicada](https://ecologistica-web.onrender.com) · [API y documentación](https://ecologistica-api.onrender.com/docs).
+
+Validación del paquete: `python scripts/verify_closure.py`. Las figuras pueden regenerarse con `scripts/build_closure_figures.py` (matplotlib para autoría). Los antecedentes V_1_0_0 se conservan; las versiones V_1_1_0 concilian acta, presupuesto, backlog y stack sin ocultar desviaciones.
 
 ---
 
@@ -44,9 +65,9 @@ El crecimiento acelerado del comercio electrónico en **Lima Metropolitana** ha 
 **EcoLogistica-Lima** surge como una solución tecnológica integral de **Logística Verde Urbana (Green Urban Logistics)** que fusiona:
 
 - 🧠 **Motor de Optimización Heurística de Rutas:** Algoritmos conscientes del tráfico metropolitano, capacidad volumétrica/peso (85%-90%) y restricciones ambientales por zona.
-- 📱 **Aplicación Móvil de Campo (Mobile-First):** Asignación y navegación para repartidores con soporte offline ante cortes de conectividad y comprobación digital de entrega (POD con tolerancia geográfica de 100 m).
-- 🖥️ **Panel Web de Monitoreo y Despacho:** Telemetría geoespacial en tiempo real, re-optimización dinámica ante eventos disruptivos y gestión de flotas multivehiculares.
-- 🌱 **Módulo de Analítica y Compensación Ambiental:** Cuantificación estandarizada de emisiones según tipología vehicular ($E_{\text{real}} = d \times F_{\text{vehículo}} \times C_{\text{tráfico}}$) y planes de mitigación mediante créditos de carbono y arborización urbana local.
+- 📱 **Aplicación Móvil de Campo (Mobile-First):** Asignación y navegación para repartidores con soporte offline ante cortes de conectividad y comprobación digital de entrega (registro y control de estados de entrega).
+- 🖥️ **Panel Web de Monitoreo y Despacho:** Visualización geoespacial e itinerarios persistidos, re-optimización dinámica ante eventos disruptivos y gestión de flotas multivehiculares.
+- 🌱 **Módulo de Analítica y Compensación Ambiental:** Cuantificación estandarizada de emisiones según tipología vehicular ($E_{\text{estimado}} = d \times F_{\text{vehículo}} \times C_{\text{tráfico}}$) y planes de mitigación mediante créditos de carbono y arborización urbana local.
 
 ---
 
@@ -76,24 +97,23 @@ flowchart TD
 
     subgraph Canales["📱 Canales de Usuario"]
         WEB["💻 Plataforma Web (React + Vite)"]
-        MOB["📱 App Móvil (React Native)"]
+        MOB["📱 App Móvil (Flutter)"]
     end
 
     subgraph Servicios["⚙️ Backend & Motores"]
         API["🔌 API Backend Core (Python / FastAPI)"]
         OPT["🧠 Motor de Optimización Heurística"]
         ENV["🌱 Calculador de Huella CO₂"]
-        AUTH["🔒 Servicio de Seguridad (JWT / RBAC)"]
+        AUTH["🔒 Token firmado HMAC / RBAC"]
     end
 
     subgraph Persistencia["🗄️ Capa de Datos"]
         DB[(🐘 PostgreSQL + PostGIS)]
-        CACHE[(⚡ Redis Cache)]
+        QUEUE[(📨 Colas persistidas en PostgreSQL)]
     end
 
     subgraph Externos["🌐 Servicios Externos"]
-        GIS["🗺️ OpenStreetMap / Mapbox / OSRM"]
-        NOTIF["🔔 Firebase Cloud Messaging"]
+        GIS["🗺️ OpenStreetMap / OSRM"]
     end
 
     ADM -->|Gestiona flota, pedidos y despacho| WEB
@@ -107,10 +127,9 @@ flowchart TD
     API --> OPT
     API --> ENV
     API --> DB
-    API --> CACHE
+    API --> QUEUE
 
     OPT -->|Matriz de distancias / tráfico| GIS
-    API -->|Push notifications| NOTIF
 ```
 
 ---
@@ -120,7 +139,7 @@ flowchart TD
 | Capa / Componente | Tecnología Seleccionada | Justificación Técnica |
 | :--- | :--- | :--- |
 | **Frontend Web** | `React 18` + `TypeScript` + `Vite` | Renderizado rápido, tipado estricto y componentes modulares para dashboards de alta densidad. |
-| **Aplicación Móvil** | `React Native` + `Expo` | Compatibilidad multiplataforma (Android/iOS), soporte para sensores GPS y almacenamiento local offline. |
+| **Aplicación Móvil** | `Flutter` + `Dart` | Compatibilidad multiplataforma (Android/iOS), soporte para sensores GPS y almacenamiento local offline. |
 | **Backend & API** | `Python 3.11+` + `FastAPI` | Modelo asíncrono ASGI de alto rendimiento, OpenAPI/Swagger automático y desacoplamiento en capas con Pydantic. |
 | **Base de Datos** | `PostgreSQL 16` + `PostGIS` | Motor relacional robusto con extensiones geoespaciales nativas para cálculo de polígonos, geocercas y distancias. |
 | **Servicios GIS** | `Leaflet` / `OpenStreetMap` / `OSRM` | Cartografía de código abierto, flexibilidad sin costos prohibitivos de licenciamiento por volumen. |
@@ -159,7 +178,7 @@ Toda la documentación base se encuentra estandarizada y auditada en el director
 | Código | Documento Oficial | Responsable | Enfoque / Contenido Clave |
 | :---: | :--- | :--- | :--- |
 | **01** | [Selección del enfoque del proyecto V_1_0_0.md](docs/01%20Inicio/01.%20Selecci%C3%B3n%20del%20enfoque%20del%20proyecto%20V_1_0_0.md) | Jheferson Martinez | Evaluación cuantitativa de 5 variables Likert, radar metodológico y justificación híbrida PMBOK 7ª Ed. |
-| **02** | [Acta de constitución V_1_0_0.md](docs/01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_0_0.md) | Zayuri Cerron | Carta formal del proyecto, objetivos SMART, cronograma macro (16 sem.), presupuesto y designación de autoridad. |
+| **02** | [Acta de constitución V_1_1_0.md](docs/01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_1_0.md) | Zayuri Cerron | Carta formal del proyecto, objetivos SMART, cronograma macro (16 sem.), presupuesto y designación de autoridad. |
 | **03** | [Declaración de la visión V_1_0_0.md](docs/01%20Inicio/03.%20Declaraci%C3%B3n%20de%20la%20visi%C3%B3n%20V_1_0_0.md) | Angela Rojas | Propuesta de valor bajo plantilla canónica de visión, diferenciadores estratégicos y metas de sostenibilidad. |
 | **04** | [Registro de supuestos y restricciones V_1_0_0.md](docs/01%20Inicio/04.%20Registro%20de%20supuestos%20y%20restricciones%20V_1_0_0.md) | Maylit Mendoza | Catálogo de supuestos operativos y restricciones técnicas, normativas y financieras con niveles de criticidad. |
 | **05** | [Registro de interesados V_1_0_0.md](docs/01%20Inicio/05.%20Registro%20de%20interesados%20V_1_0_0.md) | Diego Angulo | Identificación de 5 perfiles de interesados, matriz Poder vs. Interés y estrategia formal de comunicación. |
@@ -167,7 +186,7 @@ Toda la documentación base se encuentra estandarizada y auditada en el director
 | **07** | [Requisitos no funcionales V_1_0_0.md](docs/01%20Inicio/07.%20Requisitos%20no%20funcionales%20V_1_0_0.md) | Diego Angulo | 7 Requisitos de calidad técnica bajo la norma internacional ISO/IEC 25010 (Rendimiento, Seguridad, etc.). |
 | **08** | [Usuarios V_1_0_0.md](docs/01%20Inicio/08.%20Usuarios%20V_1_0_0.md) | Jheferson Martinez | Matriz de arquetipos de usuario: Administrador, Despachador, Conductor, Cliente B2B y Receptor final. |
 | **09** | [Reglas de negocio V_1_0_0.md](docs/01%20Inicio/09.%20Reglas%20de%20negocio%20V_1_0_0.md) | Zayuri Cerron | 10 Reglas operativas (RN-001 a RN-010) con fórmulas de emisión, control de capacidad y matriz de trazabilidad cruzada. |
-| **10** | [Stack tecnológico V_1_0_0.md](docs/01%20Inicio/10.%20Stack%20tecnol%C3%B3gico%20V_1_0_0.md) | Equipo de Desarrollo | Criterios de selección arquitectónica: Frontend, Backend, Base de datos, GIS, Seguridad y Contenedores. |
+| **10** | [Stack tecnológico V_1_1_0.md](docs/01%20Inicio/10.%20Stack%20tecnol%C3%B3gico%20V_1_1_0.md) | Equipo de Desarrollo | Criterios de selección arquitectónica: Frontend, Backend, Base de datos, GIS, Seguridad y Contenedores. |
 | **11** | [Base de datos V_1_0_0.md](docs/01%20Inicio/11.%20Base%20de%20datos%20V_1_0_0.md) | Equipo de Datos | Modelo Entidad-Relación y diccionario de datos relacional/geoespacial para flotas, pedidos, rutas y auditoría. |
 | **12** | [Modelo C4 V_1_0_0.md](docs/01%20Inicio/12.%20Modelo%20C4%20V_1_0_0.md) | Equipo de Arquitectura | Diagramas de Contexto, Contenedores y Componentes para representar el desacoplamiento sistémico. |
 | **13** | [Restricciones V_1_0_0.md](docs/01%20Inicio/13.%20Restricciones%20V_1_0_0.md) | Maylit Mendoza | Análisis multidimensional: seguridad ciudadana en Lima, costo de ciclo de vida (LCC), normativas ambientales y contexto social. |
@@ -180,10 +199,10 @@ Toda la descomposición técnica y parametrización ágil reside en [`docs/02 Pl
 
 | Código | Artefacto Oficial | Responsable | Enfoque / Contenido Clave |
 | :---: | :--- | :--- | :--- |
-| **01** | [Transformando a ágil V_1_0_0.md](docs/02%20Planificaci%C3%B3n/01%20Transformando%20a%20%C3%A1gil%20V_1_0_0.md) | Diego Angulo | Desglose formal de Épicas, User Stories (US), Enablers técnicos, criterios BDD, DoR y Definition of Done (DoD). |
+| **01** | [Transformando a ágil V_1_1_0.md](docs/02%20Planificaci%C3%B3n/01%20Transformando%20a%20%C3%A1gil%20V_1_1_0.md) | Diego Angulo | Desglose formal de Épicas, User Stories (US), Enablers técnicos, criterios BDD, DoR y Definition of Done (DoD). |
 | **02** | [Artefactos Jira V_1_0_0.md](docs/02%20Planificaci%C3%B3n/02%20Artefactos%20Jira%20V_1_0_0.md) | Zayuri Cerron | Evidencias visuales de Jira Software: Roadmap temporal, Backlog con Story Points, Sprint 1 Planning, Tablero Scrum y Release. |
 | **03** | [Registro de riesgos V_1_0_0.md](docs/02%20Planificaci%C3%B3n/03%20Registro%20de%20riesgos%20V_1_0_0.md) | Maylit Mendoza | Matriz cuantitativa de riesgos (Probabilidad $\times$ Impacto = Severidad), disparadores, planes de mitigación y contingencia. |
-| **04** | [Presupuesto del proyecto V_1_0_0.md](docs/02%20Planificaci%C3%B3n/04%20Presupuesto%20del%20proyecto%20V_1_0_0.md) | Jheferson Martinez | Presupuesto detallado y categorizado: Recursos humanos, infraestructura Cloud, licencias y reserva de contingencia. |
+| **04** | [Presupuesto del proyecto V_1_1_0.md](docs/02%20Planificaci%C3%B3n/04%20Presupuesto%20del%20proyecto%20V_1_1_0.md) | Jheferson Martinez | Presupuesto detallado y categorizado: Recursos humanos, infraestructura Cloud, licencias y reserva de contingencia. |
 
 ---
 
