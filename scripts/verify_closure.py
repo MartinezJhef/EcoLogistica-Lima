@@ -33,6 +33,7 @@ for target in re.findall(r'!?\[[^\]]*\]\(([^\n)]+)\)',readme):
 links=0
 files=[CLOSE/name for name in NAMES]+list((CLOSE/'anexos').glob('*.md'))
 files+=list((ROOT/'docs/01 Inicio').glob('*V_1_1_0.md'))+list((ROOT/'docs/02 Planificación').glob('*V_1_1_0.md'))
+files+=list((ROOT/'docs/02 Planificación').glob('*V_1_2_0.md'))
 for file in files:
     check(file.is_file(),f'Falta {file.name}')
     if not file.is_file():continue
@@ -87,6 +88,16 @@ with (CLOSE/'evidencias/radiadores-simulados.csv').open(encoding='utf-8') as f:
 evidence=json.loads((CLOSE/'evidencias/validacion-tecnica.json').read_text(encoding='utf-8'))
 check(evidence['main']=='be3e3ac99db6714978326dbc3a52126861419dfd','Referencia técnica no corresponde al corte')
 check(all(r['conclusion']=='success' for r in evidence['runs']),'Se declaró verde un workflow sin éxito')
+jira=json.loads((CLOSE/'evidencias/jira-corte-real-27nov.json').read_text(encoding='utf-8'))
+stories=jira['historias']; pending=jira['pendientes']
+check(len(stories)==10 and sum(s['SP'] for s in stories)==67,'Jira: historias o SP inconsistentes')
+check(sum(s['SP'] for s in stories if s['status']=='Listo')==52,'Jira: puntos Listo inconsistentes')
+check(sum(s['subtasks_total'] for s in stories)==99 and sum(s['subtasks_done'] for s in stories)==59,'Jira: subtareas inconsistentes')
+check(len(pending)==len({s['key'] for s in pending})==40,'Jira: pendientes duplicados o faltantes')
+check(sum(s['parent'] in ['ANA-13','ANA-14','ANA-15'] for s in pending)==31,'Jira: pendientes Sprint 4 inconsistentes')
+check(sum(jira['proyecto_estados'].values())==jira['proyecto_total_actividades']==123,'Jira: total global inconsistente')
+for asset in ['jira-burnup-oficial-sprint-4-27nov.jpg','jira-burndown-oficial-sprint-4-27nov.jpg','jira-flujo-acumulado-real-27nov.jpg','jira-kanban-27nov.jpg']:
+    check((CLOSE/'evidencias'/asset).stat().st_size>10000,f'Captura Jira ausente o vacía: {asset}')
 tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
 for file in tracked:
     check(not re.search(r'(^|/)(node_modules|\.venv|venv|__pycache__|\.dart_tool)/|\.pyc$',file),f'Residuo rastreado: {file}')

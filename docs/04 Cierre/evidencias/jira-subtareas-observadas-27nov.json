@@ -1,0 +1,780 @@
+{
+  "fecha": "2026-11-27",
+  "origen": "Interfaz Jira autenticada, lectura de tablas visibles; sin extracción de datos de sesión",
+  "historias": {
+    "ANA-8": [
+      {
+        "links": [
+          "/jira/browse/ANA-18",
+          "/jira/browse/ANA-18"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-18\nCopiar enlace\nSUB-004-01 Diseñar la interfaz de preferencias del cliente.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-19",
+          "/jira/browse/ANA-19"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-19\nCopiar enlace\nSUB-004-02 Implementar configuración de horarios de atención.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-22",
+          "/jira/browse/ANA-22"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-22\nCopiar enlace\nSUB-004-03 Implementar restricciones de acceso vehicular.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-24",
+          "/jira/browse/ANA-24"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-24\nCopiar enlace\nSUB-004-04 Implementar registro de referencias de entrega.\n\t\nMedium\n\t\nDIEGO GABRIEL ANGULO GONZALES\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-81",
+          "/jira/browse/ANA-81"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-81\nCopiar enlace\nSUB-004-05 Permitir descripción del lugar de referencia.\n\t\nMedium\n\t\nDIEGO GABRIEL ANGULO GONZALES\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-82",
+          "/jira/browse/ANA-82"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-82\nCopiar enlace\nSUB-004-06 Integrar las preferencias con el módulo de ruteo.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-83",
+          "/jira/browse/ANA-83"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-83\nCopiar enlace\nSUB-004-07 Validar restricciones para pedidos en tránsito.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-84",
+          "/jira/browse/ANA-84"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-84\nCopiar enlace\nSUB-004-08 Realizar pruebas funcionales.\n\t\nMedium\n\t\nMAYLIT YELINA MENDOZA ALARCON\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-85",
+          "/jira/browse/ANA-85"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-85\nCopiar enlace\nSUB-004-09 Documentar la funcionalidad.\n\t\nMedium\n\t\nZAYURI ANAHI CERRON MEDINA\n\t\nListo\n\t\t"
+      }
+    ],
+    "ANA-10": [
+      {
+        "links": [
+          "/jira/browse/ANA-28",
+          "/jira/browse/ANA-28"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-28\nCopiar enlace\nSUB-005-01 Diseñar la estructura del motor de optimización.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-30",
+          "/jira/browse/ANA-30"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-30\nCopiar enlace\nSUB-005-02 Implementar la asignación de pedidos a vehículos.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-32",
+          "/jira/browse/ANA-32"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-32\nCopiar enlace\nSUB-005-03 Implementar la secuencia de paradas.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-35",
+          "/jira/browse/ANA-35"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-35\nCopiar enlace\nSUB-005-04 Incorporar restricciones de capacidad.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-36",
+          "/jira/browse/ANA-36"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-36\nCopiar enlace\nSUB-005-05 Incorporar ventanas de tiempo.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-38",
+          "/jira/browse/ANA-38"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-38\nCopiar enlace\nSUB-005-06 Incorporar restricciones de circulación.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-86",
+          "/jira/browse/ANA-86"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-86\nCopiar enlace\nSUB-005-07 Considerar distancia, tiempo y emisiones de CO2.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-87",
+          "/jira/browse/ANA-87"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-87\nCopiar enlace\nSUB-005-08 Implementar control de exceso de capacidad.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-88",
+          "/jira/browse/ANA-88"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-88\nCopiar enlace\nSUB-005-09 Implementar descansos técnicos dentro de la planificación.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-89",
+          "/jira/browse/ANA-89"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-89\nCopiar enlace\nSUB-005-10 Integrar el motor con el módulo de pedidos.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-119",
+          "/jira/browse/ANA-119"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-119\nCopiar enlace\nSUB-005-11 Realizar pruebas de optimización.\n\t\nMedium\n\t\nMAYLIT YELINA MENDOZA ALARCON\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-120",
+          "/jira/browse/ANA-120"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-120\nCopiar enlace\nSUB-005-12 Documentar la solución implementada.\n\t\nMedium\n\t\nZAYURI ANAHI CERRON MEDINA\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ],
+    "ANA-11": [
+      {
+        "links": [
+          "/jira/browse/ANA-41",
+          "/jira/browse/ANA-41"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-41\nCopiar enlace\nSUB-006-01 Diseñar la vista del monitor de rutas.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-42",
+          "/jira/browse/ANA-42"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-42\nCopiar enlace\nSUB-006-02 Integrar el proveedor de mapas.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-44",
+          "/jira/browse/ANA-44"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-44\nCopiar enlace\nSUB-006-03 Implementar visualización de rutas.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-51",
+          "/jira/browse/ANA-51"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-51\nCopiar enlace\nSUB-006-04 Implementar marcadores de paradas.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-54",
+          "/jira/browse/ANA-54"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-54\nCopiar enlace\nSUB-006-05 Implementar representación del estado del tráfico.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-90",
+          "/jira/browse/ANA-90"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-90\nCopiar enlace\nSUB-006-06 Implementar polígonos de zonas de riesgo.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-91",
+          "/jira/browse/ANA-91"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-91\nCopiar enlace\nSUB-006-07 Mostrar avisos preventivos.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-92",
+          "/jira/browse/ANA-92"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-92\nCopiar enlace\nSUB-006-08 Implementar una vista alternativa cuando el servicio de mapas no esté disponible.\n\t\nMedium\n\t\nANGELA DENISS ROJAS QUISPE\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-93",
+          "/jira/browse/ANA-93"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-93\nCopiar enlace\nSUB-006-09 Realizar pruebas de visualización.\n\t\nMedium\n\t\nMAYLIT YELINA MENDOZA ALARCON\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-121",
+          "/jira/browse/ANA-121"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-121\nCopiar enlace\nSUB-006-10 Documentar la funcionalidad.\n\t\nMedium\n\t\nZAYURI ANAHI CERRON MEDINA\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ],
+    "ANA-12": [
+      {
+        "links": [
+          "/jira/browse/ANA-34",
+          "/jira/browse/ANA-34"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-34\nCopiar enlace\nSUB-007-01 Diseñar el mecanismo de detección de eventos.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-43",
+          "/jira/browse/ANA-43"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-43\nCopiar enlace\nSUB-007-02 Implementar recepción de incidentes viales.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-45",
+          "/jira/browse/ANA-45"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-45\nCopiar enlace\nSUB-007-03 Implementar reoptimización de rutas activas.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-47",
+          "/jira/browse/ANA-47"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-47\nCopiar enlace\nSUB-007-04 Integrar el motor de optimización.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-48",
+          "/jira/browse/ANA-48"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-48\nCopiar enlace\nSUB-007-05 Actualizar el itinerario del conductor.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-94",
+          "/jira/browse/ANA-94"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-94\nCopiar enlace\nSUB-007-06 Implementar envío de notificaciones.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-95",
+          "/jira/browse/ANA-95"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-95\nCopiar enlace\nSUB-007-07 Implementar cola y reintentos de notificaciones.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-96",
+          "/jira/browse/ANA-96"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-96\nCopiar enlace\nSUB-007-08 Mantener la última ruta disponible en modo sin conexión.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-97",
+          "/jira/browse/ANA-97"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-97\nCopiar enlace\nSUB-007-09 Implementar redistribución de pedidos ante averías.\n\t\nMedium\n\t\nJHEFERSON JESUS MARTINEZ VALERIO\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-98",
+          "/jira/browse/ANA-98"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-98\nCopiar enlace\nSUB-007-10 Realizar pruebas de reoptimización.\n\t\nMedium\n\t\nMAYLIT YELINA MENDOZA ALARCON\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-122",
+          "/jira/browse/ANA-122"
+        ],
+        "status": [
+          "Listo - Cambiar estado"
+        ],
+        "text": "ANA-122\nCopiar enlace\nSUB-007-11 Documentar la funcionalidad.\n\t\nMedium\n\t\nZAYURI ANAHI CERRON MEDINA\n\t\nListo\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ],
+    "ANA-13": [
+      {
+        "links": [
+          "/jira/browse/ANA-52",
+          "/jira/browse/ANA-52"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-52\nCopiar enlace\nSUB-008-01 Diseñar dashboard operativo.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-53",
+          "/jira/browse/ANA-53"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-53\nCopiar enlace\nSUB-008-02 Definir los indicadores de operación.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-55",
+          "/jira/browse/ANA-55"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-55\nCopiar enlace\nSUB-008-03 Implementar cálculo de distancia y consumo.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-56",
+          "/jira/browse/ANA-56"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-56\nCopiar enlace\nSUB-008-04 Implementar cálculo de emisiones de CO2.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-99",
+          "/jira/browse/ANA-99"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-99\nCopiar enlace\nSUB-008-05 Implementar cálculo de ahorros monetarios.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-100",
+          "/jira/browse/ANA-100"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-100\nCopiar enlace\nSUB-008-06 Implementar equivalencias ambientales.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-101",
+          "/jira/browse/ANA-101"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-101\nCopiar enlace\nSUB-008-07 Implementar actualización de indicadores.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-102",
+          "/jira/browse/ANA-102"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-102\nCopiar enlace\nSUB-008-08 Implementar manejo de ausencia de datos históricos.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-103",
+          "/jira/browse/ANA-103"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-103\nCopiar enlace\nSUB-008-09 Implementar manejo de errores analíticos.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-123",
+          "/jira/browse/ANA-123"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-123\nCopiar enlace\nSUB-008-10 Realizar pruebas funcionales.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-124",
+          "/jira/browse/ANA-124"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-124\nCopiar enlace\nSUB-008-11 Documentar la funcionalidad.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ],
+    "ANA-14": [
+      {
+        "links": [
+          "/jira/browse/ANA-59",
+          "/jira/browse/ANA-59"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-59\nCopiar enlace\nSUB-009-01 Diseñar estructura del reporte.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-60",
+          "/jira/browse/ANA-60"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-60\nCopiar enlace\nSUB-009-02 Consultar información operativa.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-61",
+          "/jira/browse/ANA-61"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-61\nCopiar enlace\nSUB-009-03 Consultar información ambiental.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-62",
+          "/jira/browse/ANA-62"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-62\nCopiar enlace\nSUB-009-04 Calcular costos.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-104",
+          "/jira/browse/ANA-104"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-104\nCopiar enlace\nSUB-009-05 Generar documento PDF.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-105",
+          "/jira/browse/ANA-105"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-105\nCopiar enlace\nSUB-009-06 Implementar descarga.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-106",
+          "/jira/browse/ANA-106"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-106\nCopiar enlace\nSUB-009-07 Gestionar reportes de gran volumen.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-107",
+          "/jira/browse/ANA-107"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-107\nCopiar enlace\nSUB-009-08\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-108",
+          "/jira/browse/ANA-108"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-108\nCopiar enlace\nSUB-009-09 Validar información del reporte.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-109",
+          "/jira/browse/ANA-109"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-109\nCopiar enlace\nSUB-009-10 Implementar pruebas.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ],
+    "ANA-15": [
+      {
+        "links": [
+          "/jira/browse/ANA-63",
+          "/jira/browse/ANA-63"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-63\nCopiar enlace\nSUB-0010-01 Obtener emisiones acumuladas.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-65",
+          "/jira/browse/ANA-65"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-65\nCopiar enlace\nSUB-0010-02 Configurar factores de conversión.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-66",
+          "/jira/browse/ANA-66"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-66\nCopiar enlace\nSUB-0010-03 Calcular créditos de carbono.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-110",
+          "/jira/browse/ANA-110"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-110\nCopiar enlace\nSUB-0010-04 Calcular equivalencia en árboles.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-111",
+          "/jira/browse/ANA-111"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-111\nCopiar enlace\nSUB-0010-05 Distribuir compensación entre proyectos.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-112",
+          "/jira/browse/ANA-112"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-112\nCopiar enlace\nSUB-0010-06 Recalcular valores proporcionalmente.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-113",
+          "/jira/browse/ANA-113"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-113\nCopiar enlace\nSUB-0010-07 Generar propuesta.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-114",
+          "/jira/browse/ANA-114"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-114\nCopiar enlace\nSUB-0010-08 Exportar propuesta.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-115",
+          "/jira/browse/ANA-115"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-115\nCopiar enlace\nSUB-0010-09 Validar parámetros.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [
+          "/jira/browse/ANA-116",
+          "/jira/browse/ANA-116"
+        ],
+        "status": [
+          "Por hacer - Cambiar estado"
+        ],
+        "text": "ANA-116\nCopiar enlace\nSUB-0010-10 Implementar pruebas.\n\t\nMedium\n\t\nSin asignar\n\t\nPor hacer\n\t\t"
+      },
+      {
+        "links": [],
+        "status": [],
+        "text": ""
+      }
+    ]
+  }
+}

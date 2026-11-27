@@ -6,9 +6,11 @@
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, evolución de radiadores y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
 
 **Estado del cierre:** entrega técnica y documental preparada; aceptación administrativa por registrar. **Fecha de cierre documental:** 27/11/2026. No es una firma de aprobación del patrocinador.
+
+> **Actualización con Jira real, 27/11/2026.** Las diez historias suman **67 SP**: siete en Listo (52 SP) y tres En curso (15 SP). Hay **40 subtareas abiertas**: 9 heredadas y 31 de Sprint 4. Los cuatro sprints siguen mostrando «Completar sprint». El escenario de 60 SP y el EVM del primer paquete continúan siendo **simulados**, no un reflejo del cierre formal de Jira. [Corte real y pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md).
 
 ## 1. Descripción General del Proyecto
 
@@ -22,7 +24,7 @@ Producto publicado: [web](https://ecologistica-web.onrender.com) y [API/OpenAPI]
 
 **Predictivo:** acta, requisitos, reglas, arquitectura, presupuesto y riesgos establecieron límites. Se conserva fecha 05/11 y techo S/ 12850.00 para medir desviación. La nueva versión concilia lo implementado, sin atribuir una replanificación aprobada inexistente.
 
-**Adaptativo:** diez historias: flota y conductores (US-001/002); pedidos y preferencias (US-003/004); optimización/mapa/reoptimización (US-005/006/007); indicadores/PDF/compensación (US-008/009/010). Los cuatro incrementos consolidados suman 60 SP, frente a 58 iniciales por la reestimación de US-004. El 100% funcional implementado no equivale al 100% de todos los criterios no funcionales o de aceptación humana.
+**Adaptativo:** diez historias: flota y conductores (US-001/002); pedidos y preferencias (US-003/004); optimización/mapa/reoptimización (US-005/006/007); indicadores/PDF/compensación (US-008/009/010). El escenario documental previo suma 60 SP frente a 58 iniciales; el corte real actual de Jira suma 67 SP, según la conciliación adjunta. La cobertura técnica verificada no acredita por sí sola todos los criterios no funcionales, pendientes de Jira o de aceptación humana.
 
 Objetivo: módulos core operativos. Evidencia: pruebas por roles y recorrido cliente → asignación → entrega → regreso → analítica/PDF. Variaciones: Flutter frente al diseño inicial React Native; cola persistida/polling frente a propuestas de notificaciones externas; cuatro incrementos frente a ocho sprints previstos. [Stack consolidado](../01%20Inicio/10.%20Stack%20tecnol%C3%B3gico%20V_1_1_0.md).
 
@@ -69,7 +71,7 @@ Presupuesto modelado de planificación: S/ 11467.50, techo del acta S/ 12850.00.
 | RSK-03 / factores ambientales | Riesgo abierto | Parámetros actuales identificados como simulados. | Fuente y vigencia visibles, instantáneas históricas; validar factores reales antes de operar. |
 | RSK-04 / participantes | Impedimento de aceptación | Sin respuestas SUS humanas ni mood real. | Datos simulados autorizados y rotulados; piloto real pendiente. |
 | RSK-06 / acceso y datos | Riesgo mitigado en flujos probados | Sesión vencida y permisos podían confundir al usuario; acceso a reportes requiere rol. | Recuperación de sesión, autorización de servidor, PDF privado; no se declara certificación legal. |
-| RSK-07/11 / coherencia y trazabilidad | Incidente documental | Stack inicial distinto al real; SP discrepantes y capturas antiguas de Jira. | Versiones V_1_1_0 y matriz de fuentes; cierre formal Jira no verificado. |
+| RSK-07/11 / coherencia y trazabilidad | Incidente documental | Stack inicial distinto al real; SP discrepantes y capturas antiguas de Jira. | Versiones V_1_1_0 y matriz de fuentes; corte Jira real: cuatro sprints con cierre pendiente y 40 subtareas abiertas. |
 | INC-26-01 / listados | Defecto corregido | Solo primeros 12 vehículos/conductores visibles. | Recuperación de páginas y orden estable; regresión automatizada. |
 | INC-26-02 / último administrador | Defecto corregido | Posible pérdida de capacidad de administración. | Rechazo de eliminación/bloqueo/cambio de rol del último administrador activo. |
 | INC-26-03 / pedidos cerrados | Defecto corregido | Preferencias y formulario podían conservar estado editable incorrecto. | Bloqueo de cerrados en API/interfaz y actualización del estado al recargar. |

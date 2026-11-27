@@ -6,7 +6,9 @@
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, evolución de radiadores y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+
+> **Actualización con Jira real, 27/11/2026.** Las diez historias suman **67 SP**: siete en Listo (52 SP) y tres En curso (15 SP). Hay **40 subtareas abiertas**: 9 heredadas y 31 de Sprint 4. Los cuatro sprints siguen mostrando «Completar sprint». El escenario de 60 SP y el EVM del primer paquete continúan siendo **simulados**, no un reflejo del cierre formal de Jira. [Corte real y pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md).
 
 ## 1. Información de Alcance
 
@@ -16,7 +18,7 @@
 
 ## 2. Información de Cronograma
 
-**No completado:** aceptación humana, mood real y conciliación actual de Jira. El video queda fuera de este encargo; sigue siendo requisito externo de la consigna. La meta original fue 05/11; estabilización técnica 26/11 (**+21 días**) y corte documental 27/11 (**+22 días**). La integración tardía, configuración del hosting y evidencia insuficiente afectaron la secuencia integración → aceptación → entrega. **Respuesta:** conservar la línea base, registrar desviación, adjuntar CI y ejecutar demo ensayada; PM coordina aceptación, QA conserva evidencias.
+**No completado:** aceptación humana, mood real y regularización de los estados/subtareas de Jira. El video queda fuera de este encargo; sigue siendo requisito externo de la consigna. La meta original fue 05/11; estabilización técnica 26/11 (**+21 días**) y corte documental 27/11 (**+22 días**). La integración tardía, configuración del hosting y evidencia insuficiente afectaron la secuencia integración → aceptación → entrega. **Respuesta:** conservar la línea base, registrar desviación, adjuntar CI y ejecutar demo ensayada; PM coordina aceptación, QA conserva evidencias.
 
 ## 3. Información de Costos
 
@@ -28,7 +30,7 @@ Entregar los siete reportes y anexos, verificar enlaces y ensayar 10 min de gest
 
 ## 5. Riesgos, Incidentes y Comentarios
 
-Riesgos abiertos: suspensión/latencia del hosting gratuito, factores ambientales simulados, falta de participantes reales y evidencia Jira antigua. El monitoreo de dos horas obtuvo 239/240 respuestas disponibles (99.58% de muestras), sin demostrar SLA mensual. El objetivo universal <500 ms y SUS real permanecen sin acreditar. Cierre documental preparado; aceptación administrativa pendiente de constancia del equipo. [Detalle EVM](03%20Reporte%20de%20An%C3%A1lisis%20de%20Valor%20Ganado%20-%20EVM%20V_1_0_0.md) y [reporte final](06%20Reporte%20Final%20del%20Proyecto%20V_1_0_0.md).
+Riesgos abiertos: suspensión/latencia del hosting gratuito, factores ambientales simulados, falta de participantes reales y estados y subtareas pendientes en Jira. El monitoreo de dos horas obtuvo 239/240 respuestas disponibles (99.58% de muestras), sin demostrar SLA mensual. El objetivo universal <500 ms y SUS real permanecen sin acreditar. Cierre documental preparado; aceptación administrativa pendiente de constancia del equipo. [Detalle EVM](03%20Reporte%20de%20An%C3%A1lisis%20de%20Valor%20Ganado%20-%20EVM%20V_1_0_0.md) y [reporte final](06%20Reporte%20Final%20del%20Proyecto%20V_1_0_0.md).
 
 ---
 

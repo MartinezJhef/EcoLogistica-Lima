@@ -6,9 +6,11 @@
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, evolución de radiadores y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
 
 **Frecuencia:** actualización técnica en cada integración/despliegue; revisión de gestión al cierre de cada sprint; corte consolidado 27/11/2026. No es un tablero en tiempo real.
+
+> **Actualización con Jira real, 27/11/2026.** Las diez historias suman **67 SP**: siete en Listo (52 SP) y tres En curso (15 SP). Hay **40 subtareas abiertas**: 9 heredadas y 31 de Sprint 4. Los cuatro sprints siguen mostrando «Completar sprint». El escenario de 60 SP y el EVM del primer paquete continúan siendo **simulados**, no un reflejo del cierre formal de Jira. [Corte real y pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md).
 
 ## 1. Justificación de Métricas (Principio Less is More)
 
@@ -37,11 +39,11 @@ Colores con redundancia textual: VERDE = evidencia técnica aprobada; ÁMBAR = c
 
 Interpretación: el EV simulado queda bajo PV hasta P3 y converge al cierre. La distancia EV–AC representa CV favorable del escenario; el retraso calendario se conserva aparte. Datos: [EVM CSV](evidencias/evm-simulado.csv).
 
-### 3.2 Flujo Acumulado / Áreas Apiladas
+### 3.2 Flujo Acumulado / Áreas Apiladas: evidencia real
 
-![Flujo acumulado simulado](evidencias/flujo-acumulado-simulado.png)
+![Flujo acumulado oficial Jira, consulta 27/11](evidencias/jira-flujo-acumulado-real-27nov.jpg)
 
-Interpretación: la banda de revisión se ensancha antes del corte P3 y requiere limitar trabajo iniciado y revisar antes. Es reconstrucción simulada del proyecto completo, no una medición del tablero Jira. Se mantienen 58 SP al inicio y 60 tras conciliar US-004.
+Filtro visible: 01/09/2026–27/11/2026. La gráfica usa **recuento de actividades**, no Story Points, e incluye tipos distintos de historia. La banda de Por hacer domina y las resoluciones se concentran al final del historial visible. La vista de informes resume 123 actividades: 66 Listo, 54 Por hacer y 3 En curso; no se mezclan con las diez historias (67 SP). La reconstrucción simulada anterior se conserva como material de cálculo y no reemplaza esta evidencia real.
 
 ### 3.3 Relación Costo-Cronograma (SPI vs. CPI con tamaño CSI)
 

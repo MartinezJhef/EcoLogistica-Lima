@@ -1,0 +1,401 @@
+{
+  "tipo": "OBSERVACION_REAL_JIRA",
+  "fecha_Lima": "2026-11-27",
+  "source": "Interfaz autenticada: backlog, tablero, tablas de subtareas e informes oficiales",
+  "url": "https://continental-team-yg5bc6tv.atlassian.net/jira/software/projects/ANA/boards/2",
+  "modificaciones": "Solo pestaña Informes añadida con autorización explícita; columnas, estados y asignaciones no modificados.",
+  "historias": [
+    {
+      "key": "ANA-9",
+      "us": "US-001",
+      "sprint": 1,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 8,
+      "subtasks_total": 8
+    },
+    {
+      "key": "ANA-6",
+      "us": "US-002",
+      "sprint": 1,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-7",
+      "us": "US-003",
+      "sprint": 2,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-8",
+      "us": "US-004",
+      "sprint": 2,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 8,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-10",
+      "us": "US-005",
+      "sprint": 3,
+      "SP": 13,
+      "status": "Listo",
+      "subtasks_done": 10,
+      "subtasks_total": 12
+    },
+    {
+      "key": "ANA-11",
+      "us": "US-006",
+      "sprint": 3,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 10
+    },
+    {
+      "key": "ANA-12",
+      "us": "US-007",
+      "sprint": 3,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 6,
+      "subtasks_total": 11
+    },
+    {
+      "key": "ANA-13",
+      "us": "US-008",
+      "sprint": 4,
+      "SP": 5,
+      "status": "En curso",
+      "subtasks_done": 0,
+      "subtasks_total": 11
+    },
+    {
+      "key": "ANA-14",
+      "us": "US-009",
+      "sprint": 4,
+      "SP": 5,
+      "status": "En curso",
+      "subtasks_done": 0,
+      "subtasks_total": 10
+    },
+    {
+      "key": "ANA-15",
+      "us": "US-010",
+      "sprint": 4,
+      "SP": 5,
+      "status": "En curso",
+      "subtasks_done": 0,
+      "subtasks_total": 10
+    }
+  ],
+  "SP_historia": 67,
+  "SP_en_Listo": 52,
+  "SP_en_curso": 15,
+  "subtareas_totales": 99,
+  "subtareas_Listo": 59,
+  "subtareas_pendientes": 40,
+  "proyecto_total_actividades": 123,
+  "proyecto_estados": {
+    "Listo": 66,
+    "Por hacer": 54,
+    "En curso": 3
+  },
+  "proyecto_sin_asignar": 48,
+  "subtareas_inspeccionadas": 73,
+  "pendientes": [
+    {
+      "parent": "ANA-8",
+      "key": "ANA-82",
+      "summary": "SUB-004-06 Integrar las preferencias con el módulo de ruteo.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-10",
+      "key": "ANA-36",
+      "summary": "SUB-005-05 Incorporar ventanas de tiempo.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-10",
+      "key": "ANA-86",
+      "summary": "SUB-005-07 Considerar distancia, tiempo y emisiones de CO2.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-11",
+      "key": "ANA-54",
+      "summary": "SUB-006-05 Implementar representación del estado del tráfico.",
+      "status": "Por hacer",
+      "assignee": "ANGELA DENISS ROJAS QUISPE"
+    },
+    {
+      "parent": "ANA-12",
+      "key": "ANA-48",
+      "summary": "SUB-007-05 Actualizar el itinerario del conductor.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-12",
+      "key": "ANA-94",
+      "summary": "SUB-007-06 Implementar envío de notificaciones.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-12",
+      "key": "ANA-95",
+      "summary": "SUB-007-07 Implementar cola y reintentos de notificaciones.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-12",
+      "key": "ANA-96",
+      "summary": "SUB-007-08 Mantener la última ruta disponible en modo sin conexión.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-12",
+      "key": "ANA-97",
+      "summary": "SUB-007-09 Implementar redistribución de pedidos ante averías.",
+      "status": "Por hacer",
+      "assignee": "JHEFERSON JESUS MARTINEZ VALERIO"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-52",
+      "summary": "SUB-008-01 Diseñar dashboard operativo.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-53",
+      "summary": "SUB-008-02 Definir los indicadores de operación.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-55",
+      "summary": "SUB-008-03 Implementar cálculo de distancia y consumo.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-56",
+      "summary": "SUB-008-04 Implementar cálculo de emisiones de CO2.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-99",
+      "summary": "SUB-008-05 Implementar cálculo de ahorros monetarios.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-100",
+      "summary": "SUB-008-06 Implementar equivalencias ambientales.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-101",
+      "summary": "SUB-008-07 Implementar actualización de indicadores.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-102",
+      "summary": "SUB-008-08 Implementar manejo de ausencia de datos históricos.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-103",
+      "summary": "SUB-008-09 Implementar manejo de errores analíticos.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-123",
+      "summary": "SUB-008-10 Realizar pruebas funcionales.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-13",
+      "key": "ANA-124",
+      "summary": "SUB-008-11 Documentar la funcionalidad.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-59",
+      "summary": "SUB-009-01 Diseñar estructura del reporte.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-60",
+      "summary": "SUB-009-02 Consultar información operativa.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-61",
+      "summary": "SUB-009-03 Consultar información ambiental.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-62",
+      "summary": "SUB-009-04 Calcular costos.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-104",
+      "summary": "SUB-009-05 Generar documento PDF.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-105",
+      "summary": "SUB-009-06 Implementar descarga.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-106",
+      "summary": "SUB-009-07 Gestionar reportes de gran volumen.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-107",
+      "summary": "SUB-009-08",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-108",
+      "summary": "SUB-009-09 Validar información del reporte.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-14",
+      "key": "ANA-109",
+      "summary": "SUB-009-10 Implementar pruebas.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-63",
+      "summary": "SUB-0010-01 Obtener emisiones acumuladas.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-65",
+      "summary": "SUB-0010-02 Configurar factores de conversión.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-66",
+      "summary": "SUB-0010-03 Calcular créditos de carbono.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-110",
+      "summary": "SUB-0010-04 Calcular equivalencia en árboles.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-111",
+      "summary": "SUB-0010-05 Distribuir compensación entre proyectos.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-112",
+      "summary": "SUB-0010-06 Recalcular valores proporcionalmente.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-113",
+      "summary": "SUB-0010-07 Generar propuesta.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-114",
+      "summary": "SUB-0010-08 Exportar propuesta.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-115",
+      "summary": "SUB-0010-09 Validar parámetros.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    },
+    {
+      "parent": "ANA-15",
+      "key": "ANA-116",
+      "summary": "SUB-0010-10 Implementar pruebas.",
+      "status": "Por hacer",
+      "assignee": "Sin asignar"
+    }
+  ],
+  "sprint4_informe": {
+    "periodo": "11/11/2026–27/11/2026",
+    "puntos_completados": 0,
+    "puntos_restantes": 15
+  },
+  "advertencia": "Listo en backlog no basta para certificar cierre formal. Los cuatro sprints muestran Completar sprint; el informe de Sprint 1 muestra 0% aunque sus historias figuren Listo. No se modificó el mapeo de columnas."
+}

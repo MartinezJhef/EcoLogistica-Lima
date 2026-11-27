@@ -4,7 +4,7 @@
 
 ### **Plataforma Inteligente Web y Móvil para la Gestión, Optimización Heurística y Logística Verde Urbana**
 
-*Proyecto Final de Carrera (PFA) — Universidad Continental (2026)*  
+*Proyecto Final de Carrera (PFA) — Universidad Continental (2026)*
 *Código Institucional: **`PFA-ECOLIMA-2026`***
 
 ---
@@ -21,7 +21,7 @@
 
 ## Cierre del proyecto - entrega documental, 27/11/2026
 
-La aplicación web/API y móvil cuentan con verificación técnica. Los siguientes documentos distinguen esas pruebas de las **horas, costos, EVM y radiadores simulados** autorizados para el cierre. El estado técnico no equivale a aceptación administrativa ni satisfacción de usuarios reales. El video está excluido de este encargo y no se presenta como entregado.
+La aplicación web/API y móvil cuentan con verificación técnica. Los siguientes documentos distinguen esas pruebas de las **horas, costos, EVM y ánimo simulados** autorizados para el cierre. El estado técnico no equivale a aceptación administrativa ni satisfacción de usuarios reales. El video está excluido de este encargo y no se presenta como entregado.
 
 1. [01 Reporte de Estado V_1_0_0](docs/04%20Cierre/01%20Reporte%20de%20Estado%20V_1_0_0.md)
 2. [02 Reporte de Variación V_1_0_0](docs/04%20Cierre/02%20Reporte%20de%20Variaci%C3%B3n%20V_1_0_0.md)
@@ -199,7 +199,7 @@ Toda la descomposición técnica y parametrización ágil reside en [`docs/02 Pl
 
 | Código | Artefacto Oficial | Responsable | Enfoque / Contenido Clave |
 | :---: | :--- | :--- | :--- |
-| **01** | [Transformando a ágil V_1_1_0.md](docs/02%20Planificaci%C3%B3n/01%20Transformando%20a%20%C3%A1gil%20V_1_1_0.md) | Diego Angulo | Desglose formal de Épicas, User Stories (US), Enablers técnicos, criterios BDD, DoR y Definition of Done (DoD). |
+| **01** | [Transformando a ágil V_1_2_0.md](docs/02%20Planificaci%C3%B3n/01%20Transformando%20a%20%C3%A1gil%20V_1_2_0.md) | Diego Angulo | Desglose formal de Épicas, User Stories (US), Enablers técnicos, criterios BDD, DoR y Definition of Done (DoD). |
 | **02** | [Artefactos Jira V_1_0_0.md](docs/02%20Planificaci%C3%B3n/02%20Artefactos%20Jira%20V_1_0_0.md) | Zayuri Cerron | Evidencias visuales de Jira Software: Roadmap temporal, Backlog con Story Points, Sprint 1 Planning, Tablero Scrum y Release. |
 | **03** | [Registro de riesgos V_1_0_0.md](docs/02%20Planificaci%C3%B3n/03%20Registro%20de%20riesgos%20V_1_0_0.md) | Maylit Mendoza | Matriz cuantitativa de riesgos (Probabilidad $\times$ Impacto = Severidad), disparadores, planes de mitigación y contingencia. |
 | **04** | [Presupuesto del proyecto V_1_1_0.md](docs/02%20Planificaci%C3%B3n/04%20Presupuesto%20del%20proyecto%20V_1_1_0.md) | Jheferson Martinez | Presupuesto detallado y categorizado: Recursos humanos, infraestructura Cloud, licencias y reserva de contingencia. |
@@ -455,7 +455,7 @@ Para una visualización enriquecida de las fórmulas matemáticas LaTeX ($$), ta
 
 <div align="center">
 
-**EcoLogistica-Lima** — *Innovación Tecnológica para una Logística Urbana Verde, Eficiente y Sostenible.*  
+**EcoLogistica-Lima** — *Innovación Tecnológica para una Logística Urbana Verde, Eficiente y Sostenible.*
 Universidad Continental · 2026
 
 </div>
@@ -467,3 +467,10 @@ Universidad Continental · 2026
 [Resultados simulados: cinco casos SUS](docs/03%20Inplementaci%C3%B3n/Sprint%204/08%20Anexo%20SUS%20simulado%20V_1_0_0.md).
 
 [Review y retrospectiva: ejercicio simulado](docs/03%20Inplementaci%C3%B3n/Sprint%204/09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md). La aplicación dispone de configuración ambiental con valores simulados.
+
+
+### Evidencias actuales del cierre, 27/11/2026
+
+[Jira real: capturas, puntos y pendientes exactos](docs/04%20Cierre/anexos/Conciliacion%20real%20de%20Jira%2027nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).
+
+Los radiadores principales usan las capturas oficiales del 27/11. Jira registra 67 SP, con 52 en historias Listo y 15 En curso; quedan 40 subtareas abiertas. El escenario EVM y de ánimo autorizado sigue identificado como simulado. No se declara aceptación administrativa por tener CI aprobado.

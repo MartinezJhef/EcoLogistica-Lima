@@ -2,62 +2,58 @@
 
 # Radiadores de Información (Information Radiators)
 
-**Proyecto:** EcoLogística Lima · **Código:** PFA-ECOLIMA-2026
-**Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
-**Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
+**Proyecto:** EcoLogística Lima · **Corte:** 27/11/2026 · **Versión de entrega:** 1.0.0, revisión de evidencias 2. **Marco:** Scrum con gobierno predictivo.
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, evolución de radiadores y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+## 1. Burndown Chart: captura real del Sprint 4
 
-**Marco ágil:** Scrum con gobierno predictivo de presupuesto, riesgos e hitos. **Lectura:** evidencias reales históricas más reconstrucciones simuladas claramente rotuladas.
+![Burndown oficial Jira](evidencias/jira-burndown-oficial-sprint-4-27nov.jpg)
 
-## 1. Burndown Chart (Trabajo Restante)
+[Selector de Sprint 4 y fechas del informe](evidencias/jira-burndown-encabezado-sprint-4-27nov.jpg).
 
-![Burndown simulado](evidencias/burndown-simulado.png)
+Informe oficial, Sprint ANA Sprint 4, 11–27 noviembre, unidad Puntos de historia. La línea de trabajo restante permanece en 15 frente a la guía descendente a cero. Jira no ha registrado puntos terminados del sprint, aunque haya implementación en GitHub. La velocidad de cierre registrada es cero, no la velocidad de desarrollo ni el resultado de las pruebas.
 
-La serie corresponde al proyecto agregado, no al Sprint 4 de 13 SP. El ideal parte de 58 SP y desciende linealmente; el modelo pasa a 60 al revisar US-004. Trabajo restante final: 0 SP **del escenario**. El avance no es uniforme: la concentración de terminaciones al cierre de integración sugiere evitar lotes grandes. No se calcula una velocidad real diaria desde esta simulación.
+## 2. Burnup Chart: captura real del Sprint 4
 
-## 2. Burnup Chart (Trabajo Completado y Cambios de Alcance)
+![Burnup oficial Jira](evidencias/jira-burnup-oficial-sprint-4-27nov.jpg)
 
-![Burnup simulado](evidencias/burnup-simulado.png)
+[Selector de Sprint 4 y fechas del informe](evidencias/jira-burnup-encabezado-sprint-4-27nov.jpg).
 
-La estimación total pasa de 58 a 60 SP por US-004 de 3 a 5 SP; se mantienen diez historias. No se confunde un aumento de estimación con una nueva funcionalidad. Distribución reconciliada por incremento: 8, 10, 29 y 13 SP. Promedio aritmético 15 SP/incremento; no se usa como pronóstico de velocidad porque los incrementos no acreditan igual duración/capacidad. [Datos simulados](evidencias/radiadores-simulados.csv).
+Alcance de 15 SP; completados registrados 0. La tabla de eventos muestra el inicio del sprint el 11/11/2026 con ANA-13, ANA-14 y ANA-15, sin incremento posterior acreditado en ese informe. No se infiere que el código no exista: el gráfico refleja el registro de Jira. No se alteraron estados para producir una gráfica favorable.
 
-## 3. Task Board / Tablero Kanban
+## 3. Task Board / Kanban y flujo acumulado reales
 
-![Captura histórica del tablero Jira](../02%20Planificaci%C3%B3n/image-3.png)
+![Kanban real](evidencias/jira-kanban-27nov.jpg)
 
-**Captura real histórica ya incluida en el artefacto Jira**, sin fecha verificable en la imagen. Muestra Por hacer, En curso, Listo e In Review; las tres tarjetas visibles están en Por hacer y las demás columnas en cero. El encabezado dice «Proyecto Ecologistica Huancayo»: inconsistencia de denominación frente a EcoLogística Lima que debe conciliar el equipo. No prueba el estado final ni se editó para aparentar tareas terminadas.
+Todos los sprints: 7 historias en Listo y 3 En curso; las tres del Sprint 4 no tienen responsable. Las columnas se conservaron sin cambios. El cuello de botella de gestión es la regularización de evidencias y subtareas antes del cierre: hay 40 subtareas abiertas, nueve heredadas. Una historia en Listo no elimina pendientes de sus hijos.
 
-Cuello de botella visible: trabajo concentrado en Por hacer y una columna In Review posterior a Listo en la captura. Se conserva la decisión del usuario de **no cambiar columnas**. Acción: revisar el mapeo de estados y obtener una exportación/captura actual antes de declarar sprints cerrados; no se realizaron modificaciones en Jira durante este cierre.
+![Flujo acumulado oficial](evidencias/jira-flujo-acumulado-real-27nov.jpg)
 
-![Captura histórica del backlog Jira](../02%20Planificaci%C3%B3n/image-1.png)
+Filtro visible: 01/09–27/11/2026. Unidad: número de actividades de varios tipos; no SP ni solo historias. Predomina Por hacer y las resoluciones se concentran en el tramo final del historial visible. El panel global contiene 123 actividades, mientras la lista de historias tiene 10; no son denominadores intercambiables.
 
-La captura usa otra agrupación/estimación de historias que el backlog textual. Por eso no se mezclan sus puntos ni sus fechas con las series simuladas. Las claves ANA visibles son evidencia histórica; no se inventan correspondencias para otras historias.
+## 4. Mood Chart del equipo: resultados simulados autorizados
 
-## 4. Mood Chart (Estado de Ánimo del Equipo)
+![Mood simulado](evidencias/mood-simulado.png)
 
-![Mood chart simulado](evidencias/mood-simulado.png)
-
-| Integrante / rol de referencia | Sprint 1 | Sprint 2 | Sprint 3 | Sprint final |
+| Integrante / rol de referencia | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 |
 |---|---|---|---|---|
-| Zayuri / Dirección del proyecto | 4 | 3 | 3 | 4 |
-| Jheferson / Liderazgo técnico | 4 | 3 | 2 | 4 |
-| Angela / Producto e interfaces | 4 | 4 | 3 | 5 |
-| Maylit / Calidad y riesgos | 3 | 3 | 2 | 4 |
-| Diego / Comunicaciones y soporte | 4 | 3 | 3 | 4 |
+| Zayuri / dirección | 4 | 3 | 3 | 4 |
+| Jheferson / técnico | 4 | 3 | 2 | 4 |
+| Angela / producto e interfaz | 4 | 4 | 3 | 5 |
+| Maylit / calidad | 3 | 3 | 2 | 4 |
+| Diego / comunicaciones | 4 | 3 | 3 | 4 |
 
-Escala 1 muy bajo a 5 muy alto. **Todos los valores son simulados** y no representan opiniones de las personas nombradas. Media final 4.2/5; media de Sprint 3 2.6/5. Hipótesis del escenario: presión de integración y recuperación al estabilizar pruebas. Se recomienda medir voluntariamente y acordar mejoras de carga sin usar el ánimo como evaluación individual.
+Escala 1–5. Media final simulada 4.2; media simulada de Sprint 3 2.6. No son respuestas recogidas de las personas nombradas. La simulación permite analizar presión de integración y recuperación al estabilizar pruebas; no acredita satisfacción real.
 
-## 5. Tableros de Retrospectiva
+## 5. Retrospectiva: síntesis del expediente
 
-![Retrospectiva reconstruida](evidencias/retrospectiva-reconstruida.png)
+![Tablero de retrospectiva reconstruido](evidencias/retrospectiva-reconstruida.png)
 
-Reconstrucción de la [retrospectiva versionada del Sprint 4](../03%20Implementaci%C3%B3n/Sprint%204/02%20Retrospectiva%20del%20Sprint%20V_1_0_0.md), no captura de una reunión. **Funcionó:** lógica compartida, permisos del servidor y pruebas reproducibles. **Mejorar:** validación con participantes, distribución de responsabilidades y calidad de evidencias. **Implementado técnicamente:** fecha Lima, regresiones, CI/CD y corrección de flujos. **Propuesto:** sesión real de aceptación y registro de sus acuerdos.
+La figura reconstruye la [retrospectiva versionada del Sprint 4](../03%20Implementaci%C3%B3n/Sprint%204/02%20Retrospectiva%20del%20Sprint%20V_1_0_0.md); no es fotografía de una reunión. Mantener: lógica compartida, permisos y pruebas en base real. Mejorar: coordinación de aceptación, carga y evidencia de gestión. Acciones técnicas ya verificadas: fecha Lima, CI/CD y regresiones. La discusión y aceptación por participantes debe registrarse cuando ocurra.
 
-## 6. Límite de cumplimiento
+## 6. Trazabilidad y material complementario
 
-La consigna solicita radiadores reales usados durante la ejecución. Se aporta el tablero real histórico existente; burndown, burnup, flujo y mood se entregan como simulados, y la retro como reconstrucción. Esto completa el material solicitado con la autorización recibida, pero **no acredita que esas gráficas fueran observadas en Jira ni sustituye las capturas reales exigidas por la rúbrica**.
+[Corte real con pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md) y [datos observados](evidencias/jira-corte-real-27nov.json). Las antiguas curvas de 60 SP se conservan como **escenario simulado** en [CSV](evidencias/radiadores-simulados.csv), no como exportación de Jira. El estado real consultado suma 67 SP.
 
----
+Se completa así la evidencia gráfica real disponible. Mood, horas y costos mantienen su condición simulada autorizada; la simulación no convierte una reunión propuesta en reunión realizada ni cambia los criterios de evidencia real del docente.
 
 [← Volver al README principal](../../README.md)
