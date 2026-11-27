@@ -4,31 +4,29 @@
 
 **Proyecto:** EcoLogística Lima · **Corte:** 27/11/2026 · **Versión de entrega:** 1.0.0, revisión de evidencias 2. **Marco:** Scrum con gobierno predictivo.
 
-## 1. Burndown Chart: captura real del Sprint 4
+> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias en Listo (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Se regularizaron las 40 subtareas del corte inicial. Seguridad, vista de conductor y documentación también están en Listo. El proyecto completo registra **119/123 actividades terminadas**; siguen abiertas cuatro validaciones no funcionales. Horas, costos, EVM, mood y SUS autorizados conservan su naturaleza simulada. [Estado final y límites de aceptación](anexos/Estado%20final%20del%20cierre%20Jira.md).
 
-![Burndown oficial Jira](evidencias/jira-burndown-oficial-sprint-4-27nov.jpg)
+## 1. Burndown Chart: Sprint 4 cerrado
 
-[Selector de Sprint 4 y fechas del informe](evidencias/jira-burndown-encabezado-sprint-4-27nov.jpg).
+![Burndown final de Jira](evidencias/jira-burndown-sprint-4-cerrado-27nov.jpg)
 
-Informe oficial, Sprint ANA Sprint 4, 11–27 noviembre, unidad Puntos de historia. La línea de trabajo restante permanece en 15 frente a la guía descendente a cero. Jira no ha registrado puntos terminados del sprint, aunque haya implementación en GitHub. La velocidad de cierre registrada es cero, no la velocidad de desarrollo ni el resultado de las pruebas.
+Alcance 15 SP; trabajo restante **0** al cierre del 27/11. La caída final registra cuándo se actualizaron las historias en Jira; no demuestra que todo el desarrollo ocurriera ese día. Se conserva la captura inicial con 15 pendientes para trazabilidad.
 
-## 2. Burnup Chart: captura real del Sprint 4
+## 2. Burnup Chart: Sprint 4 cerrado
 
-![Burnup oficial Jira](evidencias/jira-burnup-oficial-sprint-4-27nov.jpg)
+![Burnup final de Jira](evidencias/jira-burnup-sprint-4-cerrado-27nov.jpg)
 
-[Selector de Sprint 4 y fechas del informe](evidencias/jira-burnup-encabezado-sprint-4-27nov.jpg).
+Completados **15/15 SP**, sin aumento del alcance. Las tablas oficiales registran «Sprint completado» para los cuatro sprints: 10/10, 13/13, 29/29 y 15/15 SP. [Eventos originales transcritos de Jira](evidencias/jira-sprints-cerrados-27nov.json). Las fechas de cierre administrativo del 27/11 se conservan; no se retrocedieron a las fechas previstas.
 
-Alcance de 15 SP; completados registrados 0. La tabla de eventos muestra el inicio del sprint el 11/11/2026 con ANA-13, ANA-14 y ANA-15, sin incremento posterior acreditado en ese informe. No se infiere que el código no exista: el gráfico refleja el registro de Jira. No se alteraron estados para producir una gráfica favorable.
+## 3. Kanban y flujo acumulado reales
 
-## 3. Task Board / Kanban y flujo acumulado reales
+![Tablero regularizado antes de terminar los sprints](evidencias/jira-kanban-regularizado-27nov.jpg)
 
-![Kanban real](evidencias/jira-kanban-27nov.jpg)
+La captura muestra las diez historias en Listo antes de terminar los sprints. Orden publicado con autorización expresa: Por hacer → En curso → In Review → Listo. Al quedar Listo al final, Jira pudo cerrar los sprints sin trasladar historias al backlog. Después del cierre, el tablero de sprints activos puede aparecer vacío: los elementos permanecen en los informes y el historial.
 
-Todos los sprints: 7 historias en Listo y 3 En curso; las tres del Sprint 4 no tienen responsable. Las columnas se conservaron sin cambios. El cuello de botella de gestión es la regularización de evidencias y subtareas antes del cierre: hay 40 subtareas abiertas, nueve heredadas. Una historia en Listo no elimina pendientes de sus hijos.
+![Flujo acumulado final](evidencias/jira-flujo-acumulado-cierre-final-27nov.jpg)
 
-![Flujo acumulado oficial](evidencias/jira-flujo-acumulado-real-27nov.jpg)
-
-Filtro visible: 01/09–27/11/2026. Unidad: número de actividades de varios tipos; no SP ni solo historias. Predomina Por hacer y las resoluciones se concentran en el tramo final del historial visible. El panel global contiene 123 actividades, mientras la lista de historias tiene 10; no son denominadores intercambiables.
+Recuento de 123 actividades de distintos tipos: 119 Listo y cuatro validaciones generales Por hacer. No se presentan como 123 historias. Las 99 subtareas funcionales y siete épicas están terminadas.
 
 ## 4. Mood Chart del equipo: resultados simulados autorizados
 
@@ -52,7 +50,7 @@ La figura reconstruye la [retrospectiva versionada del Sprint 4](../03%20Impleme
 
 ## 6. Trazabilidad y material complementario
 
-[Corte real con pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md) y [datos observados](evidencias/jira-corte-real-27nov.json). Las antiguas curvas de 60 SP se conservan como **escenario simulado** en [CSV](evidencias/radiadores-simulados.csv), no como exportación de Jira. El estado real consultado suma 67 SP.
+[Corte real con pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md) y [datos observados](evidencias/jira-corte-real-27nov.json). Las antiguas curvas de 60 SP se conservan como **escenario simulado** en [CSV](evidencias/radiadores-simulados.csv), no como exportación de Jira. El corte inicial sumaba 67 SP; el corte final conserva esos puntos y cierra sus cuatro sprints.
 
 Se completa así la evidencia gráfica real disponible. Mood, horas y costos mantienen su condición simulada autorizada; la simulación no convierte una reunión propuesta en reunión realizada ni cambia los criterios de evidencia real del docente.
 

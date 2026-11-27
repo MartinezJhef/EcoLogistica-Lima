@@ -6,11 +6,11 @@
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real, actualizada al 27/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
 
 **Estado del cierre:** entrega técnica y documental preparada; aceptación administrativa por registrar. **Fecha de cierre documental:** 27/11/2026. No es una firma de aprobación del patrocinador.
 
-> **Actualización con Jira real, 27/11/2026.** Las diez historias suman **67 SP**: siete en Listo (52 SP) y tres En curso (15 SP). Hay **40 subtareas abiertas**: 9 heredadas y 31 de Sprint 4. Los cuatro sprints siguen mostrando «Completar sprint». El escenario de 60 SP y el EVM del primer paquete continúan siendo **simulados**, no un reflejo del cierre formal de Jira. [Corte real y pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md).
+> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias en Listo (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Se regularizaron las 40 subtareas del corte inicial. Seguridad, vista de conductor y documentación también están en Listo. El proyecto completo registra **119/123 actividades terminadas**; siguen abiertas cuatro validaciones no funcionales. Horas, costos, EVM, mood y SUS autorizados conservan su naturaleza simulada. [Estado final y límites de aceptación](anexos/Estado%20final%20del%20cierre%20Jira.md).
 
 ## 1. Descripción General del Proyecto
 
@@ -71,7 +71,7 @@ Presupuesto modelado de planificación: S/ 11467.50, techo del acta S/ 12850.00.
 | RSK-03 / factores ambientales | Riesgo abierto | Parámetros actuales identificados como simulados. | Fuente y vigencia visibles, instantáneas históricas; validar factores reales antes de operar. |
 | RSK-04 / participantes | Impedimento de aceptación | Sin respuestas SUS humanas ni mood real. | Datos simulados autorizados y rotulados; piloto real pendiente. |
 | RSK-06 / acceso y datos | Riesgo mitigado en flujos probados | Sesión vencida y permisos podían confundir al usuario; acceso a reportes requiere rol. | Recuperación de sesión, autorización de servidor, PDF privado; no se declara certificación legal. |
-| RSK-07/11 / coherencia y trazabilidad | Incidente documental | Stack inicial distinto al real; SP discrepantes y capturas antiguas de Jira. | Versiones V_1_1_0 y matriz de fuentes; corte Jira real: cuatro sprints con cierre pendiente y 40 subtareas abiertas. |
+| RSK-07/11 / coherencia y trazabilidad | Incidente documental | Stack inicial distinto al real; SP discrepantes y capturas antiguas de Jira. | Versiones V_1_1_0 y matriz de fuentes; corte Jira final: cuatro sprints cerrados y 99 subtareas terminadas; cuatro enablers no funcionales siguen abiertos. |
 | INC-26-01 / listados | Defecto corregido | Solo primeros 12 vehículos/conductores visibles. | Recuperación de páginas y orden estable; regresión automatizada. |
 | INC-26-02 / último administrador | Defecto corregido | Posible pérdida de capacidad de administración. | Rechazo de eliminación/bloqueo/cambio de rol del último administrador activo. |
 | INC-26-03 / pedidos cerrados | Defecto corregido | Preferencias y formulario podían conservar estado editable incorrecto. | Bloqueo de cerrados en API/interfaz y actualización del estado al recargar. |

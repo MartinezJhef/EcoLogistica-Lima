@@ -471,6 +471,6 @@ Universidad Continental · 2026
 
 ### Evidencias actuales del cierre, 27/11/2026
 
-[Jira real: capturas, puntos y pendientes exactos](docs/04%20Cierre/anexos/Conciliacion%20real%20de%20Jira%2027nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).
+[Estado final de Jira y límites de aceptación](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Trazabilidad de las 40 subtareas](docs/04%20Cierre/anexos/Verificacion%20tecnica%20de%20las%2040%20subtareas.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).
 
-Los radiadores principales usan las capturas oficiales del 27/11. Jira registra 67 SP, con 52 en historias Listo y 15 En curso; quedan 40 subtareas abiertas. El escenario EVM y de ánimo autorizado sigue identificado como simulado. No se declara aceptación administrativa por tener CI aprobado.
+Sprints **1–4 cerrados**. Diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Seguridad, vista del conductor y documentación regularizadas. Total: **119/123 actividades terminadas**; ANA-21, ANA-26, ANA-29 y ANA-39 continúan abiertas por validaciones no funcionales todavía no acreditadas. Los informes distinguen el corte inicial del final y conservan los datos de gestión/SUS simulados autorizados. No se declara aceptación humana ni cumplimiento global del 100%.

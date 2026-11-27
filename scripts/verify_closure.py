@@ -98,6 +98,16 @@ check(sum(s['parent'] in ['ANA-13','ANA-14','ANA-15'] for s in pending)==31,'Jir
 check(sum(jira['proyecto_estados'].values())==jira['proyecto_total_actividades']==123,'Jira: total global inconsistente')
 for asset in ['jira-burnup-oficial-sprint-4-27nov.jpg','jira-burndown-oficial-sprint-4-27nov.jpg','jira-flujo-acumulado-real-27nov.jpg','jira-kanban-27nov.jpg']:
     check((CLOSE/'evidencias'/asset).stat().st_size>10000,f'Captura Jira ausente o vacía: {asset}')
+if (CLOSE/'evidencias/jira-cierre-final-27nov.json').exists():
+    final=json.loads((CLOSE/'evidencias/jira-cierre-final-27nov.json').read_text(encoding='utf-8'))
+    check(final['sprints_cerrados']==[1,2,3,4],'Falta cierre de un sprint')
+    check(final['subtareas_Listo']==99 and final['subtareas_pendientes']==0,'Cierre de subtareas inconsistente')
+    check(sum(s['SP'] for s in final['historias'] if s['status']=='Listo')==67,'SP finales inconsistentes')
+    check(final['actividades_Listo']+len(final['pendientes_generales'])==final['actividades_totales']==123,'Total final inconsistente')
+    events=json.loads((CLOSE/'evidencias/jira-sprints-cerrados-27nov.json').read_text(encoding='utf-8'))
+    check(len(events['sprints'])==4 and all(any('Sprint completado' in row for row in s['rows']) for s in events['sprints']),'Falta evento oficial de cierre')
+    current=json.loads((CLOSE/'evidencias/validacion-tecnica-cierre-27nov.json').read_text(encoding='utf-8-sig'))
+    check(current['main'].startswith('6ef087e') and all(r['conclusion']=='success' for r in current['runs']),'CI del cierre funcional no aprobado')
 tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
 for file in tracked:
     check(not re.search(r'(^|/)(node_modules|\.venv|venv|__pycache__|\.dart_tool)/|\.pyc$',file),f'Residuo rastreado: {file}')

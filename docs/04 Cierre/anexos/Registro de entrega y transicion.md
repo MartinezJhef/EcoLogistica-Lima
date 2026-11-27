@@ -9,7 +9,7 @@
 | Elemento | Resultado verificable |
 |---|---|
 | Documentos | Siete informes Markdown con nombres requeridos, gráficos, datos y enlaces de retorno. |
-| Estado técnico | Web/API y móvil verificados; CI del commit documental 87183c6 aprobado y despliegue exitoso. |
+| Estado técnico | Web/API y móvil verificados; CI del commit funcional 6ef087e aprobado y despliegue exitoso. |
 | Radiadores | Capturas reales del 27/11 de backlog, Kanban, burnup, burndown y flujo acumulado. |
 | Datos de gestión | Horas, AC, EVM y mood simulados, identificados y reproducibles. |
 | Código y arquitectura | Frontend/backend/móvil separados; stack conciliado con el código. |
@@ -21,7 +21,7 @@
 
 ## Condiciones que recibe el equipo
 
-Jira mantiene 40 subtareas abiertas y cuatro sprints sin cierre formal; el Sprint 4 muestra 15 SP en curso. Esto se entrega como hallazgo real, no como proyecto administrativamente aprobado. El equipo cuenta con la lista exacta de tareas para decidir y registrar los cambios soportados por evidencia.
+Jira tiene los Sprints 1–4 cerrados, diez historias (67 SP), 99 subtareas y siete épicas en Listo. Se cerraron seguridad, vista de conductor y documentación. Quedan cuatro validaciones no funcionales fuera de los sprints. [Estado final y evidencia pendiente](Estado%20final%20del%20cierre%20Jira.md). No se declara aceptación global inexistente.
 
 Las pruebas automáticas no sustituyen evaluación humana de satisfacción. La reunión de cierre, las firmas y la sustentación no se atribuyen a nadie sin constancia. La consigna no exige un archivo de firmas adicional: este registro documenta la transición preparada sin convertir esa formalidad no aportada en un resultado ficticio.
 

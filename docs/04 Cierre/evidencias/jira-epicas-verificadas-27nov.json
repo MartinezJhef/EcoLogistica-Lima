@@ -1,0 +1,64 @@
+{
+  "tipo": "OBSERVACION_REAL_JIRA",
+  "epicas": [
+    {
+      "key": "ANA-1",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-9Copiar enlaceUS-001 Gestionar vehículos de la flotaHighestZAYURI ANAHI CERRON MEDINAListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-2",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-6Copiar enlaceUS-002 Gestionar conductores y jornadaHighestDIEGO GABRIEL ANGULO GONZALESListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-3",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-7Copiar enlaceUS-003 Gestionar pedidos y geolocalizaciónMediumDIEGO GABRIEL ANGULO GONZALESListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-4",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-8Copiar enlaceUS-004 – Gestionar preferencias y restricciones del cliente.MediumANGELA DENISS ROJAS QUISPEListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-5",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-10Copiar enlaceUS-005 Generar rutas optimizadasHighJHEFERSON JESUS MARTINEZ VALERIOListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-117",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-11Copiar enlaceUS-006 Visualizar rutas en mapaMediumANGELA DENISS ROJAS QUISPEListo",
+        "ANA-12Copiar enlaceUS-007 – Reoptimizar rutas ante eventosHighJHEFERSON JESUS MARTINEZ VALERIOListo"
+      ],
+      "estado_final": "Listo"
+    },
+    {
+      "key": "ANA-118",
+      "rows": [
+        "ActividadMás acciones para ActividadPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoConfigurar columnas",
+        "ANA-13Copiar enlaceUS-008 – Consultar indicadores operativos y de sostenibilidadMediumSin asignarListo",
+        "ANA-14Copiar enlaceUS-009 Generar reportes de sostenibilidad y costosHighSin asignarListo",
+        "ANA-15Copiar enlaceUS-010 Gestionar propuesta de compensación de carbonoLowSin asignarListo"
+      ],
+      "estado_final": "Listo"
+    }
+  ]
+}

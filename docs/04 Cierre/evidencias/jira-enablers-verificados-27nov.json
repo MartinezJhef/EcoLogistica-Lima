@@ -1,0 +1,23 @@
+{
+  "tipo": "OBSERVACION_REAL_JIRA",
+  "enablers": [
+    {
+      "key": "ANA-25",
+      "prefix": "EN-002",
+      "note": "Seguridad verificada: credenciales válidas y permisos de servidor; rechazo de acceso no autorizado a módulos y reportes privados. Evidencia: src/backend/tests/test_sprint4_workflows.py (roles y archivos privados), regresiones backend y E2E por roles. No se declara certificación legal.",
+      "estado": "Listo"
+    },
+    {
+      "key": "ANA-37",
+      "prefix": "EN-005",
+      "note": "Vista de conductor verificada con rol repartidor: itinerario, entregas pendientes y avisos; actualización persistida y funcionamiento sin conexión. Evidencia: src/mobile/test/sprint3_screens_test.dart y sprint3_sync_test.dart; E2E y restricciones de servidor. La validación funcional no sustituye encuestas SUS humanas.",
+      "estado": "Listo"
+    },
+    {
+      "key": "ANA-40",
+      "prefix": "EN-007",
+      "note": "Documentación técnica/operativa actualizada en main: frontend/backend/móvil, despliegue, manuales, OpenAPI /docs, siete documentos de cierre y trazabilidad. Ahorro monetario documentado y probado. CI y despliegue del commit 6ef087e aprobados.",
+      "estado": "Listo"
+    }
+  ]
+}

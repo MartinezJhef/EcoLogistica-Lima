@@ -300,3 +300,6 @@ Los radiadores principales usan las capturas oficiales del 27/11. Jira registra 
 '''
 write(readme,text)
 print('Evidencias reales incorporadas: 67 SP, 40 subtareas abiertas; sin alterar estados ni columnas.')
+if (EV/'jira-cierre-final-27nov.json').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/finalize_closure_documents.py'),run_name='__main__')

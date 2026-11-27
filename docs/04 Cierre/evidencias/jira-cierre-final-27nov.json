@@ -1,0 +1,135 @@
+{
+  "tipo": "OBSERVACION_REAL_JIRA",
+  "fecha_Lima": "2026-11-27",
+  "fuente": "Interfaz Jira: transición masiva completada, historias, épicas, informes y búsqueda de pendientes",
+  "historias": [
+    {
+      "key": "ANA-9",
+      "us": "US-001",
+      "sprint": 1,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 8,
+      "subtasks_total": 8
+    },
+    {
+      "key": "ANA-6",
+      "us": "US-002",
+      "sprint": 1,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-7",
+      "us": "US-003",
+      "sprint": 2,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-8",
+      "us": "US-004",
+      "sprint": 2,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 9,
+      "subtasks_total": 9
+    },
+    {
+      "key": "ANA-10",
+      "us": "US-005",
+      "sprint": 3,
+      "SP": 13,
+      "status": "Listo",
+      "subtasks_done": 12,
+      "subtasks_total": 12
+    },
+    {
+      "key": "ANA-11",
+      "us": "US-006",
+      "sprint": 3,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 10,
+      "subtasks_total": 10
+    },
+    {
+      "key": "ANA-12",
+      "us": "US-007",
+      "sprint": 3,
+      "SP": 8,
+      "status": "Listo",
+      "subtasks_done": 11,
+      "subtasks_total": 11
+    },
+    {
+      "key": "ANA-13",
+      "us": "US-008",
+      "sprint": 4,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 11,
+      "subtasks_total": 11
+    },
+    {
+      "key": "ANA-14",
+      "us": "US-009",
+      "sprint": 4,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 10,
+      "subtasks_total": 10
+    },
+    {
+      "key": "ANA-15",
+      "us": "US-010",
+      "sprint": 4,
+      "SP": 5,
+      "status": "Listo",
+      "subtasks_done": 10,
+      "subtasks_total": 10
+    }
+  ],
+  "SP_en_Listo": 67,
+  "subtareas_Listo": 99,
+  "subtareas_pendientes": 0,
+  "sprints_cerrados": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "epicas_Listo": 7,
+  "enablers_Listo": [
+    "ANA-25",
+    "ANA-37",
+    "ANA-40"
+  ],
+  "pendientes_generales": [
+    "ANA-21",
+    "ANA-26",
+    "ANA-29",
+    "ANA-39"
+  ],
+  "filas_pendientes": [
+    "ActividadMás acciones para ActividadPersona asignadaPersona asignada • Ordenar de la A a la ZMás acciones para Persona asignadaInformadorInformador • Ordenar de la A a la ZMás acciones para InformadorPrioridadPrioridad • Ordenar de inferior a superiorMás acciones para PrioridadEstadoEstado • Ordenar en orden ascendenteMás acciones para EstadoResoluciónResolución • Ordenar de la A a la ZMás acciones para ResoluciónCreadaCreada • Ordenar del más antiguo al más recienteMás acciones para CreadaActualizadaActualizada • Ordenar del más antiguo al más recienteMás acciones para ActualizadaFecha de vencimientoFecha de vencimiento • Ordenar del más antiguo al más recienteMás acciones para Fecha de vencimientoConfigurar columnas",
+    "ANA-39Copiar enlaceEN-006: Implementar el monitoreo de disponibilidad y mecanismos de continuidad.Sin asignarZAYURI ANAHI CERRON MEDINAMediumPor hacerSin resolver11 sept 2026, 16:1617 sept 2026, 19:29NingunoMás acciones para ANA-39",
+    "ANA-29Copiar enlaceEN-004: Validar la capacidad de escalabilidad operativa del sistema.Sin asignarZAYURI ANAHI CERRON MEDINAMediumPor hacerSin resolver11 sept 2026, 16:1517 sept 2026, 19:29NingunoMás acciones para ANA-29",
+    "ANA-26Copiar enlaceEN-003: Validar el cumplimiento de accesibilidad WCAG 2.1 nivel AA.Sin asignarZAYURI ANAHI CERRON MEDINAMediumPor hacerSin resolver11 sept 2026, 16:1417 sept 2026, 19:29NingunoMás acciones para ANA-26",
+    "ANA-21Copiar enlaceEN-001 Validar rendimiento del motor de optimizaciónSin asignarZAYURI ANAHI CERRON MEDINAMediumPor hacerSin resolver11 sept 2026, 16:1311 sept 2026, 16:13NingunoMás acciones para ANA-21"
+  ],
+  "actividades_totales": 123,
+  "actividades_Listo": 119,
+  "actividades_Por_hacer": 4,
+  "columnas": [
+    "Por hacer",
+    "En curso",
+    "In Review",
+    "Listo"
+  ],
+  "advertencia": "Sprints cerrados no certifican cumplimiento de metas no funcionales ni encuestas humanas; los cuatro enablers restantes no se marcaron terminados."
+}

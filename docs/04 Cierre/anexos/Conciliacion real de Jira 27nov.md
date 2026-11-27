@@ -4,6 +4,8 @@
 
 **Consulta:** 27/11/2026. **Proyecto Jira:** ANA, nombre visible «Proyecto Ecologistica Huancayo»; repositorio/aplicación: EcoLogística Lima. No se cambió el nombre ni las columnas. Se añadió únicamente la pestaña Informes con autorización expresa del usuario.
 
+> **Corte inicial histórico.** Las 40 subtareas y los cuatro sprints abiertos de este documento fueron regularizados posteriormente el mismo 27/11. Se conserva este hallazgo y sus capturas como antecedente. Consulte el [estado final del cierre](Estado%20final%20del%20cierre%20Jira.md).
+
 ## 1. Estado real de las diez historias
 
 | Historia Jira | US | Sprint | SP | Estado | Subtareas Listo / total |

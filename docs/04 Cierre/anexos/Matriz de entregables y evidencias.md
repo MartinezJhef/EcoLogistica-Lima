@@ -30,3 +30,6 @@ Consigna final HTML y material docente proporcionados por el usuario, revisados 
 
 
 Para regenerar el paquete completo, ejecutar en orden: `build_closure_figures.py`, `build_closure_documents.py`, `build_closure_addenda.py` y finalmente `complete_closure_evidence.py`, todos en `scripts/`. El último paso incorpora el corte real de Jira conservado y evita sustituirlo por el escenario simulado. Después ejecutar `python scripts/verify_closure.py`.
+
+
+El cierre final observado se incorpora automáticamente con `scripts/finalize_closure_documents.py` al terminar `complete_closure_evidence.py`. [Estado final de Jira](Estado%20final%20del%20cierre%20Jira.md): cuatro sprints cerrados; cuatro validaciones generales aún abiertas.

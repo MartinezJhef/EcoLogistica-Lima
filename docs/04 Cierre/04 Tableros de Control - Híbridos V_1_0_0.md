@@ -6,11 +6,11 @@
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
 
-> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real al 26/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
+> **Naturaleza de los datos.** Pruebas, commits y despliegues: evidencia técnica real, actualizada al 27/11/2026. Horas, costos incurridos del escenario, EVM, curvas complementarias y ánimo: **datos simulados**, autorizados para este cierre. No acreditan pagos, opiniones, reuniones ni aprobación de interesados.
 
 **Frecuencia:** actualización técnica en cada integración/despliegue; revisión de gestión al cierre de cada sprint; corte consolidado 27/11/2026. No es un tablero en tiempo real.
 
-> **Actualización con Jira real, 27/11/2026.** Las diez historias suman **67 SP**: siete en Listo (52 SP) y tres En curso (15 SP). Hay **40 subtareas abiertas**: 9 heredadas y 31 de Sprint 4. Los cuatro sprints siguen mostrando «Completar sprint». El escenario de 60 SP y el EVM del primer paquete continúan siendo **simulados**, no un reflejo del cierre formal de Jira. [Corte real y pendientes exactos](anexos/Conciliacion%20real%20de%20Jira%2027nov.md).
+> **Cierre real de Jira, 27/11/2026.** Sprints **1–4 cerrados**, diez historias en Listo (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Se regularizaron las 40 subtareas del corte inicial. Seguridad, vista de conductor y documentación también están en Listo. El proyecto completo registra **119/123 actividades terminadas**; siguen abiertas cuatro validaciones no funcionales. Horas, costos, EVM, mood y SUS autorizados conservan su naturaleza simulada. [Estado final y límites de aceptación](anexos/Estado%20final%20del%20cierre%20Jira.md).
 
 ## 1. Justificación de Métricas (Principio Less is More)
 
@@ -24,7 +24,7 @@ Colores con redundancia textual: VERDE = evidencia técnica aprobada; ÁMBAR = c
 |---|---|---|---|
 | Requisitos, arquitectura y presupuesto | Predictivo | ÁMBAR | Versiones conciliadas; horas y ejecución financiera simuladas. |
 | US-001–US-010 e integración | Adaptativo | VERDE técnico | Historias con implementación y recorridos automatizados; no equivale a aceptación de stakeholders. |
-| Web, API, móvil y despliegue | Adaptativo | VERDE | 226 web + 103 backend/PostGIS, E2E multirrol y Android; workflows aprobados al 26/11. |
+| Web, API, móvil y despliegue | Adaptativo | VERDE | 229 web + 103 backend y PostGIS en CI, E2E multirrol y Android; workflows aprobados al 27/11. |
 | Cronograma macro | Predictivo | ROJO | 21 días hasta estabilización técnica; 22 hasta corte documental frente al 05/11. |
 | Costo / EVM | Predictivo | ÁMBAR | CPI 1.4270 del escenario; registro económico real no disponible. |
 | SUS y aceptación humana | Híbrido | ROJO | n real = 0; cinco casos simulados, SUS 77.5. |
@@ -39,11 +39,11 @@ Colores con redundancia textual: VERDE = evidencia técnica aprobada; ÁMBAR = c
 
 Interpretación: el EV simulado queda bajo PV hasta P3 y converge al cierre. La distancia EV–AC representa CV favorable del escenario; el retraso calendario se conserva aparte. Datos: [EVM CSV](evidencias/evm-simulado.csv).
 
-### 3.2 Flujo Acumulado / Áreas Apiladas: evidencia real
+### 3.2 Flujo Acumulado / Áreas Apiladas: evidencia final real
 
-![Flujo acumulado oficial Jira, consulta 27/11](evidencias/jira-flujo-acumulado-real-27nov.jpg)
+![Flujo acumulado de cierre](evidencias/jira-flujo-acumulado-cierre-final-27nov.jpg)
 
-Filtro visible: 01/09/2026–27/11/2026. La gráfica usa **recuento de actividades**, no Story Points, e incluye tipos distintos de historia. La banda de Por hacer domina y las resoluciones se concentran al final del historial visible. La vista de informes resume 123 actividades: 66 Listo, 54 Por hacer y 3 En curso; no se mezclan con las diez historias (67 SP). La reconstrucción simulada anterior se conserva como material de cálculo y no reemplaza esta evidencia real.
+Filtro visible: 01/09/2026–27/11/2026. Unidad: recuento de actividades, no Story Points. El aumento final de Listo corresponde a la regularización de estados realizada el 27/11 y no permite reconstruir fechas históricas de desarrollo. De 123 actividades, 119 están Listo y cuatro Por hacer. Las diez historias suman 67 SP; sus 99 subtareas están terminadas. Se conservan el corte inicial y las curvas simuladas como antecedentes identificados.
 
 ### 3.3 Relación Costo-Cronograma (SPI vs. CPI con tamaño CSI)
 

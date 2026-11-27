@@ -1,0 +1,67 @@
+{
+  "tipo": "OBSERVACION_REAL_JIRA",
+  "fecha": "2026-11-27",
+  "fuente": "Tablas visibles del informe oficial burnup, con evento Sprint completado",
+  "sprints": [
+    {
+      "sprint": 1,
+      "rows": [
+        "FechaEventoActividadCompletadosAlcance",
+        "Tue, Sep 15 2026, 12:11amSprint iniciado00",
+        "Fri, Oct 02 2026, 12:38pmActividad completadaANA-9 US-001 Gestionar vehículos de la flota00",
+        "Fri, Oct 02 2026, 12:39pmActividad completadaANA-6 US-002 Gestionar conductores y jornada00",
+        "Fri, Oct 09 2026, 12:09amAñadida al sprintANA-9 US-001 Gestionar vehículos de la flota0505",
+        "Fri, Oct 09 2026, 12:09amAñadida al sprintANA-6 US-002 Gestionar conductores y jornada510510",
+        "Fri, Nov 27 2026, 5:46pmSprint completadoANA-9 US-001 Gestionar vehículos de la flotaANA-6 US-002 Gestionar conductores y jornada1010"
+      ]
+    },
+    {
+      "sprint": 2,
+      "rows": [
+        "FechaEventoActividadCompletadosAlcance",
+        "Sat, Oct 03 2026, 12:12amSprint iniciado00",
+        "Fri, Oct 09 2026, 12:10amAñadida al sprintANA-7 US-003 Gestionar pedidos y geolocalización008",
+        "Fri, Oct 09 2026, 12:10amAñadida al sprintANA-8 US-004 – Gestionar preferencias y restricciones del cliente.0813",
+        "Fri, Oct 09 2026, 12:10amActividad completadaANA-7 US-003 Gestionar pedidos y geolocalización0813",
+        "Fri, Oct 09 2026, 12:10amActividad completadaANA-8 US-004 – Gestionar preferencias y restricciones del cliente.81313",
+        "Tue, Nov 17 2026, 12:12pmActividad reabiertaANA-8 US-004 – Gestionar preferencias y restricciones del cliente.13813",
+        "Fri, Nov 20 2026, 11:31amActividad completadaANA-8 US-004 – Gestionar preferencias y restricciones del cliente.81313",
+        "Fri, Nov 27 2026, 5:46pmSprint completadoANA-7 US-003 Gestionar pedidos y geolocalizaciónANA-8 US-004 – Gestionar preferencias y restricciones del cliente.1313"
+      ]
+    },
+    {
+      "sprint": 3,
+      "rows": [
+        "FechaEventoActividadCompletadosAlcance",
+        "Mon, Oct 12 2026, 12:12amSprint iniciadoANA-12 US-007 – Reoptimizar rutas ante eventosANA-11 US-006 Visualizar rutas en mapaANA-10 US-005 Generar rutas optimizadas029",
+        "Fri, Oct 30 2026, 1:54pmActividad completadaANA-10 US-005 Generar rutas optimizadas01329",
+        "Fri, Oct 30 2026, 1:54pmActividad completadaANA-11 US-006 Visualizar rutas en mapa132129",
+        "Fri, Oct 30 2026, 1:54pmActividad completadaANA-12 US-007 – Reoptimizar rutas ante eventos212929",
+        "Tue, Nov 17 2026, 12:14pmActividad reabiertaANA-10 US-005 Generar rutas optimizadas291629",
+        "Tue, Nov 17 2026, 12:16pmActividad reabiertaANA-11 US-006 Visualizar rutas en mapa16829",
+        "Tue, Nov 17 2026, 12:18pmActividad reabiertaANA-12 US-007 – Reoptimizar rutas ante eventos8029",
+        "Fri, Nov 20 2026, 11:31amActividad completadaANA-10 US-005 Generar rutas optimizadas01329",
+        "Fri, Nov 20 2026, 11:31amActividad completadaANA-11 US-006 Visualizar rutas en mapa132129",
+        "Fri, Nov 20 2026, 11:31amActividad completadaANA-12 US-007 – Reoptimizar rutas ante eventos212929",
+        "Fri, Nov 27 2026, 5:47pmSprint completadoANA-12 US-007 – Reoptimizar rutas ante eventosANA-11 US-006 Visualizar rutas en mapaANA-10 US-005 Generar rutas optimizadas2929"
+      ]
+    },
+    {
+      "sprint": 4,
+      "rows": [
+        "FechaEventoActividadCompletadosAlcance",
+        "Wed, Nov 11 2026, 11:30amSprint iniciadoANA-15 US-010 Gestionar propuesta de compensación de carbonoANA-14 US-009 Generar reportes de sostenibilidad y costosANA-13 US-008 – Consultar indicadores operativos y de sostenibilidad015",
+        "Fri, Nov 27 2026, 1:28pmActividad completadaANA-13 US-008 – Consultar indicadores operativos y de sostenibilidad0515",
+        "Fri, Nov 27 2026, 1:28pmActividad completadaANA-14 US-009 Generar reportes de sostenibilidad y costos51015",
+        "Fri, Nov 27 2026, 1:29pmActividad completadaANA-15 US-010 Gestionar propuesta de compensación de carbono101515",
+        "Fri, Nov 27 2026, 5:47pmSprint completadoANA-15 US-010 Gestionar propuesta de compensación de carbonoANA-14 US-009 Generar reportes de sostenibilidad y costosANA-13 US-008 – Consultar indicadores operativos y de sostenibilidad1515"
+      ]
+    }
+  ],
+  "columnas": [
+    "Por hacer",
+    "En curso",
+    "In Review",
+    "Listo"
+  ]
+}
