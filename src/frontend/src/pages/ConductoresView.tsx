@@ -1036,7 +1036,7 @@ export function ConductoresView() {
               <label htmlFor="conductoresview-field-45452" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Nombres:
               </label>
-              <input id="conductoresview-field-45452"
+              <input autoComplete="given-name" id="conductoresview-field-45452"
                 type="text"
                 required
                 placeholder="Ej. Carlos Eduardo"
@@ -1050,7 +1050,7 @@ export function ConductoresView() {
               <label htmlFor="conductoresview-field-45976" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 Apellidos:
               </label>
-              <input id="conductoresview-field-45976"
+              <input autoComplete="family-name" id="conductoresview-field-45976"
                 type="text"
                 required
                 placeholder="Ej. Quispe Huamán"
@@ -1097,7 +1097,7 @@ export function ConductoresView() {
               <label htmlFor="conductoresview-field-48255" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                 <Phone size={13} /> Teléfono Móvil:
               </label>
-              <input id="conductoresview-field-48255"
+              <input autoComplete="tel" id="conductoresview-field-48255"
                 type="text"
                 required
                 maxLength={12}
@@ -1119,7 +1119,7 @@ export function ConductoresView() {
                 <label htmlFor="conductoresview-field-49568" style={{ fontSize: '0.75rem', color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Dirección Base / Domicilio:
                 </label>
-                <input id="conductoresview-field-49568"
+                <input autoComplete="street-address" id="conductoresview-field-49568"
                   type="text"
                   placeholder="Ej. Av. Elmer Faucett 2100, Callao"
                   value={direccionOrigen}
@@ -1464,7 +1464,7 @@ export function ConductoresView() {
                   <label htmlFor="conductoresview-field-66388" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Nombres:
                   </label>
-                  <input id="conductoresview-field-66388"
+                  <input autoComplete="given-name" id="conductoresview-field-66388"
                     type="text"
                     required
                     value={editNombres}
@@ -1477,7 +1477,7 @@ export function ConductoresView() {
                   <label htmlFor="conductoresview-field-66880" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Apellidos:
                   </label>
-                  <input id="conductoresview-field-66880"
+                  <input autoComplete="family-name" id="conductoresview-field-66880"
                     type="text"
                     required
                     value={editApellidos}
@@ -1492,7 +1492,7 @@ export function ConductoresView() {
                   <label htmlFor="conductoresview-field-67497" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono Móvil:
                   </label>
-                  <input id="conductoresview-field-67497"
+                  <input autoComplete="tel" id="conductoresview-field-67497"
                     type="text"
                     required
                     value={editTelefono}
@@ -1525,7 +1525,7 @@ export function ConductoresView() {
                 <label htmlFor="conductoresview-field-69030" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Dirección Base / Origen:
                 </label>
-                <input id="conductoresview-field-69030"
+                <input autoComplete="street-address" id="conductoresview-field-69030"
                   type="text"
                   value={editDireccion}
                   onChange={e => setEditDireccion(e.target.value)}

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { 
-  BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation 
+  BrowserRouter, Routes, Route, Navigate, Link, useNavigate, useLocation
 } from 'react-router-dom';
 import { 
   Truck, Users, PackageCheck, Sparkles, 
@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { LoginView } from './pages/LoginView';
 import { AuthService } from './services/auth';
+import { SessionRecovery, sessionExpiresAt } from './components/SessionRecovery';
 import { Usuario, RolUsuario } from './services/api';
 
 // División de código por ruta: cada módulo se descarga solo cuando el usuario entra
@@ -73,12 +74,26 @@ function AppLayout() {
 
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [currentUser, setCurrentUser] = useState<Usuario | null>(() => AuthService.getUser());
+  const [sessionState, setSessionState] = useState<'warning' | 'expired' | null>(null);
+  const [moduleQuery, setModuleQuery] = useState('');
 
   useEffect(() => {
-    const expired = () => { AuthService.logout(); setCurrentUser(null); navigate('/login', { replace: true }); };
+    const expired = () => { AuthService.logout(); setSessionState('expired'); };
     window.addEventListener('ecologistica-session-expired', expired);
     return () => window.removeEventListener('ecologistica-session-expired', expired);
   }, [navigate]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    const expiry = sessionExpiresAt(localStorage.getItem('ecologistica_access_token'));
+    if (!expiry) return;
+    const remaining = expiry - Date.now();
+    const warning = window.setTimeout(() => setSessionState(state => state === 'expired' ? state : 'warning'), Math.max(0, remaining - 90000));
+    const expired = window.setTimeout(() => {
+      AuthService.logout(); setSessionState('expired');
+    }, Math.max(0, remaining));
+    return () => { window.clearTimeout(warning); window.clearTimeout(expired); };
+  }, [currentUser]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -90,6 +105,7 @@ function AppLayout() {
 
   const handleLogout = () => {
     AuthService.logout();
+    setSessionState(null);
     setCurrentUser(null);
     navigate('/login');
   };
@@ -136,6 +152,17 @@ function AppLayout() {
   const canAccessPedidos = true; // Todos los roles tienen acceso o tracking
   const canAccessAdmin = userRole === 'ADMIN';
   const canAccessAnalytics = userRole === 'ADMIN' || (userRole === 'OFICINA' && currentUser.permisos.includes('ANALITICA'));
+  const modules = [
+    {name:'Vehículos',path:'/vehiculos',allowed:canAccessVehiculos},
+    {name:'Conductores',path:'/conductores',allowed:canAccessConductores},
+    {name:'Clientes',path:'/clientes',allowed:canAccessClientes},
+    {name:'Rutas y despacho',path:'/rutas',allowed:canAccessRutas},
+    {name:'Pedidos',path:'/pedidos',allowed:canAccessPedidos},
+    {name:'Sostenibilidad',path:'/sostenibilidad',allowed:canAccessAnalytics},
+    {name:'Administración de usuarios',path:'/admin',allowed:canAccessAdmin},
+  ].filter(item=>item.allowed);
+  const normalize = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const foundModules = moduleQuery.trim() ? modules.filter(item=>normalize(item.name).includes(normalize(moduleQuery.trim()))) : [];
 
   const roleMeta: Record<RolUsuario, { label: string; badge: string; color: string; icon: any }> = {
     ADMIN: { label: 'Administrador', badge: 'Acceso Total', color: '#C4D2A8', icon: Shield },
@@ -312,6 +339,16 @@ function AppLayout() {
             </button>
           )}
         </nav>
+        <details style={{marginTop:16,color:'#F5F4EE'}}>
+          <summary>Buscar un módulo</summary>
+          <label style={{display:'block',marginTop:12}}>Nombre del módulo
+            <input type="search" value={moduleQuery} onChange={e=>setModuleQuery(e.target.value)} style={{width:'100%',marginTop:6}} />
+          </label>
+          <p role="status">{moduleQuery.trim() ? `${foundModules.length} módulos encontrados` : 'Escribe para buscar entre tus módulos disponibles.'}</p>
+          <ul style={{paddingLeft:20}}>{foundModules.map(item=><li key={item.path}>
+            <Link to={item.path} onClick={()=>setModuleQuery('')} style={{color:'#F5F4EE',textDecoration:'underline'}}>{item.name}</Link>
+          </li>)}</ul>
+        </details>
       </aside>
 
       {/* Área Principal de Contenido con Enrutamiento Dinámico */}
@@ -368,6 +405,9 @@ function AppLayout() {
         </Routes>
         </Suspense>
       </main>
+      {sessionState && <SessionRecovery user={currentUser} expired={sessionState === 'expired'}
+        onResume={user => { setCurrentUser(user); setSessionState(null); }} onExit={handleLogout}
+        onPostpone={() => setSessionState(null)} />}
     </div>
   );
 }

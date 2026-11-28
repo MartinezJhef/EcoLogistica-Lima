@@ -64,7 +64,7 @@ export function ClientePedidosView({ readOnly = false }: { readOnly?: boolean })
           <option value="SOLO_VEHICULOS_LIGEROS">Solo vehículos ligeros</option><option value="NO_CAMIONES_PESADOS">Sin camiones pesados</option><option value="ZONA_PEATONAL">Zona peatonal</option>
         </select></label>
         <label>Referencia de entrega<textarea aria-label="Referencia de entrega" value={form.referencia_ubicacion} onChange={e=>setForm({...form,referencia_ubicacion:e.target.value})}/></label>
-        <label>Teléfono de contacto<input aria-label="Teléfono de contacto" value={form.telefono_contacto} onChange={e=>setForm({...form,telefono_contacto:e.target.value})}/></label>
+        <label>Teléfono de contacto<input aria-label="Teléfono de contacto" autoComplete="tel" value={form.telefono_contacto} onChange={e=>setForm({...form,telefono_contacto:e.target.value})}/></label>
         <label>Fotografía de referencia<input aria-label="Fotografía de referencia" type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>photo(e.target.files?.[0])}/></label>
         {form.foto_referencia_url && <img src={form.foto_referencia_url} alt="Referencia del punto de entrega" style={{maxWidth:240,maxHeight:180,objectFit:'contain'}}/>}
         <button className="btn" type="submit">{busy?'Guardando…':'Guardar mis preferencias'}</button>

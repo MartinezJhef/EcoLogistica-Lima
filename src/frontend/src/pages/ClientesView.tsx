@@ -739,7 +739,7 @@ export function ClientesView() {
                   <label htmlFor="clientesview-field-29826" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Razón Social / Nombre Comercial:
                   </label>
-                  <input id="clientesview-field-29826"
+                  <input autoComplete="organization" id="clientesview-field-29826"
                     type="text"
                     required
                     placeholder="Ej. Bodega San José S.A.C."
@@ -784,7 +784,7 @@ export function ClientesView() {
                   <label htmlFor="clientesview-field-31999" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Teléfono Móvil:
                   </label>
-                  <input id="clientesview-field-31999"
+                  <input autoComplete="tel" id="clientesview-field-31999"
                     type="text"
                     required
                     placeholder="Ej. 987654321"
@@ -798,7 +798,7 @@ export function ClientesView() {
                   <label htmlFor="clientesview-field-32579" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem', color: 'var(--apple-text-secondary)' }}>
                     Correo Electrónico:
                   </label>
-                  <input id="clientesview-field-32579"
+                  <input autoComplete="email" id="clientesview-field-32579"
                     type="email"
                     placeholder="Ej. contacto@bodegasanjose.pe"
                     value={email}
@@ -896,7 +896,7 @@ export function ClientesView() {
                     <label htmlFor="clientesview-field-37449" style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--apple-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                       Dirección de Destino:
                     </label>
-                    <input id="clientesview-field-37449"
+                    <input autoComplete="street-address" id="clientesview-field-37449"
                       type="text"
                       required
                       placeholder="Ej. Av. Canto Grande 2450"
@@ -1336,7 +1336,7 @@ export function ClientesView() {
                 <label htmlFor="clientesview-field-58452" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Razón Social:
                 </label>
-                <input id="clientesview-field-58452"
+                <input autoComplete="organization" id="clientesview-field-58452"
                   type="text"
                   required
                   value={editRazonSocial}
@@ -1396,7 +1396,7 @@ export function ClientesView() {
                   <label htmlFor="clientesview-field-61106" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono Móvil:
                   </label>
-                  <input id="clientesview-field-61106"
+                  <input autoComplete="tel" id="clientesview-field-61106"
                     type="text"
                     required
                     value={editTelefono}
@@ -1410,7 +1410,7 @@ export function ClientesView() {
                 <label htmlFor="clientesview-field-61625" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                   Dirección:
                 </label>
-                <input id="clientesview-field-61625"
+                <input autoComplete="street-address" id="clientesview-field-61625"
                   type="text"
                   required
                   value={editDireccion}

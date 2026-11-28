@@ -1068,7 +1068,7 @@ export function PedidosView() {
                   <label htmlFor="pedidosview-field-45798" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     CLIENTE / RAZÓN SOCIAL *
                   </label>
-                  <input id="pedidosview-field-45798"
+                  <input autoComplete="organization" id="pedidosview-field-45798"
                     ref={clienteInputRef}
                     type="text"
                     value={cliente}
@@ -1082,7 +1082,7 @@ export function PedidosView() {
                   <label htmlFor="pedidosview-field-46427" style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#2D3A2E', marginBottom: '0.35rem', letterSpacing: '0.02em' }}>
                     TELÉFONO DE CONTACTO
                   </label>
-                  <input id="pedidosview-field-46427"
+                  <input autoComplete="tel" id="pedidosview-field-46427"
                     type="tel"
                     value={telefonoContacto}
                     onChange={e => setTelefonoContacto(e.target.value)}
@@ -1739,7 +1739,7 @@ export function PedidosView() {
                     <label htmlFor="pedidosview-field-81448" style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--apple-text-secondary)', marginBottom: '0.35rem' }}>
                       TELÉFONO DE CONTACTO RECEPTOR
                     </label>
-                    <input id="pedidosview-field-81448"
+                    <input autoComplete="tel" id="pedidosview-field-81448"
                       type="text"
                       value={prefTelefono}
                       onChange={e => setPrefTelefono(e.target.value)}

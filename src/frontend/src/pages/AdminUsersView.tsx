@@ -491,7 +491,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                   <label htmlFor="adminusersview-field-19991" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Nombre Completo:
                   </label>
-                  <input id="adminusersview-field-19991"
+                  <input autoComplete="name" id="adminusersview-field-19991"
                     type="text"
                     required
                     placeholder="Ej. Ing. Carlos Mendoza o Bodega Central"
@@ -505,7 +505,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                   <label htmlFor="adminusersview-field-20573" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Correo Electrónico (Login):
                   </label>
-                  <input id="adminusersview-field-20573"
+                  <input autoComplete="email" id="adminusersview-field-20573"
                     type="email"
                     required
                     disabled={!!usuarioEditando}
@@ -527,7 +527,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                   <label htmlFor="adminusersview-field-21656" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     Teléfono de Contacto:
                   </label>
-                  <input id="adminusersview-field-21656"
+                  <input autoComplete="tel" id="adminusersview-field-21656"
                     type="text"
                     placeholder="Ej. 998877665"
                     value={telefono}
@@ -556,7 +556,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
                   <label htmlFor="adminusersview-field-23029" style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '0.35rem' }}>
                     {usuarioEditando ? 'Nueva Contraseña (Opcional):' : 'Contraseña Inicial:'}
                   </label>
-                  <input id="adminusersview-field-23029"
+                  <input autoComplete="new-password" id="adminusersview-field-23029"
                     type="password"
                     required={!usuarioEditando}
                     placeholder={usuarioEditando ? 'Dejar en blanco para conservar' : 'Mínimo 6 caracteres'}

@@ -1,0 +1,1660 @@
+{
+  "type": "REAL_NATIVE_ACCESSIBILITY_AND_SESSION_CHECKS",
+  "scope": "Rendered controlled fixtures; Chromium native accessibility interface on fifteen scenarios and one alert dialog; three-browser draft recovery, expiry and role-aware module search. No production writes, human SUS or universal certification.",
+  "browser_run_stats": {
+    "startTime": "2026-11-28T05:13:48.971Z",
+    "duration": 131347.02500000002,
+    "expected": 54,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "unit_tests_passed": 236,
+  "tests": [
+    {
+      "case": "accesibilidad login: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad login: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad login: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculos: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculos: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculos: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductores: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductores: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductores: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad clientes: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad clientes: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad clientes: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad pedidos: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad pedidos: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad pedidos: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad rutas: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad rutas: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad rutas: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad usuarios: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad usuarios: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad usuarios: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad sostenibilidad: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad sostenibilidad: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad sostenibilidad: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad repartidor: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad repartidor: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad repartidor: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculo-editar: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculo-editar: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad vehiculo-editar: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-editar: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-editar: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-editar: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-asignar: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-asignar: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad conductor-asignar: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente-editar: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente-editar: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad cliente-editar: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad ruta-reoptimizar: WCAG 2.1 AA y teclado",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad ruta-reoptimizar: WCAG 2.1 AA y teclado",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "accesibilidad ruta-reoptimizar: WCAG 2.1 AA y teclado",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "sesión vencida: conserva borrador, anuncia error y reanuda la misma cuenta",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "sesión vencida: conserva borrador, anuncia error y reanuda la misma cuenta",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "sesión vencida: conserva borrador, anuncia error y reanuda la misma cuenta",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "avisa antes del vencimiento y permite aplazar sin ampliar el token",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "avisa antes del vencimiento y permite aplazar sin ampliar el token",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "avisa antes del vencimiento y permite aplazar sin ampliar el token",
+      "browser": "webkit",
+      "result": "PASS"
+    },
+    {
+      "case": "busca módulos por nombre con teclado y respeta los permisos del rol",
+      "browser": "chromium",
+      "result": "PASS"
+    },
+    {
+      "case": "busca módulos por nombre con teclado y respeta los permisos del rol",
+      "browser": "firefox",
+      "result": "PASS"
+    },
+    {
+      "case": "busca módulos por nombre con teclado y respeta los permisos del rol",
+      "browser": "webkit",
+      "result": "PASS"
+    }
+  ],
+  "native_trees": [
+    {
+      "scenario": "login",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Iniciar Sesión"
+        },
+        {
+          "role": "textbox",
+          "name": "CORREO ELECTRÓNICO"
+        },
+        {
+          "role": "textbox",
+          "name": "CONTRASEÑA"
+        },
+        {
+          "role": "button",
+          "name": "Mostrar contraseña"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística"
+      ]
+    },
+    {
+      "scenario": "vehiculos",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Sincronizar BDD"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "Administración"
+        },
+        {
+          "role": "button",
+          "name": "Todos"
+        },
+        {
+          "role": "button",
+          "name": "Eléctricos"
+        },
+        {
+          "role": "button",
+          "name": "GNV"
+        },
+        {
+          "role": "button",
+          "name": "DIESEL"
+        },
+        {
+          "role": "textbox",
+          "name": "Placa:"
+        },
+        {
+          "role": "textbox",
+          "name": "Marca y Modelo:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Año Fabricación:"
+        },
+        {
+          "role": "combobox",
+          "name": "Propulsión / Combustible:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Carga Útil (kg):"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Volumen (m³):"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Consumo (km/gal):"
+        },
+        {
+          "role": "button",
+          "name": "Guardar Unidad"
+        },
+        {
+          "role": "button",
+          "name": "Editar"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Gestión de Flota Vehicular",
+        "Registrar Nueva Unidad de Flota (US-001)",
+        "Flota Registrada en Base de Datos (1)"
+      ]
+    },
+    {
+      "scenario": "conductores",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Actualizar"
+        },
+        {
+          "role": "button",
+          "name": "Conductor Prueba Lima · 0h"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "Administración"
+        },
+        {
+          "role": "button",
+          "name": "Mapa de Flota & Simulación de Rutas"
+        },
+        {
+          "role": "button",
+          "name": "Padrón & Registro de Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Centrar en Carro"
+        },
+        {
+          "role": "button",
+          "name": "Centrar en Bandera"
+        },
+        {
+          "role": "button",
+          "name": "Ver Toda la Flota"
+        },
+        {
+          "role": "button",
+          "name": "Maximizar mapa a pantalla completa"
+        },
+        {
+          "role": "button",
+          "name": "Zoom in"
+        },
+        {
+          "role": "button",
+          "name": "Zoom out"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Gestión de Conductores y Jornada",
+        "Telemetría de la Ruta: Carro del Conductor → Bandera de Llegada"
+      ]
+    },
+    {
+      "scenario": "clientes",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Actualizar"
+        },
+        {
+          "role": "combobox",
+          "name": "Filtrar por tipo de comercio"
+        },
+        {
+          "role": "combobox",
+          "name": "Filtrar por estado"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "Administración"
+        },
+        {
+          "role": "button",
+          "name": "Padrón & Directorio de Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Mapa de Puntos de Entrega (1)"
+        },
+        {
+          "role": "combobox",
+          "name": "Tipo de Documento:"
+        },
+        {
+          "role": "textbox",
+          "name": "N° Documento:"
+        },
+        {
+          "role": "textbox",
+          "name": "Razón Social / Nombre Comercial:"
+        },
+        {
+          "role": "combobox",
+          "name": "Tipo de Comercio:"
+        },
+        {
+          "role": "textbox",
+          "name": "Contacto / Encargado:"
+        },
+        {
+          "role": "textbox",
+          "name": "Teléfono Móvil:"
+        },
+        {
+          "role": "textbox",
+          "name": "Correo Electrónico:"
+        },
+        {
+          "role": "button",
+          "name": "Mi Ubicación GPS"
+        },
+        {
+          "role": "button",
+          "name": "Centrar en Distrito"
+        },
+        {
+          "role": "button",
+          "name": "Ocultar Mapa"
+        },
+        {
+          "role": "textbox",
+          "name": "Dirección de Destino:"
+        },
+        {
+          "role": "combobox",
+          "name": "Distrito de Lima:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Latitud GPS:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Longitud GPS:"
+        },
+        {
+          "role": "combobox",
+          "name": "Restricción de Acceso Vehicular:"
+        },
+        {
+          "role": "button",
+          "name": "Guardar Cliente B2B"
+        },
+        {
+          "role": "textbox",
+          "name": "Buscar por RUC, nombre o distrito..."
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        },
+        {
+          "role": "button",
+          "name": "Orden"
+        },
+        {
+          "role": "button",
+          "name": "Ver Ubicación en Mapa de Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Editar Datos del Cliente"
+        },
+        {
+          "role": "button",
+          "name": "Desactivar Cliente"
+        },
+        {
+          "role": "button",
+          "name": "Casa / Negocio"
+        },
+        {
+          "role": "button",
+          "name": "Zoom in"
+        },
+        {
+          "role": "button",
+          "name": "Zoom out"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Gestión de Clientes y Comercios",
+        "Registro de Nuevo Comercio o Cliente B2B",
+        "Directorio de Clientes B2B"
+      ]
+    },
+    {
+      "scenario": "pedidos",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Datos de Prueba"
+        },
+        {
+          "role": "combobox",
+          "name": "Filtrar por estado"
+        },
+        {
+          "role": "combobox",
+          "name": "Filtrar por prioridad"
+        },
+        {
+          "role": "button",
+          "name": "Preferencias"
+        },
+        {
+          "role": "button",
+          "name": "En Tránsito"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "textbox",
+          "name": "CÓDIGO DE SEGUIMIENTO (ÚNICO)"
+        },
+        {
+          "role": "textbox",
+          "name": "CLIENTE / RAZÓN SOCIAL *"
+        },
+        {
+          "role": "textbox",
+          "name": "TELÉFONO DE CONTACTO"
+        },
+        {
+          "role": "button",
+          "name": "Fijar en Mapa"
+        },
+        {
+          "role": "textbox",
+          "name": "DIRECCIÓN DE ORIGEN *"
+        },
+        {
+          "role": "textbox",
+          "name": "REFERENCIA TEXTUAL DEL ORIGEN"
+        },
+        {
+          "role": "button",
+          "name": "Fijar en Mapa"
+        },
+        {
+          "role": "textbox",
+          "name": "DIRECCIÓN DE DESTINO *"
+        },
+        {
+          "role": "textbox",
+          "name": "REFERENCIA TEXTUAL DEL DESTINO"
+        },
+        {
+          "role": "spinbutton",
+          "name": "PESO CARGA (KG) *"
+        },
+        {
+          "role": "spinbutton",
+          "name": "VOLUMEN (M³) *"
+        },
+        {
+          "role": "combobox",
+          "name": "PRIORIDAD"
+        },
+        {
+          "role": "combobox",
+          "name": "ACCESO VEHICULAR"
+        },
+        {
+          "role": "button",
+          "name": "Registrar Pedido con Coordenadas (US-003)"
+        },
+        {
+          "role": "textbox",
+          "name": "Buscar código o cliente..."
+        },
+        {
+          "role": "button",
+          "name": "Registro y Órdenes"
+        },
+        {
+          "role": "button",
+          "name": "Preferencias (US-004)"
+        },
+        {
+          "role": "button",
+          "name": "Mapa GPS"
+        },
+        {
+          "role": "combobox",
+          "name": "Cuenta del cliente"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Nuevo Pedido de Entrega",
+        "Órdenes Registradas (1)",
+        "Cliente de prueba",
+        "Gestión de Pedidos, Geolocalización y Clientes"
+      ]
+    },
+    {
+      "scenario": "rutas",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Zonas de Riesgo Activas"
+        },
+        {
+          "role": "button",
+          "name": "Optimizar Rutas del Día"
+        },
+        {
+          "role": "button",
+          "name": "Simular Fallback Texto"
+        },
+        {
+          "role": "button",
+          "name": "Reoptimizar (US-007)"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "1"
+        },
+        {
+          "role": "button",
+          "name": "Zoom in"
+        },
+        {
+          "role": "button",
+          "name": "Zoom out"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Rutas y Despacho Geoespacial (CVRPTW)"
+      ]
+    },
+    {
+      "scenario": "usuarios",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar modal"
+        },
+        {
+          "role": "textbox",
+          "name": "Nombre Completo:"
+        },
+        {
+          "role": "textbox",
+          "name": "Correo Electrónico (Login):"
+        },
+        {
+          "role": "textbox",
+          "name": "Teléfono de Contacto:"
+        },
+        {
+          "role": "combobox",
+          "name": "Rol Institucional:"
+        },
+        {
+          "role": "textbox",
+          "name": "Contraseña Inicial:"
+        },
+        {
+          "role": "combobox",
+          "name": "Estado de la Cuenta:"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Crear Usuario"
+        },
+        {
+          "role": "combobox",
+          "name": "Conductor vinculado"
+        }
+      ],
+      "visibleHeadings": [
+        "Registrar Nuevo Usuario"
+      ]
+    },
+    {
+      "scenario": "sostenibilidad",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Sostenibilidad"
+        },
+        {
+          "role": "button",
+          "name": "Vehículos"
+        },
+        {
+          "role": "button",
+          "name": "Conductores"
+        },
+        {
+          "role": "button",
+          "name": "Clientes"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "Administración"
+        },
+        {
+          "role": "button",
+          "name": "Actualizar indicadores"
+        },
+        {
+          "role": "button",
+          "name": "Generar reporte PDF"
+        },
+        {
+          "role": "button",
+          "name": "Calcular y preparar PDF"
+        },
+        {
+          "role": "button",
+          "name": "Show date picker Show date picker"
+        },
+        {
+          "role": "button",
+          "name": "Show date picker Show date picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Proyecto de prueba (%)"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Month Month"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Day Day"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Year Year"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Month Month"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Day Day"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Year Year"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Sostenibilidad",
+        "Emisiones estimadas",
+        "Distancia estimada",
+        "Consumo estimado",
+        "Energía estimada",
+        "Costo estimado",
+        "Reportes PDF",
+        "Tu primer reporte empieza aquí",
+        "Propuesta de compensación"
+      ]
+    },
+    {
+      "scenario": "cliente",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Tracking de Pedidos"
+        },
+        {
+          "role": "button",
+          "name": "Actualizar pedidos"
+        },
+        {
+          "role": "button",
+          "name": "Editar preferencias de AUDIT-001"
+        },
+        {
+          "role": "button",
+          "name": "Guardar mis preferencias"
+        },
+        {
+          "role": "combobox",
+          "name": "Restricción de acceso"
+        },
+        {
+          "role": "textbox",
+          "name": "Referencia de entrega"
+        },
+        {
+          "role": "textbox",
+          "name": "Teléfono de contacto"
+        },
+        {
+          "role": "button",
+          "name": "Fotografía de referencia"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Mis pedidos y preferencias",
+        "AUDIT-001",
+        "Preferencias: AUDIT-001"
+      ]
+    },
+    {
+      "scenario": "repartidor",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar Sesión"
+        },
+        {
+          "role": "button",
+          "name": "Rutas y Despacho"
+        },
+        {
+          "role": "button",
+          "name": "Pedidos y GPS"
+        },
+        {
+          "role": "button",
+          "name": "Actualizar pedidos"
+        }
+      ],
+      "visibleHeadings": [
+        "EcoLogística",
+        "Mis entregas",
+        "AUDIT-001"
+      ]
+    },
+    {
+      "scenario": "vehiculo-editar",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar edición de vehículo"
+        },
+        {
+          "role": "textbox",
+          "name": "Marca y Modelo:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Año de Fabricación:"
+        },
+        {
+          "role": "combobox",
+          "name": "Propulsión / Combustible:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Carga Útil (kg):"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Volumen (m³):"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Consumo (km/gal):"
+        },
+        {
+          "role": "combobox",
+          "name": "Estado Operativo:"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Guardar Cambios"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Altura total"
+        },
+        {
+          "role": "combobox",
+          "name": "Clasificación de acceso"
+        }
+      ],
+      "visibleHeadings": [
+        "Editar Vehículo: AUD-001"
+      ]
+    },
+    {
+      "scenario": "conductor-editar",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar modal"
+        },
+        {
+          "role": "textbox",
+          "name": "Nombres:"
+        },
+        {
+          "role": "textbox",
+          "name": "Apellidos:"
+        },
+        {
+          "role": "textbox",
+          "name": "Teléfono Móvil:"
+        },
+        {
+          "role": "combobox",
+          "name": "Categoría MTC:"
+        },
+        {
+          "role": "textbox",
+          "name": "Dirección Base / Origen:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Latitud GPS:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Longitud GPS:"
+        },
+        {
+          "role": "combobox",
+          "name": "Estado Operativo:"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Guardar Cambios"
+        },
+        {
+          "role": "button",
+          "name": "Show date picker Show date picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Month Month"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Day Day"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Year Year"
+        }
+      ],
+      "visibleHeadings": [
+        "Editar Conductor: Conductor"
+      ]
+    },
+    {
+      "scenario": "conductor-asignar",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar modal"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Duración estimada de la ruta a asignar (horas):"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Validar y Confirmar"
+        }
+      ],
+      "visibleHeadings": [
+        "Asignación de Ruta a Conductor"
+      ]
+    },
+    {
+      "scenario": "cliente-editar",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar modal"
+        },
+        {
+          "role": "textbox",
+          "name": "Razón Social:"
+        },
+        {
+          "role": "combobox",
+          "name": "Tipo de Comercio:"
+        },
+        {
+          "role": "combobox",
+          "name": "Estado Operativo:"
+        },
+        {
+          "role": "textbox",
+          "name": "Contacto:"
+        },
+        {
+          "role": "textbox",
+          "name": "Teléfono Móvil:"
+        },
+        {
+          "role": "textbox",
+          "name": "Dirección:"
+        },
+        {
+          "role": "textbox",
+          "name": "Distrito:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Latitud GPS:"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Longitud GPS:"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Guardar Cambios"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        }
+      ],
+      "visibleHeadings": [
+        "Editar Cliente: Cliente de prueba"
+      ]
+    },
+    {
+      "scenario": "ruta-reoptimizar",
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "controls": [
+        {
+          "role": "button",
+          "name": "Cerrar reoptimización"
+        },
+        {
+          "role": "combobox",
+          "name": "Motivo de la Contingencia:"
+        },
+        {
+          "role": "combobox",
+          "name": "Cancelar Parada Específica de la Ruta (Opcional):"
+        },
+        {
+          "role": "button",
+          "name": "Cancelar"
+        },
+        {
+          "role": "button",
+          "name": "Confirmar Reoptimización"
+        },
+        {
+          "role": "button",
+          "name": "Marcar el área afectada en el mapa"
+        },
+        {
+          "role": "button",
+          "name": "Marcar la posición actual del conductor"
+        },
+        {
+          "role": "button",
+          "name": "Quitar selección"
+        },
+        {
+          "role": "button",
+          "name": "Aplicar área por coordenadas"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Demora reportada"
+        },
+        {
+          "role": "textbox",
+          "name": "Posición actual por coordenadas, sin usar el mapa"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutos transcurridos"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Conducción continua"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Latitud de la primera esquina"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Longitud de la primera esquina"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Latitud de la segunda esquina"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Longitud de la segunda esquina"
+        },
+        {
+          "role": "button",
+          "name": "Show time picker Show time picker"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Hours Hours"
+        },
+        {
+          "role": "spinbutton",
+          "name": "Minutes Minutes"
+        },
+        {
+          "role": "spinbutton",
+          "name": "AM/PM AM/PM"
+        }
+      ],
+      "visibleHeadings": [
+        "Reoptimizar Ruta ante Evento (US-007)"
+      ]
+    },
+    {
+      "method": "Chromium platform accessibility tree; names and roles only, no input values",
+      "nodes": [
+        {
+          "role": "RootWebArea",
+          "name": "Mis pedidos · EcoLogística"
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "dialog",
+          "name": "Continuar la sesión"
+        },
+        {
+          "role": "alert",
+          "name": "",
+          "live": "assertive"
+        },
+        {
+          "role": "heading",
+          "name": "Tu sesión terminó"
+        },
+        {
+          "role": "status",
+          "name": "",
+          "live": "polite"
+        },
+        {
+          "role": "form",
+          "name": ""
+        },
+        {
+          "role": "StaticText",
+          "name": "No se pudo renovar la sesión. Revisa la contraseña y la conexión. Tus cambios siguen en esta pestaña."
+        },
+        {
+          "role": "StaticText",
+          "name": "Tu sesión terminó"
+        },
+        {
+          "role": "StaticText",
+          "name": "Vuelve a identificarte para continuar. Los formularios se conservan en esta pestaña; no cierres ni recargues la página."
+        },
+        {
+          "role": "LabelText",
+          "name": ""
+        },
+        {
+          "role": "LabelText",
+          "name": ""
+        },
+        {
+          "role": "button",
+          "name": "Identificarme y continuar"
+        },
+        {
+          "role": "button",
+          "name": "Salir y descartar cambios sin guardar"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "No se pudo renovar la sesión. Revisa la contraseña y la conexión. Tus "
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "cambios siguen en esta pestaña."
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Tu sesión terminó"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Vuelve a identificarte para continuar. Los formularios se conservan en esta "
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "pestaña; no cierres ni recargues la página."
+        },
+        {
+          "role": "StaticText",
+          "name": "Correo de la cuenta"
+        },
+        {
+          "role": "textbox",
+          "name": "Correo de la cuenta"
+        },
+        {
+          "role": "StaticText",
+          "name": "Contraseña para continuar"
+        },
+        {
+          "role": "textbox",
+          "name": "Contraseña para continuar"
+        },
+        {
+          "role": "StaticText",
+          "name": "Identificarme y continuar"
+        },
+        {
+          "role": "StaticText",
+          "name": "Salir y descartar cambios sin guardar"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Correo de la cuenta"
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Contraseña para continuar"
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Identificarme y continuar"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "Salir y descartar cambios sin guardar"
+        },
+        {
+          "role": "StaticText",
+          "name": "audit@example.test"
+        },
+        {
+          "role": "StaticText",
+          "name": "•••••••••••••••••••••"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "audit@example.test"
+        },
+        {
+          "role": "InlineTextBox",
+          "name": "•••••••••••••••••••••"
+        }
+      ]
+    }
+  ]
+}
