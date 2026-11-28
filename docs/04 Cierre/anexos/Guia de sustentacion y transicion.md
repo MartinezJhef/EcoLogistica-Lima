@@ -32,6 +32,10 @@ Los pasos en un entorno desechable son una alternativa operativa para demostrar 
 
 ## 3. Preparación, operación y recuperación
 
+Antes de iniciar el cronómetro de la exposición, abrir la web y comprobar la [salud de la API](https://ecologistica-api.onrender.com/api/v1/health). Continuar cuando responda HTTP 200 y `ONLINE`; si aparece un error o no responde, esperar y volver a comprobar. La preparación previa no se cuenta como una medición de disponibilidad o latencia. El [muestreo de preparación del 28/11](../evidencias/monitoreo-preentrega-28nov.json) conserva un timeout real seguido de respuestas correctas; la causa del timeout no se atribuye a suspensión sin comprobar los registros del proveedor.
+
+Confirmar el acceso de las cuentas antes de exponer y mantener sus contraseñas fuera de pantalla. En Sostenibilidad seleccionar un intervalo con rutas completadas; si el panel está vacío, revisar primero fechas y estado de las rutas. Descargar un reporte existente para confirmar acceso privado. Al iniciar una prueba de escritura, usar un entorno desechable o registros etiquetados como prueba y autorización previa, conservando las validaciones de la aplicación. Si el servicio sigue sin responder, usar la instalación local preparada según la guía de instalación; no presentar resultados locales como disponibilidad del alojamiento público.
+
 - Enlaces: web https://ecologistica-web.onrender.com ; API https://ecologistica-api.onrender.com/docs . Abrir con anticipación para detectar suspensión del servicio gratuito.
 - Repositorio: revisar README, los siete reportes y el workflow del commit que se presentará. Si GitHub muestra una ejecución posterior, comprobar su estado antes de afirmar aprobación.
 - Instalación: seguir `docs/SPRINT_3_INSTALACION_Y_VALIDACION.md`, la guía de despliegue del Sprint 4 y `docs/GUIA_DE_USO_Y_REPORTES.md`.

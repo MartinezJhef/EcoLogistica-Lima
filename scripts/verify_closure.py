@@ -128,6 +128,8 @@ if (CLOSE/'evidencias/validacion-accesibilidad-ampliada-27nov.json').exists():
     check(public['result']=='PASS' and all(public['checks'].values()),'Cambios no verificados en la URL pública')
 if (CLOSE/'evidencias/validacion-cierre-28nov.json').exists():
     release=json.loads((CLOSE/'evidencias/validacion-cierre-28nov.json').read_text(encoding='utf-8'))
+    report=(CLOSE/'06 Reporte Final del Proyecto V_1_0_0.md').read_text(encoding='utf-8')
+    check(f"Última versión funcional verificada: `{release['main']}`" in report,'El reporte final y la evidencia CI refieren versiones distintas')
     for name in release['required_workflow_names']:
         check(any(r['name']==name and r['status']=='completed' and r['conclusion']=='success' for r in release['runs']),f'Falta aprobación de cierre 28nov: {name}')
     audit=json.loads((CLOSE/'evidencias/auditoria-accesibilidad-sesion-28nov.json').read_text(encoding='utf-8'))

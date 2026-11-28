@@ -18,7 +18,7 @@
 
 EcoLogística Lima aborda planificación de última milla y trazabilidad de impacto ambiental estimado para operadores y comercios. Integra web React/TypeScript, app Flutter, API FastAPI, PostgreSQL 16/PostGIS, rutas viales OSRM, estados de entrega y reportes PDF. Roles: administrador, oficina, repartidor y cliente. El alcance se alinea al [acta consolidada V_1_1_0](../01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_1_0.md), conservando el acta original como referencia de metas.
 
-Producto publicado: [web](https://ecologistica-web.onrender.com) y [API/OpenAPI](https://ecologistica-api.onrender.com/docs). Última versión funcional verificada: `19478a4bd9fa0581e2738dc1dd1e68c175daf3ac`, 28/11/2026, con correcciones de paginación, rendimiento, accesibilidad y salud de la base. [CI y despliegue](evidencias/validacion-cierre-28nov.json). El registro `be3e3ac` se conserva como corte técnico anterior.
+Producto publicado: [web](https://ecologistica-web.onrender.com) y [API/OpenAPI](https://ecologistica-api.onrender.com/docs). Última versión funcional verificada: `e31c5450885ca6a0de113dba8bd6e02716fbe8c6`, 28/11/2026, con correcciones de paginación, rendimiento, accesibilidad y salud de la base. [CI y despliegue](evidencias/validacion-cierre-28nov.json). El registro `be3e3ac` se conserva como corte técnico anterior.
 
 ## 2. Resumen de Desempeño
 
@@ -39,7 +39,7 @@ Objetivo: módulos core operativos. Evidencia: pruebas por roles y recorrido cli
 | Aceptación automatizada | Cuatro roles × tres navegadores; pruebas completas y workflows aprobados. | No representa una encuesta ni aprobación humana. |
 | Android | Análisis, pruebas y compilación APK del workflow aprobados. | No acredita un piloto de campo en dispositivos de repartidores reales. |
 | Sitio publicado | 20 comprobaciones del 26/11 aprobadas: acceso, consultas, fechas inválidas y protección del PDF. | Se consultaron datos existentes sin crear registros en esta revisión. |
-| SUS | Cinco casos simulados: media 77.5; n humano real = 0. | Meta original SUS ≥85 y muestra humana no acreditadas. |
+| SUS | Cinco casos simulados: media 77.5; n humano real = 0. | Modalidad simulada permitida según el usuario; 77,5 queda 7,5 puntos por debajo de la meta original ≥85. |
 | Rendimiento | Resumen: mediana 458.45 ms, máximo 500.91; login por encima de 500 ms. | No se declara cumplimiento universal de 350/500 ms. |
 | Disponibilidad | Dos horas, 239/240 muestras disponibles, 99.58%. | No equivale a SLA mensual ni asegura continuidad del plan gratuito. |
 | Impacto ambiental | CO₂ y costos estimados según factores configurados y conservados por operación. | Factores simulados; no hay demostración física de -22%/25% ni neutralidad de carbono. |

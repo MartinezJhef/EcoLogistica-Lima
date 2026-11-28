@@ -55,7 +55,13 @@ El instrumento y las tareas ya están en el [protocolo de despliegue y evaluaci�
 
 La plantilla vacía no acredita cinco participantes. Mientras no se reciban respuestas humanas, el expediente mantiene **n real = 0** y cinco casos simulados, media simulada 77,5. Horas, costos, EVM y mood simulados conservan también su identificación. La preparación documental no acredita que se haya realizado una sustentación o una reunión de aceptación.
 
-## Video
+## Comprobación adicional de preparación de la entrega
+
+El [muestreo real de preparación](../evidencias/monitoreo-preentrega-28nov.json) observó diez intentos durante 120,44 segundos: web 5/5 HTTP 200; API 4/5 HTTP 200 y un ReadTimeout de 20.055,83 ms. Las cuatro respuestas correctas de API tardaron 359,75–405,71 ms. No se elimina el timeout para afirmar que todos los intentos fueron inferiores a 500 ms. Esta ventana no acredita disponibilidad mensual y se mantiene separada de los cortes anteriores.
+
+Se incorporó una [lista de preparación de la entrega final](Lista%20de%20entrega%20final.md) y se actualizaron las referencias al commit verificado y a los recuentos de pruebas del reporte de variación. El [guion de sustentación](Guia%20de%20sustentacion%20y%20transicion.md) incluye comprobaciones previas de salud, cuentas, fechas y descarga privada, además de la alternativa local si el servicio público no responde.
+
+## Video excluido del encargo
 
 Permanece fuera de este encargo por instrucción del usuario. Este registro no lo produce, modifica ni declara entregado.
 

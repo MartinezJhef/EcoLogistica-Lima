@@ -29,8 +29,15 @@ for path in CLOSE.glob('0*.md'):
     text = text.replace('231 pruebas web', '236 pruebas web').replace('231 web,', '236 web,')
     text = text.replace('231 aprobadas; construcción y precompresión correctas. 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium aprobadas.',
         '236 aprobadas; construcción y precompresión correctas. 54 casos de accesibilidad/sesión en tres navegadores, 16 árboles nativos, 12 comprobaciones previas de texto en Chromium y tres del diálogo móvil con texto ampliado aprobados.')
-    text = re.sub(r'Última versión funcional verificada: `[^`]+`, 27/11/2026',
+    text = re.sub(r'Última versión funcional verificada: `[^`]+`, (?:27|28)/11/2026',
                   'Última versión funcional verificada: `' + sha + '`, 28/11/2026', text)
+    text = text.replace('226 web + 102 backend + 1 PostGIS; recorridos completos por roles/navegadores; Android y CI aprobados.',
+        '236 pruebas unitarias web y 66 recorridos de navegador aprobados; 105 pruebas backend locales, capacidad/PostGIS e integración en CI; Android compilado.')
+    text = text.replace('con validaciones no funcionales pendientes fuera de los sprints.',
+        'con ANA-26 En curso fuera de los sprints y límites de medición registrados.')
+    text = text.replace('workflows aprobados al 27/11.', 'workflows de la versión de referencia aprobados; evidencia del 28/11 enlazada.')
+    text = text.replace('| Meta original SUS ≥85 y muestra humana no acreditadas. |',
+        '| Modalidad simulada permitida según el usuario; 77,5 queda 7,5 puntos por debajo de la meta original ≥85. |')
     text = text.replace('evidencias/validacion-accesibilidad-ampliada-27nov.json', 'evidencias/validacion-cierre-28nov.json')
     write(path, text)
 
@@ -39,7 +46,7 @@ text = path.read_text(encoding='utf-8')
 marker = '### Evidencias actuales del cierre, '
 text = text[:text.index(marker)] + '''### Evidencias actuales del cierre, 28/11/2026
 
-[Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones y recopilación de evidencia del 28 de noviembre](docs/04%20Cierre/anexos/Cierre%20de%20validaciones%2028nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md) · [Revisión de la rúbrica](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
+[Lista de preparación de la entrega final](docs/04%20Cierre/anexos/Lista%20de%20entrega%20final.md) · [Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones y recopilación de evidencia del 28 de noviembre](docs/04%20Cierre/anexos/Cierre%20de%20validaciones%2028nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md) · [Revisión de la rúbrica](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
 
 Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Jira: **122/123 actividades Listo**; ANA-26 En curso hasta acreditar la revisión integral WCAG. Se aprobaron 236 pruebas unitarias web, 54 casos de accesibilidad/sesión en tres navegadores, 16 árboles nativos y tres comprobaciones adicionales del diálogo móvil con texto ampliado. Se conservan las doce comprobaciones previas de texto en Chromium.
 

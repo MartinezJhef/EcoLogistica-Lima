@@ -1,0 +1,81 @@
+{
+  "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+  "interval_seconds": 30,
+  "observed_seconds": 120.44,
+  "samples": [
+    {
+      "time_utc": "2026-11-28T07:07:54.805414+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 278.27
+    },
+    {
+      "time_utc": "2026-11-28T07:07:55.083667+00:00",
+      "target": "api",
+      "status": null,
+      "available": false,
+      "error": "ReadTimeout",
+      "elapsed_ms": 20055.83
+    },
+    {
+      "time_utc": "2026-11-28T07:08:45.141424+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 66.31
+    },
+    {
+      "time_utc": "2026-11-28T07:08:45.207247+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 400.51
+    },
+    {
+      "time_utc": "2026-11-28T07:09:15.608961+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 46.72
+    },
+    {
+      "time_utc": "2026-11-28T07:09:15.655545+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 405.71
+    },
+    {
+      "time_utc": "2026-11-28T07:09:46.062202+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 41.06
+    },
+    {
+      "time_utc": "2026-11-28T07:09:46.103134+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 369.19
+    },
+    {
+      "time_utc": "2026-11-28T07:09:54.739044+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 79.64
+    },
+    {
+      "time_utc": "2026-11-28T07:09:54.818639+00:00",
+      "target": "api",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 359.75
+    }
+  ],
+  "successful_samples": 9,
+  "total_samples": 10,
+  "sample_success_percent": 90.0
+}
