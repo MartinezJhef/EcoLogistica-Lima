@@ -105,10 +105,10 @@ for (const [name,path,role] of scenarios) {
       else await expect(page.getByRole('button',{name:'Reoptimizar (US-007)',exact:true})).toBeFocused();
     }
     await page.setViewportSize({width:320,height:800});
-    const overflowing=await page.locator('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea,fieldset button').evaluateAll(nodes=>nodes.filter(node=>{
+    const overflowing=()=>page.locator('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea,fieldset button').evaluateAll(nodes=>nodes.filter(node=>{
       const r=node.getBoundingClientRect();return r.width>0 && (r.left < -1 || r.right > window.innerWidth+1);
     }).map(node=>({tag:node.tagName,label:node.getAttribute('aria-label'),id:node.id})));
-    expect(overflowing,'Campos fuera del ancho de 320 px').toEqual([]);
+    await expect.poll(overflowing,{message:'Campos fuera del ancho de 320 px'}).toEqual([]);
     await info.attach('mobile-320',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
   });
 }
