@@ -16,7 +16,7 @@
 
 EcoLogística Lima aborda planificación de última milla y trazabilidad de impacto ambiental estimado para operadores y comercios. Integra web React/TypeScript, app Flutter, API FastAPI, PostgreSQL 16/PostGIS, rutas viales OSRM, estados de entrega y reportes PDF. Roles: administrador, oficina, repartidor y cliente. El alcance se alinea al [acta consolidada V_1_1_0](../01%20Inicio/02.%20Acta%20de%20constituci%C3%B3n%20V_1_1_0.md), conservando el acta original como referencia de metas.
 
-Producto publicado: [web](https://ecologistica-web.onrender.com) y [API/OpenAPI](https://ecologistica-api.onrender.com/docs). Última versión funcional verificada: `924168b8d630a44eb17d890e4b3f6b7eb1f05ac6`, 27/11/2026, con correcciones de paginación, rendimiento, accesibilidad y salud de la base. [CI y despliegue](evidencias/validacion-tecnica-calidad-27nov.json). El registro `be3e3ac` se conserva como corte técnico anterior.
+Producto publicado: [web](https://ecologistica-web.onrender.com) y [API/OpenAPI](https://ecologistica-api.onrender.com/docs). Última versión funcional verificada: `d2e16832b89745945392380dec61729f5064f6a4`, 27/11/2026, con correcciones de paginación, rendimiento, accesibilidad y salud de la base. [CI y despliegue](evidencias/validacion-accesibilidad-ampliada-27nov.json). El registro `be3e3ac` se conserva como corte técnico anterior.
 
 ## 2. Resumen de Desempeño
 
@@ -32,7 +32,7 @@ Objetivo: módulos core operativos. Evidencia: pruebas por roles y recorrido cli
 
 | Criterio / evidencia | Resultado al corte | Conclusión |
 |---|---|---|
-| Pruebas web | 229 aprobadas; construcción y precompresión correctas. Treinta auditorías automáticas adicionales de accesibilidad aprobadas en tres navegadores. | Verificación técnica aprobada. |
+| Pruebas web | 231 aprobadas; construcción y precompresión correctas. 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium aprobadas. | Verificación técnica aprobada. |
 | Backend y base geoespacial | 105 pruebas locales aprobadas; cuatro integraciones omitidas bajo SQLite. Las tres nuevas pruebas de capacidad se ejecutaron aparte sobre PostGIS real y la validación funcional de CI aprobó. | La prueba PostgreSQL ejecuta planificación y replanificación sobre base real desechable. |
 | Aceptación automatizada | Cuatro roles × tres navegadores; pruebas completas y workflows aprobados. | No representa una encuesta ni aprobación humana. |
 | Android | Análisis, pruebas y compilación APK del workflow aprobados. | No acredita un piloto de campo en dispositivos de repartidores reales. |
@@ -44,7 +44,7 @@ Objetivo: módulos core operativos. Evidencia: pruebas por roles y recorrido cli
 
 **Exenciones:** no consta aprobación formal de waivers. Se identifican brechas sin eliminarlas de la línea base. El video se excluye por instrucción del usuario en este encargo y permanece como requisito de evaluación externo.
 
-Fuentes de las métricas actuales: [CI y despliegue de calidad](evidencias/validacion-tecnica-calidad-27nov.json) y [mediciones de calidad y continuidad](anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md). Fuentes del corte previo: [registro de validación técnica](evidencias/validacion-tecnica.json), [análisis Playwright y latencia](../03%20Implementaci%C3%B3n/Sprint%204/03%20Analisis%20PlayWrigth%20V_1_0_0.md), [monitoreo real original](../03%20Implementaci%C3%B3n/Sprint%204/evidencias/monitoreo-real-2h.json) y [anexo SUS simulado](../03%20Implementaci%C3%B3n/Sprint%204/08%20Anexo%20SUS%20simulado%20V_1_0_0.md).
+Fuentes de las métricas actuales: [CI y despliegue de calidad](evidencias/validacion-accesibilidad-ampliada-27nov.json) y [mediciones de calidad y continuidad](anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md). Fuentes del corte previo: [registro de validación técnica](evidencias/validacion-tecnica.json), [análisis Playwright y latencia](../03%20Implementaci%C3%B3n/Sprint%204/03%20Analisis%20PlayWrigth%20V_1_0_0.md), [monitoreo real original](../03%20Implementaci%C3%B3n/Sprint%204/evidencias/monitoreo-real-2h.json) y [anexo SUS simulado](../03%20Implementaci%C3%B3n/Sprint%204/08%20Anexo%20SUS%20simulado%20V_1_0_0.md).
 
 ### 2.3 Cronograma
 

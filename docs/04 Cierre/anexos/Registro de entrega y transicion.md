@@ -9,7 +9,7 @@
 | Elemento | Resultado verificable |
 |---|---|
 | Documentos | Siete informes Markdown con nombres requeridos, gráficos, datos y enlaces de retorno. |
-| Estado técnico | Web/API y móvil verificados; CI del commit funcional 924168b aprobado y despliegue exitoso; mediciones y límites en el anexo de calidad. |
+| Estado técnico | Web/API y móvil verificados; CI del commit funcional d2e1683 aprobado y despliegue exitoso; mediciones y límites en el anexo de calidad. |
 | Radiadores | Capturas reales del 27/11 de backlog, Kanban, burnup, burndown y flujo acumulado. |
 | Datos de gestión | Horas, AC, EVM y mood simulados, identificados y reproducibles. |
 | Código y arquitectura | Frontend/backend/móvil separados; stack conciliado con el código. |

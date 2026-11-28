@@ -65,4 +65,10 @@ Entre **19:29 y 19:31 de Lima**, se observaron seis muestras HTTP (tres web y tr
 
 El workflow `Operational availability samples` fue consultado y figura **activo**. Al revisar sus artefactos solo constaba la primera ejecución manual; todavía no se había observado una ejecución disparada por el cron. [Corte observado del seguimiento](../evidencias/seguimiento-monitoreo-real-27nov.json) · [workflow operativo](../../../.github/workflows/availability.yml). El horario está configurado, pero no se afirma una continuidad programada o mensual aún no observada.
 
+## Comprobación pública de las correcciones
+
+La web publicada y la API respondieron HTTP 200. Se descargaron sus recursos públicos y se verificó que incluyeran títulos por página, foco de campos nativos, reglas de columnas verticales y alternativa por coordenadas. No se crearon ni modificaron registros en producción. [Resultado con fecha y nombres de recursos servidos](../evidencias/verificacion-publica-accesibilidad-27nov.json).
+
+**Publicación final verificada:** commit `d2e16832b89745945392380dec61729f5064f6a4`. CI, pruebas Sprint 4, Green IT, validación funcional hasta Sprint 3 (web, backend/PostGIS, Android y entorno desechable) y despliegue de producción terminaron correctamente. Las pruebas de navegador aprobaron **57/57 casos**: 45 de accesibilidad y doce de autenticación/permisos. Se conservaron los fallos anteriores y las publicaciones redundantes canceladas en el registro. [Resultados y enlaces de las ejecuciones](../evidencias/validacion-accesibilidad-ampliada-27nov.json) · [Despliegue aprobado](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46107300583).
+
 [← Volver al README principal](../../../README.md)

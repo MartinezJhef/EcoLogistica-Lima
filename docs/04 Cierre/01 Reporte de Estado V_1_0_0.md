@@ -12,7 +12,7 @@
 
 ## 1. Información de Alcance
 
-**Logros:** diez historias funcionales implementadas, integración web/API/móvil, rutas y entrega, analítica, PDF persistente y propuesta ambiental. Validación final: 229 pruebas web; 105 pruebas backend locales y tres pruebas adicionales de capacidad sobre PostGIS, además de la integración validada en CI; aceptación de cuatro roles en tres navegadores; Android compilado y despliegue aprobado. [CI y despliegue del último cambio funcional](evidencias/validacion-tecnica-calidad-27nov.json).
+**Logros:** diez historias funcionales implementadas, integración web/API/móvil, rutas y entrega, analítica, PDF persistente y propuesta ambiental. Validación final: 231 pruebas web; 105 pruebas backend locales y tres pruebas adicionales de capacidad sobre PostGIS, además de la integración validada en CI; aceptación de cuatro roles en tres navegadores; Android compilado y despliegue aprobado. [CI y despliegue del último cambio funcional](evidencias/validacion-accesibilidad-ampliada-27nov.json).
 
 **Cambios:** cuatro incrementos documentados frente a ocho sprints iniciales; Flutter sustituye la propuesta React Native. US-004 pasa de 3 a 5 SP por conciliación entre backlog e informe del Sprint 2: 58 → 60 SP, sin nueva funcionalidad. **Calidad:** se corrigieron truncamiento a 12 registros, bloqueo del último administrador, edición de pedidos cerrados y fecha UTC/Lima en aceptación.
 

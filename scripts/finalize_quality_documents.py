@@ -80,3 +80,25 @@ Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y si
 '''
 write(p,t)
 print('Corte de calidad aplicado: 122 Listo; ANA-26 En curso; SLA mensual no acreditado.')
+
+# Keep the earlier technical cut as history; use the newer verified release in summaries.
+latest=EV/'validacion-accesibilidad-ampliada-27nov.json'
+if latest.exists():
+    verified=json.loads(latest.read_text(encoding='utf-8'))
+    assert verified['required_successful']
+    sha=verified['main'][:7]
+    for p in CLOSE.glob('0*.md'):
+        t=p.read_text(encoding='utf-8')
+        t=t.replace('229 pruebas web','231 pruebas web').replace('229 web,','231 web,')
+        t=t.replace('229 aprobadas; construcción y precompresión correctas. Treinta auditorías automáticas adicionales de accesibilidad aprobadas en tres navegadores.',
+            '231 aprobadas; construcción y precompresión correctas. 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium aprobadas.')
+        t=t.replace('evidencias/validacion-tecnica-calidad-27nov.json','evidencias/validacion-accesibilidad-ampliada-27nov.json')
+        t=t.replace('Última versión funcional verificada: `924168b8d630a44eb17d890e4b3f6b7eb1f05ac6`,',f"Última versión funcional verificada: `{verified['main']}`,")
+        write(p,t)
+    p=CLOSE/'anexos/Registro de entrega y transicion.md';t=p.read_text(encoding='utf-8')
+    t=t.replace('CI del commit funcional 924168b aprobado',f'CI del commit funcional {sha} aprobado')
+    write(p,t)
+    p=ROOT/'README.md';t=p.read_text(encoding='utf-8')
+    t=t.replace('Pasaron 30 auditorías automáticas de accesibilidad',
+        'Pasaron 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium')
+    write(p,t)
