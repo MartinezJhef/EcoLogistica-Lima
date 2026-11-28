@@ -469,12 +469,10 @@ Universidad Continental · 2026
 [Review y retrospectiva: ejercicio simulado](docs/03%20Inplementaci%C3%B3n/Sprint%204/09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md). La aplicación dispone de configuración ambiental con valores simulados.
 
 
-### Evidencias actuales del cierre, 27/11/2026
+### Evidencias actuales del cierre, 28/11/2026
 
-[Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones de calidad y continuidad](docs/04%20Cierre/anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).
+[Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones y recopilación de evidencia del 28 de noviembre](docs/04%20Cierre/anexos/Cierre%20de%20validaciones%2028nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md) · [Revisión de la rúbrica](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
 
-[Revisión por criterio de la rúbrica final y condiciones de cumplimiento](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
+Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Jira: **122/123 actividades Listo**; ANA-26 En curso hasta acreditar la revisión integral WCAG. Se aprobaron 236 pruebas unitarias web, 54 casos de accesibilidad/sesión en tres navegadores, 16 árboles nativos y tres comprobaciones adicionales del diálogo móvil con texto ampliado. Se conservan las doce comprobaciones previas de texto en Chromium.
 
-[Revisión adicional de accesibilidad: 231 pruebas web y 45 auditorías; continuación del monitoreo real](docs/04%20Cierre/anexos/Revision%20de%20accesibilidad%20y%20monitoreo%2027nov.md).
-
-Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Corte posterior de calidad: **122/123 actividades Listo**; ANA-26 En curso para acreditar la revisión manual integral WCAG. Pasaron 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium y las pruebas controladas de 150 pedidos/15 vehículos y 1.000 pedidos/50 vehículos sobre PostGIS. Monitoreo horario y recuperación están implementados; el SLA mensual no está acreditado. Gestión y SUS simulados mantienen esa identificación. No se declara aceptación humana ni cumplimiento global del 100%.
+Monitoreo horario y resumen de cobertura implementados. Las muestras reales conservan fallos y huecos; no acreditan el SLA mensual ni respuesta universal inferior a 500 ms. Cargas de 150 pedidos/15 vehículos y 1.000 pedidos/50 vehículos verificadas sobre PostGIS con adaptador vial controlado. Gestión y SUS simulados conservan esa identificación (n humano SUS = 0). El video queda fuera de este encargo. No se declara aceptación humana ni cumplimiento global del 100 %.

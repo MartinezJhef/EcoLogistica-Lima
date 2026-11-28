@@ -126,6 +126,16 @@ if (CLOSE/'evidencias/validacion-accesibilidad-ampliada-27nov.json').exists():
         check(any(r['name']==name and r['status']=='completed' and r['conclusion']=='success' for r in release['runs']),f'Falta aprobación de la versión ampliada: {name}')
     public=json.loads((CLOSE/'evidencias/verificacion-publica-accesibilidad-27nov.json').read_text(encoding='utf-8'))
     check(public['result']=='PASS' and all(public['checks'].values()),'Cambios no verificados en la URL pública')
+if (CLOSE/'evidencias/validacion-cierre-28nov.json').exists():
+    release=json.loads((CLOSE/'evidencias/validacion-cierre-28nov.json').read_text(encoding='utf-8'))
+    for name in release['required_workflow_names']:
+        check(any(r['name']==name and r['status']=='completed' and r['conclusion']=='success' for r in release['runs']),f'Falta aprobación de cierre 28nov: {name}')
+    audit=json.loads((CLOSE/'evidencias/auditoria-accesibilidad-sesion-28nov.json').read_text(encoding='utf-8'))
+    check(audit['browser_run_stats']['expected']==len(audit['tests'])==54 and audit['browser_run_stats']['unexpected']==0,'Auditoría de sesión incompleta')
+    mobile=json.loads((CLOSE/'evidencias/sesion-movil-texto-ampliado-28nov.json').read_text(encoding='utf-8'))
+    check(mobile['stats']['expected']==3 and mobile['stats']['unexpected']==0,'Recuperación móvil no aprobada')
+    template=json.loads((CLOSE/'anexos/respuestas-sus-por-completar.json').read_text(encoding='utf-8'))
+    check(all(not row['respuestas'] for row in template),'La plantilla SUS contiene respuestas que no son de participantes')
 tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
 for file in tracked:
     check(not re.search(r'(^|/)(node_modules|\.venv|venv|__pycache__|\.dart_tool)/|\.pyc$',file),f'Residuo rastreado: {file}')

@@ -2,7 +2,10 @@
 
 # Revisión de la rúbrica final
 
-**Fuente:** consigna final proporcionada por el usuario, secciones 2–4 y plantillas de la sección 5. **Corte:** 27/11/2026. Esta revisión distingue archivos entregados, mediciones verificadas y hechos que todavía no están acreditados. No asigna una nota en nombre del docente.
+> **Evidencia adicional del 28/11/2026.** [Resultados actuales de sesión, navegación, interfaz nativa de accesibilidad y disponibilidad](Cierre%20de%20validaciones%2028nov.md). 236 pruebas unitarias web, 54 casos de accesibilidad/sesión, 16 árboles nativos y tres verificaciones móviles adicionales aprobados. Jira ANA-26 sigue En curso; no se acredita conformidad integral WCAG ni SLA mensual. [CI y despliegue verificados](../evidencias/validacion-cierre-28nov.json).
+
+
+**Fuente:** consigna final proporcionada por el usuario, secciones 2–4 y plantillas de la sección 5. **Corte:** 28/11/2026. Esta revisión distingue archivos entregados, mediciones verificadas y hechos que todavía no están acreditados. No asigna una nota en nombre del docente.
 
 ## Criterios y evidencia
 
@@ -16,18 +19,18 @@
 
 ## Comprobaciones técnicas actuales
 
-- 229 pruebas unitarias web aprobadas y 30 auditorías automáticas de accesibilidad en Chromium, Firefox y WebKit sin violaciones detectadas en el alcance probado.
+- 236 pruebas unitarias web aprobadas y 54 casos de accesibilidad/sesión en Chromium, Firefox y WebKit sin violaciones detectadas en el alcance probado.
 - 105 pruebas backend locales aprobadas; las integraciones omitidas bajo SQLite se distinguen de las ejecuciones sobre PostGIS. Las tres nuevas pruebas de capacidad y la integración funcional de CI se ejecutaron sobre base real desechable.
 - 150 pedidos/15 vehículos: optimización 2,099 s y reoptimización 0,049 s; 1.000 pedidos/50 vehículos: integridad comprobada. Son cargas sintéticas contra el motor y PostGIS reales con adaptador vial controlado; no se extrapolan al proveedor OSRM público o a concurrencia del alojamiento gratuito.
 - Monitoreo horario implementado y primera ejecución conservada, incluido el timeout de API. La comprobación posterior al despliegue obtuvo web/API HTTP 200. No acredita disponibilidad mensual ni un objetivo universal de respuesta inferior a 500 ms.
 - Recuperación de una exportación pendiente y PDF tras reinicio local medidos en 2,387 s; no se afirma failover de producción.
-- Sprints 1–4 cerrados, diez historias/67 SP, 99 subtareas y siete épicas terminadas. Jira registra 122/123 actividades Listo; ANA-26 está En curso porque la auditoría automática no acredita todos los criterios manuales WCAG 2.1 AA.
+- Sprints 1–4 cerrados, diez historias/67 SP, 99 subtareas y siete épicas terminadas. Jira registra 122/123 actividades Listo; ANA-26 está En curso: las pruebas, la inspección nativa y los recorridos revisados no acreditan todos los criterios de conformidad integral WCAG 2.1 AA.
 
-[Resultados técnicos y límites](Validaciones%20de%20calidad%20y%20continuidad%2027nov.md) · [Estado de Jira](Estado%20final%20del%20cierre%20Jira.md) · [CI y despliegue verificados](../evidencias/validacion-tecnica-calidad-27nov.json).
+[Resultados técnicos y límites](Validaciones%20de%20calidad%20y%20continuidad%2027nov.md) · [Estado de Jira](Estado%20final%20del%20cierre%20Jira.md) · [CI y despliegue verificados](../evidencias/validacion-cierre-28nov.json).
 
 ## Qué impide afirmar «100 % de la rúbrica»
 
-1. **Video:** la rúbrica suma 33 puntos ponderados. El video aporta hasta 12. Si se evalúa como ausente y no existe exención, el máximo teórico de los demás criterios es **21/33**, incluso si todos obtuvieran el nivel máximo. Este cálculo no es una calificación de la entrega.
+1. **Video:** el usuario lo prepara por separado y lo excluyó de este encargo. No se verificó ni se declara entregado desde este paquete. Su evaluación corresponde al docente.
 2. **Procedencia real:** las simulaciones de horas, costos, ánimo y encuestas no cumplen por sí mismas una exigencia de datos reales. Se necesita aceptación docente de su uso o los registros reales correspondientes. Las encuestas humanas no pueden reconstruirse a partir de pruebas del agente.
 3. **Ejecución en vivo:** el cumplimiento del tiempo y la fluidez se verifica durante la sustentación, no mediante un documento que afirme que ya ocurrió.
 4. **Aceptación técnica completa:** faltan la revisión manual integral de accesibilidad y la observación mensual de disponibilidad. La evidencia interna de capacidad no garantiza tiempos de producción con terceros.

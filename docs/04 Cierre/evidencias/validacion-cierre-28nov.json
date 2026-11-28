@@ -1,0 +1,122 @@
+{
+  "main": "19478a4bd9fa0581e2738dc1dd1e68c175daf3ac",
+  "required_workflow_names": [
+    "Sprint 4 CI",
+    "Sprint 4 Tests",
+    "Validaci\u00f3n funcional hasta Sprint 3",
+    "Green IT (auditor\u00eda de rendimiento)",
+    "Deploy production"
+  ],
+  "required_successful": true,
+  "runs": [
+    {
+      "id": 46111754107,
+      "name": "Deploy production",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111754107",
+      "jobs": [
+        {
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    },
+    {
+      "id": 46111477670,
+      "name": "Deploy production",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111477670",
+      "jobs": [
+        {
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    },
+    {
+      "id": 46111397198,
+      "name": "Sprint 4 CI",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397198",
+      "jobs": [
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    },
+    {
+      "id": 46111397257,
+      "name": "Green IT (auditor\u00eda de rendimiento)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397257",
+      "jobs": [
+        {
+          "name": "Lighthouse CI (presupuesto de rendimiento)",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    },
+    {
+      "id": 46111397225,
+      "name": "Sprint 4 Tests",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397225",
+      "jobs": [
+        {
+          "name": "acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    },
+    {
+      "id": 46111397239,
+      "name": "Validaci\u00f3n funcional hasta Sprint 3",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397239",
+      "jobs": [
+        {
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        },
+        {
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        },
+        {
+          "name": "mobile",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        },
+        {
+          "name": "Despliegue y aceptaci\u00f3n en entorno desechable",
+          "status": "completed",
+          "conclusion": "success",
+          "active_steps": []
+        }
+      ]
+    }
+  ],
+  "note": "Both CI and Tests trigger a deployment of the same SHA. At least one deployment is already live; any redundant pending run remains recorded."
+}

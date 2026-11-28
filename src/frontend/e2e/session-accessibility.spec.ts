@@ -44,6 +44,14 @@ test('sesión vencida: conserva borrador, anuncia error y reanuda la misma cuent
       nodes:visible.map(node=>({role:node.role?.value,name:node.name?.value,live:node.properties?.find(p=>p.name==='live')?.value?.value}))},null,2),contentType:'application/json'});
     await cdp.detach();
   }
+  await page.setViewportSize({width:320,height:800});
+  await dialog.evaluate(node=>{
+    const values=Array.from(node.querySelectorAll<HTMLElement>('*')).map(element=>({element,size:parseFloat(getComputedStyle(element).fontSize)}));
+    values.forEach(({element,size})=>{element.style.fontSize=String(size*2)+'px';});
+  });
+  await expect.poll(()=>dialog.locator('input,button').evaluateAll(nodes=>nodes.filter(node=>{
+    const r=node.getBoundingClientRect();return r.width>0 && (r.left < -1 || r.right>innerWidth+1);
+  }).map(node=>node.tagName))).toEqual([]);
   await info.attach('reidentificacion-error',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
   await dialog.getByRole('button',{name:'Identificarme y continuar'}).click();
   await expect(dialog).toHaveCount(0);await expect(draft).toHaveValue('Borrador conservado sin enviar');

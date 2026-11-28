@@ -826,6 +826,10 @@ input:not([type=checkbox]):not([type=radio]), select, textarea { border-color:#7
 .main-content { min-width:0; }
 h1, h2, h3 { min-width:0; overflow-wrap:anywhere; }
 fieldset { min-inline-size:0; }
+.session-recovery { overflow-wrap:anywhere; }
+.session-recovery form { grid-template-columns:minmax(0,1fr); }
+.session-recovery input, .session-recovery button { min-width:0; max-width:100%; }
+.session-recovery button { white-space:normal; }
 @media (max-width: 700px) {
   .container { display:block; height:auto; min-height:100vh; overflow:visible; }
   .sidebar { width:100%; padding:1rem; }

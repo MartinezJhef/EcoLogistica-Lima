@@ -102,3 +102,7 @@ if latest.exists():
     t=t.replace('Pasaron 30 auditorías automáticas de accesibilidad',
         'Pasaron 45 auditorías de accesibilidad en tres navegadores y 12 comprobaciones adicionales de texto en Chromium')
     write(p,t)
+
+if (EV/'validacion-cierre-28nov.json').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/finalize_completion_28nov.py'), run_name='__main__')

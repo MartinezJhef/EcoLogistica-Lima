@@ -1,0 +1,54 @@
+{
+  "type": "REAL_HTTP_SAMPLING_SUMMARY",
+  "month": "2026-11",
+  "timezone": "America/Lima (UTC-05:00)",
+  "window": "05:00 inclusive to 22:00 exclusive",
+  "targets": {
+    "web": {
+      "samples": 125,
+      "successful": 125,
+      "failed": 0,
+      "sample_success_percent": 100.0,
+      "all_attempts": {
+        "median_ms": 72.21,
+        "p95_ms": 330.51,
+        "max_ms": 1304.54
+      },
+      "successful_attempts": {
+        "median_ms": 72.21,
+        "p95_ms": 330.51,
+        "max_ms": 1304.54
+      }
+    },
+    "api": {
+      "samples": 125,
+      "successful": 123,
+      "failed": 2,
+      "sample_success_percent": 98.4,
+      "all_attempts": {
+        "median_ms": 248.03,
+        "p95_ms": 590.61,
+        "max_ms": 20063.41
+      },
+      "successful_attempts": {
+        "median_ms": 247.99,
+        "p95_ms": 563.49,
+        "max_ms": 1288.13
+      }
+    }
+  },
+  "expected_hourly_target_slots": 1020,
+  "observed_hourly_target_slots": 10,
+  "missing_hourly_target_slots": 1010,
+  "hourly_sampling_coverage_percent": 0.98,
+  "duplicate_samples_ignored": 0,
+  "samples_outside_month_or_hours": 0,
+  "monthly_sla_accredited": false,
+  "limits": "Success is a fraction of observed samples. Coverage uses the full calendar month, including future slots if it is ongoing. Missing hours are not successful observations or proven outages; hourly samples do not measure continuous uptime or certify a monthly SLA. P95 uses nearest rank. Latencies cover only the sampled public web and health endpoint.",
+  "sources": [
+    "docs/03 Implementaci\u00f3n/Sprint 4/evidencias/monitoreo-real-2h.json",
+    "docs/04 Cierre/evidencias/monitoreo-operativo-inicial-27nov.json",
+    "docs/04 Cierre/evidencias/monitoreo-continuacion-real-27nov.json",
+    "docs/04 Cierre/evidencias/muestra-publica-postdeploy-27nov.json"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "REAL_CONTROLLED_MOBILE_SESSION_CHECK",
+  "scope": "Three-browser recovery dialog, 320 CSS pixels and doubled dialog text; synthetic API responses and no production writes",
+  "stats": {
+    "startTime": "2026-11-28T05:23:11.372Z",
+    "duration": 10439.641,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -31,7 +31,7 @@ export function SessionRecovery({ user, expired, onResume, onExit, onPostpone }:
     } finally { setBusy(false); }
   };
   return <div className="apple-modal-overlay" style={{ zIndex:10000 }}>
-    <AccessibleDialog className="apple-modal" label="Continuar la sesión" errorMessage={error} onDismiss={() => { if (!expired && !busy) onPostpone(); }}>
+    <AccessibleDialog className="apple-modal session-recovery" label="Continuar la sesión" errorMessage={error} onDismiss={() => { if (!expired && !busy) onPostpone(); }}>
       <h2>{expired ? 'Tu sesión terminó' : 'Tu sesión está por terminar'}</h2>
       <p role="status">Vuelve a identificarte para continuar. Los formularios se conservan en esta pestaña; no cierres ni recargues la página.</p>
       <form onSubmit={resume} style={{ display:'grid', gap:16, marginTop:16 }}>

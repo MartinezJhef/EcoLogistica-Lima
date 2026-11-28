@@ -2,8 +2,9 @@ name: Operational availability samples
 on:
   workflow_dispatch:
   schedule:
-    # Hourly, 05:00–21:00 America/Lima. Samples are not continuous uptime/SLA.
-    - cron: '0 0-2,10-23 * * *'
+    # Hourly, 05:17–21:17 America/Lima. Avoid the top-of-hour scheduling peak.
+    # Samples are not continuous uptime/SLA.
+    - cron: '17 0-2,10-23 * * *'
 permissions:
   contents: read
 concurrency:
@@ -22,6 +23,8 @@ jobs:
       - run: mkdir -p availability-results
       - name: Sample public web and database readiness without warm-up requests
         run: python scripts/monitor_public_availability.py --seconds 0 --interval 3600 --output availability-results/sample.json
+      - name: Summarize observations without inventing missing uptime
+        run: python scripts/summarize_availability.py availability-results/sample.json --output availability-results/summary.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
