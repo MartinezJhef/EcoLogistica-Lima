@@ -35,7 +35,23 @@ Las seis capturas de diálogos se revisaron visualmente: encabezados y etiquetas
 
 El JSON conserva todas las entradas `incomplete` de axe; no se contaron como aprobaciones automáticas. Dos corresponden a símbolos decorativos ocultos a tecnologías de asistencia: el signo menos del zoom y la flecha del intervalo de fechas. Los botones de zoom y los campos de fecha tienen su propio nombre. Otras entradas indican fondo solapado u ocultación parcial de texto, especialmente tarjetas del mapa y un textarea. Las capturas permiten inspeccionar el estado, pero esa inspección no se transforma en una medición de contraste de todas las superposiciones posibles.
 
-**ANA-26 conserva alcance pendiente:** el trabajo anterior resuelve los defectos encontrados y amplía la evidencia, pero no acredita todos los criterios manuales WCAG 2.1 AA. Queda comprobar de forma sistemática ampliación de texto al 200 %, espaciado de texto, lectura y anuncio con tecnología de asistencia y las condiciones de sesión y navegación de todos los procesos completos. No se cierra como conformidad integral basándose únicamente en los 45 casos aprobados.
+### Texto ampliado y espaciado: comprobación adicional
+
+Se ejecutaron doce comprobaciones adicionales en Chromium: seis escenarios con tamaño de texto duplicado y los mismos seis con altura de línea 1,5, separación entre letras 0,12 em, entre palabras 0,16 em y entre párrafos 2 em. Ancho de prueba: 320 CSS px. Se comprobó que los campos y el ancho completo del documento permanecieran dentro de la ventana, con un margen de un píxel. **12/12 aprobadas**. La revisión detectó y corrigió desbordamiento de títulos, perfil, grupos de acciones y tarjeta de ingreso; el nombre y correo del perfil ahora pueden ocupar varias líneas.
+
+El cambio de tamaño se aplicó al estilo calculado del texto, no al zoom nativo del navegador. Los diálogos se verifican en los 45 casos anteriores; la comprobación adicional de ancho se realiza después de cerrarlos. No se extrapola a todos los estados posibles.
+
+[Resultados de texto](../evidencias/verificacion-texto-27nov.json) · [Script reproducible](../../../scripts/check_accessible_text.py). Con el frontend local activo, ejecutar `python scripts/check_accessible_text.py --mode resize --output outputs/text-resize.json` y repetir con `--mode spacing`. El script usa los fixtures aislados existentes y elimina únicamente su archivo temporal al finalizar.
+
+![Preferencias con texto ampliado](../evidencias/texto-resize-cliente-27nov.png)
+
+![Preferencias con espaciado aumentado](../evidencias/texto-spacing-cliente-27nov.png)
+
+**ANA-26 conserva alcance pendiente:** estas verificaciones resuelven los defectos encontrados, pero aún falta acreditar lectura y anuncio con tecnología de asistencia y las condiciones de sesión y navegación de todos los procesos completos. No se declara conformidad integral a partir de los casos seleccionados.
+
+### Incidencia de CI conservada
+
+La [ejecución de CI del commit 10079d1](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46105363146) aprobó 56 de 57 casos, pero falló la comprobación de foco del cliente en WebKit. El despliegue quedó bloqueado. Se amplió el estilo de foco a los controles con foco interno nativo y se usó una aserción que espera la actualización del estilo; la comprobación dirigida de WebKit y las 231 pruebas unitarias pasaron localmente. La publicación requiere que la nueva ejecución completa de CI apruebe; este fallo no se elimina del historial ni se presenta como un despliegue exitoso.
 
 Referencias de revisión: [lista de criterios WCAG 2.1 del W3C](https://www.w3.org/WAI/WCAG21/quickref/) y [patrón de diálogo modal del W3C](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
 

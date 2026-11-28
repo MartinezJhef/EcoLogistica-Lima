@@ -86,7 +86,7 @@ for (const [name,path,role] of scenarios) {
     await expect(page).toHaveTitle(/.+ · EcoLogística/);
     await page.keyboard.press('Tab');
     expect(await page.evaluate(()=>document.activeElement?.tagName)).not.toBe('BODY');
-    expect(await page.evaluate(()=>getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
+    await expect.poll(()=>page.evaluate(()=>getComputedStyle(document.activeElement!).outlineStyle)).not.toBe('none');
     if(name==='usuarios' || editTriggers[name] || name==='ruta-reoptimizar') {
       const dialog=page.getByRole('dialog');
       expect(await page.locator('nav[aria-label="Navegación principal"]').evaluate(node=>Boolean(node.closest('[inert]')))).toBe(true);

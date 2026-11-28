@@ -817,19 +817,29 @@ input::placeholder, textarea::placeholder {
 .skip-link { position:fixed; top:8px; left:8px; z-index:10000; padding:10px 16px; background:#fff; color:#243025; border:2px solid #243025; transform:translateY(-160%); }
 .skip-link:focus { transform:translateY(0); }
 :focus-visible { outline:3px solid #243025 !important; outline-offset:3px; }
+input:focus-within, select:focus-within, textarea:focus-within { outline:3px solid #243025 !important; outline-offset:3px; }
 .sidebar :focus-visible { outline-color:#F5F4EE; }
 .leaflet-control-attribution a { text-decoration:underline !important; }
 
 /* Controls retain a visible boundary independently of placeholder text. */
 input:not([type=checkbox]):not([type=radio]), select, textarea { border-color:#718466; }
 .main-content { min-width:0; }
+h1, h2, h3 { min-width:0; overflow-wrap:anywhere; }
 fieldset { min-inline-size:0; }
 @media (max-width: 700px) {
   .container { display:block; height:auto; min-height:100vh; overflow:visible; }
   .sidebar { width:100%; padding:1rem; }
+  .sidebar { overflow-wrap:anywhere; }
+  .sidebar [style*="display: flex"] { min-width:0; flex-wrap:wrap; }
+  .sidebar [style*="display: flex"] > * { min-width:0; max-width:100%; }
+  .login-page { padding:24px !important; }
+  .login-page > div > div:first-child { padding:24px !important; }
   .nav-links { flex-direction:row; flex-wrap:wrap; }
   .nav-item { flex:1 1 130px; }
   .main-content { padding:1rem; overflow:visible; }
+  .main-content, .login-page { overflow-wrap:anywhere; }
+  .main-content [style*="display: flex"], .login-page [style*="display: flex"], .login-page [style*="display: inline-flex"] { min-width:0; flex-wrap:wrap; }
+  .main-content [style*="display: flex"] > * { min-width:0; }
   .main-content [style*="grid-template-columns"] { grid-template-columns:minmax(0,1fr) !important; }
   .main-content [style*="grid-column: span 2"] { grid-column:auto !important; }
   .main-content .card, .main-content .apple-card { max-width:100%; overflow-x:auto; }

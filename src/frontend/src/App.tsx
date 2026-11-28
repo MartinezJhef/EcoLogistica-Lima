@@ -206,9 +206,8 @@ function AppLayout() {
             fontSize: '0.84rem',
             fontWeight: 700,
             color: '#F5F4EE',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis'
+            whiteSpace: 'normal',
+            overflowWrap: 'anywhere'
           }}>
             {currentUser.nombre_completo.split('(')[0].trim()}
           </div>
@@ -216,9 +215,8 @@ function AppLayout() {
           <div style={{
             fontSize: '0.7rem',
             color: '#C4D2A8',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
+            whiteSpace: 'normal',
+            overflowWrap: 'anywhere',
             marginBottom: '0.65rem'
           }}>
             {currentUser.email}
