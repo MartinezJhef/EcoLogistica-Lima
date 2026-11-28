@@ -104,12 +104,7 @@ export function ClientesView() {
     }
   }, [mensajeExito]);
 
-  useEffect(() => {
-    if (alerta) {
-      const timer = setTimeout(() => setAlerta(null), 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [alerta]);
+  // Errors remain available until dismissed or corrected.
 
   // Referencias para el Selector de Mapa del Formulario
   const formMapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -616,26 +611,26 @@ export function ClientesView() {
       {(alerta || mensajeExito) && (
         <div className="apple-toast-container">
           {mensajeExito && (
-            <div className="apple-toast apple-toast-success">
+            <div role="status" className="apple-toast apple-toast-success">
               <CheckCircle2 size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Operación Exitosa</div>
                 <div className="apple-toast-message">{mensajeExito}</div>
               </div>
-              <button className="apple-toast-close" onClick={() => setMensajeExito(null)}>
+              <button aria-label="Cerrar aviso" className="apple-toast-close" onClick={() => setMensajeExito(null)}>
                 <X size={14} />
               </button>
             </div>
           )}
 
-          {alerta && (
-            <div className="apple-toast apple-toast-error">
+          {alerta && !editingCliente && (
+            <div role="alert" className="apple-toast apple-toast-error">
               <ShieldAlert size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Validación de Datos</div>
                 <div className="apple-toast-message">{alerta}</div>
               </div>
-              <button className="apple-toast-close" onClick={() => setAlerta(null)}>
+              <button aria-label="Cerrar aviso" className="apple-toast-close" onClick={() => setAlerta(null)}>
                 <X size={14} />
               </button>
             </div>
@@ -1324,7 +1319,7 @@ export function ClientesView() {
       {/* Modal de Edición de Cliente */}
       {editingCliente && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setEditingCliente(null)}>
-          <AccessibleDialog label="Editar cliente" onDismiss={() => setEditingCliente(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '580px' }}>
+          <AccessibleDialog errorMessage={alerta} label="Editar cliente" onDismiss={() => setEditingCliente(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '580px' }}>
             <div className="modal-header">
               <h2>Editar Cliente: {editingCliente.razon_social}</h2>
               <button 

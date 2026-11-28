@@ -475,4 +475,6 @@ Universidad Continental · 2026
 
 [Revisión por criterio de la rúbrica final y condiciones de cumplimiento](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
 
+[Revisión adicional de accesibilidad: 231 pruebas web y 45 auditorías; continuación del monitoreo real](docs/04%20Cierre/anexos/Revision%20de%20accesibilidad%20y%20monitoreo%2027nov.md).
+
 Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Corte posterior de calidad: **122/123 actividades Listo**; ANA-26 En curso para acreditar la revisión manual integral WCAG. Pasaron 30 auditorías automáticas de accesibilidad y las pruebas controladas de 150 pedidos/15 vehículos y 1.000 pedidos/50 vehículos sobre PostGIS. Monitoreo horario y recuperación están implementados; el SLA mensual no está acreditado. Gestión y SUS simulados mantienen esa identificación. No se declara aceptación humana ni cumplimiento global del 100%.

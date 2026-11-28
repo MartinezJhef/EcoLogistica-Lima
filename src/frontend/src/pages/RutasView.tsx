@@ -69,6 +69,7 @@ export const RutasView: React.FC = () => {
   const [averia, setAveria] = useState(false);
   const [cargaEnDeposito, setCargaEnDeposito] = useState(false);
   const [areaIncidencia, setAreaIncidencia] = useState('');
+  const [areaCoordenadas, setAreaCoordenadas] = useState(['', '', '', '']);
   const [demora, setDemora] = useState(0);
   const [horaSalida, setHoraSalida] = useState('08:00');
   const [posicionActual, setPosicionActual] = useState('');
@@ -85,7 +86,7 @@ export const RutasView: React.FC = () => {
   const showToast = (type: 'success' | 'warning' | 'error' | 'info', title: string, message: string) => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts(prev => [...prev, { id, type, title, message }]);
-    setTimeout(() => {
+    if (type === 'success' || type === 'info') setTimeout(() => {
       setToasts(prev => prev.filter(t => t.id !== id));
     }, 4500);
   };
@@ -336,8 +337,8 @@ export const RutasView: React.FC = () => {
     if (!rutaSeleccionada) return;
     setReoptimizing(true);
     try {
-      if (posicionActual && (posicionActual.split(',').length !== 2 || posicionActual.split(',').some(v => !v.trim() || !Number.isFinite(Number(v))))) {
-        throw new Error('Indica la posición como latitud, longitud.');
+      if (posicionActual && (posicionActual.split(',').length !== 2 || posicionActual.split(',').some(v => !v.trim() || !Number.isFinite(Number(v))) || Math.abs(Number(posicionActual.split(',')[0])) > 90 || Math.abs(Number(posicionActual.split(',')[1])) > 180)) {
+        throw new Error('Indica la posición como latitud, longitud. La latitud debe estar entre -90 y 90 y la longitud entre -180 y 180.');
       }
       const response = await RutaService.reoptimizar(rutaSeleccionada.ruta_id, {
         pedido_cancelado_id: pedidoACancelarId || undefined,
@@ -428,9 +429,10 @@ export const RutasView: React.FC = () => {
         gap: '0.75rem',
         maxWidth: '380px'
       }}>
-        {toasts.map(t => (
+        {toasts.filter(t => !showReoptModal || (t.type !== 'error' && t.type !== 'warning')).map(t => (
           <div
             key={t.id}
+            role={t.type === 'error' || t.type === 'warning' ? 'alert' : 'status'}
             style={{
               padding: '0.85rem 1.15rem',
               borderRadius: '12px',
@@ -461,7 +463,7 @@ export const RutasView: React.FC = () => {
               <div style={{ fontSize: '0.78rem', color: '#4B5563', marginTop: '2px' }}>{t.message}</div>
             </div>
             <button
-              onClick={() => removeToast(t.id)}
+              aria-label="Cerrar aviso" onClick={() => removeToast(t.id)}
               style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#626C7C', padding: '0 2px' }}
             >
               <X size={15} />
@@ -989,7 +991,7 @@ export const RutasView: React.FC = () => {
           zIndex: 10000,
           padding: '1rem'
         }}>
-          <AccessibleDialog label="Reoptimizar ruta" onDismiss={() => setShowReoptModal(false)} style={{
+          <AccessibleDialog errorMessage={toasts.filter(t => t.type === 'error' || t.type === 'warning').slice(-1)[0]?.message} label="Reoptimizar ruta" onDismiss={() => setShowReoptModal(false)} style={{
             background: '#FFFFFF',
             borderRadius: '16px',
             maxWidth: '480px',
@@ -1058,6 +1060,25 @@ export const RutasView: React.FC = () => {
                 Marcar el área afectada en el mapa
               </button>
               {areaIncidencia && <p>Área seleccionada. <button onClick={() => setAreaIncidencia('')}>Quitar selección</button></p>}
+              <details>
+                <summary>Introducir el área con coordenadas, sin usar el mapa</summary>
+                <p>Indica dos esquinas opuestas. Latitud entre −90 y 90; longitud entre −180 y 180.</p>
+                {['Latitud de la primera esquina', 'Longitud de la primera esquina', 'Latitud de la segunda esquina', 'Longitud de la segunda esquina'].map((label, index) => (
+                  <label key={label}>{label}
+                    <input type="number" step="any" min={index % 2 ? -180 : -90} max={index % 2 ? 180 : 90}
+                      value={areaCoordenadas[index]} onChange={e => setAreaCoordenadas(old => old.map((v, i) => i === index ? e.target.value : v))} />
+                  </label>
+                ))}
+                <button type="button" onClick={() => {
+                  const values = areaCoordenadas.map(Number);
+                  if (areaCoordenadas.some(v => !v.trim()) || values.some((v, i) => !Number.isFinite(v) || Math.abs(v) > (i % 2 ? 180 : 90)) || values[0] === values[2] || values[1] === values[3]) {
+                    showToast('error', 'Revisa las coordenadas', 'Completa cuatro coordenadas válidas y dos esquinas distintas que formen un área.'); return;
+                  }
+                  const [a, b, c, d] = values;
+                  setAreaIncidencia(JSON.stringify([[b,a],[d,a],[d,c],[b,c],[b,a]]));
+                  setToasts(old => old.filter(t => t.title !== 'Revisa las coordenadas'));
+                }}>Aplicar área por coordenadas</button>
+              </details>
               <label>Demora en minutos (0 = vía cerrada)
                 <input aria-label="Demora reportada" type="number" min="0" max="240" value={demora} onChange={e => setDemora(Number(e.target.value))} />
               </label>
@@ -1068,6 +1089,11 @@ export const RutasView: React.FC = () => {
                 Marcar la posición actual del conductor
               </button>
               {posicionActual && <p>Posición actual seleccionada</p>}
+              <label>Posición actual por coordenadas, sin usar el mapa
+                <input type="text" placeholder="Latitud, longitud" aria-describedby="position-coordinates-help"
+                  value={posicionActual} onChange={e => setPosicionActual(e.target.value)} />
+              </label>
+              <small id="position-coordinates-help">Opcional. Ejemplo: -12.05, -77.05. Usa un punto decimal.</small>
               <label>Minutos transcurridos desde que comenzó esta ruta
                 <input aria-label="Minutos transcurridos" type="number" min="0" max="480" value={minutosTranscurridos} onChange={e => setMinutosTranscurridos(Number(e.target.value))} />
               </label>

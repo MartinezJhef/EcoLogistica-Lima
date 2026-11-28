@@ -816,8 +816,9 @@ input::placeholder, textarea::placeholder {
 /* Keyboard users can bypass repeated navigation and see the focused control. */
 .skip-link { position:fixed; top:8px; left:8px; z-index:10000; padding:10px 16px; background:#fff; color:#243025; border:2px solid #243025; transform:translateY(-160%); }
 .skip-link:focus { transform:translateY(0); }
-:focus-visible { outline:3px solid #243025; outline-offset:3px; }
+:focus-visible { outline:3px solid #243025 !important; outline-offset:3px; }
 .sidebar :focus-visible { outline-color:#F5F4EE; }
+.leaflet-control-attribution a { text-decoration:underline !important; }
 
 /* Controls retain a visible boundary independently of placeholder text. */
 input:not([type=checkbox]):not([type=radio]), select, textarea { border-color:#718466; }

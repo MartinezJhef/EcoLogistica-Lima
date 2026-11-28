@@ -192,7 +192,7 @@ export function PedidosView() {
 
   // Temporizador para toasts
   useEffect(() => {
-    if (toast) {
+    if (toast?.tipo === 'success') {
       const timer = setTimeout(() => setToast(null), 6000);
       return () => clearTimeout(timer);
     }
@@ -924,7 +924,7 @@ export function PedidosView() {
       {/* HUD Apple Toasts */}
       {toast && (
         <div className="apple-toast-container">
-          <div className={`apple-toast apple-toast-${toast.tipo === 'error' ? 'error' : 'success'}`}>
+          <div role={toast.tipo === 'success' ? 'status' : 'alert'} className={`apple-toast apple-toast-${toast.tipo === 'error' ? 'error' : 'success'}`}>
             {toast.tipo === 'error' ? (
               <AlertCircle size={20} className="toast-icon" />
             ) : toast.tipo === 'warning' ? (
@@ -936,7 +936,7 @@ export function PedidosView() {
               <div className="apple-toast-title">{toast.titulo}</div>
               <div className="apple-toast-message">{toast.mensaje}</div>
             </div>
-            <button className="apple-toast-close" onClick={() => setToast(null)}>
+            <button aria-label="Cerrar aviso" className="apple-toast-close" onClick={() => setToast(null)}>
               <X size={15} />
             </button>
           </div>

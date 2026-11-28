@@ -230,26 +230,26 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
       {(errorAlerta || mensajeExito) && (
         <div className="apple-toast-container">
           {mensajeExito && (
-            <div className="apple-toast apple-toast-success">
+            <div role="status" className="apple-toast apple-toast-success">
               <CheckCircle2 size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Operación Completada</div>
                 <div className="apple-toast-message">{mensajeExito}</div>
               </div>
-              <button className="apple-toast-close" onClick={() => setMensajeExito(null)}>
+              <button aria-label="Cerrar aviso" className="apple-toast-close" onClick={() => setMensajeExito(null)}>
                 <X size={14} />
               </button>
             </div>
           )}
 
-          {errorAlerta && (
-            <div className="apple-toast apple-toast-error">
+          {errorAlerta && !modalAbierto && (
+            <div role="alert" className="apple-toast apple-toast-error">
               <ShieldAlert size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Alerta de Seguridad</div>
                 <div className="apple-toast-message">{errorAlerta}</div>
               </div>
-              <button className="apple-toast-close" onClick={() => setErrorAlerta(null)}>
+              <button aria-label="Cerrar aviso" className="apple-toast-close" onClick={() => setErrorAlerta(null)}>
                 <X size={14} />
               </button>
             </div>
@@ -470,7 +470,7 @@ export function AdminUsersView({ currentSimulatedRole, onRoleChange }: AdminUser
       {/* Modal Apple Obsidian Glass para Alta y Edición de Usuario */}
       {modalAbierto && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setModalAbierto(false)}>
-          <AccessibleDialog label="Gestionar usuario" onDismiss={() => setModalAbierto(false)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+          <AccessibleDialog errorMessage={errorAlerta} label="Gestionar usuario" onDismiss={() => setModalAbierto(false)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
             <div className="modal-header">
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <KeyRound size={20} color="var(--apple-accent)" />

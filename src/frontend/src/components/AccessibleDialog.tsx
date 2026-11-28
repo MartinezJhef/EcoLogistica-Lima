@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 
-type Props = React.HTMLAttributes<HTMLDivElement> & { label: string; onDismiss: () => void };
+type Props = React.HTMLAttributes<HTMLDivElement> & { label: string; onDismiss: () => void; errorMessage?: string | null };
 
 /** Keep keyboard focus in a modal and restore its trigger on dismissal. */
-export function AccessibleDialog({ label, onDismiss, children, ...props }: Props) {
+export function AccessibleDialog({ label, onDismiss, errorMessage, children, ...props }: Props) {
   const element = useRef<HTMLDivElement>(null);
   const dismiss = useRef(onDismiss);
   dismiss.current = onDismiss;
@@ -13,7 +13,20 @@ export function AccessibleDialog({ label, onDismiss, children, ...props }: Props
     if (!dialog) return;
     const controls = () => Array.from(dialog.querySelectorAll<HTMLElement>(
       'button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'
-    )).filter(node => node.getClientRects().length > 0);
+    )).filter(node => node.tabIndex >= 0 && node.getClientRects().length > 0);
+    // Keep background controls out of keyboard and accessibility navigation.
+    const background: { node: HTMLElement; inert: boolean }[] = [];
+    let branch: HTMLElement = dialog;
+    while (branch.parentElement) {
+      for (const sibling of Array.from(branch.parentElement.children)) {
+        if (sibling !== branch && sibling instanceof HTMLElement) {
+          background.push({ node: sibling, inert: sibling.inert });
+          sibling.inert = true;
+        }
+      }
+      branch = branch.parentElement;
+      if (branch === document.body) break;
+    }
     (controls()[0] || dialog).focus();
     const handle = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -30,7 +43,14 @@ export function AccessibleDialog({ label, onDismiss, children, ...props }: Props
       }
     };
     dialog.addEventListener('keydown', handle);
-    return () => { dialog.removeEventListener('keydown', handle); if (previous?.isConnected) previous.focus(); };
+    return () => {
+      dialog.removeEventListener('keydown', handle);
+      background.forEach(({ node, inert }) => { node.inert = inert; });
+      if (previous?.isConnected) previous.focus();
+    };
   }, []);
-  return <div {...props} ref={element} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}>{children}</div>;
+  return <div {...props} ref={element} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}>
+    {errorMessage && <p role="alert" style={{ padding:12, color:'#A62824', background:'#FBEAE9', borderRadius:8 }}>{errorMessage}</p>}
+    {children}
+  </div>;
 }

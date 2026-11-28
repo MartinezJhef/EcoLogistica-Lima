@@ -158,12 +158,7 @@ export function VehiculosView() {
     }
   }, [exito]);
 
-  useEffect(() => {
-    if (alerta) {
-      const timer = setTimeout(() => setAlerta(null), 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [alerta]);
+  // Errors remain available until dismissed or corrected.
 
   const cargarVehiculos = async () => {
     setCargando(true);
@@ -315,13 +310,13 @@ export function VehiculosView() {
       {(alerta || exito) && (
         <div className="apple-toast-container">
           {exito && (
-            <div className="apple-toast apple-toast-success">
+            <div role="status" className="apple-toast apple-toast-success">
               <CheckCircle2 size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Operación Exitosa</div>
                 <div className="apple-toast-message">{exito}</div>
               </div>
-              <button 
+              <button aria-label="Cerrar aviso"
                 className="apple-toast-close" 
                 onClick={() => setExito(null)}
                 title="Cerrar notificación"
@@ -331,14 +326,14 @@ export function VehiculosView() {
             </div>
           )}
 
-          {alerta && (
-            <div className="apple-toast apple-toast-error">
+          {alerta && !editingVehiculo && (
+            <div role="alert" className="apple-toast apple-toast-error">
               <AlertCircle size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Aviso del Sistema</div>
                 <div className="apple-toast-message">{alerta}</div>
               </div>
-              <button 
+              <button aria-label="Cerrar aviso"
                 className="apple-toast-close" 
                 onClick={() => setAlerta(null)}
                 title="Cerrar notificación"
@@ -566,7 +561,7 @@ export function VehiculosView() {
       {/* Modal Apple Glass para Edición de Vehículo (SUB-001-03) */}
       {editingVehiculo && (
         <div className="apple-modal-overlay" onClick={() => setEditingVehiculo(null)}>
-          <AccessibleDialog label="Editar vehículo" onDismiss={() => setEditingVehiculo(null)} className="apple-modal" onClick={e => e.stopPropagation()}>
+          <AccessibleDialog errorMessage={alerta} label="Editar vehículo" onDismiss={() => setEditingVehiculo(null)} className="apple-modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <div>
                 <h3>Editar Vehículo: {editingVehiculo.placa}</h3>
@@ -574,7 +569,7 @@ export function VehiculosView() {
                   Modificación de especificaciones técnicas y operativas en PostgreSQL
                 </p>
               </div>
-              <button className="modal-close-btn" onClick={() => setEditingVehiculo(null)}>
+              <button aria-label="Cerrar edición de vehículo" className="modal-close-btn" onClick={() => setEditingVehiculo(null)}>
                 <X size={16} />
               </button>
             </div>

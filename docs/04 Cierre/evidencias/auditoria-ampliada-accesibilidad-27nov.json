@@ -1,0 +1,565 @@
+{
+  "type": "REAL_EXTENDED_BROWSER_AUDIT",
+  "scope": "Fifteen rendered scenarios, including six dialog flows and keyboard alternatives for road incidents; controlled synthetic API responses, real browser rendering. Not human SUS or universal WCAG certification.",
+  "tests": {
+    "startTime": "2026-11-28T00:30:17.681Z",
+    "duration": 110988.877,
+    "expected": 45,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "results": [
+    {
+      "scenario": "login",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 19,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "login",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 19,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "login",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 19,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculos",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductores",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "clientes",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 28,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "pedidos",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 21,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "rutas",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > span"
+              ],
+              "html": "<span>HUELLA CODECARBON (CPU)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 1.25rem; font-weight: 800; color: rgb(6, 95, 70); margin-top: 0.35rem;\">No medido</div>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(3) > span"
+              ],
+              "html": "<span>No medido (0s)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span"
+              ],
+              "html": "<span>Mapa Cartogr\u00e1fico de Trazado Vial</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(1) > div:nth-child(2) > button"
+              ],
+              "html": "<button style=\"padding: 3px 8px; border-radius: 6px; border: 1px solid rgb(209, 213, 219); background: rgb(255, 255, 255); font-size: 0.72rem; cursor: pointer; color: rgb(75, 85, 99);\">Simular Fallback Texto</button>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".leaflet-control-zoom-out > span[aria-hidden=\"true\"]"
+              ],
+              "html": "<span aria-hidden=\"true\">\u2212</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "rutas",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > span"
+              ],
+              "html": "<span>HUELLA CODECARBON (CPU)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 1.25rem; font-weight: 800; color: rgb(6, 95, 70); margin-top: 0.35rem;\">No medido</div>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(3) > span"
+              ],
+              "html": "<span>No medido (0s)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span"
+              ],
+              "html": "<span>Mapa Cartogr\u00e1fico de Trazado Vial</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(1) > div:nth-child(2) > button"
+              ],
+              "html": "<button style=\"padding: 3px 8px; border-radius: 6px; border: 1px solid rgb(209, 213, 219); background: rgb(255, 255, 255); font-size: 0.72rem; cursor: pointer; color: rgb(75, 85, 99);\">Simular Fallback Texto</button>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".leaflet-control-zoom-out > span[aria-hidden=\"true\"]"
+              ],
+              "html": "<span aria-hidden=\"true\">\u2212</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "rutas",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > span"
+              ],
+              "html": "<span>HUELLA CODECARBON (CPU)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(5) > div:nth-child(4) > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 1.25rem; font-weight: 800; color: rgb(6, 95, 70); margin-top: 0.35rem;\">No medido</div>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(3) > span"
+              ],
+              "html": "<span>No medido (0s)</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span"
+              ],
+              "html": "<span>Mapa Cartogr\u00e1fico de Trazado Vial</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(1) > div:nth-child(2) > button"
+              ],
+              "html": "<button style=\"padding: 3px 8px; border-radius: 6px; border: 1px solid rgb(209, 213, 219); background: rgb(255, 255, 255); font-size: 0.72rem; cursor: pointer; color: rgb(75, 85, 99);\">Simular Fallback Texto</button>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".leaflet-control-zoom-out > span[aria-hidden=\"true\"]"
+              ],
+              "html": "<span aria-hidden=\"true\">\u2212</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > span"
+              ],
+              "html": "<span style=\"font-size: 0.82rem; font-weight: 700; color: rgb(55, 65, 81);\">RUTA SELECCIONADA</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 0.8rem; color: rgb(75, 85, 99); margin-bottom: 0.35rem;\">Conductor: <strong>Conductor Prueba</strong></div>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "usuarios",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sus-date-arrow"
+              ],
+              "html": "<span class=\"sus-date-arrow\" aria-hidden=\"true\">\u2192</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sus-date-arrow"
+              ],
+              "html": "<span class=\"sus-date-arrow\" aria-hidden=\"true\">\u2192</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "sostenibilidad",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sus-date-arrow"
+              ],
+              "html": "<span class=\"sus-date-arrow\" aria-hidden=\"true\">\u2192</span>",
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "cliente",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "textarea"
+              ],
+              "html": "<textarea aria-label=\"Referencia de entrega\"></textarea>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "cliente",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "cliente",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 20,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "textarea"
+              ],
+              "html": "<textarea aria-label=\"Referencia de entrega\"></textarea>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "repartidor",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 16,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculo-editar",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculo-editar",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "vehiculo-editar",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-editar",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-editar",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-editar",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 23,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-asignar",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-asignar",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "conductor-asignar",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 22,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "cliente-editar",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "cliente-editar",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "cliente-editar",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "ruta-reoptimizar",
+      "browser": "chromium",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    },
+    {
+      "scenario": "ruta-reoptimizar",
+      "browser": "firefox",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(3)"
+              ],
+              "html": "<p>\u00c1rea seleccionada. <button>Quitar selecci\u00f3n</button></p>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "ruta-reoptimizar",
+      "browser": "webkit",
+      "violations": 0,
+      "rules_passed": 25,
+      "manual_review_rules": []
+    }
+  ]
+}

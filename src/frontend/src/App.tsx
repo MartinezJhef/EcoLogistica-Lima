@@ -95,6 +95,15 @@ function AppLayout() {
   };
 
   const currentPath = location.pathname;
+  useEffect(() => {
+    const titles: Record<string, string> = {
+      '/login': 'Iniciar sesión', '/vehiculos': 'Vehículos', '/conductores': 'Conductores',
+      '/clientes': 'Clientes', '/pedidos': currentUser?.rol === 'REPARTIDOR' ? 'Mis entregas' : currentUser?.rol === 'CLIENTE' ? 'Mis pedidos' : 'Pedidos',
+      '/rutas': 'Rutas y despacho', '/admin': 'Administración de usuarios', '/sostenibilidad': 'Sostenibilidad',
+    };
+    document.title = `${titles[currentPath] || 'Sistema'} · EcoLogística`;
+    document.getElementById('main-content')?.focus({ preventScroll: true });
+  }, [currentPath, currentUser?.rol]);
 
   // Si no está autenticado y no está en /login, redirigir a /login
   if (!currentUser) {

@@ -1,0 +1,38 @@
+{
+  "type": "REAL_OPERATIONAL_HTTP_SAMPLES",
+  "method": "Independent timestamped samples from GitHub Actions artifacts; not continuous uptime or monthly SLA",
+  "runs": [
+    {
+      "id": 46084024618,
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46084024618",
+      "created_at": "2026-11-27T23:42:59Z"
+    }
+  ],
+  "samples": [
+    {
+      "time_utc": "2026-11-27T23:43:07.057831+00:00",
+      "target": "web",
+      "status": 200,
+      "available": true,
+      "elapsed_ms": 234.26,
+      "run_id": 46084024618,
+      "event": "workflow_dispatch"
+    },
+    {
+      "time_utc": "2026-11-27T23:43:07.292099+00:00",
+      "target": "api",
+      "status": null,
+      "available": false,
+      "error": "ReadTimeout",
+      "elapsed_ms": 20063.41,
+      "run_id": 46084024618,
+      "event": "workflow_dispatch"
+    }
+  ],
+  "successful_samples": 1,
+  "total_samples": 2,
+  "sample_success_percent": 50.0
+}

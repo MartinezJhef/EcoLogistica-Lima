@@ -84,6 +84,30 @@ const MOCK_ZONAS = [{zona_id:'z1',nombre:'Zona de prueba',motivo:'Riesgo reporta
 describe('Componente: RutasView (US-005/006/007)', () => {
   let user: ReturnType<typeof userEvent.setup>;
 
+  it('envía área y posición por coordenadas sin hacer clic en el mapa',async()=>{
+    const {RutaService}=await import('../services/api');
+    await act(async()=>{render(<RutasView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Reoptimizar (US-007)',exact:true}));
+    fireEvent.click(screen.getByText('Introducir el área con coordenadas, sin usar el mapa'));
+    for(const [label,value] of [['Latitud de la primera esquina','-12.05'],['Longitud de la primera esquina','-77.05'],['Latitud de la segunda esquina','-12.06'],['Longitud de la segunda esquina','-77.06']])fireEvent.change(screen.getByLabelText(label),{target:{value}});
+    fireEvent.click(screen.getByRole('button',{name:'Aplicar área por coordenadas'}));
+    fireEvent.change(screen.getByLabelText('Posición actual por coordenadas, sin usar el mapa'),{target:{value:'-12.04,-77.04'}});
+    fireEvent.click(screen.getByRole('button',{name:'Confirmar Reoptimización'}));
+    await waitFor(()=>expect(RutaService.reoptimizar).toHaveBeenCalledWith('r1',expect.objectContaining({latitud_actual:-12.04,longitud_actual:-77.04,
+      incidencias:[expect.objectContaining({poligono:[[-77.05,-12.05],[-77.06,-12.05],[-77.06,-12.06],[-77.05,-12.06],[-77.05,-12.05]]})]})));
+  });
+
+  it('mantiene el formulario y anuncia coordenadas fuera de rango sin enviar reoptimización',async()=>{
+    const {RutaService}=await import('../services/api');
+    await act(async()=>{render(<RutasView/>);});
+    fireEvent.click(screen.getByRole('button',{name:'Reoptimizar (US-007)',exact:true}));
+    fireEvent.change(screen.getByLabelText('Posición actual por coordenadas, sin usar el mapa'),{target:{value:'-120,-77'}});
+    fireEvent.click(screen.getByRole('button',{name:'Confirmar Reoptimización'}));
+    await waitFor(()=>expect(screen.getByRole('alert')).toHaveTextContent('Indica la posición'));
+    expect(RutaService.reoptimizar).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog')).toBeTruthy();
+  });
+
   it('dibuja la geometría vial guardada y ajusta el mapa a las paradas',async()=>{
     const L=(await import('leaflet')).default;
     await act(async()=>{render(<RutasView/>);});

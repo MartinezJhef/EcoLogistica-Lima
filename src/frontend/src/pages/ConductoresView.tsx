@@ -98,12 +98,7 @@ export function ConductoresView() {
     }
   }, [mensajeExito]);
 
-  useEffect(() => {
-    if (alerta) {
-      const timer = setTimeout(() => setAlerta(null), 6000);
-      return () => clearTimeout(timer);
-    }
-  }, [alerta]);
+  // Errors remain available until dismissed or corrected.
 
   const cargarConductores = async () => {
     setCargando(true);
@@ -573,13 +568,13 @@ export function ConductoresView() {
       {(alerta || mensajeExito) && (
         <div className="apple-toast-container">
           {mensajeExito && (
-            <div className="apple-toast apple-toast-success">
+            <div role="status" className="apple-toast apple-toast-success">
               <CheckCircle2 size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Operación Exitosa</div>
                 <div className="apple-toast-message">{mensajeExito}</div>
               </div>
-              <button 
+              <button aria-label="Cerrar aviso"
                 className="apple-toast-close" 
                 onClick={() => setMensajeExito(null)}
                 title="Cerrar notificación"
@@ -589,14 +584,14 @@ export function ConductoresView() {
             </div>
           )}
 
-          {alerta && (
-            <div className="apple-toast apple-toast-error">
+          {alerta && !editingConductor && !assigningConductor && (
+            <div role="alert" className="apple-toast apple-toast-error">
               <ShieldAlert size={18} className="toast-icon" />
               <div className="apple-toast-content">
                 <div className="apple-toast-title">Normativa Legal MTC</div>
                 <div className="apple-toast-message">{alerta}</div>
               </div>
-              <button 
+              <button aria-label="Cerrar aviso"
                 className="apple-toast-close" 
                 onClick={() => setAlerta(null)}
                 title="Cerrar notificación"
@@ -1354,7 +1349,7 @@ export function ConductoresView() {
       {/* Modal de Simulación / Asignación de Ruta (SUB-002-05 & SUB-002-07) */}
       {assigningConductor && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setAssigningConductor(null)}>
-          <AccessibleDialog label="Gestionar conductor" onDismiss={() => setAssigningConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
+          <AccessibleDialog errorMessage={alerta} label="Gestionar conductor" onDismiss={() => setAssigningConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
             <div className="modal-header">
               <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Send size={18} color="var(--apple-accent)" /> Asignación de Ruta a Conductor
@@ -1451,7 +1446,7 @@ export function ConductoresView() {
       {/* Modal de Edición de Conductor */}
       {editingConductor && (
         <div className="apple-modal-overlay modal-overlay" onClick={() => setEditingConductor(null)}>
-          <AccessibleDialog label="Gestionar conductor" onDismiss={() => setEditingConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+          <AccessibleDialog errorMessage={alerta} label="Gestionar conductor" onDismiss={() => setEditingConductor(null)} className="apple-modal modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
             <div className="modal-header">
               <h2>Editar Conductor: {editingConductor.nombres}</h2>
               <button 

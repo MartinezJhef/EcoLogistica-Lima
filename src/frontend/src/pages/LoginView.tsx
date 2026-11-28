@@ -168,7 +168,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
           <p style={{fontSize:'0.85rem', color:'#3C4A3F'}}>El rol se reconoce por tu cuenta. Para entrar como oficina, repartidor o cliente, utiliza el correo y la contraseña que te asignó administración.</p>
           <form onSubmit={handleLogin}>
             {error && (
-              <div style={{
+              <div role="alert" style={{
                 marginBottom: '1.25rem',
                 padding: '0.75rem 1rem',
                 borderRadius: '10px',
@@ -208,6 +208,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                 }} />
                 <input id="loginview-field-6509"
                   type="email"
+                  autoComplete="username"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="usuario@ecologistica.pe"
@@ -252,6 +253,7 @@ export function LoginView({ onLoginSuccess }: LoginViewProps) {
                 }} />
                 <input id="loginview-field-8195"
                   type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••••••"
