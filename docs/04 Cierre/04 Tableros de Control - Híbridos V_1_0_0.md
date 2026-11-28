@@ -2,6 +2,8 @@
 
 # Tableros de Control Híbridos (Hybrid Dashboards)
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
 **Proyecto:** EcoLogística Lima · **Código:** PFA-ECOLIMA-2026
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
@@ -27,7 +29,7 @@ Colores con redundancia textual: VERDE = evidencia técnica aprobada; ÁMBAR = c
 | Web, API, móvil y despliegue | Adaptativo | VERDE | 236 web, 105 backend locales y capacidad/PostGIS en CI, E2E multirrol y Android; workflows aprobados al 27/11. |
 | Cronograma macro | Predictivo | ROJO | 21 días hasta estabilización técnica; 22 hasta corte documental frente al 05/11. |
 | Costo / EVM | Predictivo | ÁMBAR | CPI 1.4270 del escenario; registro económico real no disponible. |
-| SUS y aceptación humana | Híbrido | ROJO | n real = 0; cinco casos simulados, SUS 77.5. |
+| SUS simulado autorizado | Híbrido | ÁMBAR | Cinco casos simulados entregados, SUS 77.5; modalidad permitida según el usuario. Meta original ≥85 no alcanzada; no acredita aceptación humana. |
 | Disponibilidad / latencia | Híbrido | ÁMBAR | 99.58% de 240 muestras en dos horas; máximo del resumen 500.91 ms; no SLA mensual. |
 | Documentos y transición | Predictivo | ÁMBAR | Paquete y guía preparados; aceptación administrativa y capacitación por registrar. |
 

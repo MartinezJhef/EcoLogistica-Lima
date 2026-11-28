@@ -72,3 +72,6 @@ for name in ['Estado final del cierre Jira.md', 'Registro de entrega y transicio
     write(path, text)
 
 print('Evidencias del 28/11 aplicadas; cortes históricos y límites conservados.')
+if (EV/'criterio-encuestas-simuladas-28nov.json').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/apply_survey_delivery_criterion.py'),run_name='__main__')

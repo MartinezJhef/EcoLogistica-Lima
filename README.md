@@ -438,7 +438,7 @@ Los [PR #12](https://github.com/MartinezJhef/EcoLogistica-Lima/pull/12) y [#13](
 - [Revisión del Sprint](docs/03%20Inplementaci%C3%B3n/Sprint%204/01%20Revisi%C3%B3n%20del%20Sprint%20V_1_0_0.md).
 - [Retrospectiva: observaciones y acciones propuestas](docs/03%20Inplementaci%C3%B3n/Sprint%204/02%20Retrospectiva%20del%20Sprint%20V_1_0_0.md).
 - [Análisis Playwright y rendimiento](docs/03%20Inplementaci%C3%B3n/Sprint%204/03%20Analisis%20PlayWrigth%20V_1_0_0.md).
-- [Usabilidad: pruebas por roles y evaluación SUS pendiente](docs/03%20Inplementaci%C3%B3n/Sprint%204/04%20Usabilidad%20V_1_0_0.md).
+- [Usabilidad: pruebas por roles y resultados SUS simulados autorizados](docs/03%20Inplementaci%C3%B3n/Sprint%204/04%20Usabilidad%20V_1_0_0.md).
 - [Instalación, despliegue gratuito y protocolo SUS](docs/03%20Inplementaci%C3%B3n/Sprint%204/06%20Despliegue%20y%20evaluaci%C3%B3n%20V_1_0_0.md).
 
 - [Alcance, secuencia de implementación, contratos y pruebas del Sprint 4](docs/03%20Inplementaci%C3%B3n/Sprint%204/00%20Preparaci%C3%B3n%20del%20Sprint%204%20V_1_0_0.md).
@@ -475,3 +475,5 @@ Universidad Continental · 2026
 Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Jira: **122/123 actividades Listo**; ANA-26 En curso hasta acreditar la revisión integral WCAG. Se aprobaron 236 pruebas unitarias web, 54 casos de accesibilidad/sesión en tres navegadores, 16 árboles nativos y tres comprobaciones adicionales del diálogo móvil con texto ampliado. Se conservan las doce comprobaciones previas de texto en Chromium.
 
 Monitoreo horario y resumen de cobertura implementados. Las muestras reales conservan fallos y huecos; no acreditan el SLA mensual ni respuesta universal inferior a 500 ms. Cargas de 150 pedidos/15 vehículos y 1.000 pedidos/50 vehículos verificadas sobre PostGIS con adaptador vial controlado. Gestión y SUS simulados conservan esa identificación (n humano SUS = 0). El video queda fuera de este encargo. No se declara aceptación humana ni cumplimiento global del 100 %.
+
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.

@@ -1,0 +1,10 @@
+{
+  "fecha": "2026-11-28",
+  "fuente": "Confirmación del usuario en el chat de trabajo",
+  "confirmacion": "las encuestas solo que sea de manera simulada, por q el ingeniero lo permite",
+  "alcance": "Se aceptan las cinco encuestas SUS simuladas como modalidad de entrega, según lo informado por el usuario. No se exige captar participantes reales para ese apartado.",
+  "casos_simulados": 5,
+  "participantes_reales": 0,
+  "media_SUS_simulada": 77.5,
+  "limite": "No es evidencia de participantes humanos ni cambia los puntajes calculados. La confirmación se limita a encuestas; no amplía la aceptación a costos, horas, mood o validaciones técnicas."
+}

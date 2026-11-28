@@ -2,6 +2,8 @@
 
 # Reporte Final del Proyecto (Final Project Report)
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
 **Proyecto:** EcoLogística Lima · **Código:** PFA-ECOLIMA-2026
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
@@ -69,7 +71,7 @@ Presupuesto modelado de planificación: S/ 11467.50, techo del acta S/ 12850.00.
 | RSK-01 / APIs y hosting gratuitos | Riesgo materializado parcialmente | Latencia y una muestra HTTP no disponible durante monitoreo. | Mediciones, manejo de errores y conservación del último resultado; monitoreo continuo por ampliar. |
 | RSK-02 / retraso | Riesgo materializado | Correcciones y despliegue posteriores al 05/11. | Priorización de integración y regresión; conservar desviación y preparar demo reproducible. |
 | RSK-03 / factores ambientales | Riesgo abierto | Parámetros actuales identificados como simulados. | Fuente y vigencia visibles, instantáneas históricas; validar factores reales antes de operar. |
-| RSK-04 / participantes | Impedimento de aceptación | Sin respuestas SUS humanas ni mood real. | Datos simulados autorizados y rotulados; piloto real pendiente. |
+| RSK-04 / encuestas y ánimo | Encuestas simuladas permitidas | Cinco casos SUS simulados entregados; mood sin medición humana. | Encuestas aceptadas según confirmación del usuario; conservar la etiqueta simulada. La aceptación del mood mantiene su condición propia. |
 | RSK-06 / acceso y datos | Riesgo mitigado en flujos probados | Sesión vencida y permisos podían confundir al usuario; acceso a reportes requiere rol. | Recuperación de sesión, autorización de servidor, PDF privado; no se declara certificación legal. |
 | RSK-07/11 / coherencia y trazabilidad | Incidente documental | Stack inicial distinto al real; SP discrepantes y capturas antiguas de Jira. | Versiones V_1_1_0 y matriz de fuentes; corte Jira final: cuatro sprints cerrados y 99 subtareas terminadas; corte de calidad posterior: 122 Listo y ANA-26 En curso. |
 | INC-26-01 / listados | Defecto corregido | Solo primeros 12 vehículos/conductores visibles. | Recuperación de páginas y orden estable; regresión automatizada. |

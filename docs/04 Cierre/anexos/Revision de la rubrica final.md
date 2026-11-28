@@ -6,6 +6,10 @@
 
 **Fuente:** consigna final proporcionada por el usuario, secciones 2–4 y plantillas de la sección 5. **Corte:** 28/11/2026. Esta revisión distingue archivos entregados, mediciones verificadas y hechos que todavía no están acreditados. No asigna una nota en nombre del docente.
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
+[Confirmación y alcance](../evidencias/criterio-encuestas-simuladas-28nov.json).
+
 ## Criterios y evidencia
 
 | Criterio de la rúbrica | Peso / máximo | Verificación de la entrega | Condición para acreditar el nivel máximo |
@@ -30,7 +34,7 @@
 ## Qué impide afirmar «100 % de la rúbrica»
 
 1. **Video:** el usuario lo prepara por separado y lo excluyó de este encargo. No se verificó ni se declara entregado desde este paquete. Su evaluación corresponde al docente.
-2. **Procedencia real:** las simulaciones de horas, costos, ánimo y encuestas no cumplen por sí mismas una exigencia de datos reales. Se necesita aceptación docente de su uso o los registros reales correspondientes. Las encuestas humanas no pueden reconstruirse a partir de pruebas del agente.
+2. **Procedencia real:** las cinco encuestas SUS simuladas se aceptan para la entrega según la confirmación del usuario de que el ingeniero permite esa modalidad; ya no se consideran un pendiente por ausencia de participantes reales. Se mantienen rotuladas como resultados simulados (77,5). Horas, costos y ánimo conservan sus condiciones de aceptación propias: esta confirmación no se extiende a esos datos.
 3. **Ejecución en vivo:** el cumplimiento del tiempo y la fluidez se verifica durante la sustentación, no mediante un documento que afirme que ya ocurrió.
 4. **Aceptación técnica completa:** faltan la revisión manual integral de accesibilidad y la observación mensual de disponibilidad. La evidencia interna de capacidad no garantiza tiempos de producción con terceros.
 

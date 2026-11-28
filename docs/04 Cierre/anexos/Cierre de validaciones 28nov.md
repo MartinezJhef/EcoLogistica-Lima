@@ -40,7 +40,11 @@ El workflow conserva muestras y ahora genera también un resumen que identifica 
 
 La [ejecución manual del workflow actualizado](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112370394) terminó correctamente: se descargaron y comprobaron sus dos artefactos, `sample.json` y `summary.json`, con web/API HTTP 200. La [evidencia original y el resumen generado](../evidencias/ejecucion-monitor-resumen-28nov.json) se conservan. Ocurrió a las 00:30 de Lima, fuera de la ventana 05:00–22:00; por eso no incrementa los conteos del resumen mensual anterior. Es una prueba real del workflow, no una observación de un evento del cron.
 
-## Para sustituir las encuestas simuladas por respuestas reales
+## Encuestas simuladas aceptadas para la entrega
+
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
+[Confirmación y alcance](../evidencias/criterio-encuestas-simuladas-28nov.json). La captura de respuestas reales descrita a continuación queda como alternativa opcional para una evaluación futura, sin bloquear esta entrega.
 
 El instrumento y las tareas ya están en el [protocolo de despliegue y evaluación](../../03%20Implementaci%C3%B3n/Sprint%204/06%20Despliegue%20y%20evaluaci%C3%B3n%20V_1_0_0.md). Se añadió una [plantilla de captura sin respuestas](respuestas-sus-por-completar.json): P01–P05 son identificadores reservados, no participantes ya evaluados.
 

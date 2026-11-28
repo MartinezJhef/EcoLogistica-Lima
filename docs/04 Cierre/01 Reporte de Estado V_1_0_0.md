@@ -2,6 +2,8 @@
 
 # Reporte de Estado del Proyecto (Status Report)
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
 **Proyecto:** EcoLogística Lima · **Código:** PFA-ECOLIMA-2026
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
@@ -30,7 +32,7 @@ Entregar los siete reportes y anexos, verificar enlaces y ensayar 10 min de gest
 
 ## 5. Riesgos, Incidentes y Comentarios
 
-Riesgos abiertos: suspensión/latencia del hosting gratuito, factores ambientales simulados, falta de participantes reales y la revisión manual de accesibilidad pendiente en Jira. El monitoreo de dos horas obtuvo 239/240 respuestas disponibles (99.58% de muestras), sin demostrar SLA mensual. El objetivo universal <500 ms y SUS real permanecen sin acreditar. Cierre documental preparado; aceptación administrativa pendiente de constancia del equipo. [Detalle EVM](03%20Reporte%20de%20An%C3%A1lisis%20de%20Valor%20Ganado%20-%20EVM%20V_1_0_0.md) y [reporte final](06%20Reporte%20Final%20del%20Proyecto%20V_1_0_0.md).
+Riesgos abiertos: suspensión/latencia del hosting gratuito, factores ambientales simulados, la revisión manual de accesibilidad pendiente en Jira. El monitoreo de dos horas obtuvo 239/240 respuestas disponibles (99.58% de muestras), sin demostrar SLA mensual. El objetivo universal <500 ms permanece sin acreditar. Las cinco encuestas SUS simuladas están aceptadas para esta entrega según la confirmación del usuario. Cierre documental preparado; aceptación administrativa pendiente de constancia del equipo. [Detalle EVM](03%20Reporte%20de%20An%C3%A1lisis%20de%20Valor%20Ganado%20-%20EVM%20V_1_0_0.md) y [reporte final](06%20Reporte%20Final%20del%20Proyecto%20V_1_0_0.md).
 
 ---
 

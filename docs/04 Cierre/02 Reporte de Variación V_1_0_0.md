@@ -2,6 +2,8 @@
 
 # Reporte de Variación (Variance Report)
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
 **Proyecto:** EcoLogística Lima · **Código:** PFA-ECOLIMA-2026
 **Fecha de corte:** 27/11/2026 · **Versión:** 1.0.0
 **Periodo actual:** 31/10–27/11/2026 · **Corte anterior:** 30/10/2026
@@ -40,7 +42,7 @@ Conciliación del escenario: ahorro de herramientas/cloud S/ 2550.00 + reserva s
 |---|---|---|---|
 | Flujos integrados sin fallos en la aceptación definida | 226 web + 102 backend + 1 PostGIS; recorridos completos por roles/navegadores; Android y CI aprobados. | Defectos de límite de listado, cierre de pedido, administración y calendario detectados y corregidos. | QA conserva pruebas de regresión; líder técnico exige CI verde antes de desplegar. |
 | Cobertura ≥80% | Workflows ejecutan umbral ≥80%; resultados aprobados. No se confunde tasa de éxito de pruebas con cobertura. | Cumplimiento de umbral del workflow; no se inventa porcentaje exacto distinto. | Mantener gate de cobertura. |
-| SUS ≥85 con participantes reales en acta | n humano = 0; cinco perfiles simulados, promedio 77.5. | Resultado real no evaluable; simulación 7.5 puntos bajo meta, sin equivalencia a aceptación. | PO coordina cinco participantes reales y archiva respuestas. |
+| SUS ≥85 con participantes reales en acta | n humano = 0; cinco perfiles simulados, promedio 77.5. | Resultado real no evaluable; simulación 7.5 puntos bajo meta, sin equivalencia a aceptación. | Entregar los cinco casos simulados autorizados; la muestra real es opcional. La meta original ≥85 sigue sin alcanzarse con 77,5. |
 | Todas las respuestas <500 ms | Mediana de resumen 458.45 ms; 9/10 <500, máximo 500.91 ms; login supera meta. | Meta universal no acreditada; red, autenticación y plan gratuito influyen. | Perfilar y medir por endpoint en frío/caliente antes de contratar capacidad. |
 | Disponibilidad ≥99.5% | 239/240 muestras en dos horas: 99.58%. | Cumplimiento muestral, no certificación mensual ni operación continua. | Soporte amplía monitoreo y registra interrupciones. |
 | Reducción ambiental -22% / hasta 25% | Hay cálculo de CO₂ estimado y pruebas con parámetros simulados. | No existe piloto causal ni línea base de emisiones físicas verificadas. | PO valida factores y diseña comparación de rutas reales. |

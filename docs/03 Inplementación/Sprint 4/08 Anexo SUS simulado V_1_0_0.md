@@ -1,5 +1,8 @@
 # Resultados simulados de evaluación SUS
 
+> **Modalidad de encuestas confirmada, 28/11/2026.** El usuario informa que el ingeniero permite encuestas simuladas. Se entregan cinco casos SUS como **resultados simulados**, media 77,5; este apartado no queda pendiente por falta de participantes reales. No cambia la meta original SUS ≥85 ni acredita aceptación humana. La autorización se limita a encuestas.
+
+
 ## Naturaleza y ficha técnica
 
 Cinco perfiles ficticios, SIM01–SIM05, para demostrar el procesamiento de un cuestionario SUS. No se realizaron entrevistas ni se recogieron estas respuestas de personas. Muestra real: n = 0; casos simulados: 5. Los valores fueron construidos para el ejercicio y no acreditan el requisito de participantes de la rúbrica.
