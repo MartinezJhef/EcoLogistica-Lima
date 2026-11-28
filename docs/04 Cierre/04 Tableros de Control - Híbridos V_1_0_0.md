@@ -24,7 +24,7 @@ Colores con redundancia textual: VERDE = evidencia técnica aprobada; ÁMBAR = c
 |---|---|---|---|
 | Requisitos, arquitectura y presupuesto | Predictivo | ÁMBAR | Versiones conciliadas; horas y ejecución financiera simuladas. |
 | US-001–US-010 e integración | Adaptativo | VERDE técnico | Historias con implementación y recorridos automatizados; no equivale a aceptación de stakeholders. |
-| Web, API, móvil y despliegue | Adaptativo | VERDE | 229 web + 103 backend y PostGIS en CI, E2E multirrol y Android; workflows aprobados al 27/11. |
+| Web, API, móvil y despliegue | Adaptativo | VERDE | 229 web, 105 backend locales y capacidad/PostGIS en CI, E2E multirrol y Android; workflows aprobados al 27/11. |
 | Cronograma macro | Predictivo | ROJO | 21 días hasta estabilización técnica; 22 hasta corte documental frente al 05/11. |
 | Costo / EVM | Predictivo | ÁMBAR | CPI 1.4270 del escenario; registro económico real no disponible. |
 | SUS y aceptación humana | Híbrido | ROJO | n real = 0; cinco casos simulados, SUS 77.5. |

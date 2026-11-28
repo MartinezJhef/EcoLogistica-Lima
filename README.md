@@ -473,4 +473,6 @@ Universidad Continental · 2026
 
 [Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones de calidad y continuidad](docs/04%20Cierre/anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).
 
+[Revisión por criterio de la rúbrica final y condiciones de cumplimiento](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).
+
 Sprints **1–4 cerrados**: diez historias (**67 SP**), **99/99 subtareas** y siete épicas en Listo. Corte posterior de calidad: **122/123 actividades Listo**; ANA-26 En curso para acreditar la revisión manual integral WCAG. Pasaron 30 auditorías automáticas de accesibilidad y las pruebas controladas de 150 pedidos/15 vehículos y 1.000 pedidos/50 vehículos sobre PostGIS. Monitoreo horario y recuperación están implementados; el SLA mensual no está acreditado. Gestión y SUS simulados mantienen esa identificación. No se declara aceptación humana ni cumplimiento global del 100%.
