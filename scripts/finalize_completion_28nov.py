@@ -19,7 +19,8 @@ notice = ('> **Actualización de cierre, 28/11/2026.** Sprints 1–4 cerrados: d
           '[Evidencia actual y límites](' + link + '). El video queda fuera de este encargo.')
 
 def write(path, text):
-    path.write_text('\n'.join(x.rstrip() for x in text.strip().splitlines()) + '\n', encoding='utf-8')
+    text = '\n'.join(x.rstrip() for x in text.strip().splitlines())
+    path.write_text(re.sub(r'\n{3,}', '\n\n', text) + '\n', encoding='utf-8')
 
 for path in CLOSE.glob('0*.md'):
     text = path.read_text(encoding='utf-8')

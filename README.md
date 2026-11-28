@@ -468,7 +468,6 @@ Universidad Continental · 2026
 
 [Review y retrospectiva: ejercicio simulado](docs/03%20Inplementaci%C3%B3n/Sprint%204/09%20Review%20y%20retrospectiva%20simuladas%20V_1_0_0.md). La aplicación dispone de configuración ambiental con valores simulados.
 
-
 ### Evidencias actuales del cierre, 28/11/2026
 
 [Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones y recopilación de evidencia del 28 de noviembre](docs/04%20Cierre/anexos/Cierre%20de%20validaciones%2028nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md) · [Revisión de la rúbrica](docs/04%20Cierre/anexos/Revision%20de%20la%20rubrica%20final.md).

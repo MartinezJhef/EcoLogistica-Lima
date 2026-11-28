@@ -1,0 +1,83 @@
+{
+  "type": "REAL_GITHUB_MONITOR_EXECUTION",
+  "run": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112370394",
+  "commit": "e31c5450885ca6a0de113dba8bd6e02716fbe8c6",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "sample": {
+    "method": "Periodic HTTP sampling; not continuous availability or monthly SLA",
+    "interval_seconds": 3600,
+    "observed_seconds": 0.57,
+    "samples": [
+      {
+        "time_utc": "2026-11-28T05:30:11.641666+00:00",
+        "target": "web",
+        "status": 200,
+        "available": true,
+        "elapsed_ms": 256.81
+      },
+      {
+        "time_utc": "2026-11-28T05:30:11.898483+00:00",
+        "target": "api",
+        "status": 200,
+        "available": true,
+        "elapsed_ms": 289.52
+      }
+    ],
+    "successful_samples": 2,
+    "total_samples": 2,
+    "sample_success_percent": 100.0
+  },
+  "summary": {
+    "type": "REAL_HTTP_SAMPLING_SUMMARY",
+    "month": "2026-11",
+    "timezone": "America/Lima (UTC-05:00)",
+    "window": "05:00 inclusive to 22:00 exclusive",
+    "targets": {
+      "web": {
+        "samples": 0,
+        "successful": 0,
+        "failed": 0,
+        "sample_success_percent": null,
+        "all_attempts": {
+          "median_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        },
+        "successful_attempts": {
+          "median_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        }
+      },
+      "api": {
+        "samples": 0,
+        "successful": 0,
+        "failed": 0,
+        "sample_success_percent": null,
+        "all_attempts": {
+          "median_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        },
+        "successful_attempts": {
+          "median_ms": null,
+          "p95_ms": null,
+          "max_ms": null
+        }
+      }
+    },
+    "expected_hourly_target_slots": 1020,
+    "observed_hourly_target_slots": 0,
+    "missing_hourly_target_slots": 1020,
+    "hourly_sampling_coverage_percent": 0.0,
+    "duplicate_samples_ignored": 0,
+    "samples_outside_month_or_hours": 2,
+    "monthly_sla_accredited": false,
+    "limits": "Success is a fraction of observed samples. Coverage uses the full calendar month, including future slots if it is ongoing. Missing hours are not successful observations or proven outages; hourly samples do not measure continuous uptime or certify a monthly SLA. P95 uses nearest rank. Latencies cover only the sampled public web and health endpoint.",
+    "sources": [
+      "availability-results/sample.json"
+    ]
+  },
+  "note": "Execution was manual; the cron configuration is not evidence that a scheduled event has run. This sample was outside the defined Lima business window and is excluded from its monthly aggregate."
+}

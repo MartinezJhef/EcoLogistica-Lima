@@ -67,7 +67,7 @@ for name in ['Registro de entrega y transicion.md','Matriz de entregables y evid
         t='\n\n'.join(paragraphs)
     write(p,t)
 p=ROOT/'README.md';t=p.read_text(encoding='utf-8')
-marker='### Evidencias actuales del cierre, 27/11/2026'
+marker='### Evidencias actuales del cierre, '
 t=t[:t.index(marker)]+'''### Evidencias actuales del cierre, 27/11/2026
 
 [Estado final de Jira](docs/04%20Cierre/anexos/Estado%20final%20del%20cierre%20Jira.md) · [Validaciones de calidad y continuidad](docs/04%20Cierre/anexos/Validaciones%20de%20calidad%20y%20continuidad%2027nov.md) · [Entrega y transición](docs/04%20Cierre/anexos/Registro%20de%20entrega%20y%20transicion.md).

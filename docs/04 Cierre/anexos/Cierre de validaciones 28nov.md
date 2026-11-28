@@ -6,6 +6,8 @@
 
 Se ejecutaron **236 pruebas unitarias web** y **54 pruebas de navegador** en Chromium, Firefox y WebKit. Las 54 comprenden los quince escenarios de interfaz anteriores y tres recorridos adicionales por navegador: sesión vencida con borrador, aviso anticipado de vencimiento y búsqueda de módulos según rol.
 
+La publicación `e31c545` aprobó además **66/66 pruebas de navegador en CI**: esos 54 casos más doce comprobaciones de autenticación y permisos contra la API y PostGIS desechables, cuatro roles en cada navegador. El [registro de resultados y origen](../evidencias/playwright-ci-66-28nov.json) conserva la ejecución real y su alcance.
+
 Se inspeccionó la interfaz **nativa de accesibilidad de Chromium** en los quince escenarios principales y en el diálogo de error de reidentificación: dieciséis árboles nativos. Los controles expuestos tienen nombre y rol; los encabezados están presentes. El diálogo y su alerta aparecen en el árbol nativo, mientras la navegación de fondo queda excluida. Solo se conservaron nombres y roles, sin valores de contraseñas. Es una comprobación de la interfaz que consumen las tecnologías de asistencia, no una grabación de voz ni una evaluación SUS humana.
 
 La sesión avisa 90 segundos antes de expirar. Al expirar o recibir HTTP 401, se elimina el token, se bloquea la interacción con el fondo y se conserva el formulario únicamente en la memoria de la pestaña. Una contraseña rechazada no borra el borrador ni desbloquea el sistema. La misma cuenta y rol pueden volver a identificarse; una identidad o rol distintos descartan el contexto anterior. Salir explícitamente descarta lo no guardado. Cerrar o recargar la pestaña no conserva el borrador. No se alargó la vigencia del token de ocho horas ni se modificaron las autorizaciones del servidor.
@@ -22,6 +24,8 @@ También pasaron **3/3 comprobaciones** del diálogo de recuperación a 320 CSS 
 
 [CI, pruebas, integración, Green IT y despliegue de la versión publicada](../evidencias/validacion-cierre-28nov.json). La verificación se vincula a su commit exacto; los cambios posteriores se someten de nuevo a estos controles antes de publicar.
 
+La [verificación pública posterior al despliegue](../evidencias/verificacion-publica-cierre-28nov.json) obtuvo HTTP 200 en web y salud de la API, y comprobó en los archivos servidos la recuperación de sesión, búsqueda de módulos, ajuste móvil, foco y alternativa por coordenadas. Fue una revisión de lectura, sin crear ni modificar registros de producción.
+
 Estas verificaciones completan los recorridos de revisión técnica descritos en este expediente. No se presentan como certificación universal de todos los navegadores, lectores de pantalla y estados futuros. Se conservan las comprobaciones anteriores de contraste, etiquetas, teclado, seis diálogos, reflujo, texto ampliado y espaciado, con sus alcances y reglas incompletas identificadas.
 
 ## Disponibilidad y tiempos de respuesta: resumen de evidencia real
@@ -33,6 +37,8 @@ Solo diez de los 1.020 espacios horarios por destino del mes tienen alguna obser
 [Resumen reproducible con fuentes](../evidencias/resumen-disponibilidad-real-28nov.json) · [Analizador](../../../scripts/summarize_availability.py) · [Pruebas de contabilidad de fallos y huecos](../../../scripts/tests/test_availability_summary.py).
 
 El workflow conserva muestras y ahora genera también un resumen que identifica cobertura y fallos. Se programa al minuto 17 entre 05:17 y 21:17 de Lima para evitar el pico de inicio de hora; [GitHub documenta que ese pico puede retrasar o descartar ejecuciones](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule). Esto reduce una causa posible de retraso, sin garantizar la ejecución. No se declara que ya haya ocurrido una ejecución del cron sin observar su evento.
+
+La [ejecución manual del workflow actualizado](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112370394) terminó correctamente: se descargaron y comprobaron sus dos artefactos, `sample.json` y `summary.json`, con web/API HTTP 200. La [evidencia original y el resumen generado](../evidencias/ejecucion-monitor-resumen-28nov.json) se conservan. Ocurrió a las 00:30 de Lima, fuera de la ventana 05:00–22:00; por eso no incrementa los conteos del resumen mensual anterior. Es una prueba real del workflow, no una observación de un evento del cron.
 
 ## Para sustituir las encuestas simuladas por respuestas reales
 

@@ -4,7 +4,6 @@
 
 > **Evidencia adicional del 28/11/2026.** [Resultados actuales de sesión, navegación, interfaz nativa de accesibilidad y disponibilidad](Cierre%20de%20validaciones%2028nov.md). 236 pruebas unitarias web, 54 casos de accesibilidad/sesión, 16 árboles nativos y tres verificaciones móviles adicionales aprobados. Jira ANA-26 sigue En curso; no se acredita conformidad integral WCAG ni SLA mensual. [CI y despliegue verificados](../evidencias/validacion-cierre-28nov.json).
 
-
 **Fuente:** consigna final proporcionada por el usuario, secciones 2–4 y plantillas de la sección 5. **Corte:** 28/11/2026. Esta revisión distingue archivos entregados, mediciones verificadas y hechos que todavía no están acreditados. No asigna una nota en nombre del docente.
 
 ## Criterios y evidencia

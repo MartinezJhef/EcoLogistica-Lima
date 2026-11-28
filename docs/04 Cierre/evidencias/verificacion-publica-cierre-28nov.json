@@ -1,0 +1,23 @@
+{
+  "type": "REAL_PUBLIC_ASSET_AND_HEALTH_CHECK",
+  "time_utc": "2026-11-28T05:37:18.683030+00:00",
+  "web_status": 200,
+  "api_status": 200,
+  "assets": {
+    "main": "/assets/index-Drpl7674.js",
+    "css": "/assets/index-DPkcq86T.css",
+    "routes": "RutasView-D59GrY6B.js"
+  },
+  "checks": {
+    "page_titles": true,
+    "native_input_focus": true,
+    "vertical_flex_layout": true,
+    "keyboard_coordinate_alternative": true,
+    "session_recovery": true,
+    "role_module_search": true,
+    "session_mobile_layout": true,
+    "api_healthy": true
+  },
+  "result": "PASS",
+  "scope": "Read-only HTTP asset and database-health verification; no production records created or modified."
+}

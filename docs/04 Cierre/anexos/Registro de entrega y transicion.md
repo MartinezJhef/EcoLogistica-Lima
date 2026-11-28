@@ -4,7 +4,6 @@
 
 > **Evidencia adicional del 28/11/2026.** [Resultados actuales de sesión, navegación, interfaz nativa de accesibilidad y disponibilidad](Cierre%20de%20validaciones%2028nov.md). 236 pruebas unitarias web, 54 casos de accesibilidad/sesión, 16 árboles nativos y tres verificaciones móviles adicionales aprobados. Jira ANA-26 sigue En curso; no se acredita conformidad integral WCAG ni SLA mensual. [CI y despliegue verificados](../evidencias/validacion-cierre-28nov.json).
 
-
 **Proyecto:** EcoLogística Lima · **Fecha:** 27/11/2026 · **Tipo:** registro de preparación y verificación, no acta firmada por terceros.
 
 ## Entrega preparada

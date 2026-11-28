@@ -1,5 +1,5 @@
 {
-  "main": "19478a4bd9fa0581e2738dc1dd1e68c175daf3ac",
+  "main": "e31c5450885ca6a0de113dba8bd6e02716fbe8c6",
   "required_workflow_names": [
     "Sprint 4 CI",
     "Sprint 4 Tests",
@@ -10,11 +10,28 @@
   "required_successful": true,
   "runs": [
     {
-      "id": 46111754107,
+      "id": 46112759681,
+      "name": "Deploy production",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112759681",
+      "jobs": [
+        {
+          "name": "deploy",
+          "status": "in_progress",
+          "conclusion": null,
+          "active_steps": [
+            "Deploy validated commit to configured Render services"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 46112442808,
       "name": "Deploy production",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111754107",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112442808",
       "jobs": [
         {
           "name": "deploy",
@@ -25,14 +42,14 @@
       ]
     },
     {
-      "id": 46111477670,
-      "name": "Deploy production",
+      "id": 46112370394,
+      "name": "Operational availability samples",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111477670",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112370394",
       "jobs": [
         {
-          "name": "deploy",
+          "name": "sample",
           "status": "completed",
           "conclusion": "success",
           "active_steps": []
@@ -40,11 +57,11 @@
       ]
     },
     {
-      "id": 46111397198,
+      "id": 46112356940,
       "name": "Sprint 4 CI",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397198",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112356940",
       "jobs": [
         {
           "name": "build",
@@ -55,11 +72,11 @@
       ]
     },
     {
-      "id": 46111397257,
+      "id": 46112356905,
       "name": "Green IT (auditor\u00eda de rendimiento)",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397257",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112356905",
       "jobs": [
         {
           "name": "Lighthouse CI (presupuesto de rendimiento)",
@@ -70,11 +87,11 @@
       ]
     },
     {
-      "id": 46111397225,
+      "id": 46112356927,
       "name": "Sprint 4 Tests",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397225",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112356927",
       "jobs": [
         {
           "name": "acceptance",
@@ -85,20 +102,20 @@
       ]
     },
     {
-      "id": 46111397239,
+      "id": 46112356879,
       "name": "Validaci\u00f3n funcional hasta Sprint 3",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46111397239",
+      "url": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112356879",
       "jobs": [
         {
-          "name": "frontend",
+          "name": "backend",
           "status": "completed",
           "conclusion": "success",
           "active_steps": []
         },
         {
-          "name": "backend",
+          "name": "frontend",
           "status": "completed",
           "conclusion": "success",
           "active_steps": []

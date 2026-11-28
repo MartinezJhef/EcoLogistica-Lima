@@ -1,0 +1,18 @@
+{
+  "type": "REAL_GITHUB_PLAYWRIGHT_RUN",
+  "commit": "e31c5450885ca6a0de113dba8bd6e02716fbe8c6",
+  "source": "https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46112356927",
+  "browsers": [
+    "chromium",
+    "firefox",
+    "webkit"
+  ],
+  "passed": 66,
+  "failed": 0,
+  "composition": {
+    "accessibility_and_session": 54,
+    "authenticated_role_acceptance": 12
+  },
+  "reported_duration": "1.9m",
+  "scope": "Controlled accessibility fixtures plus isolated real PostGIS/API role acceptance; no production writes or human SUS."
+}

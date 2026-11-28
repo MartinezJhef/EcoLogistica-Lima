@@ -136,6 +136,13 @@ if (CLOSE/'evidencias/validacion-cierre-28nov.json').exists():
     check(mobile['stats']['expected']==3 and mobile['stats']['unexpected']==0,'Recuperación móvil no aprobada')
     template=json.loads((CLOSE/'anexos/respuestas-sus-por-completar.json').read_text(encoding='utf-8'))
     check(all(not row['respuestas'] for row in template),'La plantilla SUS contiene respuestas que no son de participantes')
+    if (CLOSE/'evidencias/verificacion-publica-cierre-28nov.json').exists():
+        public=json.loads((CLOSE/'evidencias/verificacion-publica-cierre-28nov.json').read_text(encoding='utf-8'))
+        check(public['result']=='PASS' and all(public['checks'].values()),'La publicación del cierre no está verificada')
+    if (CLOSE/'evidencias/ejecucion-monitor-resumen-28nov.json').exists():
+        monitor=json.loads((CLOSE/'evidencias/ejecucion-monitor-resumen-28nov.json').read_text(encoding='utf-8'))
+        check(monitor['conclusion']=='success' and len(monitor['sample']['samples'])==2,'Monitor sin ejecución real comprobada')
+        check(monitor['summary']['monthly_sla_accredited'] is False,'El resumen declara un SLA sin cobertura mensual')
 tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
 for file in tracked:
     check(not re.search(r'(^|/)(node_modules|\.venv|venv|__pycache__|\.dart_tool)/|\.pyc$',file),f'Residuo rastreado: {file}')
