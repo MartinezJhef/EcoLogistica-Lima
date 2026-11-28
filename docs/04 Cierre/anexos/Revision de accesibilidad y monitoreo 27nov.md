@@ -53,6 +53,8 @@ El cambio de tamaño se aplicó al estilo calculado del texto, no al zoom nativo
 
 La [ejecución de CI del commit 10079d1](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46105363146) aprobó 56 de 57 casos, pero falló la comprobación de foco del cliente en WebKit. El despliegue quedó bloqueado. Se amplió el estilo de foco a los controles con foco interno nativo y se usó una aserción que espera la actualización del estilo; la comprobación dirigida de WebKit y las 231 pruebas unitarias pasaron localmente. La publicación requiere que la nueva ejecución completa de CI apruebe; este fallo no se elimina del historial ni se presenta como un despliegue exitoso.
 
+La [ejecución siguiente, commit 77337e2](https://github.com/MartinezJhef/EcoLogistica-Lima/actions/runs/46106163929), aprobó el foco anterior, pero encontró cuatro campos de origen/destino de pedidos fuera de 320 px en WebKit/Linux: de nuevo 56/57 casos. Se corrigió la regla móvil para que los contenedores flex verticales conserven `nowrap`; la regla de adaptación de grupos horizontales había afectado esas columnas. La construcción y precompresión aprobaron tras la corrección. Se conserva esta incidencia por separado de los resultados locales previos.
+
 Referencias de revisión: [lista de criterios WCAG 2.1 del W3C](https://www.w3.org/WAI/WCAG21/quickref/) y [patrón de diálogo modal del W3C](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
 
 ## Continuación real del monitoreo

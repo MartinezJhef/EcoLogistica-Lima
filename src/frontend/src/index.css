@@ -840,6 +840,7 @@ fieldset { min-inline-size:0; }
   .main-content, .login-page { overflow-wrap:anywhere; }
   .main-content [style*="display: flex"], .login-page [style*="display: flex"], .login-page [style*="display: inline-flex"] { min-width:0; flex-wrap:wrap; }
   .main-content [style*="display: flex"] > * { min-width:0; }
+  .main-content [style*="flex-direction: column"], .sidebar [style*="flex-direction: column"], .login-page [style*="flex-direction: column"] { flex-wrap:nowrap; }
   .main-content [style*="grid-template-columns"] { grid-template-columns:minmax(0,1fr) !important; }
   .main-content [style*="grid-column: span 2"] { grid-column:auto !important; }
   .main-content .card, .main-content .apple-card { max-width:100%; overflow-x:auto; }
